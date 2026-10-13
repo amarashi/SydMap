@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+# raw downloads and intermediate files, rebuilt by the pipeline
+data/
+# designlang scratch output
+design-extract-output/
+node_modules/
+.DS_Store
