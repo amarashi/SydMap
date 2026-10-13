@@ -1,0 +1,9 @@
+Clone the design language of this blog-post page and build a fresh equivalent.
+Visual feel: material-you. Tone: neutral · Headings: Sentence case · CTA verbs: [object Object], [object Object], [object Object], [object Object], [object Object], [object Object]
+Primary palette: #000000, #5d6266, #ffffff, #e4e8ea, #ec0000.
+Typography: [object Object].
+Corner radius vocabulary: 2, 10, 50, 999.
+Shadow vocabulary: rgb(207, 213, 216) 0px 1px 0px 0px | rgba(30, 40, 50, 0.16) 0px 8px 28px 0px | rgba(30, 40, 50, 0.2) 0px 10px 34px 0px.
+Page structure:
+- hero — heading: "Built in"
+- footer

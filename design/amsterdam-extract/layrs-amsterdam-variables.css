@@ -1,0 +1,138 @@
+:root {
+  /* Colors — Primary */
+  --color-primary: #ec0000;
+  --color-secondary: #d97a2b;
+  --color-accent: #e5b13a;
+
+  /* Ramp — primary (base is 500) */
+  --color-primary-50: #ffcfbc;
+  --color-primary-100: #ffbeaa;
+  --color-primary-200: #ffa691;
+  --color-primary-300: #ff826d;
+  --color-primary-400: #ff4f3e;
+  --color-primary-500: #ec0000;
+  --color-primary-600: #d10000;
+  --color-primary-700: #af0000;
+  --color-primary-800: #940000;
+  --color-primary-900: #7c0000;
+  --color-primary-950: #4c0000;
+
+  /* Ramp — secondary (base is 400) */
+  --color-secondary-50: #ffe7bd;
+  --color-secondary-100: #ffd9ab;
+  --color-secondary-200: #ffc692;
+  --color-secondary-300: #feaa6e;
+  --color-secondary-400: #d97a2b;
+  --color-secondary-500: #c26608;
+  --color-secondary-600: #a75100;
+  --color-secondary-700: #8a3d00;
+  --color-secondary-800: #743000;
+  --color-secondary-900: #602400;
+  --color-secondary-950: #391000;
+
+  /* Ramp — accent (base is 300) */
+  --color-accent-50: #fff1b3;
+  --color-accent-100: #ffe5a0;
+  --color-accent-200: #fad485;
+  --color-accent-300: #e5b13a;
+  --color-accent-400: #c8971e;
+  --color-accent-500: #aa7800;
+  --color-accent-600: #916200;
+  --color-accent-700: #774e00;
+  --color-accent-800: #633e00;
+  --color-accent-900: #513100;
+  --color-accent-950: #301a00;
+
+  /* Ramp — neutral (base is 600) */
+  --color-neutral-50: #f2f6f9;
+  --color-neutral-100: #e6eaed;
+  --color-neutral-200: #d5dadd;
+  --color-neutral-300: #bcc1c5;
+  --color-neutral-400: #9ba0a5;
+  --color-neutral-500: #7d8387;
+  --color-neutral-600: #5d6266;
+  --color-neutral-700: #53575b;
+  --color-neutral-800: #43474a;
+  --color-neutral-900: #36393c;
+  --color-neutral-950: #1d1f21;
+
+  /* Colors — Neutrals */
+  --color-neutral-50: #000000;
+  --color-neutral-100: #5d6266;
+  --color-neutral-200: #ffffff;
+
+  /* Colors — Backgrounds */
+  --color-bg: #e4e8ea;
+  --color-bg-1: #ffffff;
+
+  /* Colors — Text */
+  --color-text: #000000;
+  --color-text-1: #ffffff;
+  --color-text-2: #5d6266;
+
+  /* Semantic pairs */
+  --surface-page-bg: #e4e8ea;
+  --surface-page-fg: #000000; /* 17.03:1 AAA */
+  --surface-raised-bg: #ffffff;
+  --surface-raised-fg: #000000; /* 21:1 AAA */
+  --action-primary-bg: #ec0000;
+  --action-primary-fg: #ffffff; /* 4.6:1 AA */
+  --action-secondary-bg: #d97a2b;
+  --action-secondary-fg: #000000; /* 6.77:1 AA */
+  --action-accent-bg: #e5b13a;
+  --action-accent-fg: #000000; /* 10.68:1 AAA */
+
+  /* Typography — Families */
+  --font-sans: 'Schibsted Grotesk', sans-serif;
+
+  /* Typography — Named scale */
+  --font-size-display: 64px;
+  --font-size-h1: 56px;
+  --font-size-h2: 26px;
+  --font-size-title-1: 18px;
+  --font-size-h3: 15px;
+  --font-size-body: 14px;
+  --font-size-body-sm: 13px;
+  --font-size-micro: 12px;
+  --font-size-sm-3: 8.69565px;
+
+  /* Spacing */
+  --spacing-1: 1px;
+  --spacing-6: 6px;
+  --spacing-12: 12px;
+  --spacing-14: 14px;
+  --spacing-16: 16px;
+  --spacing-18: 18px;
+  --spacing-22: 22px;
+  --spacing-26: 26px;
+  --spacing-28: 28px;
+  --spacing-31: 31px;
+
+  /* Border Radius */
+  --radius-xs: 2px;
+  --radius-md: 10px;
+  --radius-full: 50px;
+  --radius-full: 999px;
+
+  /* Box Shadows */
+  --shadow-xs: rgb(207, 213, 216) 0px 1px 0px 0px;
+  --shadow-sm: rgba(30, 40, 50, 0.16) 0px 8px 28px 0px;
+  --shadow-md: rgba(30, 40, 50, 0.25) 0px 20px 60px 0px;
+
+  /* Original Site Variables */
+  /* — colors — */
+  --muted: #5d6266;
+  /* — other — */
+  --sky: #e4e8ea;
+  --paper: #ffffff;
+  --ink: #000000;
+  --rule: #cfd5d8;
+  --red: #ec0000;
+  --gutter: clamp(16px, 2.4vw, 32px);
+  /* — semantic — */
+  success: [object Object];
+  warning: [object Object];
+  error: [object Object];
+  info: [object Object];
+
+}

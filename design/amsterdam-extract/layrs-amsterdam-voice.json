@@ -1,0 +1,118 @@
+{
+  "tone": "neutral",
+  "pronoun": "third-person",
+  "headingStyle": "Sentence case",
+  "headingLengthClass": "tight",
+  "ctaVerbs": [
+    {
+      "value": "period",
+      "count": 1
+    },
+    {
+      "value": "context",
+      "count": 1
+    },
+    {
+      "value": "floors",
+      "count": 1
+    },
+    {
+      "value": "energy",
+      "count": 1
+    },
+    {
+      "value": "quests",
+      "count": 1
+    },
+    {
+      "value": "about",
+      "count": 1
+    },
+    {
+      "value": "en",
+      "count": 1
+    },
+    {
+      "value": "nl",
+      "count": 1
+    },
+    {
+      "value": "before",
+      "count": 1
+    },
+    {
+      "value": "canal",
+      "count": 1
+    }
+  ],
+  "buttonPatterns": [
+    {
+      "value": "period",
+      "count": 1
+    },
+    {
+      "value": "context layers",
+      "count": 1
+    },
+    {
+      "value": "floors",
+      "count": 1
+    },
+    {
+      "value": "energy",
+      "count": 1
+    },
+    {
+      "value": "quests",
+      "count": 1
+    },
+    {
+      "value": "about",
+      "count": 1
+    },
+    {
+      "value": "en",
+      "count": 1
+    },
+    {
+      "value": "nl",
+      "count": 1
+    },
+    {
+      "value": "before 1600\n89",
+      "count": 1
+    },
+    {
+      "value": "1600–1665 canal ring\n1,301",
+      "count": 1
+    },
+    {
+      "value": "1666–1799\n6,107",
+      "count": 1
+    },
+    {
+      "value": "1800–1869\n2,069",
+      "count": 1
+    },
+    {
+      "value": "1870–1913 nineteenth-century belt\n21,727",
+      "count": 1
+    },
+    {
+      "value": "1914–1940 amsterdam school\n48,103",
+      "count": 1
+    },
+    {
+      "value": "1941–1964 garden cities\n25,248",
+      "count": 1
+    }
+  ],
+  "sampleHeadings": [
+    "LAYRS\nAmsterdam",
+    "Built in"
+  ],
+  "stats": {
+    "buttons": 18,
+    "headings": 2
+  }
+}

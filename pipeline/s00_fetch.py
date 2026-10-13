@@ -1,0 +1,275 @@
+"""Download every raw input into data/raw/. Each source is fetched once; delete its file to fetch it again.
+
+    uv run python -m pipeline.s00_fetch            # everything
+    uv run python -m pipeline.s00_fetch osm wiki   # some of it
+
+Sources (all open; see README for the licences):
+  boundary   NSW Spatial Services, administrative boundaries: the two LGAs
+  overture   Overture Maps buildings, building parts, land and water (OSM and Microsoft ML footprints)
+  gba        GlobalBuildingAtlas LoD1 (TUM): a modelled height for every footprint
+  osm        OpenStreetMap through Overpass: building tags, named roads and water, worship, pubs
+  wiki       Wikidata: items with coordinates in the area, their dates, architects, styles and images
+  cos        City of Sydney open data: heritage building contributions, Aboriginal history places,
+             Developing Sydney photos
+  heritage   NSW State Heritage Register curtilages and the local environmental plans' heritage maps
+  cadastre   NSW cadastre: strata plan lots
+"""
+import json
+import os
+import sys
+import time
+
+import requests
+
+from . import arcgis
+from .config import BBOX, LGAS, RAW, UA
+
+NSW_ADMIN = "https://portal.spatial.nsw.gov.au/server/rest/services/NSW_Administrative_Boundaries_Theme/FeatureServer/8"
+NSW_LOT = "https://portal.spatial.nsw.gov.au/server/rest/services/NSW_Land_Parcel_Property_Theme/FeatureServer/8"
+COS = "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services"
+SHR = "https://mapprod3.environment.nsw.gov.au/arcgis/rest/services/EDP/SHR_Curtilage/MapServer/0"
+EPI_HERITAGE = "https://mapprod3.environment.nsw.gov.au/arcgis/rest/services/Planning/EPI_Primary_Planning_Layers/MapServer/0"
+OVERTURE = "s3://overturemaps-us-west-2/release/2026-09-23.1"
+GBA = "s3://us-west-2.opendata.source.coop/tge-labs/globalbuildingatlas-lod1/e150_s30_e155_s35.parquet"
+OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter",
+            "https://maps.mail.ru/osm/tools/overpass/api/interpreter"]
+SPARQL = "https://query.wikidata.org/sparql"
+
+
+def done(path) -> bool:
+    if path.exists():
+        print(f"  {path} (cached)")
+        return True
+    path.parent.mkdir(parents=True, exist_ok=True)
+    return False
+
+
+# ---------------------------------------------------------------- boundary
+
+def boundary():
+    p = RAW / "boundary.parquet"
+    if done(p):
+        return
+    where = "lganame IN (" + ",".join(f"'{n}'" for n in LGAS) + ")"
+    arcgis.save(arcgis.query(NSW_ADMIN, where=where, out_fields="lganame,councilname"), p)
+
+
+# ---------------------------------------------------------------- Overture and GlobalBuildingAtlas
+
+def duck():
+    import duckdb
+    # The container injects placeholder AWS keys; these buckets are public, so ask anonymously.
+    for k in ("AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_SESSION_TOKEN"):
+        os.environ.pop(k, None)
+    con = duckdb.connect()
+    con.sql("INSTALL httpfs; LOAD httpfs; INSTALL spatial; LOAD spatial;")
+    con.sql("CREATE SECRET anon (TYPE S3, KEY_ID '', SECRET '', REGION 'us-west-2', URL_STYLE 'path')")
+    return con
+
+
+def in_bbox(col="bbox"):
+    x0, y0, x1, y1 = BBOX
+    return f"{col}.xmin > {x0} AND {col}.xmax < {x1} AND {col}.ymin > {y0} AND {col}.ymax < {y1}"
+
+
+def overture():
+    con = None
+    jobs = {
+        "overture_buildings.parquet": f"""SELECT id, names.primary AS name, class, subtype, height, num_floors,
+              min_height, min_floor, roof_shape, has_parts, is_underground, facade_material, roof_material,
+              list_transform(sources, s -> s.dataset) AS datasets,
+              list_transform(sources, s -> s.record_id) AS records,
+              ST_AsWKB(geometry) AS geometry
+            FROM read_parquet('{OVERTURE}/theme=buildings/type=building/*') WHERE {in_bbox()}""",
+        "overture_parts.parquet": f"""SELECT id, building_id, height, num_floors, min_height, min_floor, roof_shape,
+              list_transform(sources, s -> s.record_id) AS records, ST_AsWKB(geometry) AS geometry
+            FROM read_parquet('{OVERTURE}/theme=buildings/type=building_part/*') WHERE {in_bbox()}""",
+        "overture_water.parquet": f"""SELECT id, names.primary AS name, subtype, class, is_salt, is_intermittent,
+              ST_AsWKB(geometry) AS geometry
+            FROM read_parquet('{OVERTURE}/theme=base/type=water/*')
+            WHERE bbox.xmax > {BBOX[0]} AND bbox.xmin < {BBOX[2]} AND bbox.ymax > {BBOX[1]} AND bbox.ymin < {BBOX[3]}
+              AND ST_GeometryType(geometry) IN ('POLYGON', 'MULTIPOLYGON')""",
+        "overture_land.parquet": f"""SELECT id, subtype, class, ST_AsWKB(geometry) AS geometry
+            FROM read_parquet('{OVERTURE}/theme=base/type=land/*')
+            WHERE bbox.xmax > {BBOX[0]} AND bbox.xmin < {BBOX[2]} AND bbox.ymax > {BBOX[1]} AND bbox.ymin < {BBOX[3]}
+              AND ST_GeometryType(geometry) IN ('POLYGON', 'MULTIPOLYGON')""",
+    }
+    for name, sql in jobs.items():
+        p = RAW / name
+        if done(p):
+            continue
+        con = con or duck()
+        t = time.time()
+        con.sql(f"COPY ({sql}) TO '{p}' (FORMAT parquet)")
+        print(f"  {p}: {con.sql(f'SELECT count(*) FROM read_parquet(\'{p}\')').fetchone()[0]} rows, {time.time() - t:.0f} s")
+
+
+def gba():
+    p = RAW / "gba.parquet"
+    if done(p):
+        return
+    con = duck()
+    con.sql(f"""COPY (SELECT source, id, height, var, ST_AsWKB(geometry) AS geometry FROM read_parquet('{GBA}')
+                WHERE {in_bbox()}) TO '{p}' (FORMAT parquet)""")
+    print(f"  {p}: {con.sql(f'SELECT count(*) FROM read_parquet(\'{p}\')').fetchone()[0]} rows")
+
+
+# ---------------------------------------------------------------- OpenStreetMap
+
+def overpass(q: str) -> dict:
+    last = None
+    for attempt in range(8):
+        url = OVERPASS[attempt % len(OVERPASS)]
+        try:
+            r = requests.post(url, data={"data": q}, headers={"User-Agent": UA}, timeout=400)
+            if r.status_code == 200 and r.text.lstrip().startswith("{"):
+                return r.json()
+            last = f"{r.status_code} {r.text[:200]}"
+        except Exception as e:  # noqa: BLE001
+            last = e
+        print(f"  overpass retry ({url}): {last}")
+        time.sleep(5 * (attempt + 1))
+    raise RuntimeError(f"Overpass failed: {last}")
+
+
+def osm():
+    s, w, n, e = BBOX[1], BBOX[0], BBOX[3], BBOX[2]
+    bb = f"({s},{w},{n},{e})"
+    jobs = {
+        # Tags of every building and building part; geometry comes from Overture, joined on the way id.
+        "osm_buildings.json": f'[out:json][timeout:300];(way["building"]{bb};relation["building"]{bb};'
+                              f'way["building:part"]{bb};relation["building:part"]{bb};);out tags center;',
+        # Named streets and water for labels.
+        "osm_streets.json": f'[out:json][timeout:300];way["highway"~"^(motorway|trunk|primary|secondary|tertiary|'
+                            f'unclassified|residential|living_street|pedestrian)$"]["name"]{bb};out tags geom;',
+        "osm_water.json": f'[out:json][timeout:300];(way["natural"~"^(water|bay|strait)$"]["name"]{bb};'
+                          f'relation["natural"~"^(water|bay|strait)$"]["name"]{bb};node["natural"~"^(bay|strait)$"]["name"]{bb};'
+                          f'way["waterway"]["name"]{bb};);out tags geom;',
+        # Points of interest that make context layers: worship, pubs, and anything with a start date.
+        "osm_pois.json": f'[out:json][timeout:300];(nwr["amenity"~"^(place_of_worship|pub|theatre|library|school|'
+                         f'hospital|fire_station|police|townhall|courthouse|post_office)$"]{bb};'
+                         f'nwr["historic"]{bb};nwr["heritage"]{bb};);out tags center;',
+    }
+    for name, q in jobs.items():
+        p = RAW / name
+        if done(p):
+            continue
+        d = overpass(q)
+        p.write_text(json.dumps(d))
+        print(f"  {p}: {len(d.get('elements', []))} elements")
+
+
+# ---------------------------------------------------------------- Wikidata
+
+WD_QUERY = """
+SELECT ?item ?itemLabel ?coord ?inception ?incprec ?opened ?openprec ?demolished ?shr ?osmway ?osmrel ?image ?article ?heritage ?heritageLabel
+       (GROUP_CONCAT(DISTINCT ?classLabel; separator="|") AS ?classes)
+       (GROUP_CONCAT(DISTINCT ?architectLabel; separator="|") AS ?architects)
+       (GROUP_CONCAT(DISTINCT ?styleLabel; separator="|") AS ?styles)
+WHERE {
+  SERVICE wikibase:box {
+    ?item wdt:P625 ?coord .
+    bd:serviceParam wikibase:cornerWest "Point(%(w)s %(n)s)"^^geo:wktLiteral .
+    bd:serviceParam wikibase:cornerEast "Point(%(e)s %(s)s)"^^geo:wktLiteral .
+  }
+  OPTIONAL { ?item p:P571/psv:P571 [ wikibase:timeValue ?inception ; wikibase:timePrecision ?incprec ] . }
+  OPTIONAL { ?item p:P1619/psv:P1619 [ wikibase:timeValue ?opened ; wikibase:timePrecision ?openprec ] . }
+  OPTIONAL { ?item wdt:P576 ?demolished . }
+  OPTIONAL { ?item wdt:P3449 ?shr . }
+  OPTIONAL { ?item wdt:P10689 ?osmway . }
+  OPTIONAL { ?item wdt:P402 ?osmrel . }
+  OPTIONAL { ?item wdt:P18 ?image . }
+  OPTIONAL { ?item wdt:P1435 ?heritage . }
+  OPTIONAL { ?item wdt:P31 ?class . ?class rdfs:label ?classLabel . FILTER(LANG(?classLabel) = "en") }
+  OPTIONAL { ?item wdt:P84 ?architect . ?architect rdfs:label ?architectLabel . FILTER(LANG(?architectLabel) = "en") }
+  OPTIONAL { ?item wdt:P149 ?style . ?style rdfs:label ?styleLabel . FILTER(LANG(?styleLabel) = "en") }
+  OPTIONAL { ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?item ?itemLabel ?coord ?inception ?incprec ?opened ?openprec ?demolished ?shr ?osmway ?osmrel ?image ?article ?heritage ?heritageLabel
+"""
+
+
+def sparql(q: str) -> list[dict]:
+    for attempt in range(5):
+        try:
+            r = requests.post(SPARQL, data={"query": q}, headers={"User-Agent": UA,
+                              "Accept": "application/sparql-results+json"}, timeout=300)
+            r.raise_for_status()
+            return r.json()["results"]["bindings"]
+        except Exception as e:  # noqa: BLE001
+            print(f"  sparql retry: {e}")
+            time.sleep(10 * (attempt + 1))
+    raise RuntimeError("Wikidata query failed")
+
+
+def wiki():
+    p = RAW / "wikidata.json"
+    if done(p):
+        return
+    rows = []
+    # Four strips keep each query well inside the endpoint's time limit.
+    x0, y0, x1, y1 = BBOX
+    step = (x1 - x0) / 4
+    for i in range(4):
+        q = WD_QUERY % dict(w=x0 + i * step, e=x0 + (i + 1) * step, s=y0, n=y1)
+        part = sparql(q)
+        print(f"  strip {i}: {len(part)} rows")
+        rows += part
+    flat = [{k: v["value"] for k, v in r.items()} for r in rows]
+    p.write_text(json.dumps(flat, ensure_ascii=False))
+    print(f"  {p}: {len(flat)} rows, {len({r['item'] for r in flat})} items")
+
+
+# ---------------------------------------------------------------- City of Sydney, heritage, cadastre
+
+def cos():
+    jobs = {
+        "cos_contributions.parquet": (f"{COS}/Sydney_Development_Control_Plan_2012/FeatureServer/2", True),
+        "cos_localities.parquet": (f"{COS}/Sydney_Development_Control_Plan_2012/FeatureServer/11", True),
+        "cos_aboriginal.parquet": (f"{COS}/Aboriginal_history_places/FeatureServer/0", True),
+        "cos_developing.parquet": (f"{COS}/Developing_Sydney/FeatureServer/0", True),
+    }
+    for name, (url, geom) in jobs.items():
+        p = RAW / name
+        if not done(p):
+            arcgis.save(arcgis.query(url, geometry=geom, page=2000), p)
+
+
+def heritage():
+    p = RAW / "shr.parquet"
+    if not done(p):
+        arcgis.save(arcgis.query(SHR, bbox=BBOX, page=1000), p)
+    p = RAW / "epi_heritage.parquet"
+    if not done(p):
+        arcgis.save(arcgis.query(EPI_HERITAGE, bbox=BBOX, page=1000), p)
+
+
+def cadastre():
+    p = RAW / "strata_lots.parquet"
+    if done(p):
+        return
+    # Strata plans (SP) only. The service gives up on the whole box at once, so ask for it in cells.
+    import pandas as pd
+    import geopandas as gpd
+    x0, y0, x1, y1 = BBOX
+    n = 6
+    frames = []
+    for i in range(n):
+        for k in range(n):
+            cell = (x0 + (x1 - x0) * i / n, y0 + (y1 - y0) * k / n, x0 + (x1 - x0) * (i + 1) / n, y0 + (y1 - y0) * (k + 1) / n)
+            part = arcgis.query(NSW_LOT, where="planlabel LIKE 'SP%'", out_fields="cadid,planlabel,plannumber,lotnumber,createdate",
+                                bbox=cell, page=1000, esri_json=True)
+            frames.append(part)
+            print(f"  cell {i},{k}: {len(part)}")
+    lots = gpd.GeoDataFrame(pd.concat([f for f in frames if len(f)], ignore_index=True), crs=4326)
+    arcgis.save(lots.drop_duplicates("cadid"), p)
+
+
+STEPS = dict(boundary=boundary, overture=overture, gba=gba, osm=osm, wiki=wiki, cos=cos, heritage=heritage,
+             cadastre=cadastre)
+
+if __name__ == "__main__":
+    for name in sys.argv[1:] or STEPS:
+        print(name)
+        STEPS[name]()
