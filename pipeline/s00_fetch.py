@@ -221,6 +221,48 @@ def wiki():
     print(f"  {p}: {len(flat)} rows, {len({r['item'] for r in flat})} items")
 
 
+WIKI_API = "https://en.wikipedia.org/w/api.php"
+
+
+def wiki_get(params: dict) -> dict:
+    """One Wikipedia API call, patient with rate limits (the shared egress gets 429s)."""
+    for attempt in range(12):
+        r = requests.get(WIKI_API, params=dict(params, format="json", formatversion=2, maxlag=5),
+                         headers={"User-Agent": UA}, timeout=60)
+        if r.status_code == 200:
+            return r.json()
+        wait = float(r.headers.get("retry-after") or 5 * (attempt + 1))
+        print(f"  wikipedia {r.status_code}, waiting {wait:.0f} s")
+        time.sleep(wait + 1)
+    r.raise_for_status()
+    return {}
+
+
+def wikipedia():
+    """Lead sections of the English Wikipedia articles of every Wikidata item in the box."""
+    p = RAW / "wikipedia.json"
+    if done(p):
+        return
+    from urllib.parse import unquote
+    items = json.loads((RAW / "wikidata.json").read_text())
+    titles = sorted({unquote(r["article"].rsplit("/wiki/", 1)[1]).replace("_", " ")
+                     for r in items if r.get("article")})
+    out = {}
+    for k in range(0, len(titles), 20):
+        batch = titles[k:k + 20]
+        d = wiki_get(dict(action="query", prop="extracts|info", exintro=1, explaintext=1, inprop="url",
+                          titles="|".join(batch), redirects=1))
+        back = {n["to"]: n["from"] for n in d.get("query", {}).get("redirects", [])}
+        back.update({n["to"]: n["from"] for n in d.get("query", {}).get("normalized", [])})
+        for page in d.get("query", {}).get("pages", []):
+            t = page.get("title")
+            out[back.get(t, t)] = dict(title=t, extract=page.get("extract", ""), url=page.get("fullurl"))
+        print(f"  {min(k + 20, len(titles))}/{len(titles)}")
+        time.sleep(1.0)
+    p.write_text(json.dumps(out, ensure_ascii=False))
+    print(f"  {p}: {len(out)} articles")
+
+
 # ---------------------------------------------------------------- City of Sydney, heritage, cadastre
 
 def cos():
@@ -266,7 +308,7 @@ def cadastre():
     arcgis.save(lots.drop_duplicates("cadid"), p)
 
 
-STEPS = dict(boundary=boundary, overture=overture, gba=gba, osm=osm, wiki=wiki, cos=cos, heritage=heritage,
+STEPS = dict(boundary=boundary, overture=overture, gba=gba, osm=osm, wiki=wiki, wikipedia=wikipedia, cos=cos, heritage=heritage,
              cadastre=cadastre)
 
 if __name__ == "__main__":

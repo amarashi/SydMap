@@ -6,12 +6,14 @@ where OSM has none. A footprint's height, in order of preference:
   1  storeys: the OSM `building:levels` tag × 3.2 m
   2  modelled: GlobalBuildingAtlas (TUM), estimated from satellite imagery, matched by overlap
   3  assumed: 7 m, two storeys, when nothing else covers the footprint
+  4  a landmark's height from its Wikipedia article (LANDMARKS), where OSM maps its parts without heights
 Storeys are the OSM levels where tagged, otherwise the height divided by 3.2 m.
 
 Output: data/buildings.parquet (one row per building) and data/parts.parquet (the 3D parts of the
 buildings that OSM maps in detail; every other building is extruded from its footprint).
 """
 import json
+import os
 
 import geopandas as gpd
 import numpy as np
@@ -33,13 +35,33 @@ def read_wkb(path, crs=4326) -> gpd.GeoDataFrame:
     return gpd.GeoDataFrame(df, geometry=shapely.from_wkb(df.pop("geometry")), crs=crs)
 
 
+# Landmarks whose 3D parts OpenStreetMap maps without heights. Each value rests on the article named.
+LANDMARKS = {
+    # Sydney Opera House: "The highest roof point is 67 metres above sea-level" (Wikipedia, Sydney Opera House).
+    # The shells are given heights in proportion to their size up to that point; the podium keeps its levels.
+    "r9596872": dict(top=64.0, article="Sydney Opera House", check="highest roof point is 67 metres"),
+}
+
+
+def landmark_parts(q: pd.DataFrame, b: pd.DataFrame) -> pd.DataFrame:
+    for osm, L in LANDMARKS.items():
+        ids = b.id[b.osm == osm]
+        if ids.empty:
+            continue
+        m = q.building_id.isin(ids) & q.height.isna()
+        size = np.sqrt(q.area[m])
+        q.loc[m, "height"] = (L["top"] * (size / size.max()) ** 0.8).clip(lower=20.0)
+    return q
+
+
 def osm_tags() -> pd.DataFrame:
     d = json.loads((RAW / "osm_buildings.json").read_text())
     rows = []
     for e in d["elements"]:
         t = e.get("tags", {})
         rows.append(dict(osm=f'{e["type"][0]}{e["id"]}', **{k: t.get(k) for k in OSM_KEYS}))
-    return pd.DataFrame(rows).drop_duplicates("osm").set_index("osm")
+    df = pd.DataFrame(rows).drop_duplicates("osm").set_index("osm")
+    return df.rename(columns={"name": "osm_name", "height": "osm_height"})
 
 
 def osm_ref(records) -> str | None:
@@ -75,6 +97,9 @@ def main():
     q["geometry"] = shapely.make_valid(q.geometry.values)
     q["height"] = q.height.fillna(q.num_floors * STOREY)
     q["base"] = q.min_height.fillna(q.min_floor * STOREY).fillna(0.0)
+    q = landmark_parts(q, b)
+    # A part without a height takes the lowest known height of its building's other parts.
+    q["height"] = q.height.fillna(q.groupby("building_id").height.transform("min"))
     q = q[q.height.notna() & (q.height > q.base)]
 
     # Heights.
@@ -85,8 +110,9 @@ def main():
     b.loc[has, "height"] = np.fmax(b.loc[has, "height"].fillna(0), b.loc[has, "id"].map(part_top))
     b.loc[has & (b.height_src < 0), "height_src"] = 0
 
-    # GlobalBuildingAtlas: the modelled footprint that overlaps each remaining building most.
-    need = b[b.height.isna()]
+    # GlobalBuildingAtlas: the modelled footprint that overlaps each remaining building most. Its heights are
+    # CC BY-NC 4.0; SYDMAP_NO_GBA=1 builds without them, for uses the licence does not cover.
+    need = b[b.height.isna()] if not os.environ.get("SYDMAP_NO_GBA") else b.iloc[:0]
     g = read_wkb(RAW / "gba.parquet").to_crs(CRS)
     g = g[g.height > 0]
     j = gpd.sjoin(need[["geometry"]], g[["height", "geometry"]].rename(columns={"height": "gba_h"}), predicate="intersects")
@@ -98,17 +124,44 @@ def main():
     b.loc[b.height.isna(), "height_src"] = 3
     b["height"] = b.height.fillna(2 * STOREY + 0.6).clip(2.5, 320)
 
+    # Under its parts a building keeps its outline, as tall as its lowest part (or its own storeys, if lower):
+    # the podium a tower stands on, and the ground floor where parts leave gaps.
+    low = q.groupby("building_id").height.min()
+    has = b.id.isin(low.index)
+    own = np.where(b.height_src == 1, b.num_floors * STOREY, np.inf)
+    b["outline_height"] = np.where(has, np.fmin(b.id.map(low).to_numpy(dtype=float), own), np.nan)
+
+    for osm, L in LANDMARKS.items():
+        b.loc[b.osm == osm, ["height", "height_src"]] = [L["top"], 4]
+
     b["floors_src"] = np.where(b.num_floors.notna(), 0, 1)
     b["floors"] = b.num_floors.fillna(np.round(b.height / STOREY)).clip(1, 99).astype(int)
 
+    # The Harbour Bridge: not a building, but the structure the city is known by (pipeline/landmarks.py).
+    from .landmarks import harbour_bridge
+    from .s04_water import ground_and_water
+    footprint, bridge_parts, bridge_osm = harbour_bridge(ground_and_water()[2])
+    b["fixed_year"] = np.nan
+    b = pd.concat([b, gpd.GeoDataFrame([dict(
+        id="sydney-harbour-bridge", osm=bridge_osm, source="osm", lga="SYDNEY", name="Sydney Harbour Bridge",
+        osm_name="Sydney Harbour Bridge", building="bridge", wikidata="Q54495", height=max(h for h, _, _ in bridge_parts),
+        height_src=4, num_floors=np.nan, floors_src=1, floors=1, fixed_year=1932.0, has_parts=True)],
+        geometry=[footprint], crs=CRS)], ignore_index=True)
     b = b.reset_index(drop=True)
     b["bid"] = np.arange(len(b))
     keep = ["bid", "id", "osm", "source", "lga", "height", "height_src", "floors", "floors_src", "name",
-            "class", "subtype", "roof_shape", "has_parts", *[k for k in OSM_KEYS if k != "name" and k in b], "geometry"]
+            "class", "subtype", "roof_shape", "has_parts", "outline_height", "fixed_year", "osm_name", *[k for k in OSM_KEYS if k not in ("name", "height") and k in b], "geometry"]
     b = b[[c for c in dict.fromkeys(keep) if c in b.columns]]
     b.columns = [c.replace(":", "_") for c in b.columns]
     b.to_parquet(DATA / "buildings.parquet")
     q = q.merge(b[["id", "bid"]], left_on="building_id", right_on="id")[["bid", "height", "base", "geometry"]]
+    bridge_bid = int(b.bid[b.id == "sydney-harbour-bridge"].iloc[0])
+    q = pd.concat([q, gpd.GeoDataFrame(dict(bid=bridge_bid, height=[h for h, _, _ in bridge_parts],
+                                            base=[lo for _, lo, _ in bridge_parts]),
+                                       geometry=[g for _, _, g in bridge_parts], crs=CRS)], ignore_index=True)
+    outline = b[b.outline_height.notna()]
+    q = pd.concat([gpd.GeoDataFrame(dict(bid=outline.bid, height=outline.outline_height, base=0.0),
+                                    geometry=outline.geometry.values, crs=CRS), q], ignore_index=True)
     q.to_parquet(DATA / "parts.parquet")
     print(f"{len(b)} buildings ({(b.source == 'osm').sum()} OSM, {(b.source == 'ml').sum()} ML); {len(q)} parts")
     print("height sources:", b.height_src.value_counts().sort_index().to_dict())

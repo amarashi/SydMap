@@ -100,7 +100,10 @@ ATTR_DTYPE = np.dtype([
     ("nm", "<i4"),         # index into names.json (OSM names of buildings without a wiki entry), -1 none
     ("hi", "<i4"),         # index into heritage.json (the listing that covers it), -1 none
     ("sp", "<u4"),         # strata plan number, 0 none
-    ("src", "u1"), ("pad", "u1", 3),  # footprint source: 0 OpenStreetMap, 1 Microsoft (via Overture)
+    ("src", "u1"),         # footprint source: 0 OpenStreetMap, 1 Microsoft (via Overture)
+    ("floors", "u1"),
+    ("dsrc", "u1"),        # where a documented year comes from: 0 Wikidata, 1 Wikipedia, 2 OpenStreetMap, 3 none
+    ("pad", "u1"),
     ("x", "<f4"), ("z", "<f4"),
 ])
 
@@ -108,7 +111,8 @@ ATTR_DTYPE = np.dtype([
 def main():
     b = gpd.read_parquet(DATA / "buildings_dated.parquet")
     lay = pd.read_parquet(DATA / "layers.parquet")
-    b = b.merge(lay, on="bid", how="left")
+    b = b.merge(lay, on="bid", how="left").merge(pd.read_parquet(DATA / "cards.parquet"), on="bid", how="left")
+    assert (b.bid.to_numpy() == np.arange(len(b))).all(), "buildings must stay in bid order: the gid is the bid"
     b[["lay0", "lay1"]] = b[["lay0", "lay1"]].fillna(0).astype(np.uint32)
     q = gpd.read_parquet(DATA / "parts.parquet")
     q["geometry"] = shapely.simplify(q.geometry.values, SIMPLIFY, preserve_topology=True)
@@ -175,6 +179,8 @@ def main():
     attrs["hi"] = b.hi
     attrs["sp"] = b.sp.fillna(0).astype(np.uint32)
     attrs["src"] = (b.source != "osm").astype(np.uint8)
+    attrs["floors"] = b.floors.clip(0, 255)
+    attrs["dsrc"] = b.dsrc
     attrs["x"], attrs["z"] = c[:, 0], c[:, 1]
     (WEB / "attrs.bin").write_bytes(attrs.tobytes())
     b[["bid", "gid"]].to_parquet(DATA / "gid.parquet")
@@ -184,7 +190,7 @@ def main():
         hist.setdefault(int(y), [0] * len(PERIODS))[p] += 1
     config = dict(
         city="sydney", label="Sydney", tileSize=TILE, origin=list(GPO), crs=f"EPSG:{CRS}",
-        home=dict(x=-150, z=900, azimuth=200, elevation=36, span=6200),
+        home=dict(x=-350, z=-500, azimuth=18, elevation=32, span=7200),
         periods=[dict(key=k, label=l, from_=a, to=bb, color=col) for k, l, a, bb, col in PERIODS],
         yearMin=int(b.year.min()), yearMax=int(b.year.max()),
         histogram={str(k): v for k, v in sorted(hist.items())},

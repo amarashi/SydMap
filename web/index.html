@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SydMap: Sydney, building by building</title>
+<meta name="description" content="Every building in the City of Sydney and North Sydney in 3D, coloured by the year it was built and set in the history that shaped it.">
+<meta property="og:title" content="SydMap: Sydney, building by building">
+<meta property="og:description" content="Every building in the City of Sydney and North Sydney, by age and historical context.">
+<meta property="og:image" content="og.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="logo.js" defer></script>
+</head>
+<body>
+<canvas id="scene" aria-label="3D map of Sydney's buildings"></canvas>
+<div class="veil veil-top" aria-hidden="true"></div>
+<div class="veil veil-bottom" aria-hidden="true"></div>
+
+<header class="masthead">
+  <div>
+    <h1><span class="logo" aria-label="SydMap">SYDMAP</span>Sydney<i class="baseline"></i></h1>
+    <p class="dek">Every building standing today, by age and historical context.</p>
+  </div>
+</header>
+
+<nav class="modes" aria-label="Colour the city by">
+  <button data-mode="0" aria-pressed="true">Period</button>
+  <button data-mode="3" aria-pressed="false">Context layers</button>
+  <button data-mode="1" aria-pressed="false">Floors</button>
+  <button data-mode="2" aria-pressed="false">Heritage</button>
+  <button class="quests-open" aria-haspopup="dialog"><svg viewBox="0 0 26 9" aria-hidden="true"><path d="M1 8.5h24M3 8.5C6 2 20 2 23 8.5M8 4.6v3.9M13 3.4v5.1M18 4.6v3.9"/></svg><span>Quests</span></button>
+</nav>
+
+<div class="tools" role="group" aria-label="More">
+  <button class="about-open" aria-haspopup="dialog">About</button>
+  <button class="gis-open" aria-haspopup="dialog" title="The same buildings in RustGIS, a GIS in your browser">2D GIS</button>
+</div>
+
+<dialog id="about" class="about" aria-labelledby="about-title">
+  <button class="about-close" aria-label="Close">×</button>
+  <article>
+    <h2 id="about-title">About this map</h2>
+    <p>All <span data-stat="buildings">30,000</span> buildings of the City of Sydney and North Sydney, either side of the
+      Harbour Bridge, coloured by the year they were built and set in the history that shaped them.</p>
+    <p class="notice">A non-commercial project, made out of curiosity and for education.</p>
+    <p class="country">SydMap acknowledges the Gadigal people of the Eora Nation, the Traditional Custodians of the land
+      the City of Sydney stands on, and the Cammeraygal people, the Traditional Custodians of the land of North Sydney.
+      Sovereignty was never ceded.</p>
+    <p class="credit">A Sydney rebuild of <a href="https://stop-token.com/lab/amsterdam/" target="_blank" rel="noopener">LAYRS: Amsterdam</a>
+      by Alex Barakov (<a href="https://github.com/alexbarakov/amsterdam-by-building" target="_blank" rel="noopener">MIT licence</a>),
+      itself inspired by Sasha Bogachev's <a href="https://paris.bogachev.fr" target="_blank" rel="noopener">Paris, building by building</a>.
+      Its look was read off the Amsterdam page with <a href="https://github.com/Manavarya09/design-extract" target="_blank" rel="noopener">designlang</a>;
+      the 2D view runs <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener">RustGIS</a>.</p>
+
+    <h3>Open source</h3>
+    <p>The code and the data pipeline are on <a href="https://github.com/amarashi/SydMap" target="_blank" rel="noopener">GitHub</a>.
+      Know a piece of Sydney's history that lives in its buildings? Add it as a layer: a list of buildings, a short story
+      for each and the source it rests on.</p>
+
+    <h3>How old is each building?</h3>
+    <p>Sydney, unlike Amsterdam, has no register that dates every building. Each one takes the best evidence there is,
+      and its card says which:</p>
+    <ul class="method">
+      <li><b>Documented</b> (<span data-stat="documented">–</span>): a year from Wikidata, from the lead of its Wikipedia
+        article (for heritage-listed places, written from the NSW State Heritage Inventory) or from OpenStreetMap.</li>
+      <li><b>Strata plan</b> (<span data-stat="strata">–</span>): apartment buildings are strata-titled when they are finished,
+        so the year their strata plan was registered dates them. Plans since 1994 carry their date in the NSW cadastre;
+        older ones are placed by their number between those and 1961, when strata title began.</li>
+      <li><b>Heritage area</b> (<span data-stat="heritage">–</span>): buildings the City of Sydney marks as contributing to a
+        heritage conservation area belong to its historic fabric; they are dated from the documented heritage buildings around them.</li>
+      <li><b>Neighbours</b> (<span data-stat="neighbours">–</span>): the rest take the years of the dated buildings around them
+        of similar height. Towers over 46 m, Sydney's height limit until 1957, only take years after it.</li>
+    </ul>
+    <p>Estimated years are paler on the map and marked “c.” on the cards, with the range they come from. Treat them as an
+      educated guess about the period, not as a date.</p>
+
+    <h3>Data</h3>
+    <p>Downloaded in October 2026.</p>
+    <ul>
+      <li>Footprints: <a href="https://overturemaps.org" target="_blank" rel="noopener">Overture Maps</a> (release 2026-09-23),
+        from OpenStreetMap and Microsoft's machine-learned footprints. ODbL; © OpenStreetMap contributors.</li>
+      <li>Heights: OpenStreetMap heights and levels; elsewhere <a href="https://github.com/zhu-xlab/GlobalBuildingAtlas" target="_blank" rel="noopener">GlobalBuildingAtlas</a>
+        (Zhu et al., TU Munich, 2025), modelled from satellite imagery, CC BY-NC 4.0: one more reason this map is non-commercial.
+        The 2D GIS download leaves these modelled heights out.</li>
+      <li>Boundaries and strata plans: NSW Spatial Services. CC BY 4.0.</li>
+      <li>Heritage: the State Heritage Register (Heritage NSW) and the local environmental plans' heritage maps
+        (NSW Department of Planning), CC BY 4.0; heritage conservation area contributions from the City of Sydney's
+        Development Control Plan 2012, CC BY 4.0.</li>
+      <li>History layers: City of Sydney open data (Aboriginal history places from Barani; Developing Sydney 1900–1920
+        from the City of Sydney Archives), CC BY 4.0; OpenStreetMap, ODbL.</li>
+      <li>Names, photos, stories: Wikidata (CC0), Wikipedia (CC BY-SA) and Wikimedia Commons; each photo credits its author and licence.</li>
+    </ul>
+  </article>
+</dialog>
+
+<dialog id="gis" class="about gis" aria-labelledby="gis-title">
+  <header class="gis-bar"><h2 id="gis-title">Sydney in RustGIS</h2>
+    <p>The same buildings in <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener">RustGIS</a>, an
+      open-source GIS that runs in your browser: open the attribute table, query, measure and export.</p>
+    <a class="gis-download" href="data/gis/sydney.rgis" download>Download the project</a>
+    <button class="about-close" aria-label="Close">×</button></header>
+  <div class="gis-frame"></div>
+</dialog>
+
+<div class="tally" aria-live="polite">
+  <span id="year" class="tally-year">2026</span>
+  <span class="tally-count"><span id="count">0</span> buildings</span>
+</div>
+
+<aside id="panel" class="panel">
+  <button class="sheet-handle" aria-expanded="true" aria-controls="panel-body">Show legend</button>
+  <div id="panel-body"></div>
+</aside>
+
+<div id="card" class="card" hidden></div>
+<section id="quest" class="quest" hidden aria-live="polite"></section>
+<dialog id="quests" class="about quests" aria-labelledby="quests-title">
+  <button class="about-close" aria-label="Close">×</button>
+  <article id="quests-body"></article>
+</dialog>
+<p class="howto">Drag to turn. Right-drag or Shift-drag to move. Scroll to zoom.</p>
+
+<footer class="timeline">
+  <button id="play" class="play" aria-label="Play the city's growth">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path id="play-icon" d="M4 2.5v11l9-5.5z"/></svg>
+  </button>
+  <canvas id="hist" aria-label="Buildings per year; drag to set the year"></canvas>
+</footer>
+
+<div id="loading" class="loading">Building the city <span id="progress">0</span>%</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

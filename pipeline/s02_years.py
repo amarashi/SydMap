@@ -83,6 +83,44 @@ def parse_osm_date(s: str | None):
     return None
 
 
+BUILT = re.compile(
+    r"\b(?:built|constructed|erected|completed|rebuilt)\b[^.;:]{0,60}?\b(?P<how>from|in|during|between|c\.|circa|around|by)"
+    r"\s+(?:the\s+)?(?:early\s+|mid\s+|late\s+)?(?P<a>1[6-9]\d\d|20[0-2]\d)(?P<s>s)?"
+    r"(?:\s*(?:to|and|–|-|until)\s*(?P<b>1[6-9]\d\d|20[0-2]\d))?")
+
+
+BUILDING_FROM = re.compile(r"\b(?:building|present building|current building|church)\s+(?:dates\s+)?from\s+(?:the\s+)?"
+                           r"(?P<a>1[6-9]\d\d|20[0-2]\d)(?P<s>s)?")
+
+
+def parse_wiki_built(text: str | None):
+    """(year, from, to, approximate) from the first 'built from 1885 to 1887' in an article's lead.
+
+    The leads of the NSW heritage articles come from the State Heritage Inventory and say when the place
+    was built in this form ("It was designed by … and built from 1898 to 1900")."""
+    if not text:
+        return None
+    m = BUILT.search(text)
+    if not m:
+        m = BUILDING_FROM.search(text)
+        if not m:
+            return None
+        a = int(m["a"])
+        return (a + 5, a, a + 9, True) if m["s"] else (a, a, a, False)
+    a = int(m["a"])
+    if m["s"]:
+        return a + 5, a, a + 9, True
+    b = int(m["b"]) if m["b"] else a
+    if b < a or b - a > 80:
+        b = a
+    if m["how"] == "by":
+        return a, a - 10, a, True
+    approx = m["how"] in ("c.", "circa", "around")
+    # A long build: the year it began, when the first of it stood; a short one: the year it was done.
+    year = a if b - a > 5 else b
+    return year, a, b, approx or b - a > 5
+
+
 def wikidata_items() -> pd.DataFrame:
     rows = json.loads((RAW / "wikidata.json").read_text())
     items = {}
@@ -133,6 +171,7 @@ def link_wikidata(b: gpd.GeoDataFrame, wd: gpd.GeoDataFrame) -> pd.Series:
     by_rel = {f"r{r}": q for q, r in zip(wd.qid, wd.osmrel) if isinstance(r, str)}
     from_osm = b.osm.map(lambda o: by_way.get(o) or by_rel.get(o) if isinstance(o, str) else None)
     qid = qid.fillna(from_osm)
+    how = pd.Series(np.where(qid.notna(), "osm", None), index=b.index, dtype=object)
     taken = set(qid.dropna())
     ok = wd[~wd.qid.isin(taken) & ~wd.demolished].copy()
     cls = ok.classes.map(lambda c: " | ".join(c))
@@ -141,8 +180,11 @@ def link_wikidata(b: gpd.GeoDataFrame, wd: gpd.GeoDataFrame) -> pd.Series:
     j = gpd.sjoin(ok[["qid", "geometry"]], b[["geometry"]], predicate="within")
     j = j[~j.qid.duplicated(keep=False)]               # an item on one footprint only
     j = j[~j.index_right.duplicated(keep=False)]       # one item per footprint
-    qid.loc[j.index_right.values] = qid.loc[j.index_right.values].fillna(pd.Series(j.qid.values, index=j.index_right.values))
-    return qid
+    new = pd.Series(j.qid.values, index=j.index_right.values)
+    new = new[qid.loc[new.index].isna()]
+    qid.loc[new.index] = new
+    how.loc[new.index] = "coordinate"
+    return qid, how
 
 
 # ---------------------------------------------------------------- strata plans
@@ -159,22 +201,28 @@ def strata(b: gpd.GeoDataFrame) -> pd.DataFrame:
     lots["created"] = pd.to_datetime(lots.createdate, unit="ms")
     plans = lots.groupby("plannumber").created.min().reset_index()
     plans["year"] = plans.created.dt.year + plans.created.dt.dayofyear / 366
-    # Bulk loads: the dates on which most of the older plans were created at once.
+    # Bulk loads: the days on which the older plans were loaded at once.
     bulk = plans.created.dt.date.value_counts()
-    bulk_days = set(bulk[bulk > 30].index)
-    good = plans[~plans.created.dt.date.isin(bulk_days)].sort_values("plannumber")
-    from scipy.optimize import isotonic_regression  # noqa: F401  (SciPy ≥ 1.12)
+    plans["bulk"] = plans.created.dt.date.isin(set(bulk[bulk > 30].index)).to_numpy()
+    plans = plans.sort_values("plannumber").reset_index(drop=True)
+    # Where the dated plans begin: from the first plan number after which (almost) every plan has its own date.
+    # Below it the few dated plans are lots re-created later, which would date their plans decades too late.
+    share = (~plans.bulk).rolling(60, min_periods=20).mean().shift(-59).fillna(1.0)
+    start = plans.plannumber[(share > 0.9).to_numpy() & ~plans.bulk.to_numpy()].iloc[0]
+    good = plans[(plans.plannumber >= start) & ~plans.bulk]
+    from scipy.optimize import isotonic_regression  # SciPy ≥ 1.12
     fit = isotonic_regression(good.year.to_numpy(), increasing=True).x
-    # Drop the outliers the fit had to flatten (re-created lots), then refit.
-    keep = np.abs(good.year.to_numpy() - fit) < 1.5
+    # Drop what the fit had to flatten (re-created lots, late corrections), then fit again.
+    keep = np.abs(good.year.to_numpy() - fit) < 1.0
     good = good[keep]
     fit = isotonic_regression(good.year.to_numpy(), increasing=True).x
-    first_n, first_y = good.plannumber.iloc[:20].median(), np.median(fit[:20])
-    anchors_n = np.r_[1, first_n, good.plannumber.to_numpy()]
-    anchors_y = np.r_[1961.5, first_y, fit]
+    first_n, first_y = good.plannumber.iloc[0], fit[:10].mean()
+    anchors_n = np.r_[1, good.plannumber.to_numpy()]
+    anchors_y = np.r_[1961.5, fit]
     plans["fitted"] = np.interp(plans.plannumber, anchors_n, anchors_y)
     plans["calibrated"] = plans.plannumber >= first_n
-    print(f"  strata: {len(plans)} plans, {len(good)} dated by the cadastre; SP {int(first_n)} ≈ {first_y:.1f}")
+    print(f"  strata: {len(plans)} plans, {len(good)} dated by the cadastre from SP{int(first_n)} ({first_y:.1f}); "
+          f"older plans placed between SP1 (1961) and that")
 
     j = gpd.sjoin(b[["geometry"]], lots[["plannumber", "geometry"]], predicate="intersects")
     inter = shapely.area(shapely.intersection(b.geometry.loc[j.index].values, lots.geometry.loc[j.index_right].values))
@@ -215,10 +263,14 @@ def heritage(b: gpd.GeoDataFrame) -> pd.DataFrame:
     out.loc[j.index, "item_sig"] = j.SIG
 
     shr = gpd.read_parquet(RAW / "shr.parquet").to_crs(CRS)
-    j = gpd.sjoin(pts, shr[["ITEMNAME", "LISTINGNO", "geometry"]], predicate="within")
+    j = gpd.sjoin(pts, shr[["ITEMNAME", "LISTINGNO", "HOITEMID", "geometry"]], predicate="within")
     j = j[~j.index.duplicated()]
+    out["shr"] = None
+    out["shr_no"] = None
+    out["shr_id"] = np.nan
     out.loc[j.index, "shr"] = j.ITEMNAME
     out.loc[j.index, "shr_no"] = j.LISTINGNO
+    out.loc[j.index, "shr_id"] = j.HOITEMID
 
     out.loc[out.contrib.notna(), "heritage"] = out.contrib.map(HERITAGE)
     out.loc[out["item"].notna(), "heritage"] = HERITAGE["local"]
@@ -251,22 +303,60 @@ def features(b, idx, scale=180.0):
 
 def main():
     b = gpd.read_parquet(DATA / "buildings.parquet")
+    b = b.rename(columns={"heritage": "osm_heritage", "heritage_operator": "osm_heritage_operator"})
     b["year"] = np.nan
     b["yfrom"] = np.nan
     b["yto"] = np.nan
     b["date_flag"] = -1
     b["date_src"] = None
 
-    # Documented: Wikidata, then OpenStreetMap.
+    # Documented: Wikidata, then the Wikipedia article's lead, then OpenStreetMap.
     wd = wikidata_items()
-    b["qid"] = link_wikidata(b, wd)
-    wdy = wd.set_index("qid").dates.map(wd_year)
-    for i, q in b.qid.dropna().items():
-        y = wdy.get(q)
-        if y and not wd.set_index("qid").demolished.get(q, False):
-            b.loc[i, ["year", "yfrom", "yto"]] = y[:3]
-            b.loc[i, "date_flag"] = 1 if y[3] else 0
-            b.loc[i, "date_src"] = "wikidata"
+    h = heritage(b)
+    b = b.join(h)
+    b["qid"], b["qid_how"] = link_wikidata(b, wd)
+    # Buildings in a State Heritage Register curtilage take the register item's Wikidata entry
+    # (Wikidata P3449 is the register's item id): all of them when the curtilage holds a few buildings,
+    # otherwise only its largest.
+    by_shr = {s_: q for q, s_ in zip(wd.qid, wd.shr) if isinstance(s_, str)}
+    shr_q = b.shr_id.map(lambda v: by_shr.get(str(int(v))) if pd.notna(v) else None)
+    n_in = b.groupby("shr_id").bid.transform("count")
+    largest = b.area == b.assign(a=b.area).groupby("shr_id").a.transform("max")
+    main = shr_q.notna() & ((n_in <= 3) | largest)
+    b["qid_area"] = shr_q                                  # the register entry the building is part of
+    b.loc[main & b.qid.isna(), "qid_how"] = "shr"
+    b.loc[main, "qid"] = b.loc[main, "qid"].fillna(shr_q[main])
+
+    articles = json.loads((RAW / "wikipedia.json").read_text()) if (RAW / "wikipedia.json").exists() else {}
+    wdi = wd.set_index("qid")
+    wdy = wdi.dates.map(wd_year)
+    from urllib.parse import unquote
+    title_of = wdi.article.map(lambda u: unquote(u.rsplit("/wiki/", 1)[1]).replace("_", " ") if isinstance(u, str) else None)
+    wpy = title_of.map(lambda t: parse_wiki_built(articles.get(t, {}).get("extract")) if t else None)
+    # Landmarks with a year checked against their article (pipeline/landmarks.py) keep it.
+    fixed = b.fixed_year.notna() if "fixed_year" in b else pd.Series(False, index=b.index)
+    for col in ("year", "yfrom", "yto"):
+        b.loc[fixed, col] = b.fixed_year[fixed]
+    b.loc[fixed, "date_flag"] = 0
+    b.loc[fixed, "date_src"] = "wikipedia"
+    for i, q in b.qid[~fixed].dropna().items():
+        if q not in wdi.index or wdi.demolished.get(q, False):
+            continue
+        # The article's lead first: for heritage places it is written from the State Heritage Inventory, while a
+        # Wikidata inception sometimes dates the institution, a restoration or a renaming.
+        for src, y in (("wikipedia", wpy.get(q)), ("wikidata", wdy.get(q))):
+            if y:
+                b.loc[i, ["year", "yfrom", "yto"]] = y[:3]
+                b.loc[i, "date_flag"] = 1 if y[3] else 0
+                b.loc[i, "date_src"] = src
+                break
+    # A tower matched to an old place by a coordinate or a heritage curtilage is a later building on or beside
+    # that place (an old school kept at the foot of an office tower): it keeps neither the place's year nor its name.
+    wrong = b.qid_how.isin(["coordinate", "shr"]) & (b.height >= TALL) & (b.year < 1957)
+    b.loc[wrong, ["year", "yfrom", "yto"]] = np.nan
+    b.loc[wrong, "date_flag"] = -1
+    b.loc[wrong, "date_src"] = None
+    b.loc[wrong, ["qid", "qid_how"]] = None
     for col in ("start_date", "construction_date", "building_start_date"):
         if col not in b:
             continue
@@ -276,11 +366,9 @@ def main():
             b.loc[i, ["year", "yfrom", "yto"]] = y[:3]
             b.loc[i, "date_flag"] = 1 if y[3] else 0
             b.loc[i, "date_src"] = "osm"
-    print(f"  documented: {(b.date_flag == 0).sum()} exact, {(b.date_flag == 1).sum()} approximate "
-          f"({(b.date_src == 'wikidata').sum()} Wikidata, {(b.date_src == 'osm').sum()} OSM)")
+    print(f"  documented: {(b.date_flag == 0).sum()} exact, {(b.date_flag == 1).sum()} approximate; "
+          + ", ".join(f"{k} {v}" for k, v in b.date_src.value_counts().items()))
 
-    h = heritage(b)
-    b = b.join(h)
     sp = strata(b)
     b["sp"] = sp.plannumber
     b["sp_year"] = sp.fitted
@@ -302,30 +390,33 @@ def main():
 
     dated = b.date_flag >= 0
     # Heritage-area estimates: from documented buildings that are themselves heritage (older than 1946).
-    pool_old = documented & old_evidence & (b.year < 1946)
-    if pool_old.sum() < 30:
-        pool_old = documented & (b.year < 1946)
+    pool_old = documented & (b.year < 1946)
     nsyd_low = (b.lga == "NORTH SYDNEY") & b.hca.notna() & (b.floors <= 3) & b.sp_year.isna()
-    her_target = ~dated & ((b.contrib == "Contributing") | b["item"].notna() | b.shr.notna() | nsyd_low)
+    her_target = ~dated & ~tall & ((b.contrib == "Contributing") | b["item"].notna() | b.shr.notna() | nsyd_low)
     if her_target.any():
-        lo, mid, hi = knn_years(features(b, b.index[pool_old], scale=0), b.year[pool_old].to_numpy(),
-                                features(b, b.index[her_target], scale=0), k=10)
+        lo, mid, hi = knn_years(features(b, b.index[pool_old]), b.year[pool_old].to_numpy(),
+                                features(b, b.index[her_target]), k=10)
         b.loc[her_target, ["yfrom", "year", "yto"]] = np.c_[lo, mid, hi]
         b.loc[her_target, "date_flag"] = 3
         b.loc[her_target, "date_src"] = "heritage"
     print(f"  heritage-area estimates: {her_target.sum()} from {pool_old.sum()} documented heritage buildings")
 
-    # Everything else: the dated buildings around it, of similar height; tall buildings only from 1958,
-    # detracting buildings in heritage areas only from 1946.
+    # Everything else: the dated buildings around it, of similar height. Tall buildings take only years from 1958,
+    # detracting buildings in heritage areas only years from 1946. Low-rise houses and other buildings that are not
+    # strata-titled take documented years only: the strata-dated apartments around them say nothing about them.
     dated = b.date_flag >= 0
     rest = ~dated
+    pool_doc = dated & b.date_flag.isin([0, 1])
     pool = dated & b.date_flag.isin([0, 1, 2])
-    for name, target, cond in [("tall", rest & tall, b.year >= 1958),
-                               ("detracting", rest & ~tall & (b.contrib == "Detracting"), b.year >= 1946),
-                               ("other", rest & ~tall & (b.contrib != "Detracting"), pd.Series(True, index=b.index))]:
+    house = b.building.isin(["house", "terrace", "detached", "semidetached_house", "residential", "bungalow",
+                             "industrial", "warehouse", "garage", "shed", "roof", "church", "school"]) & (b.floors <= 3)
+    everywhere = pd.Series(True, index=b.index)
+    for name, target, src in [("tall", rest & tall, pool & (b.year >= 1958)),
+                              ("detracting", rest & ~tall & (b.contrib == "Detracting"), pool & (b.year >= 1946)),
+                              ("low-rise", rest & ~tall & (b.contrib != "Detracting") & house, pool_doc),
+                              ("other", rest & ~tall & (b.contrib != "Detracting") & ~house, pool & everywhere)]:
         if not target.any():
             continue
-        src = pool & cond
         lo, mid, hi = knn_years(features(b, b.index[src]), b.year[src].to_numpy(), features(b, b.index[target]))
         b.loc[target, ["yfrom", "year", "yto"]] = np.c_[lo, mid, hi]
         b.loc[target, "date_flag"] = 4
