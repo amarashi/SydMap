@@ -127,20 +127,25 @@ const EDGE = (() => {
 const EDGE_GLSL = `
   uniform sampler2D uEdge;
   uniform vec2 uEdgeMin, uEdgeSize;
+  uniform vec2 uFadeRange;
   float edgeFade(vec2 p) {
     float metres = texture2D(uEdge, (p - uEdgeMin) / uEdgeSize).r * 2550.0;
-    return smoothstep(260.0, 1150.0, metres);
+    // Also into the wall over the last 1.5 km before the mapped ground ends, so open water never stops in a straight line.
+    vec2 q = min(p - uEdgeMin, uEdgeMin + uEdgeSize - p);
+    return max(smoothstep(uFadeRange.x, uFadeRange.y, metres), 1.0 - smoothstep(0.0, 1500.0, min(q.x, q.y)));
   }`;
-function groundMaterial(color) {
+// Land fades from 260 m beyond the nearest building; the water only far out, so the harbour between the shores stays
+// clear and only the open water at the edge of the map goes into the wall.
+function groundMaterial(color, from = 260, to = 1150) {
   return new THREE.ShaderMaterial({
-    uniforms: { uColor: { value: new THREE.Color(color) }, uWall: { value: new THREE.Color(SKY) }, ...EDGE },
+    uniforms: { uColor: { value: new THREE.Color(color) }, uWall: { value: new THREE.Color(SKY) }, uFadeRange: { value: new THREE.Vector2(from, to) }, ...EDGE },
     vertexShader: 'varying vec2 vXZ; void main() { vec4 w = modelMatrix * vec4(position, 1.0); vXZ = w.xz; gl_Position = projectionMatrix * viewMatrix * w; }',
     fragmentShader: `uniform vec3 uColor, uWall; varying vec2 vXZ; ${EDGE_GLSL}
       void main() { gl_FragColor = vec4(mix(uColor, uWall, edgeFade(vXZ)), 1.0); }`,
   });
 }
 const land = new THREE.Mesh(landGeo, groundMaterial(LAND));
-const water = new THREE.Mesh(waterGeo, groundMaterial(WATER));
+const water = new THREE.Mesh(waterGeo, groundMaterial(WATER, 1700, 2500));
 const context = new THREE.Mesh(contextGeo, groundMaterial(CONTEXT));
 land.position.y = -0.05;
 context.position.y = -0.1;

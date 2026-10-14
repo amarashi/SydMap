@@ -81,7 +81,7 @@ h1 .sun-disc { position: absolute; z-index: -1; width: .4em; height: .4em; right
 
 .bar { position: fixed; top: calc(env(safe-area-inset-top, 0px) + var(--gutter) + 4px); right: var(--gutter); z-index: 3;
   display: flex; align-items: center; gap: 26px; }
-.lenses { margin-right: 14px; }
+.bar-sep { width: 1px; height: 22px; background: var(--rule); }
 .lenses { display: flex; gap: 24px; }
 .bar button { border: 0; background: none; padding: 8px 0; cursor: pointer; font-weight: 450; }
 .lenses button { color: var(--muted); border-bottom: 2px solid transparent; transition: color .3s var(--ease), border-color .3s var(--ease); }
@@ -322,8 +322,8 @@ h1 .sun-disc { position: absolute; z-index: -1; width: .4em; height: .4em; right
 .ramp > div:last-child { padding-bottom: 6px; } .ramp > div { padding-bottom: 6px; }
 
 .time-line { display: flex; align-items: flex-start; gap: 18px; }
-.play { position: relative; width: 46px; height: 46px; margin-top: 46px; border: 0; padding: 0; border-radius: 50%; background: var(--paper);
-  color: var(--ink); box-shadow: var(--shadow-sm); cursor: pointer; display: grid; place-items: center; flex: none; transition: transform .5s var(--ease); }
+.play { position: relative; width: 46px; height: 46px; margin-top: 46px; border: 0; padding: 0; border-radius: 50%; background: var(--ink);
+  color: var(--paper); cursor: pointer; display: grid; place-items: center; flex: none; transition: transform .5s var(--ease); }
 .play:hover { transform: scale(1.05); }
 .play svg { width: 15px; height: 15px; fill: currentColor; }
 .track { position: relative; flex: 1; height: 98px; }
@@ -393,7 +393,6 @@ h1 .sun-disc { position: absolute; z-index: -1; width: .4em; height: .4em; right
   .studio-mark { width: 19px; height: 22px; } .studio-word { width: 88px; height: 11px; }
   .bar { top: calc(env(safe-area-inset-top, 0px) + 86px); left: 0; right: 0; gap: 18px; padding: 0 40px 0 16px; overflow-x: auto; scrollbar-width: none;
     -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 44px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 44px), transparent); }
-  .lenses { margin-right: 0; }
   .bar::-webkit-scrollbar { display: none; }
   .lenses { gap: 16px; }
   .bar button { flex: none; white-space: nowrap; }

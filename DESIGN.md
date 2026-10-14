@@ -240,8 +240,8 @@ Sheets (the dock, the find field, flaps, chips, the hover label) are paper with 
 border: `0 6px 16px -8px` at 14% and `0 16px 36px -20px` at 22% for small sheets, `0 24px 48px -20px` at 28% for the
 dock and dialogs. The wall comes forward over the model at the top and bottom (veils) and in a soft patch behind the
 name. The ground fades into the wall with distance from the nearest building (a smoothed 50 m distance field, from
-260 m out to 1,150 m; `EDGE` and `edgeFade` in `app.js`), so its edge follows the councils' outline and the harbour
-between them, never a box. The camera stops at 22 km so the far shores stay out of view.
+260 m out to 1,150 m; `EDGE` and `edgeFade` in `app.js`), so its edge follows the councils' outline, never a box. Water
+fades only from 1,700 m, so the harbour between the shores stays clear. The camera stops at 22 km so the far shores stay out of view.
 
 ## Shapes
 
@@ -264,7 +264,7 @@ paper flaps with a hairline across the middle; ticket stubs (4px corners, dotted
   the studio's colophon.
 - **Time band:** four paper flaps that turn over when a digit changes; the age's name in teal italic and the count;
   the key (Ages: "Each station on the line is an age: choose one to see its buildings" or "Only the boom
-  years ×", and the "Estimated years" switch; Heights: a storeys ramp; Heritage: five chips; Stories: the story's groups as switches); the play button (a paper disc with an ink triangle); the
+  years ×", and the "Estimated years" switch; Heights: a storeys ramp; Heritage: five chips; Stories: the story's groups as switches); the play button (a charcoal disc); the
   line: bars of each year's buildings in stone, the ten stretches and stations, the sun as the year, a hollow marker for the
   start of a range once it is moved. The line is a slider for the keyboard (arrows, Shift, Home, End).
 - **Walks:** a list of routes (title, intro, level as a word, stops, progress, Start/Carry on/Walk again); a walk: title
