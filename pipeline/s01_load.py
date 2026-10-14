@@ -40,8 +40,8 @@ def read_wkb(path, crs=4326) -> gpd.GeoDataFrame:
 # Landmarks OpenStreetMap cannot shape: their OSM parts are dropped, the footprint stands at its own storeys (the
 # podium), and the rest is a mesh from pipeline/landmarks.py. `top` is the highest point, from Wikipedia.
 LANDMARKS = {
-    # Sydney Opera House: OSM maps the shells as flat roof pieces without heights.
-    "r9596872": dict(top=landmarks.OPERA_TOP, mesh=landmarks.opera_house),
+    # Sydney Opera House: OSM maps the shells as flat roof pieces without heights. Drawn pale, as its tiles are.
+    "r9596872": dict(top=landmarks.OPERA_TOP, mesh=landmarks.opera_house, pale=True),
 }
 
 
@@ -88,7 +88,8 @@ def main():
     q["geometry"] = shapely.make_valid(q.geometry.values)
     q["height"] = q.height.fillna(q.num_floors * STOREY)
     q["base"] = q.min_height.fillna(q.min_floor * STOREY).fillna(0.0)
-    q = q[~q.building_id.isin(b.id[b.osm.isin(list(LANDMARKS))])]
+    # The landmarks' own shapes replace OSM's parts for them (and the bridge's pylons, OSM's solid to the top).
+    q = q[~q.building_id.isin(b.id[b.osm.isin(list(LANDMARKS)) | b.osm_name.isin(landmarks.PYLONS)])]
     # A part without a height takes the lowest known height of its building's other parts.
     q["height"] = q.height.fillna(q.groupby("building_id").height.transform("min"))
     q = q[q.height.notna() & (q.height > q.base)]
@@ -132,15 +133,14 @@ def main():
 
     # The Harbour Bridge: not a building, but the structure the city is known by (pipeline/landmarks.py).
     from .landmarks import PYLONS, harbour_bridge
-    from .s04_water import ground_and_water
-    footprint, bridge_parts, bridge_osm = harbour_bridge(ground_and_water()[2])
+    footprint, bridge_mesh, bridge_osm, pylon_parts = harbour_bridge([b.geometry[b.osm_name == n].iloc[0] for n in PYLONS])
     b["fixed_year"] = np.nan
     pylons = b.osm_name.isin(PYLONS)
     b.loc[pylons, "fixed_year"] = 1932.0
     b.loc[pylons, "wikidata"] = "Q54495"
     b = pd.concat([b, gpd.GeoDataFrame([dict(
         id="sydney-harbour-bridge", osm=bridge_osm, source="osm", lga="SYDNEY", name="Sydney Harbour Bridge",
-        osm_name="Sydney Harbour Bridge", building="bridge", wikidata="Q54495", height=max(h for h, _, _ in bridge_parts),
+        osm_name="Sydney Harbour Bridge", building="bridge", wikidata="Q54495", height=float(bridge_mesh[0][:, 2].max()),
         height_src=4, num_floors=np.nan, floors_src=1, floors=1, fixed_year=1932.0, has_parts=True)],
         geometry=[footprint], crs=CRS)], ignore_index=True)
     b = b.reset_index(drop=True)
@@ -151,16 +151,16 @@ def main():
     b.columns = [c.replace(":", "_") for c in b.columns]
     b.to_parquet(DATA / "buildings.parquet")
     q = q.merge(b[["id", "bid"]], left_on="building_id", right_on="id")[["bid", "height", "base", "geometry"]]
-    bridge_bid = int(b.bid[b.id == "sydney-harbour-bridge"].iloc[0])
-    q = pd.concat([q, gpd.GeoDataFrame(dict(bid=bridge_bid, height=[h for h, _, _ in bridge_parts],
-                                            base=[lo for _, lo, _ in bridge_parts]),
-                                       geometry=[g for _, _, g in bridge_parts], crs=CRS)], ignore_index=True)
+    pylon = [(int(b.bid[b.osm_name == PYLONS[i]].iloc[0]), *part) for i, ps in pylon_parts.items() for part in ps]
+    q = pd.concat([q, gpd.GeoDataFrame(dict(bid=[p[0] for p in pylon], height=[p[1] for p in pylon], base=[p[2] for p in pylon]),
+                                       geometry=[p[3] for p in pylon], crs=CRS)], ignore_index=True)
     outline = b[b.outline_height.notna()]
     q = pd.concat([gpd.GeoDataFrame(dict(bid=outline.bid, height=outline.outline_height, base=0.0),
                                     geometry=outline.geometry.values, crs=CRS), q], ignore_index=True)
     q.to_parquet(DATA / "parts.parquet")
-    meshes = [(int(b.bid[b.osm == osm].iloc[0]), *L["mesh"]()) for osm, L in LANDMARKS.items() if (b.osm == osm).any()]
-    np.savez(DATA / "meshes.npz", bid=np.array([m[0] for m in meshes], np.int64),
+    meshes = [(int(b.bid[b.osm == osm].iloc[0]), *L["mesh"](), L["pale"]) for osm, L in LANDMARKS.items() if (b.osm == osm).any()]
+    meshes.append((int(b.bid[b.id == "sydney-harbour-bridge"].iloc[0]), *bridge_mesh, False))
+    np.savez(DATA / "meshes.npz", bid=np.array([m[0] for m in meshes], np.int64), pale=np.array([m[3] for m in meshes]),
              vstart=np.cumsum([0] + [len(m[1]) for m in meshes]), tstart=np.cumsum([0] + [len(m[2]) for m in meshes]),
              verts=np.concatenate([m[1] for m in meshes]), tris=np.concatenate([m[2] for m in meshes]))
     print(f"{len(b)} buildings ({(b.source == 'osm').sum()} OSM, {(b.source == 'ml').sum()} ML); {len(q)} parts")

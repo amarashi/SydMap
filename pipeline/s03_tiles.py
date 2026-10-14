@@ -9,8 +9,8 @@ Tile layout (little-endian, every section 4-byte aligned):
   R       u32 vertStart[nR+1]; u8 hole[nR]
   V       i16 xz[2*nV], decimetres from the tile origin
   M       meshes, for the shapes extrusion cannot draw (the Opera House's shells, see landmarks.py):
-          u16 bld[nMV] (the building's index in this tile); i16 xyz[3*nMV], decimetres from the tile origin
-          (y up); u16 tri[3*nMT]
+          u16 bld[nMV] (the building's index in this tile, plus 0x8000 for a surface drawn pale, as the Opera
+          House's tiles are); i16 xyz[3*nMV], decimetres from the tile origin (y up); u16 tri[3*nMT]
 """
 import json
 import struct
@@ -28,6 +28,7 @@ GPO = gpo_mga()
 TILE = 600.0
 SIMPLIFY = 0.25
 MAGIC = 0x32445953  # 'SYD2'
+PALE = 0x8000
 # Heritage status of a building, the fourth colouring of the map (index 0: none).
 HERITAGE = ["State Heritage Register", "Local heritage item", "Contributing building",
             "Neutral building", "Detracting building"]
@@ -58,10 +59,10 @@ def pack_tile(origin, rows):
     mesh_bld, mesh_pos, mesh_tri, n_mv = [], [], [], 0
     for i, b in enumerate(rows):
         if b.get("mesh") is not None:
-            v, t = b["mesh"]
+            v, t, pale = b["mesh"]
             xyz = np.c_[to_local(v[:, :2]) - origin, v[:, 2]][:, [0, 2, 1]] * 10
             mesh_pos.append(np.round(xyz).astype(np.int16))
-            mesh_bld.append(np.full(len(v), i, np.uint16))
+            mesh_bld.append(np.full(len(v), i | (PALE if pale else 0), np.uint16))
             mesh_tri.append(np.asarray(t, np.uint32) + n_mv)
             n_mv += len(v)
         gid.append(b["gid"]); year.append(b["year"]); flag.append(b["flag"])
@@ -82,7 +83,7 @@ def pack_tile(origin, rows):
             ring_start.append(len(holes))
         part_start.append(len(heights))
     nB, nP, nR = len(gid), len(heights), len(holes)
-    assert nB < 0x8000, "the viewer keeps a building's index in a tile in 15 bits"
+    assert nB < PALE, "the viewer keeps a building's index in a tile in 15 bits"
     V = np.concatenate(verts) if verts else np.zeros((0, 2), np.int16)
     tri = np.concatenate(mesh_tri) if mesh_tri else np.zeros((0, 3), np.uint32)
     assert n_mv <= 0x10000, "mesh vertices are indexed in 16 bits"
@@ -138,8 +139,8 @@ def main():
     parts = q.groupby("bid")[["height", "base", "geometry"]].apply(
         lambda d: list(zip(d.height, d.base, d.geometry))).to_dict()
     m = np.load(DATA / "meshes.npz")
-    meshes = {int(bid): (m["verts"][m["vstart"][k]:m["vstart"][k + 1]], m["tris"][m["tstart"][k]:m["tstart"][k + 1]])
-              for k, bid in enumerate(m["bid"])}
+    meshes = {int(bid): (m["verts"][m["vstart"][k]:m["vstart"][k + 1]], m["tris"][m["tstart"][k]:m["tstart"][k + 1]],
+                         bool(m["pale"][k])) for k, bid in enumerate(m["bid"])}
     b["geometry"] = shapely.simplify(b.geometry.values, SIMPLIFY, preserve_topology=True)
 
     b = b.reset_index(drop=True)
@@ -154,7 +155,8 @@ def main():
         origin = np.array([tx * TILE, tz * TILE])
         rows = [dict(gid=int(r.gid), year=int(r.year), flag=int(r.date_flag), period=int(r.period),
                      floors=int(r.floors), heritage=int(r.heritage), lay0=int(r.lay0), lay1=int(r.lay1),
-                     parts=parts.get(r.bid) or [(float(r.height), 0.0, r.geometry)], mesh=meshes.get(r.bid))
+                     parts=parts.get(r.bid) or ([] if r.bid in meshes else [(float(r.height), 0.0, r.geometry)]),
+                     mesh=meshes.get(r.bid))
                 for r in grp.itertuples()]
         data = pack_tile(origin, rows)
         name = f"{tx}_{tz}.bin"

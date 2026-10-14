@@ -1,11 +1,12 @@
-"""The two structures the city is known by, which the footprint data cannot draw.
+"""The two structures the city is known by, which the footprint data cannot draw. Both are meshes (Mesh).
 
-The Sydney Harbour Bridge is not a building in the data. It is drawn as a schematic model on the axis
-OpenStreetMap gives its deck, from the figures in its Wikipedia article (checked by pipeline/checks.py, see CHECKS):
-  span of 504 m; the summit 134 m above mean sea level; two arch trusses 18 m deep at the centre and 57 m at the
-  ends; 48.8 m wide; a pair of 89-metre pylons at each end; formally opened on 19 March 1932.
-The deck height is not in the article; 49 m, the deck at the pylons, is an approximation. The pylons themselves
-are OpenStreetMap buildings (PYLONS).
+The Sydney Harbour Bridge is not a building in the data. It is modelled from the figures in its Wikipedia article
+(checked by pipeline/checks.py, see CHECKS): two 28-panel arch trusses, 18 m deep at the centre and 57 m at the
+ends; a span of 504 m; the summit 134 m above mean sea level; 48.8 m wide; a pair of 89-metre pylons at each end;
+formally opened on 19 March 1932. It stands on the line between OpenStreetMap's two pairs of pylons (PYLONS), and
+runs the length of OpenStreetMap's way for its deck. Not in the article, and so approximations: the deck 49 m
+above the water between the pylons, falling gently (DECK_FALL) along the approach spans, five each side, to the
+high ground at either end; the trusses 30 m apart; the sizes of the members.
 
 The Sydney Opera House is a building in the data, but OpenStreetMap maps its shells as flat roof pieces without
 heights. Its shells are modelled as a mesh (opera_house), see the notes there.
@@ -24,19 +25,62 @@ LEWIS = "https://www.royalsoc.org.au/wp-content/uploads/2024/09/106_12_lewis.pdf
 # What a landmark's card says about its shape, by the building's OSM id (or SydMap's own id): (note, source, link).
 SHAPES = {
     "r9596872": ("its shells modelled on their spherical geometry", "Lewis, 1973", LEWIS),
-    "sydney-harbour-bridge": ("a schematic model from its figures", "Wikipedia", "https://en.wikipedia.org/wiki/Sydney_Harbour_Bridge"),
+    "sydney-harbour-bridge": ("modelled from its figures", "Wikipedia", "https://en.wikipedia.org/wiki/Sydney_Harbour_Bridge"),
 }
-CHECKS = [(ARTICLE, ["span of 504 m", "134 m (440 ft) above mean sea level", "18 m (59 ft) at the centre of the arch, to 57 m",
-                     "48.8 m (160 ft) wide", "89-metre-high", "formally opened on Saturday, 19 March 1932"]),
+CHECKS = [(ARTICLE, ["two 28-panel arch trusses", "span of 504 m", "134 m (440 ft) above mean sea level",
+                     "18 m (59 ft) at the centre of the arch, to 57 m", "48.8 m (160 ft) wide", "89-metre-high",
+                     "formally opened on Saturday, 19 March 1932"]),
           (OPERA, ["highest roof point is 67 metres above sea-level", "sections of a sphere of 75.2 metres"])]
-SPAN, SUMMIT, DEPTH_MID, DEPTH_END, WIDTH, PYLON_H, DECK = 504.0, 134.0, 18.0, 57.0, 48.8, 89.0, 49.0
-TRUSS_GAP, TRUSS_W, PANELS = 30.0, 4.0, 40
+SPAN, SUMMIT, DEPTH_MID, DEPTH_END, WIDTH, PYLON_H, PANELS = 504.0, 134.0, 18.0, 57.0, 48.8, 89.0, 28
+DECK, DECK_FALL, DECK_DEPTH, TRUSS_GAP, APPROACH_SPANS = 49.0, 0.03, 4.0, 30.0, 5
 # OpenStreetMap's buildings for the bridge's pylons, 89 m as the article says: they take the bridge's year and entry.
 PYLONS = ["Sydney Harbour Bridge - South Pylons", "Sydney Harbour Bridge - North Pylons"]
 
 
-def deck_axis():
-    """The bridge's axis: the longest OSM way tagged as the Sydney Harbour Bridge (Bradfield Highway)."""
+class Mesh:
+    """Triangles in a local frame: (s, c, y), s along the structure, c across it, y up."""
+
+    def __init__(self):
+        self.verts, self.tris = [], []
+
+    def add(self, verts, tris):
+        self.tris.append(np.asarray(tris) + sum(len(v) for v in self.verts))
+        self.verts.append(np.asarray(verts, float))
+
+    def beam(self, path, w, h):
+        """A beam w wide and h deep along a polyline, its sides and both ends closed."""
+        path = np.asarray(path, float)
+        t = np.gradient(path, axis=0)
+        t /= np.linalg.norm(t, axis=1)[:, None]
+        side = np.cross(t, [0.0, 0.0, 1.0])
+        flat = np.linalg.norm(side, axis=1) < 1e-6           # a vertical member: its sides face along and across
+        side[flat] = [0.0, 1.0, 0.0]
+        side /= np.linalg.norm(side, axis=1)[:, None]
+        up = np.cross(side, t)
+        corners = [(-1, -1), (1, -1), (1, 1), (-1, 1)]
+        v = np.concatenate([[p + a * w / 2 * sd + b * h / 2 * u for a, b in corners] for p, sd, u in zip(path, side, up)])
+        tris = []
+        for i in range(len(path) - 1):
+            for k in range(4):
+                a, b, c, d = 4 * i + k, 4 * i + (k + 1) % 4, 4 * (i + 1) + (k + 1) % 4, 4 * (i + 1) + k
+                tris += [(a, b, c), (a, c, d)]
+        n = 4 * (len(path) - 1)
+        tris += [(0, 2, 1), (0, 3, 2), (n, n + 1, n + 2), (n, n + 2, n + 3)]
+        self.add(v, tris)
+
+    def block(self, s0, s1, c0, c1, y0, y1):
+        """A box between two heights."""
+        self.beam([((s0 + s1) / 2, (c0 + c1) / 2, y0), ((s0 + s1) / 2, (c0 + c1) / 2, y1)], abs(c1 - c0), abs(s1 - s0))
+
+    def placed(self, origin, along):
+        """The vertices in MGA metres ([x, y, height]) and the triangles, the frame put at `origin`, s along `along`."""
+        across = np.array([along[1], -along[0]])
+        v, t = np.concatenate(self.verts), np.concatenate(self.tris)
+        return np.c_[origin + v[:, :1] * along + v[:, 1:2] * across, v[:, 2]], t
+
+
+def deck_way():
+    """The OSM way for the bridge's deck: the longest tagged as the Sydney Harbour Bridge (Bradfield Highway)."""
     from pyproj import Transformer
     t = Transformer.from_crs(4326, CRS, always_xy=True)
     d = json.loads((RAW / "osm_streets.json").read_text())
@@ -46,47 +90,70 @@ def deck_axis():
     return LineString(xy), f"w{w['id']}"
 
 
-def rect(c, u, v, along, across):
-    """A rectangle centred on c, `along` long in direction u and `across` wide in direction v."""
-    a, b = u * along / 2, v * across / 2
-    return Polygon([c - a - b, c + a - b, c + a + b, c - a + b])
+def harbour_bridge(pylons):
+    """The bridge, given OSM's south and north pylon footprints (MGA).
 
+    Returns (footprint, (vertices, triangles), OSM id of the deck, {pylon index: parts}): the pylons' parts are their
+    footprints up to the deck, and the two towers either side of the roadway above it.
+    """
+    way, osm = deck_way()
+    a, b = (np.array(p.centroid.coords[0]) for p in pylons)
+    centre, along = (a + b) / 2, (b - a) / np.linalg.norm(b - a)
+    ends = [float(np.dot(np.array(way.coords[k]) - centre, along)) for k in (0, -1)]
+    s_south, s_north = min(ends), max(ends)
+    pylon_out = max(max(abs(float(np.dot(np.array(q) - centre, along))) for q in p.exterior.coords) for p in pylons)
 
-def harbour_bridge(water):
-    """(footprint, parts, osm id): parts are (height, base, polygon) in MGA metres."""
-    axis, osm = deck_axis()
-    p0, p1 = np.array(axis.coords[0]), np.array(axis.coords[-1])
-    u = (p1 - p0) / np.linalg.norm(p1 - p0)
-    v = np.array([-u[1], u[0]])
-    # The arch stands over the water: its centre is the middle of the stretch of the axis over the harbour.
-    wet = axis.intersection(water)
-    longest = max(getattr(wet, "geoms", [wet]), key=lambda g: g.length)
-    mid = np.array(longest.interpolate(0.5, normalized=True).coords[0])
-    parts = []
-    # Arch: two trusses of PANELS segments; chords follow parabolas from the bearings to the summit.
-    edges = np.linspace(-SPAN / 2, SPAN / 2, PANELS + 1)
-    for s0, s1 in zip(edges[:-1], edges[1:]):
-        s = (s0 + s1) / 2
-        k = 1 - (2 * s / SPAN) ** 2
-        top = DEPTH_END + (SUMMIT - DEPTH_END) * k
-        bottom = max(1.0, top - (DEPTH_END + (DEPTH_MID - DEPTH_END) * k))
-        for side in (-1, 1):
-            c = mid + u * s + v * side * TRUSS_GAP / 2
-            parts.append((top, bottom, rect(c, u, v, s1 - s0 + 0.5, TRUSS_W)))
-    # Deck: level between the pylons, falling over the approach spans to the shores.
-    length = axis.length
-    start = float(np.dot(mid - p0, u))
-    for d0 in np.arange(0, length, 20.0):
-        d1 = min(d0 + 20.0, length)
-        dc = (d0 + d1) / 2 - start
-        out = max(0.0, abs(dc) - (SPAN / 2 + 30))
-        reach = max(1.0, (start if dc < 0 else length - start) - (SPAN / 2 + 30))
-        top = DECK - (DECK - 12.0) * min(1.0, out / reach)
-        c = p0 + u * (d0 + d1) / 2
-        parts.append((top, max(0.5, top - 4.0), rect(c, u, v, d1 - d0 + 0.3, WIDTH)))
-    # The pylons are buildings in OpenStreetMap already (PYLONS); s01_load dates them with the bridge.
-    footprint = shapely.union_all([p for _, _, p in parts])
-    return footprint, parts, osm
+    def deck(s):
+        """The deck's top: level between the pylons, falling along the approach spans."""
+        return DECK - DECK_FALL * max(0.0, abs(s) - pylon_out)
+
+    m = Mesh()
+    k = lambda s: 1 - (2 * s / SPAN) ** 2                     # noqa: E731
+    bottom = lambda s: (SUMMIT - DEPTH_MID) * k(s)            # noqa: E731  the arch, springing from its bearings
+    top = lambda s: DEPTH_END + (SUMMIT - DEPTH_END) * k(s) - 1.5   # noqa: E731  the top chord's axis, its top at the summit
+    nodes = np.linspace(-SPAN / 2, SPAN / 2, PANELS + 1)
+    fine = np.linspace(-SPAN / 2, SPAN / 2, 2 * PANELS + 1)
+    for c in (-TRUSS_GAP / 2, TRUSS_GAP / 2):
+        m.beam([(s, c, bottom(s)) for s in fine], 4.0, 4.0)
+        m.beam([(s, c, top(s)) for s in fine], 3.0, 3.0)
+        for s in nodes:
+            m.beam([(s, c, bottom(s)), (s, c, top(s))], 2.0, 2.0)
+            if bottom(s) > deck(s):                            # hangers carry the deck where the arch is above it
+                m.beam([(s, c, deck(s)), (s, c, bottom(s))], 1.2, 1.2)
+        for s0, s1 in zip(nodes[:-1], nodes[1:]):              # diagonals, falling towards the summit
+            hi, lo = (s0, s1) if s0 < 0 else (s1, s0)
+            m.beam([(hi, c, top(hi)), (lo, c, bottom(lo))], 1.6, 1.6)
+    for s in nodes:                                            # bracing between the trusses
+        m.beam([(s, -TRUSS_GAP / 2, top(s)), (s, TRUSS_GAP / 2, top(s))], 1.5, 1.5)
+        if bottom(s) > deck(s) + 8:
+            m.beam([(s, -TRUSS_GAP / 2, bottom(s)), (s, TRUSS_GAP / 2, bottom(s))], 1.5, 1.5)
+    # The deck, and under its approach spans the piers, the last of them the abutment on the shore.
+    ss = np.r_[np.arange(s_south, s_north, 6.0), s_north]
+    m.beam([(s, 0.0, deck(s) - DECK_DEPTH / 2) for s in ss], WIDTH, DECK_DEPTH)
+    for end, sign in ((s_south, -1), (s_north, 1)):
+        for i in range(1, APPROACH_SPANS + 1):
+            s = sign * pylon_out + (end - sign * pylon_out) * i / APPROACH_SPANS
+            under = deck(s) - DECK_DEPTH
+            if i < APPROACH_SPANS:
+                for c in (-TRUSS_GAP / 2, TRUSS_GAP / 2):
+                    m.block(s - 3, s + 3, c - 5, c + 5, 0.0, under)
+            else:
+                m.block(s - sign * 12, s, -WIDTH / 2, WIDTH / 2, 0.0, under)
+    verts, tris = m.placed(centre, along)
+    across = np.array([along[1], -along[0]])
+    footprint = Polygon([centre + s * along + c * WIDTH / 2 * across
+                         for s, c in ((s_south, -1), (s_north, -1), (s_north, 1), (s_south, 1))])
+    # The pylons: solid up to the deck; above it a tower either side of the roadway, its crown set back.
+    road = shapely.buffer(LineString([centre + s_south * along, centre + s_north * along]), TRUSS_GAP / 2, cap_style="flat")
+    pylon_parts = {}
+    for i, p in enumerate(pylons):
+        towers = shapely.make_valid(p.difference(road))
+        under, crown = DECK - DECK_DEPTH, PYLON_H - 6.0
+        pylon_parts[i] = [(under, 0.0, p)]
+        for g in getattr(towers, "geoms", [towers]):
+            if g.area > 1:
+                pylon_parts[i] += [(crown, under, g), (PYLON_H, crown, g.buffer(-1.5, join_style="mitre"))]
+    return footprint, (verts, tris), osm, pylon_parts
 
 
 # ---------------------------------------------------------------- Sydney Opera House

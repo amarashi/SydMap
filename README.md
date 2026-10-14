@@ -35,8 +35,8 @@ stands on, and the Cammeraygal people, the Traditional Custodians of the land of
    the period ramp) and changes only the accent, to waratah red, and the wordmark. See [`design/README.md`](design/README.md).
 2. **Viewer.** [`web/`](web) is the LAYRS three.js viewer (no build step), adapted: Sydney's periods and texts, a
    Heritage mode in place of Amsterdam's energy labels, cards that show the evidence for every year, part bases in
-   the tile format (so the Harbour Bridge arch and floating parts can be drawn), meshes for shapes extrusion cannot
-   draw (the Opera House's shells), and a 2D GIS dialog.
+   the tile format (so floating parts can be drawn), meshes for shapes extrusion cannot draw (the Opera House's
+   shells, the Harbour Bridge), and a 2D GIS dialog.
 3. **Data.** [`pipeline/`](pipeline) (Python, `uv`) turns open data into the binary tiles and JSON the viewer reads.
 4. **RustGIS.** RustGIS is a full GIS (ribbon, attribute table, analysis), not a library for a bespoke 3D city, so
    three.js keeps the 3D map and RustGIS does what it is good at: `pipeline/s09_rustgis.py` uses its Python engine
@@ -52,10 +52,10 @@ each building takes the best evidence there is, and its card says which:
 
 | Evidence | Buildings | How |
 |---|---:|---|
-| Documented | 458 | a year from the lead of the building's Wikipedia article (328; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (76) or OpenStreetMap `start_date` (54) |
+| Documented | 457 | a year from the lead of the building's Wikipedia article (327; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (76) or OpenStreetMap `start_date` (54) |
 | Strata plan | 5,548 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44479 (1994) |
-| Heritage listing | 130 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings) take the years the listing's Wikipedia article gives; precincts, parks and tunnels do not pass their years on |
-| Heritage area | 14,306 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in North Sydney's conservation areas) are dated from the documented heritage buildings around them |
+| Heritage listing | 147 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings, the Harbour Bridge's approaches) take the years the listing's Wikipedia article gives; precincts, parks, tunnels and railway stations (dated by their opening) do not pass their years on |
+| Heritage area | 14,290 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in North Sydney's conservation areas) are dated from the documented heritage buildings around them |
 | Neighbours | 9,402 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945 |
 
 Estimated years (everything but the first row) are spread within their range so the film does not drop a suburb in a
@@ -65,8 +65,15 @@ off ("Colour documented and strata years only"). Treat them as an educated guess
 Heights come from OpenStreetMap where it has them (12,273, measured or from storeys), from GlobalBuildingAtlas
 (14,180, modelled from satellite imagery) and are otherwise assumed to be two storeys (3,389).
 
-Two landmarks are modelled, see [`pipeline/landmarks.py`](pipeline/landmarks.py). The Harbour Bridge is a schematic
-model from its Wikipedia figures (504 m span, 134 m summit, 48.8 m wide; its 89 m pylons are OpenStreetMap buildings).
+Two landmarks are modelled as meshes, see [`pipeline/landmarks.py`](pipeline/landmarks.py). The Harbour Bridge is
+built from its Wikipedia figures: two 28-panel arch trusses, 18 m deep at the summit and 57 m at the ends, spanning
+504 m and rising to 134 m, under a deck 48.8 m wide. It stands on the line between OpenStreetMap's two pairs of 89 m
+pylons, which are split either side of the roadway, and runs the length of OpenStreetMap's way for its deck. The
+article does not give the deck's height or the approaches, so the deck is 49 m above the water between the pylons and
+falls gently along five approach spans each side.
+
+![The Harbour Bridge from Kirribilli's side](docs/screenshots/harbour-bridge.png)
+
 The Opera House's shells, which OpenStreetMap maps only as flat roof pieces, are a mesh built on the geometry they were
 built to, as Ove Arup & Partners' Michael Lewis described it in
 [*Roof cladding of the Sydney Opera House*](https://www.royalsoc.org.au/wp-content/uploads/2024/09/106_12_lewis.pdf)
@@ -77,7 +84,7 @@ of the roof, which they match to within about 2 m; the Joan Sutherland Theatre's
 the size, as the plan shows, and the restaurant's two shells are placed from the plan with heights estimated from
 photographs. Side shells are plain triangles, and the glass walls are left out.
 
-![The Opera House's shells, from the west](docs/screenshots/opera-house.png)
+![The Opera House and the Harbour Bridge from Mrs Macquarie's Chair](docs/screenshots/landmarks.png)
 
 ## Data and licences
 

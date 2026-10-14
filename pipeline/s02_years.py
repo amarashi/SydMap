@@ -43,8 +43,13 @@ BUILDING_WORDS = re.compile(
     r"bond store|customs house|exchange|townhouse|tenement|shop|bakery|brewery|stables|lodge", re.I)
 INSTITUTION_WORDS = re.compile(r"organi[sz]ation|university|faculty|company|business|club|association|school\b|"
                                r"college|foundation|society|government|department|agency|council|"
-                               r"suburb|locality|(?<!amusement )park|reserve|road|street|electoral|bay|point|island|wharf|sculpture|"
-                               r"season|event|station$|tram stop|weather", re.I)
+                               r"suburb|locality|(?<!amusement )park|reserve|road(?![\w-]* bridge)|street|electoral|bay|point|island|wharf|sculpture|"
+                               r"season|event|\bstation(?= \||$)|tram stop|weather", re.I)
+
+
+def class_text(classes) -> str:
+    """An item's Wikidata classes as one string to match the words against, the same on every run."""
+    return " | ".join(sorted(classes))
 
 
 def seed(i: int, salt: str = "") -> float:
@@ -174,7 +179,7 @@ def link_wikidata(b: gpd.GeoDataFrame, wd: gpd.GeoDataFrame) -> pd.Series:
     how = pd.Series(np.where(qid.notna(), "osm", None), index=b.index, dtype=object)
     taken = set(qid.dropna())
     ok = wd[~wd.qid.isin(taken) & ~wd.demolished].copy()
-    cls = ok.classes.map(lambda c: " | ".join(c))
+    cls = ok.classes.map(class_text)
     building_like = cls.str.contains(BUILDING_WORDS) & ~cls.str.contains(INSTITUTION_WORDS)
     ok = ok[building_like | (ok.shr.notna() & ~cls.str.contains(INSTITUTION_WORDS))]
     j = gpd.sjoin(ok[["qid", "geometry"]], b[["geometry"]], predicate="within")
@@ -397,7 +402,7 @@ def main():
     # listing's documented years as an estimate: the place was built then, though not every building of it.
     # Only listings of a building or a group of buildings, dated by the listing's own article (or Wikidata): a
     # precinct, a park or a tunnel says nothing about the buildings standing in it.
-    cls = wdi.classes.map(lambda c: " | ".join(c))
+    cls = wdi.classes.map(class_text)
     small = n_in <= 40
     listing_year = {}
     for q_ in set(b.qid_area.dropna()):

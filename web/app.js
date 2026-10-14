@@ -225,7 +225,7 @@ const VERT = /* glsl */`
 
   void main() {
     int i = int(bld + 0.5);
-    bool shaped = i >= 32768;          // a landmark's mesh (the Opera House's shells), see worker.js
+    bool shaped = i >= 32768;          // a pale surface: the Opera House's shells (pipeline/s03_tiles.py)
     i = i % 32768;
     ivec2 tc = ivec2(2 * (i % ${ATTR_W}), i / ${ATTR_W});
     vec4 a = texelFetch(uAttr, tc, 0);
@@ -309,7 +309,7 @@ const FRAG = /* glsl */`
       // A low afternoon sun from the north-west (the southern hemisphere's sunny side), a soft sky from above.
       float sun = max(dot(n, normalize(vec3(-0.55, 0.55, -0.62))), 0.0);
       float light = mix(0.66 + 0.34 * sun, 1.04, smoothstep(0.86, 0.94, n.y));
-      // A landmark's curved shells also take a soft fill from the south-east, so they keep their form against the sun.
+      // The Opera House's curved shells also take a soft fill from the south-east, to keep their form against the sun.
       if (vShaped > 0.5) light = 0.6 + 0.3 * sun + 0.2 * max(dot(n, normalize(vec3(0.6, 0.45, 0.66))), 0.0);
       float foot = mix(0.82, 1.0, clamp(vWorld.y / 12.0, 0.0, 1.0));
       vec3 c = vColor * light * foot;
@@ -462,7 +462,7 @@ function cardHtml(gid, pinned) {
   const facts = [
     ['Height', `${b.height.toFixed(1)} m <small class="src-note">${HEIGHT_NOTE[b.hsrc]}</small>`],
     shape && ['Shape', `${esc(shape[0])} <small class="src-note">${pinned ? link(shape[2], shape[1]) : esc(shape[1])}</small>`],
-    ['Storeys', `${b.floors ?? Math.max(1, Math.round(b.height / 3.2))} <small class="src-note">${b.fsrc === 0 ? 'OpenStreetMap' : 'height ÷ 3.2 m'}</small>`],
+    !(shape && b.fsrc !== 0) && ['Storeys', `${b.floors ?? Math.max(1, Math.round(b.height / 3.2))} <small class="src-note">${b.fsrc === 0 ? 'OpenStreetMap' : 'height ÷ 3.2 m'}</small>`],
     w?.architects?.length && [w.architects.length > 1 ? 'Architects' : 'Architect', w.architects.map(esc).join(', ')],
     w?.styles?.length && ['Style', w.styles.map(esc).join(', ')],
     b.heritage && ['Heritage', `<span class="hlabel"><i style="background:${hcol}"></i>${esc(config.heritage.labels[b.heritage - 1])}</span>`],

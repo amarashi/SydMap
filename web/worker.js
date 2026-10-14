@@ -64,9 +64,9 @@ function build(t) {
       }
     }
   }
-  // Meshes, as they come; the top bit of their building index tells the shader they are a landmark's own shape.
+  // Meshes, as they come (the top bit of a building index marks a pale surface, see the shader).
   pos.set(t.meshPos, v * 3);
-  for (let i = 0; i < t.meshBld.length; i++) bld[v + i] = t.meshBld[i] | 0x8000;
+  bld.set(t.meshBld, v);
   for (let i = 0; i < t.meshTri.length; i++) idx[k + i] = v + t.meshTri[i];
   v += t.meshBld.length; k += t.meshTri.length;
   // Per-building lookup, two texels: [year, period + 16*flag, floors + 128*heritage, global id], [layer bits in four 16-bit words].
