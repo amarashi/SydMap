@@ -1,0 +1,8 @@
+# The raw 4K recordings, cut segments, overlay frames and rejected music takes are rebuilt by work/record.py and
+# work/build.py; only the scripts, the caption and the take the film uses are kept.
+work/*
+!work/build.py
+!work/record.py
+!work/overlay.html
+!work/music-caption.md
+!work/take-d.mp3

@@ -7,6 +7,11 @@ known; follow a walk through the streets; or take every building's data with you
 
 ![SydMap: the city centre, the harbour and North Sydney, coloured by age](docs/screenshots/home.png)
 
+[![Watch SydMap in 25 seconds: the city grows from 1788, the Opera House card, the Harbour Bridge](brag-output/brag.jpg)](brag-output/brag.mp4)
+
+**The film:** [brag-output/brag.mp4](brag-output/brag.mp4), 25 seconds, recorded from the site; the score was generated
+locally for it. How it was made is in [`brag-output/brag-plan.md`](brag-output/brag-plan.md).
+
 SydMap rebuilds [LAYRS: Amsterdam](https://stop-token.com/lab/amsterdam/) by Alex Barakov
 ([source](https://github.com/alexbarakov/amsterdam-by-building), MIT) for Sydney, itself inspired by Sasha Bogachev's
 [Paris, building by building](https://paris.bogachev.fr). It is made by Amir Marashi at
