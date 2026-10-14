@@ -53,7 +53,7 @@ controls.mouseButtons = { LEFT: THREE.MOUSE.ROTATE, MIDDLE: THREE.MOUSE.DOLLY, R
 controls.rotateSpeed = 0.6;
 controls.maxPolarAngle = Math.PI * 0.47;
 controls.minDistance = 60;
-controls.maxDistance = 30000;
+controls.maxDistance = 22000;
 
 // ?cam=x,z,azimuth,elevation,span overrides the home view (for sharing a view, and for screenshots).
 const camParam = new URLSearchParams(location.search).get('cam')?.split(',').map(Number);
@@ -93,27 +93,43 @@ async function loadPolygons(url) {
 const flat = new THREE.Group();
 scene.add(flat);
 const [landGeo, waterGeo, contextGeo] = await Promise.all(['land', 'water', 'context'].map(n => loadPolygons(`data/${n}.bin`)));
-// The ground fades into the white wall beyond the outermost buildings, along a rounded edge, so the city stands on
-// the wall as a model rather than on a rectangle of map. Fully white at the edge of the mapped shores.
+// The ground fades into the white wall with distance from the nearest building, so the edge follows the outline of
+// the two councils (their shores, the harbour between them) rather than any box. A coarse distance field over the mapped
+// ground (about 50 m a cell, metres stored in tens), smoothed, sampled by the ground's shader.
 const EDGE = (() => {
-  const [ox, oz] = [config.attrFields.x[0], config.attrFields.z[0]];
-  let x0 = Infinity, x1 = -Infinity, z0 = Infinity, z1 = -Infinity;
-  for (let o = 0; o < attrBuf.byteLength; o += config.attrStride) {
-    const x = attrs.getFloat32(o + ox, true), z = attrs.getFloat32(o + oz, true);
-    x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z);
-  }
   contextGeo.computeBoundingBox();
-  const g = contextGeo.boundingBox, cx = (x0 + x1) / 2, cz = (z0 + z1) / 2, margin = 220;
-  const inner = new THREE.Vector2((x1 - x0) / 2 + margin, (z1 - z0) / 2 + margin);
-  const outer = new THREE.Vector2(Math.min(cx - g.min.x, g.max.x - cx), Math.min(cz - g.min.z, g.max.z - cz));
-  outer.set(Math.max(outer.x, inner.x + 600), Math.max(outer.y, inner.y + 600));
-  return { uEdgeC: { value: new THREE.Vector2(cx, cz) }, uEdgeIn: { value: inner }, uEdgeOut: { value: outer } };
+  const g = contextGeo.boundingBox, cell = 50;
+  const W = Math.ceil((g.max.x - g.min.x) / cell) + 1, H = Math.ceil((g.max.z - g.min.z) / cell) + 1;
+  const d = new Float32Array(W * H).fill(1e6);
+  const [ox, oz] = [config.attrFields.x[0], config.attrFields.z[0]];
+  for (let o = 0; o < attrBuf.byteLength; o += config.attrStride) {
+    const i = Math.round((attrs.getFloat32(o + ox, true) - g.min.x) / cell), j = Math.round((attrs.getFloat32(o + oz, true) - g.min.z) / cell);
+    if (i >= 0 && i < W && j >= 0 && j < H) d[j * W + i] = 0;
+  }
+  // Two chamfer passes (straight steps of one cell, diagonal ones of 1.414), then a box blur to soften the steps.
+  const pass = (dirs, ys, xs) => { for (const y of ys) for (const x of xs) { let v = d[y * W + x];
+    for (const [dx, dy, w] of dirs) { const X = x + dx, Y = y + dy; if (X >= 0 && X < W && Y >= 0 && Y < H) v = Math.min(v, d[Y * W + X] + w); }
+    d[y * W + x] = v; } };
+  const range = (n, back) => Array.from({ length: n }, (_, k) => back ? n - 1 - k : k);
+  pass([[-1, 0, 1], [0, -1, 1], [-1, -1, 1.414], [1, -1, 1.414]], range(H), range(W));
+  pass([[1, 0, 1], [0, 1, 1], [1, 1, 1.414], [-1, 1, 1.414]], range(H, true), range(W, true));
+  const bytes = new Uint8Array(W * H), r = 3;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    let sum = 0, n = 0;
+    for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) { const X = x + dx, Y = y + dy; if (X >= 0 && X < W && Y >= 0 && Y < H) { sum += d[Y * W + X]; n++; } }
+    bytes[y * W + x] = Math.min(255, Math.round(sum / n * cell / 10));
+  }
+  const tex = new THREE.DataTexture(bytes, W, H, THREE.RedFormat, THREE.UnsignedByteType);
+  tex.magFilter = tex.minFilter = THREE.LinearFilter;
+  tex.needsUpdate = true;
+  return { uEdge: { value: tex }, uEdgeMin: { value: new THREE.Vector2(g.min.x, g.min.z) }, uEdgeSize: { value: new THREE.Vector2((W - 1) * cell, (H - 1) * cell) } };
 })();
 const EDGE_GLSL = `
-  uniform vec2 uEdgeC, uEdgeIn, uEdgeOut;
+  uniform sampler2D uEdge;
+  uniform vec2 uEdgeMin, uEdgeSize;
   float edgeFade(vec2 p) {
-    vec2 d = max(abs(p - uEdgeC) - uEdgeIn, 0.0) / (uEdgeOut - uEdgeIn);
-    return smoothstep(0.0, 1.0, length(d));
+    float metres = texture2D(uEdge, (p - uEdgeMin) / uEdgeSize).r * 2550.0;
+    return smoothstep(260.0, 1150.0, metres);
   }`;
 function groundMaterial(color) {
   return new THREE.ShaderMaterial({
@@ -527,10 +543,10 @@ function buildingHtml(gid) {
   return `<article class="dock-page b-card${photo ? ' has-photo' : ''}">${photo}
     <header class="b-head"><h2 id="dock-title">${name ? esc(name) : 'A building'}</h2>
       <div class="b-when"><span class="y">${b.flag >= 1 ? 'c. ' : ''}${b.year}</span><span class="age">${dot(period.color)}${esc(ageParts(period).name)}</span></div></header>
-    ${w?.wiki?.extract ? `<section><p class="extract">${esc(w.wiki.extract)}</p></section>` : ''}
     <section><h3>How we know the year</h3><p class="how">${datingNote(b, w, hItem)}${b.flag >= 1 && b.yfrom !== b.yto ? `<span class="range">Likely ${b.yfrom}–${b.yto}</span>` : ''}</p></section>
-    ${stories ? `<section><h3>In the stories</h3><ul class="chips">${stories}</ul></section>` : ''}
     <section><dl>${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl></section>
+    ${w?.wiki?.extract ? `<section><h3>From Wikipedia</h3><p class="extract">${esc(w.wiki.extract)}</p><button class="read-on" hidden>Read on</button></section>` : ''}
+    ${stories ? `<section><h3>In the stories</h3><ul class="chips">${stories}</ul></section>` : ''}
     ${sources.length ? `<section class="sources"><h3>Sources</h3><p>${sources.join(' · ')}</p></section>` : ''}</article>`;
 }
 
@@ -600,6 +616,8 @@ function openBuilding(gid, back = backFromHere()) {
   buildingBack = back;
   openDock('building', buildingHtml(gid), back);
   dockLive.querySelector('.b-photo img')?.addEventListener('error', e => e.target.closest('.b-photo')?.remove());
+  const extract = dockLive.querySelector('.extract'), more = dockLive.querySelector('.read-on');
+  if (extract && extract.scrollHeight > extract.clientHeight + 4) { more.hidden = false; more.onclick = () => { extract.classList.add('open'); more.remove(); }; }
 }
 // The way back from a building: to the walk in hand, the story open in the dock, or the stories.
 function backFromHere() {
@@ -622,15 +640,12 @@ addEventListener('keydown', e => {
 
 // A click (not a drag) opens the building under the pointer, or lets it go on empty ground.
 let pointer = null, dragging = false, downAt = null;
-const howto = document.querySelector('.howto');
-const hideHowto = () => howto.classList.add('gone');
 canvas.addEventListener('pointermove', e => { pointer = [e.clientX, e.clientY]; });
 canvas.addEventListener('pointerdown', e => { dragging = true; downAt = [e.clientX, e.clientY]; tip.hidden = true; });
-canvas.addEventListener('wheel', hideHowto, { once: true, passive: true });
 canvas.addEventListener('pointerup', e => {
   dragging = false;
   if (!downAt) return;
-  if (Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 5) { hideHowto(); return; }
+  if (Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 5) return;
   const gid = pick(e.clientX, e.clientY);
   if (quest && !solved && qStep().kind === 'find') { questClick(gid); return; }
   if (cardsLocked()) return;
@@ -762,7 +777,7 @@ function showWalks() {
   const route = q => {
     const st = p[q.id] || {}, n = q.steps.length, done = Math.min(st.step || 0, n), complete = done >= n;
     return `<li class="route"><h3>${esc(q.title)}</h3><p>${esc(q.intro)}</p>
-      <div class="route-meta">${suns(q.level)}<span>${LEVEL[q.level]} · ${n} stops · ${complete ? `${st.score || 0} of ${n * 3} suns` : done ? `${done} of ${n} done` : 'not started'}</span>
+      <div class="route-meta"><span>${LEVEL[q.level]} · ${n} stops · ${complete ? `${st.score || 0} of ${n * 3} suns` : done ? `${done} of ${n} done` : 'not started'}</span>
         <button class="pill${complete ? '' : ' primary'}" data-q="${q.id}">${complete ? 'Walk again' : done ? 'Carry on' : 'Start'}</button></div></li>`;
   };
   openDock('walks', `<article class="dock-page"><h2 id="dock-title">Walks</h2>
@@ -879,7 +894,7 @@ function renderQuest() {
       ${solved ? '' : `<p class="feedback">Find it on the map and ${tap} it.</p>
         <div class="walk-actions">${more ? `<button class="pill w-hint">A hint <small>−1</small></button>` : ''}
           ${s.mode ? `<button class="pill w-lens">${s.mode === 'floors' ? 'Show heights' : 'Show ages'}</button>` : ''}
-          <button class="pill w-reveal">Show me</button><span class="worth">${suns(worth())}</span></div>`}`;
+          <button class="pill w-reveal">Show me</button><span class="worth">Worth ${suns(worth())}</span></div>`}`;
   } else if (s.kind === 'year') {
     body = `
       ${ph ? `<figure class="walk-photo"><img src="${esc(ph.src)}" alt=""></figure><p class="walk-credit">${ph.credit}</p>` : ''}
@@ -887,16 +902,16 @@ function renderQuest() {
       ${solved ? '' : `<div class="guess"><output>${guess}</output>
         <input type="range" min="1788" max="2026" step="1" value="${guess}" aria-label="Your guess">
         <div class="scale"><span>1788</span><span>1850</span><span>1900</span><span>1950</span><span>2000</span></div></div>
-        <div class="walk-actions"><button class="pill primary w-guess">Guess</button><span class="worth">${suns(3)}</span></div>`}`;
+        <div class="walk-actions"><button class="pill primary w-guess">Guess</button><span class="worth">Worth ${suns(3)}</span></div>`}`;
   } else {
     const order = s.options.map((o, i) => i).sort((a, b) => rng(quest.id + step + a)() - rng(quest.id + step + b)());
     body = `
       <p class="riddle">${esc(s.ask)}</p>
       <div class="options">${order.map(i => `<button data-i="${i}" ${solved ? 'disabled' : ''} class="${solved && i === 0 ? 'right' : ''}">${esc(s.options[i])}</button>`).join('')}</div>
-      ${solved ? '' : `<div class="walk-actions"><span class="feedback"></span><span class="worth">${suns(worth())}</span></div>`}`;
+      ${solved ? '' : `<div class="walk-actions"><span class="feedback"></span><span class="worth">Worth ${suns(worth())}</span></div>`}`;
   }
   openDock('walk', `<article class="dock-page walk${folded ? ' folded' : ''}">
-    <header class="walk-head"><h2 id="dock-title">${esc(quest.title)}</h2>${suns(quest.level)}</header>
+    <header class="walk-head"><h2 id="dock-title">${esc(quest.title)}</h2><span class="level">${LEVEL[quest.level]}</span></header>
     ${stubs()}${body}${solved ? revealHtml(s) : ''}</article>`);
   wireQuest(s);
 }
@@ -928,7 +943,7 @@ function wireQuest(s) {
   el.querySelectorAll('.options button').forEach(b => b.onclick = () => {
     if (+b.dataset.i === 0) { b.classList.add('right'); solve(stepGids(s)[0]); return; }
     tries++; b.classList.add('wrong'); b.disabled = true;
-    el.querySelector('.walk-actions .worth').innerHTML = suns(worth());
+    el.querySelector('.walk-actions .worth').innerHTML = `Worth ${suns(worth())}`;
     const fb = el.querySelector('.feedback'); fb.textContent = 'Not that one.'; fb.classList.remove('miss'); void fb.offsetWidth; fb.classList.add('miss');
   });
   on('.w-next', () => { step++; qSave(quest.id, { step, score, marks }); enterStep(false); });
@@ -1045,7 +1060,7 @@ function renderKey() {
     const on = maskTarget.map((v, i) => v ? i : -1).filter(i => i >= 0);
     const solo = on.length === 1 ? periods[on[0]] : null;
     keyEl.innerHTML = (solo ? `<button class="chip k-all">${dot(solo.color)}Only ${esc(ageParts(solo).name.replace(/^The /, 'the '))} <span class="n">${fmt(totals[on[0]])}</span>${CLOSE}</button>`
-      : `<span class="key-label">${phone.matches ? 'Tap' : 'Click'} an age on the line to see it alone</span>`) +
+      : `<span class="key-label">Each station on the line is an age: choose one to see its buildings</span>`) +
       `<button class="chip k-est" aria-pressed="${!uniforms.uDocOnly.value}" title="Estimated years are paler; switch them off to see the documented and strata years alone">${dot('#d9b2a8')}Estimated years</button>`;
     keyEl.querySelector('.k-all')?.addEventListener('click', () => { maskTarget = periods.map(() => 1); updateRail(); renderKey(); drawHist(); });
     keyEl.querySelector('.k-est').onclick = () => { uniforms.uDocOnly.value = uniforms.uDocOnly.value ? 0 : 1; renderKey(); };
@@ -1157,7 +1172,7 @@ function showYear(Y) {
     f.textContent = digits[i];
     if (!reduceMotion.matches) { f.classList.remove('turn'); void f.offsetWidth; f.classList.add('turn'); }
   });
-  eraEl.textContent = Y >= config.yearMax ? 'Today' : ageParts(periodOf(y)).name;
+  eraEl.textContent = ageParts(periodOf(y)).name;
   yearEl.textContent = Y >= config.yearMax ? 'Today, ' : `${y}, `;
   const n = visibleCount();
   countEl.textContent = `${fmt(n)} ${n === 1 ? 'building' : 'buildings'} standing`;
@@ -1196,7 +1211,8 @@ function drawHist() {
       v.forEach((c, i) => {
         if (!c) return;
         const bh = Math.sqrt(c / yMax) * (plotH - 4);
-        bar(y, bh, top, ages ? periods[i].color : '#c9c4ba', !(ages && !maskTarget[i]) && y <= Y);
+        const alone = ages && maskTarget.filter(Boolean).length === 1 && maskTarget[i];
+        bar(y, bh, top, alone ? periods[i].color : '#c9c4ba', !(ages && !maskTarget[i]) && y <= Y);
         top -= bh;
       });
     }
