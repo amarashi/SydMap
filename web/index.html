@@ -103,11 +103,14 @@
     <p>From OpenStreetMap where it has them, otherwise modelled from satellite imagery by GlobalBuildingAtlas, or assumed
       to be two storeys. Storeys are counted where they are mapped and otherwise worked out at 3.2 m a floor.</p>
 
-    <h3>The same buildings in a GIS</h3>
-    <p>Open every building, with its year and the evidence for it, in <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener">RustGIS</a>,
-      an open-source GIS that runs in your browser: the attribute table, queries, measuring and export.</p>
-    <p class="notes-actions"><button class="gis-open">Open the 2D GIS</button>
-      <a href="data/gis/sydney.rgis" download>Download the project</a></p>
+    <h3>Take the data with you</h3>
+    <p>Every building, with its year, the evidence for it, its age, heritage and sources, is yours to sort, query and
+      map: in a spreadsheet, QGIS or Python. Open Database Licence, as it comes from OpenStreetMap.</p>
+    <ul class="downloads">
+      <li><a href="data/download/buildings.csv" download>Buildings as a spreadsheet</a> <span>CSV, one row per building with a point for each, 5.6 MB</span></li>
+      <li><a href="data/download/buildings.parquet" download>Buildings with their footprints</a> <span>GeoParquet for QGIS or Python, 4.8 MB</span></li>
+      <li><a href="data/download/area.geojson" download>The two councils' boundaries</a> <span>GeoJSON, 0.4 MB</span></li>
+    </ul>
 
     <h3>Where the data comes from</h3>
     <p>Downloaded in October 2026.</p>
@@ -115,7 +118,7 @@
       <li><b>Footprints</b> <a href="https://overturemaps.org" target="_blank" rel="noopener">Overture Maps</a> (2026-09-23),
         from OpenStreetMap and Microsoft's machine-learned footprints. ODbL, © OpenStreetMap contributors.</li>
       <li><b>Heights</b> OpenStreetMap; elsewhere <a href="https://github.com/zhu-xlab/GlobalBuildingAtlas" target="_blank" rel="noopener">GlobalBuildingAtlas</a>
-        (Zhu et al., TU Munich, 2025), CC BY-NC 4.0, one more reason SydMap is non-commercial. The GIS download leaves
+        (Zhu et al., TU Munich, 2025), CC BY-NC 4.0, one more reason SydMap is non-commercial. The downloads leave
         these modelled heights out.</li>
       <li><b>Landmarks</b> The Opera House's shells follow the spherical geometry they were built to, as Ove Arup &amp;
         Partners' Michael Lewis describes it (<a href="https://www.royalsoc.org.au/wp-content/uploads/2024/09/106_12_lewis.pdf" target="_blank" rel="noopener">Royal Society of NSW, 1973</a>).
@@ -180,16 +183,6 @@
     </div>
   </div>
 </section>
-
-<dialog id="gis" class="gis" aria-labelledby="gis-title">
-  <header class="gis-bar"><h2 id="gis-title">The same buildings in RustGIS</h2>
-    <p><a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener">RustGIS</a> is an open-source GIS that
-      runs in your browser: open the attribute table, query, measure and export.</p>
-    <a class="gis-download" href="data/gis/sydney.rgis" download>Download the project</a>
-    <button class="gis-close" aria-label="Close"><svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></header>
-  <div class="gis-frame"></div>
-</dialog>
-
 <div id="loading" class="loading"><img src="img/the-third-script-symbol.webp" alt="" width="34" height="40">Laying out the city <span id="progress" class="n">0</span>%</div>
 <script type="module" src="app.js"></script>
 </body>

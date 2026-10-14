@@ -3,16 +3,15 @@
 Every building in the City of Sydney and North Sydney, either side of the Harbour Bridge, in 3D: 29,844 of them,
 coloured by the age of the city they belong to. Move along the line at the bottom, or press play, to watch Sydney grow
 from the convict town; look at it by its stories, heights or heritage; open any building to read how its year is
-known; follow a walk through the streets; or open the same buildings in a full GIS.
+known; follow a walk through the streets; or take every building's data with you.
 
 ![SydMap: the city centre, the harbour and North Sydney, coloured by age](docs/screenshots/home.png)
 
 SydMap rebuilds [LAYRS: Amsterdam](https://stop-token.com/lab/amsterdam/) by Alex Barakov
 ([source](https://github.com/alexbarakov/amsterdam-by-building), MIT) for Sydney, itself inspired by Sasha Bogachev's
 [Paris, building by building](https://paris.bogachev.fr). It is made by Amir Marashi at
-[The Third Script](https://thethirdscript.com) and wears the studio's colours (see [`DESIGN.md`](DESIGN.md)); its 2D
-view runs [RustGIS](https://github.com/opengeos/RustGIS). A non-commercial project, made out of curiosity and for
-education.
+[The Third Script](https://thethirdscript.com) and wears the studio's colours (see [`DESIGN.md`](DESIGN.md)). A
+non-commercial project, made out of curiosity and for education.
 
 **Run it locally:** `python3 scripts/serve.py` and open <http://localhost:8642>. The built data is in the
 repository, so nothing else is needed. **Publish it:** see [Cloudflare](#publishing-on-cloudflare).
@@ -26,8 +25,8 @@ stands on, and the Cammeraygal people, the Traditional Custodians of the land of
 | **Heritage**: State Heritage Register, local items, and the City's contributing, neutral and detracting buildings | **A building**: photo, Wikipedia, its stories, heights, heritage listing, and how its year is known |
 | ![The apartment city story](docs/screenshots/layer-strata.png) | ![A walk](docs/screenshots/quest.png) |
 | **Stories**: Aboriginal Sydney, architects, styles, worship, pubs, Developing Sydney 1900–1920, strata, the skyline | **Walks**: 25 riddles on five routes, every claim checked against Wikipedia |
-| ![Sydney in 1918](docs/screenshots/film.png) | ![RustGIS in the page](docs/screenshots/rustgis.png) |
-| **The line through time**: the city in any year, its ten ages as stations along the line | **2D GIS**: the same buildings in the RustGIS web app, styled by age |
+| ![Sydney in 1918](docs/screenshots/film.png) | ![Finding a building](docs/screenshots/find.png) |
+| **The line through time**: the city in any year, its ten ages as stations along the line | **Find**: any named building, street or stretch of water, and the map flies there |
 
 ## How it was made
 
@@ -45,12 +44,10 @@ stands on, and the Cammeraygal people, the Traditional Custodians of the land of
    cards that show the evidence for every year. The page around it (the line through time, the dock, search, walks and
    notes) is SydMap's own.
 3. **Data.** [`pipeline/`](pipeline) (Python, `uv`) turns open data into the binary tiles and JSON the viewer reads.
-4. **RustGIS.** RustGIS is a full GIS (ribbon, attribute table, analysis), not a library for a bespoke 3D city, so
-   three.js keeps the 3D map and RustGIS does what it is good at: `pipeline/s09_rustgis.py` uses its Python engine
-   (`pip install rustgis`) to build a styled project of every building and render a static map
-   ([`docs/rustgis-period-map.png`](docs/rustgis-period-map.png)); the page embeds the RustGIS web app
-   (`web.rustgis.app/?embed`) and sends it that project, so readers can open the attribute table, query, measure and
-   export. The project also downloads as a `.rgis` file for the RustGIS desktop app.
+4. **Open data.** `pipeline/s09_export.py` writes every building, with its year, the evidence for it, its age,
+   heritage and sources, as GeoParquet (with footprints, for QGIS or Python) and CSV (a point per building, for
+   spreadsheets), with the councils' boundaries as GeoJSON. They are in [`web/data/download/`](web/data/download) and
+   linked from the page's Notes.
 
 ## How old is each building?
 
@@ -108,10 +105,9 @@ photographs. Side shells are plain triangles, and the glass walls are left out.
 | The Opera House's shell geometry (measurements, not copied) | M. Lewis, *Roof cladding of the Sydney Opera House*, J. Proc. Roy. Soc. NSW 106 (1973) | facts |
 | Photos | Wikimedia Commons, each credited on its card | per file |
 | Land and water | Overture Maps base theme (OpenStreetMap) | ODbL |
-| 2D basemap | [OpenFreeMap](https://openfreemap.org) | OpenMapTiles, ODbL |
 
-The GlobalBuildingAtlas heights are non-commercial, one more reason SydMap is a non-commercial project. The GIS
-export (`web/data/gis/`) leaves them out, and `SYDMAP_NO_GBA=1` builds the whole map without them.
+The GlobalBuildingAtlas heights are non-commercial, one more reason SydMap is a non-commercial project. The data
+downloads (`web/data/download/`) leave them out, and `SYDMAP_NO_GBA=1` builds the whole map without them.
 
 Code: MIT, keeping the original LAYRS copyright (see [`LICENSE`](LICENSE)). three.js (MIT) is vendored in `web/vendor/`.
 Fonts: Cormorant Garamond (The Cormorant Project Authors) and Inter (The Inter Project Authors), SIL Open Font License
@@ -126,7 +122,7 @@ uv run python -m pipeline.run            # all steps; raw downloads are cached i
 uv run python -m pipeline.run s05 s03    # some steps, by prefix
 uv run python -m pipeline.checks         # check every quest and landmark claim against Wikipedia
 uv run pytest                            # offline tests
-python3 scripts/serve.py                 # http://localhost:8642, with byte ranges and CORS for RustGIS
+python3 scripts/serve.py                 # http://localhost:8642, with byte ranges
 ```
 
 | Step | What it does |
@@ -140,7 +136,7 @@ python3 scripts/serve.py                 # http://localhost:8642, with byte rang
 | `s03_tiles` | 600 m binary tiles in six packs, `attrs.bin`, `sydney.json` |
 | `s07_labels` | Street and harbour names laid along their lines |
 | `s08_quests` | Walks (quests in the code) resolved to buildings, every claim checked (`checks.py`) |
-| `s09_rustgis` | GeoParquet export, the RustGIS project and its rendered map |
+| `s09_export` | Every building as GeoParquet and CSV, and the councils' boundaries, to download |
 
 The area is set in [`pipeline/config.py`](pipeline/config.py) (`LGAS`, `BBOX`): add an LGA and its box to grow the map.
 

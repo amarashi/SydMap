@@ -17,7 +17,7 @@ STEPS = [
     "s03_tiles",     # binary tiles, attrs.bin, sydney.json
     "s07_labels",    # street and harbour names
     "s08_quests",    # quests, every claim checked against Wikipedia
-    "s09_rustgis",   # GeoParquet and the RustGIS project
+    "s09_export",    # every building as GeoParquet and CSV, to download
 ]
 
 if __name__ == "__main__":
