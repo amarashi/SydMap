@@ -300,12 +300,13 @@ h1 .sun-disc { position: absolute; z-index: -1; width: .4em; height: .4em; right
 .flap.turn { animation: flap .26s var(--ease); }
 @keyframes flap { from { transform: rotateX(-80deg); opacity: .35; } to { transform: none; opacity: 1; } }
 .time-what { margin: 0 0 4px; display: flex; flex-direction: column; }
-.time-what i { font: italic 400 25px/1.1 var(--serif); color: var(--teal); }
+.time-what { flex: none; }
+.time-what i { font: italic 400 25px/1.1 var(--serif); color: var(--teal); white-space: nowrap; }
 .time-what > span { color: var(--muted); font-size: 13px; }
 /* The key for the lens in hand: the ages' estimate switch, a ramp for heights, chips for heritage and a story's groups. */
-.key { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 6px 8px; margin-left: auto; max-width: 720px; padding-bottom: 4px; }
+.key { flex: 0 1 auto; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 6px 8px; margin-left: auto; max-width: 720px; padding-bottom: 4px; }
 .key:empty { display: none; }
-.key-label { color: var(--muted); font-size: 12px; margin-right: 4px; white-space: nowrap; }
+.key-label { color: var(--muted); font-size: 12px; margin-right: 4px; text-align: right; text-wrap: balance; }
 .chip { display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px 0 10px; border: 0; border-radius: 999px;
   background: var(--paper); box-shadow: var(--shadow-sm); cursor: pointer; font-size: 12.5px; white-space: nowrap; flex: none;
   transition: opacity .3s var(--ease); }
@@ -372,6 +373,8 @@ h1 .sun-disc { position: absolute; z-index: -1; width: .4em; height: .4em; right
 /* ---------- Narrower screens ---------- */
 @media (max-width: 1180px) {
   .find-field { width: 210px; }
+  .time-what i { font-size: 22px; }
+  .key-label { max-width: 240px; }
   .lenses { gap: 18px; } .bar { gap: 18px; }
 }
 @media (max-width: 1000px) and (min-width: 721px) {
