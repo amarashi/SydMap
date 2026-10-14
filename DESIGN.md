@@ -261,7 +261,7 @@ paper flaps with a hairline across the middle; ticket stubs (4px corners, dotted
   walk). A building: photo and credit, name, year (44px serif) and age, then "How we know the year" and the facts first,
   then "From Wikipedia" held to five lines with "Read on", "In the stories", sources. Stories: an index by section with line icons; a story: its icon and title, era and
   count, its text, places and their stories, caveat and source. Notes: lede in teal italic, sections in the serif, getting around (how to move the city), the
-  evidence list, the 2D GIS, sources, how to add to it, the original idea, the Acknowledgement of Country on stone, and
+  evidence list, the data to download, sources, how to add to it, the original idea, the Acknowledgement of Country on stone, and
   the studio's colophon.
 - **Time band:** four paper flaps that turn over when a digit changes; the age's name in teal italic and the count;
   the key (Ages: "Each station on the line is an age: choose one to see its buildings" or "Only the boom

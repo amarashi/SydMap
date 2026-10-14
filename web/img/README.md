@@ -11,5 +11,4 @@ From The Third Script's approved logo package (`The_Third_Script_Logo_Package/` 
 
 `docs/the-third-script.png` (the README's lockup) is `05_horizontal_lockup_transparent.png`, cropped and resized to
 120 px tall. `web/og.png` and `docs/screenshots/` are screenshots of the page itself (Chromium, 1200 × 630 and
-1280 × 800, the phone at 390 × 844); `docs/rustgis-period-map.png` is rendered by RustGIS from `web/data/gis/`, as in
-`pipeline/s09_rustgis.py`.
+1280 × 800, the phone at 390 × 844).

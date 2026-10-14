@@ -13,7 +13,6 @@ dependencies = [
     "pyogrio>=0.10",
     "pyproj>=3.6",
     "requests>=2.32",
-    "rustgis>=0.2.0",
     "scipy>=1.14",
     "shapely>=2.0",
     "tqdm>=4.66",

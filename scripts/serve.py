@@ -1,4 +1,4 @@
-"""A static server with HTTP range requests and CORS, for trying the site and its RustGIS view locally.
+"""A static server with HTTP range requests and CORS, for trying the site locally.
 
     python scripts/serve.py [port] [directory]      # defaults: 8642, web
 """

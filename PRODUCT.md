@@ -18,7 +18,7 @@ the studio's work), or from GitHub. They want to see how the city grew and what 
 SydMap shows every building in the City of Sydney and North Sydney in 3D, coloured by the year it was built and set
 in the history that shaped it. A visitor can drag the timeline or play the city's growth, colour the city by period,
 storeys, heritage or context layers, open any building's card with the evidence for its year, play quests, and open
-the same buildings in a full GIS. It is a non-commercial project, made out of curiosity and for education, and a
+every building's data to download. It is a non-commercial project, made out of curiosity and for education, and a
 piece of work by The Third Script, the Sydney studio of Amir Marashi.
 
 ## Brand Commitments

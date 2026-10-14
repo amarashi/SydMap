@@ -645,7 +645,7 @@ function pinCard(gid) {
 addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   if (document.body.classList.contains('finding') || !findList.hidden) { closeFind(); return; }
-  if (dockView && dockView !== 'walk' && !document.querySelector('dialog[open]')) { if (dockView === 'building') unpin(); closeDock(); }
+  if (dockView && dockView !== 'walk') { if (dockView === 'building') unpin(); closeDock(); }
 });
 
 // A click (not a drag) opens the building under the pointer, or lets it go on empty ground.
@@ -1304,34 +1304,6 @@ document.querySelector('.notes-open').onclick = () => { if (dockView === 'notes'
   set('heritage', f[3] || 0);
   set('neighbours', f[4] || 0);
 }
-
-// ---------- 2D GIS: RustGIS ----------
-// The RustGIS web app in a frame (web.rustgis.app/?embed). Once it says it is ready, the page sends it the project
-// the pipeline built with RustGIS's own engine (pipeline/s09_rustgis.py): the buildings, coloured by age as here,
-// carried inside the project as GeoParquet, with the harbour and the area's boundary.
-const gis = document.getElementById('gis');
-const RUSTGIS = 'https://web.rustgis.app';
-let gisFrame = null;
-async function openGis() {
-  gis.showModal();
-  if (gisFrame) return;
-  const box = gis.querySelector('.gis-frame');
-  box.innerHTML = '<p class="gis-wait">Starting RustGIS…<br><small>It loads from web.rustgis.app and runs in your browser.</small></p>';
-  const project = fetch('data/gis/sydney.rgis').then(r => r.text());
-  gisFrame = document.createElement('iframe');
-  gisFrame.src = `${RUSTGIS}/?embed`;
-  gisFrame.title = 'RustGIS';
-  gisFrame.allow = 'clipboard-write; fullscreen';
-  addEventListener('message', async e => {
-    if (e.source !== gisFrame.contentWindow || e.data?.rustgis !== 'ready') return;
-    gisFrame.contentWindow.postMessage({ rustgis: 'project', text: await project }, RUSTGIS);
-    box.querySelector('.gis-wait')?.remove();
-  });
-  box.appendChild(gisFrame);
-}
-document.querySelector('.gis-open').onclick = openGis;
-gis.querySelector('.gis-close').onclick = () => gis.close();
-gis.addEventListener('click', e => { if (e.target === gis) gis.close(); });
 
 // ---------- Loop ----------
 function resize() {
