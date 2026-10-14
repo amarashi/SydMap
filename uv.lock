@@ -526,6 +526,19 @@ wheels = [
 ]
 
 [[package]]
+name = "rustgis"
+version = "0.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/69/79/07e3f7deecf58a00eca3a7b58cd39baaab0cf127ded75e4de5f8b8acf95c/rustgis-0.2.0.tar.gz", hash = "sha256:8ffd9ed5ced190500af27fa295cacf725f9670406b88caacadd4274dcc9d592f", size = 797825, upload-time = "2026-10-13T14:13:40.63Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b1/cb/5346931e14674fb36a76d0869c865f5749f0fed8224b6fd0310cb8f4f49e/rustgis-0.2.0-cp312-abi3-macosx_10_12_x86_64.whl", hash = "sha256:e5e5d7313d6c4e6d39afbc96890e9607abb0bb3f91e784e8fb67327621bc2b27", size = 10426867, upload-time = "2026-10-13T14:13:25.355Z" },
+    { url = "https://files.pythonhosted.org/packages/2d/ea/2042dc0986a0bf8e7b919fdb368da707b868bd2b1c0f54771844b29c5cbe/rustgis-0.2.0-cp312-abi3-macosx_11_0_arm64.whl", hash = "sha256:35d64f5da9ec82550b07d5ac0fb7a6768768b79fec3ff6f2b0fdd6b1db7c0461", size = 9909035, upload-time = "2026-10-13T14:13:28.012Z" },
+    { url = "https://files.pythonhosted.org/packages/b9/6e/b12ba0f4a9c7da627fd30a606fd203ad5e547ed47edbfa981a30754ad8a8/rustgis-0.2.0-cp312-abi3-manylinux_2_28_aarch64.whl", hash = "sha256:070df13a88f301d14c24abe041a4fbd01806f0d4a3bff04cecf66775dacb9e48", size = 11118133, upload-time = "2026-10-13T14:13:30.445Z" },
+    { url = "https://files.pythonhosted.org/packages/03/44/635678a51ef0e5d5aec784e6ed12b52079d7bc68b677e7fee38984ab469c/rustgis-0.2.0-cp312-abi3-manylinux_2_28_x86_64.whl", hash = "sha256:bc94db5d2b1d92b47b25bd4a2ab506339e98ea338b3153c64e6d66f1fa8179f1", size = 11016812, upload-time = "2026-10-13T14:13:34.753Z" },
+    { url = "https://files.pythonhosted.org/packages/a2/70/e3331892796eb168835d21c0e803dc370ccb91d2d90a8ef662584099f80b/rustgis-0.2.0-cp312-abi3-win_amd64.whl", hash = "sha256:8a0a184c37f36bc3b8ead9ec1bd7bf8bddc971c2ab00ac71bf0fcbe2593c1b5c", size = 9886605, upload-time = "2026-10-13T14:13:38.008Z" },
+]
+
+[[package]]
 name = "scipy"
 version = "1.18.1"
 source = { registry = "https://pypi.org/simple" }
@@ -683,6 +696,7 @@ dependencies = [
     { name = "pyogrio" },
     { name = "pyproj" },
     { name = "requests" },
+    { name = "rustgis" },
     { name = "scipy" },
     { name = "shapely" },
     { name = "tqdm" },
@@ -698,6 +712,7 @@ requires-dist = [
     { name = "pyogrio", specifier = ">=0.10" },
     { name = "pyproj", specifier = ">=3.6" },
     { name = "requests", specifier = ">=2.32" },
+    { name = "rustgis", specifier = ">=0.2.0" },
     { name = "scipy", specifier = ">=1.14" },
     { name = "shapely", specifier = ">=2.0" },
     { name = "tqdm", specifier = ">=4.66" },

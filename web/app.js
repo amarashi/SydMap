@@ -1102,27 +1102,25 @@ about.addEventListener('click', e => { if (e.target === about) about.close(); })
 }
 
 // ---------- 2D GIS: RustGIS ----------
-// The RustGIS web app in a frame (web.rustgis.app/?embed). Once it says it is ready, the page sends it the
-// project the pipeline wrote (pipeline/s09_rustgis.py): the buildings as a GeoParquet layer by address, styled by period.
+// The RustGIS web app in a frame (web.rustgis.app/?embed). Once it says it is ready, the page sends it the project
+// the pipeline built with RustGIS's own engine (pipeline/s09_rustgis.py): the buildings, coloured by period as here,
+// carried inside the project as GeoParquet, with the harbour and the area's boundary.
 const gis = document.getElementById('gis');
 const RUSTGIS = 'https://web.rustgis.app';
-let gisFrame = null, gisProject = null;
+let gisFrame = null;
 async function openGis() {
   gis.showModal();
   if (gisFrame) return;
   const box = gis.querySelector('.gis-frame');
   box.innerHTML = '<p class="gis-wait">Starting RustGIS…<br><small>It loads from web.rustgis.app and runs in your browser.</small></p>';
-  gisProject = gisProject || await fetch('data/gis/sydney.rgis').then(r => r.text());
-  // The project names its data by a path relative to this page; RustGIS needs the full address.
-  const base = new URL('data/gis/', location.href).href;
-  const text = gisProject.replaceAll('"./', `"${base}`);
+  const project = fetch('data/gis/sydney.rgis').then(r => r.text());
   gisFrame = document.createElement('iframe');
   gisFrame.src = `${RUSTGIS}/?embed`;
   gisFrame.title = 'RustGIS';
   gisFrame.allow = 'clipboard-write; fullscreen';
-  addEventListener('message', e => {
+  addEventListener('message', async e => {
     if (e.source !== gisFrame.contentWindow || e.data?.rustgis !== 'ready') return;
-    gisFrame.contentWindow.postMessage({ rustgis: 'project', text }, RUSTGIS);
+    gisFrame.contentWindow.postMessage({ rustgis: 'project', text: await project }, RUSTGIS);
     box.querySelector('.gis-wait')?.remove();
   });
   box.appendChild(gisFrame);
