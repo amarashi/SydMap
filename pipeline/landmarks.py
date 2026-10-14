@@ -4,7 +4,8 @@ The bridge is drawn as a schematic model on the axis OpenStreetMap gives its dec
 Wikipedia article (checked by pipeline/checks.py, see CHECKS):
   span of 504 m; the summit 134 m above mean sea level; two arch trusses 18 m deep at the centre and 57 m at the
   ends; 48.8 m wide; a pair of 89-metre pylons at each end; formally opened on 19 March 1932.
-The deck height is not in the article; 49 m, the deck at the pylons, is an approximation.
+The deck height is not in the article; 49 m, the deck at the pylons, is an approximation. The pylons themselves
+are OpenStreetMap buildings (PYLONS).
 """
 import json
 
@@ -20,6 +21,8 @@ CHECKS = [(ARTICLE, ["span of 504 m", "134 m (440 ft) above mean sea level", "18
           ("Sydney Opera House", ["highest roof point is 67 metres above sea-level"])]
 SPAN, SUMMIT, DEPTH_MID, DEPTH_END, WIDTH, PYLON_H, DECK = 504.0, 134.0, 18.0, 57.0, 48.8, 89.0, 49.0
 TRUSS_GAP, TRUSS_W, PANELS = 30.0, 4.0, 40
+# OpenStreetMap's buildings for the bridge's pylons, 89 m as the article says: they take the bridge's year and entry.
+PYLONS = ["Sydney Harbour Bridge - South Pylons", "Sydney Harbour Bridge - North Pylons"]
 
 
 def deck_axis():
@@ -71,10 +74,6 @@ def harbour_bridge(water):
         top = DECK - (DECK - 12.0) * min(1.0, out / reach)
         c = p0 + u * (d0 + d1) / 2
         parts.append((top, max(0.5, top - 4.0), rect(c, u, v, d1 - d0 + 0.3, WIDTH)))
-    # Pylons: a pair at each end, either side of the deck.
-    for end in (-1, 1):
-        for side in (-1, 1):
-            c = mid + u * end * (SPAN / 2 + 14) + v * side * (WIDTH / 2 + 10)
-            parts.append((PYLON_H, 0.0, rect(c, u, v, 26.0, 18.0)))
+    # The pylons are buildings in OpenStreetMap already (PYLONS); s01_load dates them with the bridge.
     footprint = shapely.union_all([p for _, _, p in parts])
     return footprint, parts, osm

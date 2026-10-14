@@ -39,7 +39,7 @@ def read_wkb(path, crs=4326) -> gpd.GeoDataFrame:
 LANDMARKS = {
     # Sydney Opera House: "The highest roof point is 67 metres above sea-level" (Wikipedia, Sydney Opera House).
     # The shells are given heights in proportion to their size up to that point; the podium keeps its levels.
-    "r9596872": dict(top=64.0, article="Sydney Opera House", check="highest roof point is 67 metres"),
+    "r9596872": dict(top=67.0, article="Sydney Opera House", check="highest roof point is 67 metres"),
 }
 
 
@@ -138,10 +138,13 @@ def main():
     b["floors"] = b.num_floors.fillna(np.round(b.height / STOREY)).clip(1, 99).astype(int)
 
     # The Harbour Bridge: not a building, but the structure the city is known by (pipeline/landmarks.py).
-    from .landmarks import harbour_bridge
+    from .landmarks import PYLONS, harbour_bridge
     from .s04_water import ground_and_water
     footprint, bridge_parts, bridge_osm = harbour_bridge(ground_and_water()[2])
     b["fixed_year"] = np.nan
+    pylons = b.osm_name.isin(PYLONS)
+    b.loc[pylons, "fixed_year"] = 1932.0
+    b.loc[pylons, "wikidata"] = "Q54495"
     b = pd.concat([b, gpd.GeoDataFrame([dict(
         id="sydney-harbour-bridge", osm=bridge_osm, source="osm", lga="SYDNEY", name="Sydney Harbour Bridge",
         osm_name="Sydney Harbour Bridge", building="bridge", wikidata="Q54495", height=max(h for h, _, _ in bridge_parts),

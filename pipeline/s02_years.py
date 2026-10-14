@@ -86,11 +86,11 @@ def parse_osm_date(s: str | None):
 BUILT = re.compile(
     r"\b(?:built|constructed|erected|completed|rebuilt)\b[^.;:]{0,60}?\b(?P<how>from|in|during|between|c\.|circa|around|by)"
     r"\s+(?:the\s+)?(?:early\s+|mid\s+|late\s+)?(?P<a>1[6-9]\d\d|20[0-2]\d)(?P<s>s)?"
-    r"(?:\s*(?:to|and|–|-|until)\s*(?P<b>1[6-9]\d\d|20[0-2]\d))?")
+    r"(?:\s*(?:to|and|–|-|until)\s*(?P<b>1[6-9]\d\d|20[0-2]\d))?", re.I)
 
 
 BUILDING_FROM = re.compile(r"\b(?:building|present building|current building|church)\s+(?:dates\s+)?from\s+(?:the\s+)?"
-                           r"(?P<a>1[6-9]\d\d|20[0-2]\d)(?P<s>s)?")
+                           r"(?P<a>1[6-9]\d\d|20[0-2]\d)(?P<s>s)?", re.I)
 
 
 def parse_wiki_built(text: str | None):
@@ -184,6 +184,20 @@ def link_wikidata(b: gpd.GeoDataFrame, wd: gpd.GeoDataFrame) -> pd.Series:
     new = new[qid.loc[new.index].isna()]
     qid.loc[new.index] = new
     how.loc[new.index] = "coordinate"
+    # By name: a footprint OpenStreetMap names exactly as a building-like item within 150 m of it.
+    taken = set(qid.dropna())
+    ok = ok[~ok.qid.isin(taken)]
+    by_label = {}
+    for q_, lab, g in zip(ok.qid, ok.label, ok.geometry):
+        if isinstance(lab, str):
+            by_label.setdefault(lab.casefold(), []).append((q_, g))
+    for i, name in b.osm_name.items():
+        if not isinstance(name, str) or pd.notna(qid[i]):
+            continue
+        cands = [q_ for q_, g in by_label.get(name.casefold(), []) if b.geometry[i].distance(g) < 150]
+        if len(cands) == 1:
+            qid[i] = cands[0]
+            how[i] = "name"
     return qid, how
 
 
@@ -352,7 +366,7 @@ def main():
                 break
     # A tower matched to an old place by a coordinate or a heritage curtilage is a later building on or beside
     # that place (an old school kept at the foot of an office tower): it keeps neither the place's year nor its name.
-    wrong = b.qid_how.isin(["coordinate", "shr"]) & (b.height >= TALL) & (b.year < 1957)
+    wrong = b.qid_how.isin(["coordinate", "shr", "name"]) & (b.height >= TALL) & (b.year < 1957)
     b.loc[wrong, ["year", "yfrom", "yto"]] = np.nan
     b.loc[wrong, "date_flag"] = -1
     b.loc[wrong, "date_src"] = None

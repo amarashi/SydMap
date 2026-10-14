@@ -413,7 +413,7 @@ fetch('data/heritage.json').then(r => r.json()).then(h => { heritageItems = h; }
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const link = (href, text) => `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(text)}</a>`;
 
-const HEIGHT_NOTE = ['measured, OpenStreetMap', 'from its storeys, OpenStreetMap', 'modelled, GlobalBuildingAtlas', 'assumed: two storeys', 'its highest point, Wikipedia'];
+const HEIGHT_NOTE = ['measured, OpenStreetMap', 'from its storeys, OpenStreetMap', 'modelled, GlobalBuildingAtlas', 'assumed: two storeys', 'highest point above sea level, Wikipedia'];
 const range = b => b.yfrom !== b.yto ? `${b.yfrom}–${b.yto}` : `${b.yfrom}`;
 function datingNote(b, w, h) {
   const src = { 0: 'Wikidata', 1: 'the Wikipedia article', 2: 'OpenStreetMap' }[b.dsrc];

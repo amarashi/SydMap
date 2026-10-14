@@ -78,7 +78,8 @@ def aboriginal():
     a = gpd.read_parquet(RAW / "cos_aboriginal.parquet")
     a = a[a.geometry.notna() & ~a.geometry.is_empty]
     j = at_points(a, 25)
-    return {r.bid: (r.Category, dict(name=r.Name, story=r.Address or r.Category, source=r.URL)) for r in j.itertuples()}
+    return {r.bid: (r.Category, dict(name=r.Name, story=f"{r.Name}{', ' + r.Address.split(', NSW')[0] if r.Address else ''}.",
+                                     source=r.URL)) for r in j.itertuples()}
 
 
 # ---------------------------------------------------------------- Architecture

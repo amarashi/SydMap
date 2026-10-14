@@ -40,7 +40,11 @@ def strip_html(s: str | None) -> str | None:
     if not s:
         return None
     s = re.sub(r"<[^>]+>", "", s)
-    s = re.sub(r"\s+", " ", s).strip()
+    # Commons' boilerplate for files whose author it could not read.
+    s = re.sub(r"No machine-readable author provided\.?\s*", "", s)
+    s = re.sub(r"\s*assumed \(based on copyright claims\)\.?", "", s)
+    s = re.sub(r"~commonswiki\b", "", s)
+    s = re.sub(r"\s+", " ", s).strip(" .,")
     return s[:120] or None
 
 
@@ -68,6 +72,9 @@ def commons_info(files: list[str]) -> dict:
         print(f"  commons {min(k + 40, len(todo))}/{len(todo)}")
         cache_p.write_text(json.dumps(cache, ensure_ascii=False))
         time.sleep(1.0)
+    for v in cache.values():   # cleaning is idempotent, so older caches get today's rules
+        if v.get("artist"):
+            v["artist"] = strip_html(v["artist"])
     return cache
 
 
