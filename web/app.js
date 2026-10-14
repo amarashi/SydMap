@@ -128,15 +128,20 @@ const EDGE_GLSL = `
   uniform sampler2D uEdge;
   uniform vec2 uEdgeMin, uEdgeSize;
   uniform vec2 uFadeRange;
+  // A slow wobble of a few hundred metres, so no edge of the fade runs straight.
+  float wobble(vec2 p) {
+    return 0.55 * sin(p.x / 830.0 + 1.3) * sin(p.y / 1070.0 + 0.7) + 0.45 * sin((p.x - p.y) / 1530.0 + 2.1);
+  }
   float edgeFade(vec2 p) {
     float metres = texture2D(uEdge, (p - uEdgeMin) / uEdgeSize).r * 2550.0;
-    // Also into the wall over the last 1.5 km before the mapped ground ends, so open water never stops in a straight line.
+    // Also into the wall before the mapped ground ends (only 700 m past the last buildings in the north).
     vec2 q = min(p - uEdgeMin, uEdgeMin + uEdgeSize - p);
-    return max(smoothstep(uFadeRange.x, uFadeRange.y, metres), 1.0 - smoothstep(0.0, 1500.0, min(q.x, q.y)));
+    float w = wobble(p);
+    return max(smoothstep(uFadeRange.x, uFadeRange.y, metres + 220.0 * w), 1.0 - smoothstep(0.0, 700.0, min(q.x, q.y) + 260.0 * w));
   }`;
-// Land and water fade together, from 1.4 km beyond the nearest building to 2.4 km: the harbour between the shores
+// Land and water fade together, from 650 m beyond the nearest building to 1.6 km: the harbour between the shores
 // stays clear, and the far shores and the open water go into the wall as one.
-function groundMaterial(color, from = 1400, to = 2400) {
+function groundMaterial(color, from = 650, to = 1600) {
   return new THREE.ShaderMaterial({
     uniforms: { uColor: { value: new THREE.Color(color) }, uWall: { value: new THREE.Color(SKY) }, uFadeRange: { value: new THREE.Vector2(from, to) }, ...EDGE },
     vertexShader: 'varying vec2 vXZ; void main() { vec4 w = modelMatrix * vec4(position, 1.0); vXZ = w.xz; gl_Position = projectionMatrix * viewMatrix * w; }',
