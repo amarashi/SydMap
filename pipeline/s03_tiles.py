@@ -32,7 +32,7 @@ PALE = 0x8000
 # Heritage status of a building, the fourth colouring of the map (index 0: none).
 HERITAGE = ["State Heritage Register", "Local heritage item", "Contributing building",
             "Neutral building", "Detracting building"]
-HERITAGE_COLORS = ["#efeee9", "#7a1f2b", "#c0462b", "#e5b13a", "#a9b8bd", "#56636b"]
+HERITAGE_COLORS = ["#f1eee8", "#6e2418", "#c0594e", "#dfbd6c", "#8fa8b0", "#4f5a5c"]
 
 
 def pad4(b: bytes) -> bytes:

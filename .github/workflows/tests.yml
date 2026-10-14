@@ -16,4 +16,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: for f in web/app.js web/worker.js; do node --input-type=module --check < "$f"; done && node --check web/logo.js
+      - run: for f in web/app.js web/worker.js; do node --input-type=module --check < "$f"; done

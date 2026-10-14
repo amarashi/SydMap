@@ -6,17 +6,25 @@ import { MapControls } from './vendor/MapControls.js';
 // Colours are authored in sRGB and drawn as they are.
 THREE.ColorManagement.enabled = false;
 
-const SKY = '#e4e8ea';
-const LAND = '#f4f3ef';
-const CONTEXT = '#e9ebea';
-const WATER = '#b5c7c6';
-const MAQUETTE = '#efeee9';
-const ACCENT = '#d21f2b';
-const GROUP_COLORS = ['#d21f2b', '#1f4e8c', '#d99a12', '#2e8b57', '#7b3fa0', '#00909a', '#8c5a2b', '#d6336c'];
+// The Third Script's palette (see styles.css): a white wall for the sky, warm stone for the land, the logo's cypress
+// teal for the harbour, its terracotta sun for the marks. Distant buildings fade into the white.
+const SKY = '#ffffff';
+const LAND = '#f3f0ea';
+const CONTEXT = '#e9e6df';
+const WATER = '#b9d0d2';
+const MAQUETTE = '#f1eee8';
+const INK = '#2c2f2a';
+const MUTED = '#5f625c';
+const ACCENT = '#b04f3e';
+// Layer groups, in a fixed order checked for colour-blind separation between neighbours (design/README.md).
+const GROUP_COLORS = ['#c0594e', '#2a7f93', '#d9a22c', '#5e8f4a', '#6b4a8c', '#c4687f', '#8a5a32', '#34548a'];
 const MAX_GROUPS = GROUP_COLORS.length;
 const ATTR_W = 256;
 const WORKERS = Math.min(4, navigator.hardwareConcurrency || 2);
 const MODE = { period: 0, floors: 1, heritage: 2, layers: 3 };
+// Drawn icons, in the line icons' stroke (styles.css .x, .arrow).
+const CLOSE = '<svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>';
+const BACK = '<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3.5M7.5 4L3.5 8l4 4"/></svg>';
 const REPO = 'https://github.com/amarashi/SydMap';
 
 const [config, layers, attrBuf] = await Promise.all([
@@ -103,15 +111,16 @@ function textureFor(L) {
   let t = labelTex.get(L.name + L.water);
   if (t) return t;
   const c = document.createElement('canvas'), ctx = c.getContext('2d');
-  const font = `${L.water ? 'italic 500' : '500'} ${LABEL_PX * 0.62}px "Schibsted Grotesk", sans-serif`;
+  // Water names in the serif's italic, as on an old harbour chart; streets in the sans.
+  const font = L.water ? `italic 400 ${LABEL_PX * 0.8}px "Cormorant Garamond", Georgia, serif` : `500 ${LABEL_PX * 0.6}px Inter, sans-serif`;
   ctx.font = font;
   c.width = Math.ceil(ctx.measureText(L.name).width + LABEL_PX * 0.4);
   c.height = LABEL_PX;
   ctx.font = font;
   ctx.textBaseline = 'middle';
   ctx.lineWidth = LABEL_PX * 0.12;
-  ctx.strokeStyle = L.water ? 'rgba(181,199,198,0.85)' : 'rgba(244,243,239,0.85)';
-  ctx.fillStyle = L.water ? '#3c6875' : '#50565b';
+  ctx.strokeStyle = L.water ? 'rgba(185,208,210,0.85)' : 'rgba(243,240,234,0.85)';
+  ctx.fillStyle = L.water ? '#2a535a' : MUTED;
   ctx.strokeText(L.name, LABEL_PX * 0.2, LABEL_PX / 2);
   ctx.fillText(L.name, LABEL_PX * 0.2, LABEL_PX / 2);
   t = new THREE.CanvasTexture(c);
@@ -123,8 +132,10 @@ function textureFor(L) {
 const labelPlane = new THREE.PlaneGeometry(1, 1);
 const labels = labelData.flatMap(L => L.pts.map(([x, z, ang, len, wid]) => ({ L, x, z, ang, len, wid: wid || 20, mesh: null })))
   .sort((a, b) => a.L.tier - b.L.tier || b.len - a.len);
+const LABEL_FONTS = ['500 16px Inter', 'italic 400 16px "Cormorant Garamond"'];
+LABEL_FONTS.forEach(f => document.fonts.load(f));
 function updateLabels(dist) {
-  if (!document.fonts.check('500 16px "Schibsted Grotesk"')) return;
+  if (!LABEL_FONTS.every(f => document.fonts.check(f))) return;
   // Label height in metres, roughly constant on screen; the harbour and main streets read larger.
   const h1 = THREE.MathUtils.clamp(dist * 0.014, 4, 60), h2 = THREE.MathUtils.clamp(dist * 0.01, 3, 15);
   // Names appear only when the camera comes close: water and main streets first, the rest closer still.
@@ -213,7 +224,8 @@ const VERT = /* glsl */`
 
   vec3 floorsRamp(float f) {
     float t = clamp(log(f) / log(40.0), 0.0, 1.0);
-    vec3 a = vec3(0.86, 0.89, 0.90), b = vec3(0.49, 0.66, 0.75), c = vec3(0.17, 0.36, 0.55), d = vec3(0.05, 0.10, 0.25);
+    // The logo's cypress teal, from a pale wash to the deepest shade of its trees.
+    vec3 a = vec3(0.89, 0.925, 0.925), b = vec3(0.576, 0.718, 0.741), c = vec3(0.204, 0.353, 0.376), d = vec3(0.075, 0.157, 0.169);
     return t < 0.33 ? mix(a, b, t / 0.33) : t < 0.66 ? mix(b, c, (t - 0.33) / 0.33) : mix(c, d, (t - 0.66) / 0.34);
   }
 
@@ -280,10 +292,10 @@ const VERT = /* glsl */`
     // The Opera House's shells, a lighter tint of its colour: white tiles over a granite podium.
     if (shaped) c = mix(c, vec3(1.0), 0.3);
     if (year <= uYearFrom) c = mix(c, uMaquette, 0.8);
-    // A quest's question about one building turns it red; a year riddle also hides every other age.
-    if (uBlind > 0.5 && vGid == uSelected) c = vec3(0.824, 0.122, 0.169);
+    // A quest's question about one building turns it the sun's terracotta; a year riddle also hides every other age.
+    if (uBlind > 0.5 && vGid == uSelected) c = vec3(0.690, 0.310, 0.243);
     else if (uBlind > 0.5 && uBlind < 1.5) c = uMaquette;
-    if (vGid == uHover || (vGid == uSelected && uBlind < 0.5)) c = mix(c, vec3(0.0), 0.35);
+    if (vGid == uHover || (vGid == uSelected && uBlind < 0.5)) c = mix(c, vec3(0.173, 0.184, 0.165), 0.38);
     vColor = c;
     vec4 w = modelMatrix * vec4(p, 1.0);
     vWorld = w.xyz;
@@ -483,7 +495,7 @@ function cardHtml(gid, pinned) {
       ${pinned && note?.story ? `<p>${esc(note.story)}${note.source ? ` ${link(note.source, 'Source')}` : ''}</p>` : ''}</div></li>`;
   }).join('');
   return `
-    ${pinned ? '<button class="card-close" aria-label="Close">×</button>' : ''}
+    ${pinned ? `<button class="card-close" aria-label="Close">${CLOSE}</button>` : ''}
     ${photoHtml(w?.image, pinned)}
     <header class="card-head">
       ${name ? `<h3>${esc(name)}</h3>` : ''}
@@ -501,10 +513,12 @@ function cardHtml(gid, pinned) {
 const card = document.getElementById('card');
 let pinnedGid = -1;
 let lastPin = [0, 0];
+// On a wide screen a card keeps below the year and the tools (styles.css gives it the height that leaves).
+const CARD_TOP = 186;
 function placeCard(x, y) {
-  const r = card.getBoundingClientRect();
+  const r = card.getBoundingClientRect(), top = phone.matches ? 12 : CARD_TOP;
   card.style.left = Math.max(12, Math.min(x + 18, innerWidth - r.width - 12)) + 'px';
-  card.style.top = Math.max(12, Math.min(y + 18, innerHeight - r.height - 12)) + 'px';
+  card.style.top = Math.max(top, Math.min(y + 18, innerHeight - r.height - 12)) + 'px';
 }
 let hoverGid = -1;
 function wirePhoto() {
@@ -591,8 +605,9 @@ const qStore = () => { try { return JSON.parse(localStorage.getItem('syd-quests'
 function qSave(id, patch) {
   try { const p = qStore(); p[id] = { ...(p[id] || {}), ...patch }; localStorage.setItem('syd-quests', JSON.stringify(p)); } catch {}
 }
-const crosses = (n, of = 3) => `<span class="q-x" aria-label="${n} / ${of}">${Array.from({ length: of }, (_, i) =>
-  `<i class="${i < n ? 'on' : ''}">×</i>`).join('')}</span>`;
+// A mark is a small sun (styles.css): lit when earned.
+const crosses = (n, of = 3) => `<span class="q-x" role="img" aria-label="${n} / ${of}">${Array.from({ length: of }, (_, i) =>
+  `<i class="${i < n ? 'on' : ''}"></i>`).join('')}</span>`;
 const levelMark = lv => `<span class="q-level">${crosses(lv)}${LEVEL[lv]}</span>`;
 // A small seeded generator: the same circle offset and answer order every time a step is played.
 function rng(seed) { let h = 2166136261; for (const c of seed) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return () => ((h = Math.imul(h ^ (h >>> 15), 2246822507) ^ Math.imul(h ^ (h >>> 13), 3266489909)) >>> 0) / 4294967296; }
@@ -603,9 +618,8 @@ function renderQuestList() {
   const tile = (q, st) => {
     const n = q.steps.length, done = Math.min(st.step || 0, n), complete = done >= n;
     return `<li class="q-tile l${q.level}${complete ? ' complete' : ''}">
-      ${levelMark(q.level)}
       <h3>${esc(q.title)}</h3><p>${esc(q.intro)}</p>
-      <footer><span class="q-progress">${complete ? `${st.score || 0} / ${n * 3}` : `${done} / ${n}`}</span>
+      <footer>${levelMark(q.level)}<span class="q-progress">${complete ? `${st.score || 0} / ${n * 3}` : `${done} / ${n}`}</span>
         <button class="q-start" data-q="${q.id}">${complete ? 'Play again' : done ? 'Continue' : 'Start'}</button></footer></li>`;
   };
   document.getElementById('quests-body').innerHTML = `
@@ -625,7 +639,7 @@ document.querySelector('.quests-open').onclick = openQuests;
 questsDlg.querySelector('.about-close').onclick = () => questsDlg.close();
 questsDlg.addEventListener('click', e => { if (e.target === questsDlg) questsDlg.close(); });
 
-// The search circle: a red ring on the ground around (not centred on) the answer.
+// The search circle: a terracotta ring on the ground around (not centred on) the answer.
 const ring = new THREE.Group();
 ring.add(new THREE.Mesh(new THREE.RingGeometry(0.97, 1, 128), new THREE.MeshBasicMaterial({ color: ACCENT, depthTest: false, transparent: true, opacity: 0.95 })));
 ring.add(new THREE.Mesh(new THREE.CircleGeometry(0.97, 128), new THREE.MeshBasicMaterial({ color: ACCENT, depthTest: false, transparent: true, opacity: 0.06 })));
@@ -725,7 +739,7 @@ function renderQuest() {
   questEl.className = `quest k-${s.kind}${solved ? ' solved' : ''}${folded ? ' folded' : ''}`;
   let body = '';
   if (s.kind === 'find') {
-    const hints = Array.from({ length: hintsShown }, (_, i) => i === 0 ? 'Look inside the red circle.' : s.hints[i - 1]);
+    const hints = Array.from({ length: hintsShown }, (_, i) => i === 0 ? 'Look inside the circle on the map.' : s.hints[i - 1]);
     const more = hintsShown < s.hints.length + 1;
     body = `
       ${ph && !solved ? `<figure class="q-photo"><img src="${esc(ph.src)}" alt="A photo of the building to find"></figure><p class="q-credit">${ph.credit}</p>` : ''}
@@ -733,7 +747,7 @@ function renderQuest() {
       ${hints.length ? `<ul class="q-hints">${hints.map(h => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}
       ${solved ? '' : `<p class="q-feedback">Find it on the map and click it.</p>`}
       ${solved ? '' : `<div class="q-actions">
-        ${more ? `<button class="q-hint">Hint <small>−×</small></button>` : ''}
+        ${more ? `<button class="q-hint">Hint <small>−1</small></button>` : ''}
         ${s.mode ? `<button class="q-mode">${s.mode === 'floors' ? 'Colour by floors' : 'Colour by period'}</button>` : ''}
         <button class="q-reveal">Show me</button>
         <span class="q-worth">${crosses(worth())}</span></div>`}`;
@@ -753,7 +767,7 @@ function renderQuest() {
       ${solved ? '' : `<div class="q-actions"><span class="q-feedback"></span><span class="q-worth">${crosses(worth())}</span></div>`}`;
   }
   questEl.innerHTML = `
-    <button class="q-close" aria-label="Close">×</button>
+    <button class="q-close" aria-label="Close">${CLOSE}</button>
     <header><b>${title}</b>${levelMark(quest.level)}</header>
     ${progress()}${body}${solved ? revealHtml(s) : ''}`;
   questEl.hidden = false;
@@ -807,17 +821,17 @@ function solve(gid, points) {
   qSave(quest.id, patch);
   renderQuest();
 }
-// The result, and a line to share: one group of marks per step, a dot for each one lost.
+// The result, and a line to share: one group of marks per step, a sun for each one earned, a ring for each one lost.
 function finished() {
-  const n = quest.steps.length, line = marks.map(m => '×'.repeat(m) + '·'.repeat(3 - m)).join(' ');
+  const n = quest.steps.length, line = marks.map(m => '●'.repeat(m) + '○'.repeat(3 - m)).join(' ');
   const text = `SydMap: Sydney · ${quest.title}\n${line}\n${score} / ${n * 3}\n${location.origin}${location.pathname}`;
   const verdict = score >= n * 3 - 1 ? 'A true Sydneysider.' : score >= n * 2 ? 'You know your way around.' : score >= n ? 'A good walk.' : 'Time for a walk through town.';
   questEl.className = 'quest done';
   questEl.innerHTML = `
-    <button class="q-close" aria-label="Close">×</button>
+    <button class="q-close" aria-label="Close">${CLOSE}</button>
     <header><b>${esc(quest.title)}</b></header>
     <div class="q-result"><p class="q-total"><b>${score}</b> / ${n * 3}</p><p class="q-verdict">${verdict}</p>
-      <p class="q-line" aria-label="${score} / ${n * 3}">${line}</p></div>
+      <p class="q-line">${marks.map(m => crosses(m)).join('')}</p></div>
     <div class="q-actions"><button class="primary q-share">Copy result</button><button class="q-list">More quests</button></div>`;
   questEl.hidden = false;
   ring.visible = false; setQuiz(-1, false);
@@ -884,10 +898,11 @@ function periodNote() {
 function renderPanel() {
   const mode = uniforms.uMode.value;
   if (mode === MODE.period) {
-    panel.innerHTML = `<h2>Built in</h2><div class="swatches">${periods.map((p, i) => `
-      <button class="swatch" data-i="${i}" aria-pressed="${!!maskTarget[i]}">
-        <i style="background:${p.color}"></i><span>${esc(p.label)}</span><span class="n">${fmt(totals[i])}</span>
-      </button>`).join('')}</div>
+    panel.innerHTML = `<h2>Built in</h2><div class="swatches">${periods.map((p, i) => {
+      const [, dates, name] = p.label.match(/^(Before \d{4}|\d{4}–(?:\d{4})?)\s+(.*)$/) || [, '', p.label];
+      return `<button class="swatch dated" data-i="${i}" aria-pressed="${!!maskTarget[i]}">
+        <i style="background:${p.color}"></i><span class="d">${esc(dates)}</span><span>${esc(name)}</span><span class="n">${fmt(totals[i])}</span>
+      </button>`; }).join('')}</div>
       <label class="docs-only"><input type="checkbox" ${uniforms.uDocOnly.value ? 'checked' : ''}> Colour documented and strata years only</label>
       <p class="note">${periodNote()}</p>`;
     panel.querySelectorAll('.swatch').forEach(b => b.onclick = () => {
@@ -899,7 +914,7 @@ function renderPanel() {
     panel.querySelector('.docs-only input').onchange = e => { uniforms.uDocOnly.value = e.target.checked ? 1 : 0; };
   } else if (mode === MODE.floors) {
     panel.innerHTML = `<h2>Storeys</h2>
-      <div class="ramp" style="background:linear-gradient(90deg,#dbe3e6,#7da8bf,#2b5c8c,#0d1a40)"></div>
+      <div class="ramp" style="background:linear-gradient(90deg,#e3ecec,#93b7bd,#345a60,#13282b)"></div>
       <div class="ramp-scale"><span>1</span><span>3</span><span>8</span><span>20</span><span>40+</span></div>
       <p class="note">${fmt(config.stats.floorsTagged)} buildings take their storeys from OpenStreetMap; the rest,
         ${fmt(config.stats.floorsHeight)}, from their height divided by 3.2 m. Heights are OpenStreetMap's where it has them
@@ -926,7 +941,7 @@ function renderPanel() {
       panel.querySelector(`#sec-${b.dataset.sec.replace(/\W+/g, '-')}`).scrollIntoView({ behavior: 'smooth', block: 'start' }));
     panel.querySelectorAll('.layer').forEach(b => b.onclick = () => setLayer(layers.find(l => l.id === b.dataset.id)));
   } else {
-    panel.innerHTML = `<button class="back">All context layers</button>
+    panel.innerHTML = `<button class="back">${BACK}All context layers</button>
       <h2 class="layer-title">${sectionIcon(activeLayer.section)}${esc(activeLayer.title)}</h2><p class="layer-era">${esc(activeLayer.era)}</p>${layerDetail(activeLayer)}`;
     panel.querySelector('.back').onclick = () => setLayer(null);
     panel.querySelectorAll('.story').forEach(b => b.onclick = () => {
@@ -1017,7 +1032,7 @@ function drawHist() {
     // Layer mode: the city in grey behind, the layer's own buildings in its colours.
     for (const [y, v] of years) {
       const bh = Math.sqrt(v.reduce((a, b) => a + b, 0) / yMax) * (plotH - 6);
-      bar(y, bh, plotH, '#b9c0c4', false);
+      bar(y, bh, plotH, '#cfcac1', false);
     }
     // Stack the groups per year; the stack's total height follows sqrt(total), split in proportion.
     const total = {};
@@ -1042,13 +1057,20 @@ function drawHist() {
     }
   }
   hctx.globalAlpha = 1;
-  hctx.fillStyle = '#5d6266';
-  hctx.font = '500 11px "Schibsted Grotesk", sans-serif';
+  hctx.fillStyle = MUTED;
+  hctx.font = '400 11px Inter, sans-serif';
   const step = w < 500 ? 50 : 25;
   for (let y = Math.ceil(T0 / step) * step; y <= T1; y += step) hctx.fillText(y, Math.min(w - 28, Math.max(0, xOf(y) - 13)), h - 4);
-  hctx.fillStyle = '#000';
-  hctx.fillRect(xOf(Y) - 1, 0, 2, plotH);
-  if (Yf >= T0) { hctx.fillStyle = '#5d6266'; hctx.fillRect(xOf(Yf) - 0.5, 0, 1, plotH); }
+  // The year: a charcoal hairline with the logo's sun riding on top of it.
+  const x = xOf(Y);
+  hctx.fillStyle = INK;
+  hctx.fillRect(x - 0.75, 12, 1.5, plotH - 12);
+  const sx = Math.min(w - 7, Math.max(7, x));
+  hctx.fillStyle = '#ffffff';
+  hctx.beginPath(); hctx.arc(sx, 7, 7, 0, Math.PI * 2); hctx.fill();
+  hctx.fillStyle = ACCENT;
+  hctx.beginPath(); hctx.arc(sx, 7, 5, 0, Math.PI * 2); hctx.fill();
+  if (Yf >= T0) { hctx.fillStyle = MUTED; hctx.fillRect(xOf(Yf) - 0.5, 0, 1, plotH); }
   // at the end of the timeline the map shows the city as it stands, not a year that reads like a date
   document.getElementById('year').textContent = Y >= config.yearMax ? 'Today' : Math.round(Y);
   document.getElementById('count').textContent = fmt(visibleCount());
