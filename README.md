@@ -11,7 +11,7 @@ known; follow a walk through the streets; or take every building's data with you
 locally for it. How it was made is in [`brag-output/brag-plan.md`](brag-output/brag-plan.md).
 
 SydMap rebuilds [LAYRS: Amsterdam](https://stop-token.com/lab/amsterdam/) by Alex Barakov
-([source](https://github.com/alexbarakov/amsterdam-by-building), MIT) for Sydney, itself inspired by Sasha Bogachev's
+([source](https://github.com/alexbarakov/amsterdam-by-building), MIT) for Sydney, itself inspired by Alexander Bogachev's
 [Paris, building by building](https://paris.bogachev.fr). It is made by Amir Marashi at
 [The Third Script](https://thethirdscript.com) and wears the studio's colours (see [`DESIGN.md`](DESIGN.md)). A
 non-commercial project, made out of curiosity and for education.

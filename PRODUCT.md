@@ -26,7 +26,7 @@ piece of work by The Third Script, the Sydney studio of Amir Marashi.
 - The look is The Third Script's: its logo's charcoal, cypress teal and terracotta sun, Cormorant Garamond and Inter.
   See DESIGN.md.
 - The original idea is credited wherever the project is described: a Sydney rebuild of LAYRS: Amsterdam by Alex
-  Barakov (MIT), itself inspired by Sasha Bogachev's Paris, building by building.
+  Barakov (MIT), itself inspired by Alexander Bogachev's Paris, building by building.
 - The Acknowledgement of Country stays on the page.
 - Australian English, short plain sentences, sources named (CONTRIBUTING.md).
 
