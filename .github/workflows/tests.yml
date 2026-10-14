@@ -1,0 +1,19 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      - run: uv run pytest -q
+      # The viewer is plain ES modules with no build step: check that each one parses.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: for f in web/app.js web/worker.js; do node --input-type=module --check < "$f"; done && node --check web/logo.js

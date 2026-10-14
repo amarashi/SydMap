@@ -121,7 +121,7 @@ def styles():
     for bid, qid in q.items():
         it = wd.loc[qid]
         for s in sorted(it.styles):
-            out.setdefault(bid, []).append((s, dict(name=it.label, story=f"{s}.", source=f"https://www.wikidata.org/wiki/{qid}")))
+            out.setdefault(bid, []).append((s, dict(name=it.label, source=f"https://www.wikidata.org/wiki/{qid}")))
     return out
 
 

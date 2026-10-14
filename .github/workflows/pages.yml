@@ -1,0 +1,36 @@
+# Publishes web/ (the viewer and its built data) to GitHub Pages.
+# Switch Pages on once: Settings › Pages › Build and deployment › Source: GitHub Actions. Then either run this
+# workflow by hand (Actions › Deploy to GitHub Pages › Run workflow) or set the repository variable
+# DEPLOY_PAGES to "true" (Settings › Secrets and variables › Actions › Variables) to deploy on every push.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main, master, "claude/sydney-design-extraction-c6s1ks"]
+    paths: ["web/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || vars.DEPLOY_PAGES == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+      - id: deployment
+        uses: actions/deploy-pages@v4

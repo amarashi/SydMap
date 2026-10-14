@@ -1,0 +1,82 @@
+"""Offline tests: the date parsers, the tile format, the fact-check normaliser. No network, no data downloads."""
+import struct
+
+import numpy as np
+import shapely
+
+from pipeline.checks import norm
+from pipeline.periods import PERIODS, period_index
+from pipeline.s02_years import parse_osm_date, parse_wiki_built
+from pipeline.s03_tiles import ATTR_DTYPE, GPO, MAGIC, pack_tile
+
+
+def test_osm_dates():
+    assert parse_osm_date("1885") == (1885, 1885, 1885, False)
+    assert parse_osm_date("1885-03-01") == (1885, 1885, 1885, False)
+    assert parse_osm_date("1880s") == (1885, 1880, 1889, True)
+    assert parse_osm_date("C19") == (1850, 1800, 1899, True)
+    assert parse_osm_date("~1890") == (1890, 1890, 1890, True)
+    assert parse_osm_date("1885..1890") == (1885, 1885, 1890, True)
+    assert parse_osm_date(None) is None and parse_osm_date("unknown") is None
+
+
+def test_wikipedia_built_years():
+    # The forms the NSW heritage articles use.
+    assert parse_wiki_built("It was designed by Walter Liberty Vernon and built from 1898 to 1900.") == (1900, 1898, 1900, False)
+    assert parse_wiki_built("It was built during 1852.") == (1852, 1852, 1852, False)
+    assert parse_wiki_built("Built between 1811 and 1816 as the southern wing") == (1816, 1811, 1816, False)
+    # A long build is dated by its start, and marked approximate.
+    assert parse_wiki_built("the cathedral was built from 1866 to 1928.") == (1866, 1866, 1928, True)
+    assert parse_wiki_built("The house was built in the 1880s.") == (1885, 1880, 1889, True)
+    assert parse_wiki_built("It was built by 1840.") == (1840, 1830, 1840, True)
+    assert parse_wiki_built("The parish dates from 1838 and the church building from 1845.") == (1845, 1845, 1845, False)
+    assert parse_wiki_built("A park in the city.") is None
+
+
+def test_periods_cover_every_year():
+    for y in range(1788, 2027):
+        lo, hi = PERIODS[period_index(y)][2:4]
+        assert lo <= y <= hi
+    starts = [p[2] for p in PERIODS]
+    assert starts == sorted(starts)
+
+
+def test_tile_round_trip():
+    """A packed tile reads back as web/worker.js reads it: same counts, same heights, vertices in decimetres."""
+    at = lambda pts: shapely.Polygon([(GPO[0] + x, GPO[1] + y) for x, y in pts])  # noqa: E731  (MGA, near the GPO)
+    sq = at([(10, 10), (30, 10), (30, 25), (10, 25)])
+    tower = at([(15, 12), (25, 12), (25, 20), (15, 20)])
+    rows = [dict(gid=7, year=1932, flag=0, period=4, floors=3, heritage=1, lay0=5, lay1=0,
+                 parts=[(12.0, 0.0, sq), (80.0, 12.0, tower)])]
+    origin = np.array([0.0, 0.0])
+    buf = pack_tile(origin, rows)
+    magic, nB, nP, nR, nV = struct.unpack_from("<5I", buf)
+    assert (magic, nB, nP, nR, nV) == (MAGIC, 1, 2, 2, 8)
+    o = 28
+    def take(dtype, n):
+        nonlocal o
+        a = np.frombuffer(buf, dtype, n, o)
+        o += -(-n * np.dtype(dtype).itemsize // 4) * 4
+        return a
+    gid, year = take("<u4", 1), take("<i2", 1)
+    for _ in range(4):
+        take("u1", 1)
+    take("<u4", 1); take("<u4", 1); part_start = take("<u4", 2)
+    height, base = take("<f4", 2), take("<f4", 2)
+    ring_start, vert_start, hole = take("<u4", 3), take("<u4", 3), take("u1", 2)
+    xz = take("<i2", 2 * nV).reshape(-1, 2)
+    assert gid[0] == 7 and year[0] == 1932 and list(part_start) == [0, 2]
+    assert list(height) == [12.0, 80.0] and list(base) == [0.0, 12.0]
+    assert list(ring_start) == [0, 1, 2] and list(vert_start) == [0, 4, 8] and not hole.any()
+    # x east, z south, in decimetres from the tile origin.
+    assert set(map(tuple, xz[:4])) == {(100, -100), (300, -100), (300, -250), (100, -250)}
+    assert o == len(buf)
+
+
+def test_attr_record_is_aligned():
+    assert ATTR_DTYPE.itemsize % 4 == 0
+    assert ATTR_DTYPE.fields["osm"][1] == 0          # the f8 first, read with getFloat64
+
+
+def test_check_normaliser():
+    assert norm("Sydney’s “oldest” pub – 1828") == norm("Sydney's \"oldest\" pub - 1828")
