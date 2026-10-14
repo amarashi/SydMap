@@ -8,9 +8,11 @@ quests, or open the same buildings in a full GIS.
 ![SydMap: the city centre, the harbour and North Sydney, coloured by period](docs/screenshots/home.png)
 
 SydMap rebuilds [LAYRS: Amsterdam](https://stop-token.com/lab/amsterdam/) by Alex Barakov
-([source](https://github.com/alexbarakov/amsterdam-by-building), MIT) for Sydney. Its look was read off the
-Amsterdam page with [designlang](https://github.com/Manavarya09/design-extract), and its 2D view runs
-[RustGIS](https://github.com/opengeos/RustGIS). A non-commercial project, made out of curiosity and for education.
+([source](https://github.com/alexbarakov/amsterdam-by-building), MIT) for Sydney, itself inspired by Sasha Bogachev's
+[Paris, building by building](https://paris.bogachev.fr). It is made by Amir Marashi at
+[The Third Script](https://thethirdscript.com) and wears the studio's colours (see [`DESIGN.md`](DESIGN.md)); its 2D
+view runs [RustGIS](https://github.com/opengeos/RustGIS). A non-commercial project, made out of curiosity and for
+education.
 
 **Run it locally:** `python3 scripts/serve.py` and open <http://localhost:8642>. The built data is in the
 repository, so nothing else is needed. **Publish it:** see [GitHub Pages](#publishing-on-github-pages).
@@ -29,10 +31,12 @@ stands on, and the Cammeraygal people, the Traditional Custodians of the land of
 
 ## How it was made
 
-1. **Design, extracted.** `scripts/extract-design.sh` runs designlang against the Amsterdam page; its output is in
-   [`design/amsterdam-extract/`](design/amsterdam-extract) (DTCG tokens, `DESIGN.md`, CSS variables, a brand book,
-   screenshots). SydMap keeps the extracted system (sky `#e4e8ea`, paper, ink, Schibsted Grotesk, pills, 10 px cards,
-   the period ramp) and changes only the accent, to waratah red, and the wordmark. See [`design/README.md`](design/README.md).
+1. **Design.** The first version kept the Amsterdam page's design system, read off it with
+   [designlang](https://github.com/Manavarya09/design-extract) (`scripts/extract-design.sh`; the output is in
+   [`design/amsterdam-extract/`](design/amsterdam-extract)). SydMap now wears The Third Script's colours and type: a
+   white wall, the logo's cypress teal for the harbour, its terracotta sun as the mark, the film and the quests' marks,
+   Cormorant Garamond and Inter, and period colours checked for colour-blind separation. See [`DESIGN.md`](DESIGN.md)
+   and [`design/README.md`](design/README.md).
 2. **Viewer.** [`web/`](web) is the LAYRS three.js viewer (no build step), adapted: Sydney's periods and texts, a
    Heritage mode in place of Amsterdam's energy labels, cards that show the evidence for every year, part bases in
    the tile format (so floating parts can be drawn), meshes for shapes extrusion cannot draw (the Opera House's
@@ -107,6 +111,9 @@ The GlobalBuildingAtlas heights are non-commercial, one more reason SydMap is a 
 export (`web/data/gis/`) leaves them out, and `SYDMAP_NO_GBA=1` builds the whole map without them.
 
 Code: MIT, keeping the original LAYRS copyright (see [`LICENSE`](LICENSE)). three.js (MIT) is vendored in `web/vendor/`.
+Fonts: Cormorant Garamond (The Cormorant Project Authors) and Inter (The Inter Project Authors), SIL Open Font License
+1.1, self-hosted in `web/fonts/`. The sun and the studio's mark in `web/img/` are from The Third Script's logo (see
+[`web/img/README.md`](web/img/README.md)).
 
 ## Run the pipeline
 
@@ -151,3 +158,11 @@ deploy on every push. The site will be at `https://amarashi.github.io/SydMap/`.
 
 Know a piece of Sydney's history that lives in its buildings? See [CONTRIBUTING.md](CONTRIBUTING.md) to add a layer or
 a quest.
+
+## Made by
+
+<a href="https://thethirdscript.com"><img src="docs/the-third-script.png" alt="The Third Script" height="60"></a>
+
+SydMap is made by Amir Marashi at [The Third Script](https://thethirdscript.com), a Sydney studio working across AI and
+data, websites and digital tools, visual work and video, and 3D design and making. More of the work is at
+[thethirdscript.com](https://thethirdscript.com).

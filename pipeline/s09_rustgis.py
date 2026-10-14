@@ -34,7 +34,7 @@ SOURCE = {"wikidata": "Wikidata", "wikipedia": "Wikipedia", "osm": "OpenStreetMa
           "heritage": "heritage area", "tall": "neighbours", "detracting": "neighbours", "low-rise": "neighbours",
           "other": "neighbours"}
 HEIGHT_SRC = {0: "OpenStreetMap", 1: "OpenStreetMap storeys", 4: "Wikipedia"}
-WATER = (181, 199, 198)
+WATER = (185, 208, 210)
 BASEMAP = "https://tiles.openfreemap.org/styles/positron"
 
 
@@ -97,7 +97,7 @@ def polygons_geojson(name):
 
 
 def style(project: dict):
-    """Colours as on the 3D map: the period ramp for the buildings, the harbour's grey-green."""
+    """Colours as on the 3D map: the period ramp for the buildings, the harbour's cypress teal."""
     for layer in project["maps"][0]["layers"]:
         r = layer.get("renderer", {})
         if "Unique" in r:

@@ -9,12 +9,13 @@
 <meta property="og:description" content="Every building in the City of Sydney and North Sydney, by age and historical context.">
 <meta property="og:image" content="https://amarashi.github.io/SydMap/og.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Amir Marashi, The Third Script">
+<link rel="author" href="https://thethirdscript.com">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
-<script src="logo.js" defer></script>
 </head>
 <body>
 <canvas id="scene" aria-label="3D map of Sydney's buildings"></canvas>
@@ -22,10 +23,12 @@
 <div class="veil veil-bottom" aria-hidden="true"></div>
 
 <header class="masthead">
-  <div>
-    <h1><span class="logo" aria-label="SydMap">SYDMAP</span>Sydney<i class="baseline"></i></h1>
-    <p class="dek">Every building standing today, by age and historical context.</p>
-  </div>
+  <h1><span class="sun-disc" aria-hidden="true"></span><span class="name">Sydney</span></h1>
+  <p class="dek"><b>SydMap</b><span class="dek-rest">: every building standing today, by age and historical context.</span></p>
+  <a class="studio" href="https://thethirdscript.com" target="_blank" rel="noopener" aria-label="Made by The Third Script" title="Made by The Third Script">
+    <img class="studio-mark" src="img/the-third-script-symbol.webp" alt="" width="34" height="40">
+    <img class="studio-word" src="img/the-third-script-wordmark.webp" alt="" width="128" height="16">
+  </a>
 </header>
 
 <nav class="modes" aria-label="Colour the city by">
@@ -42,9 +45,10 @@
 </div>
 
 <dialog id="about" class="about" aria-labelledby="about-title">
-  <button class="about-close" aria-label="Close">×</button>
+  <button class="about-close" aria-label="Close"><svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
   <article>
     <h2 id="about-title">About this map</h2>
+    <p class="author">Made by Amir Marashi at <a href="https://thethirdscript.com" target="_blank" rel="noopener">The Third Script</a>, a Sydney studio.</p>
     <p>All <span data-stat="buildings">30,000</span> buildings of the City of Sydney and North Sydney, either side of the
       Harbour Bridge, coloured by the year they were built and set in the history that shaped them.</p>
     <p class="notice">A non-commercial project, made out of curiosity and for education.</p>
@@ -54,8 +58,8 @@
     <p class="credit">A Sydney rebuild of <a href="https://stop-token.com/lab/amsterdam/" target="_blank" rel="noopener">LAYRS: Amsterdam</a>
       by Alex Barakov (<a href="https://github.com/alexbarakov/amsterdam-by-building" target="_blank" rel="noopener">MIT licence</a>),
       itself inspired by Sasha Bogachev's <a href="https://paris.bogachev.fr" target="_blank" rel="noopener">Paris, building by building</a>.
-      Its look was read off the Amsterdam page with <a href="https://github.com/Manavarya09/design-extract" target="_blank" rel="noopener">designlang</a>;
-      the 2D view runs <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener">RustGIS</a>.</p>
+      It wears The Third Script's colours: the cypress teal of its logo for the harbour, and its terracotta sun for the
+      film and the quests' marks. The 2D view runs <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener">RustGIS</a>.</p>
 
     <h3>Open source</h3>
     <p>The code and the data pipeline are on <a href="https://github.com/amarashi/SydMap" target="_blank" rel="noopener">GitHub</a>.
@@ -100,6 +104,16 @@
         from the City of Sydney Archives), CC BY 4.0; OpenStreetMap, ODbL.</li>
       <li>Names, photos, stories: Wikidata (CC0), Wikipedia (CC BY-SA) and Wikimedia Commons; each photo credits its author and licence.</li>
     </ul>
+
+    <footer class="colophon">
+      <a class="studio" href="https://thethirdscript.com" target="_blank" rel="noopener" aria-label="The Third Script">
+        <img class="studio-mark" src="img/the-third-script-symbol.webp" alt="" width="47" height="56">
+        <img class="studio-word" src="img/the-third-script-wordmark.webp" alt="" width="160" height="20">
+      </a>
+      <p>SydMap is made by Amir Marashi at The Third Script, a Sydney studio working across AI and data, websites and
+        digital tools, visual work and video, and 3D design and making. See more of the work at
+        <a href="https://thethirdscript.com" target="_blank" rel="noopener">thethirdscript.com</a>.</p>
+    </footer>
   </article>
 </dialog>
 
@@ -108,7 +122,7 @@
     <p>The same buildings in <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener">RustGIS</a>, an
       open-source GIS that runs in your browser: open the attribute table, query, measure and export.</p>
     <a class="gis-download" href="data/gis/sydney.rgis" download>Download the project</a>
-    <button class="about-close" aria-label="Close">×</button></header>
+    <button class="about-close" aria-label="Close"><svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></header>
   <div class="gis-frame"></div>
 </dialog>
 
@@ -125,19 +139,20 @@
 <div id="card" class="card" hidden></div>
 <section id="quest" class="quest" hidden aria-live="polite"></section>
 <dialog id="quests" class="about quests" aria-labelledby="quests-title">
-  <button class="about-close" aria-label="Close">×</button>
+  <button class="about-close" aria-label="Close"><svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
   <article id="quests-body"></article>
 </dialog>
 <p class="howto">Drag to turn. Right-drag or Shift-drag to move. Scroll to zoom.</p>
 
 <footer class="timeline">
   <button id="play" class="play" aria-label="Play the city's growth">
-    <svg viewBox="0 0 16 16" aria-hidden="true"><path id="play-icon" d="M4 2.5v11l9-5.5z"/></svg>
+    <span class="sun-disc" aria-hidden="true"></span>
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path id="play-icon" d="M4.5 2.5v11l9-5.5z"/></svg>
   </button>
   <canvas id="hist" aria-label="Buildings per year; drag to set the year"></canvas>
 </footer>
 
-<div id="loading" class="loading">Building the city <span id="progress">0</span>%</div>
+<div id="loading" class="loading"><img src="img/the-third-script-symbol.webp" alt="" width="34" height="40">Building the city <span id="progress">0</span>%</div>
 <script type="module" src="app.js"></script>
 </body>
 </html>
