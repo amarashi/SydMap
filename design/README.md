@@ -12,7 +12,7 @@ What it found, and what SydMap keeps:
 | Type | Schibsted Grotesk only: display 64/800, h1 56/800, h2 26/800, body 14/400, micro 12/600 | the same |
 | Shape | pills (`999px`) for controls, `10px` cards, `2px` swatches | the same |
 | Elevation | `0 8px 28px rgba(30,40,50,.16)`, `0 20px 60px rgba(30,40,50,.25)`, a 1 px `#cfd5d8` rule | the same |
-| Accent | `#ec0000`, the red of Amsterdam's flag and its three St Andrew's crosses | `#d21f2b`, waratah red (the NSW floral emblem); the quests' crosses become arches of the Harbour Bridge |
+| Accent | `#ec0000`, the red of Amsterdam's flag and its three St Andrew's crosses | `#d21f2b`, waratah red (the NSW floral emblem); the Quests button shows the arch of the Harbour Bridge instead of the three crosses |
 | Data colours | period ramp oxblood → ochre → green → slate → violet | the same ramp over Sydney's own periods |
 | Brand | the vertical red LAYRS tag beside the city name | a vertical SYDMAP tag, so the page is not mistaken for a LAYRS project |
 

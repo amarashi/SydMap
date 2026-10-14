@@ -422,7 +422,8 @@ function datingNote(b, w, h) {
     case 1: return `From ${src || 'a documented source'}, which gives ${range(b)}: read it as “around then”.`;
     case 2: return `Estimated from its strata plan, SP${b.sp}, registered around ${b.year}. Apartment buildings are strata-titled
       when they are finished; an older building converted to strata later would show its conversion year.`;
-    case 3: return `Estimated: ${h?.hca ? `the City marks it as part of the historic fabric of the ${esc(h.hca)} heritage conservation area` : 'a heritage-listed building'}; dated from the documented heritage buildings around it, ${range(b)}.`;
+    case 3: if (b.dsrc === 4) return `Estimated: part of the State Heritage Register listing ${esc(h?.name || '')}, which its Wikipedia article dates ${range(b)}. Not every building of a listed place is as old as the place.`;
+      return `Estimated: ${h?.hca ? `the City marks it as part of the historic fabric of the ${esc(h.hca)} heritage conservation area` : 'a heritage-listed building'}; dated from the documented heritage buildings around it, ${range(b)}.`;
     default: return `Estimated from the dated buildings around it of similar height, ${range(b)}.${b.height >= 46 ? ' Taller than 46 m, the height limit that held until 1957, so built after it.' : ''}${b.heritage === 5 ? ' Its heritage area marks it as later than the area’s historic fabric.' : ''}`;
   }
 }

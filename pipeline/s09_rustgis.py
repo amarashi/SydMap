@@ -30,6 +30,7 @@ DOCS = WEB.parent.parent / "docs"
 DATING = {0: "documented", 1: "documented, approximate", 2: "strata plan", 3: "heritage area estimate",
           4: "estimated from neighbours"}
 SOURCE = {"wikidata": "Wikidata", "wikipedia": "Wikipedia", "osm": "OpenStreetMap", "strata": "NSW cadastre",
+          "listing": "its heritage listing (Wikipedia)",
           "heritage": "heritage area", "tall": "neighbours", "detracting": "neighbours", "low-rise": "neighbours",
           "other": "neighbours"}
 HEIGHT_SRC = {0: "OpenStreetMap", 1: "OpenStreetMap storeys", 4: "Wikipedia"}

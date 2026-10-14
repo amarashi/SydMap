@@ -51,9 +51,10 @@ each building takes the best evidence there is, and its card says which:
 
 | Evidence | Buildings | How |
 |---|---:|---|
-| Documented | 457 | a year from the lead of the building's Wikipedia article (327; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (76) or OpenStreetMap `start_date` (54) |
+| Documented | 458 | a year from the lead of the building's Wikipedia article (328; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (76) or OpenStreetMap `start_date` (54) |
 | Strata plan | 5,548 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44479 (1994) |
-| Heritage area | 14,437 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in North Sydney's conservation areas) are dated from the documented heritage buildings around them |
+| Heritage listing | 130 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings) take the years the listing's Wikipedia article gives; precincts, parks and tunnels do not pass their years on |
+| Heritage area | 14,306 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in North Sydney's conservation areas) are dated from the documented heritage buildings around them |
 | Neighbours | 9,402 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945 |
 
 Estimated years (everything but the first row) are spread within their range so the film does not drop a suburb in a

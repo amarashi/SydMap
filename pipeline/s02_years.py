@@ -43,7 +43,7 @@ BUILDING_WORDS = re.compile(
     r"bond store|customs house|exchange|townhouse|tenement|shop|bakery|brewery|stables|lodge", re.I)
 INSTITUTION_WORDS = re.compile(r"organi[sz]ation|university|faculty|company|business|club|association|school\b|"
                                r"college|foundation|society|government|department|agency|council|"
-                               r"suburb|locality|park|reserve|road|street|electoral|bay|point|island|wharf|sculpture|"
+                               r"suburb|locality|(?<!amusement )park|reserve|road|street|electoral|bay|point|island|wharf|sculpture|"
                                r"season|event|station$|tram stop|weather", re.I)
 
 
@@ -331,12 +331,20 @@ def main():
     b["qid"], b["qid_how"] = link_wikidata(b, wd)
     # Buildings in a State Heritage Register curtilage take the register item's Wikidata entry
     # (Wikidata P3449 is the register's item id): all of them when the curtilage holds a few buildings,
-    # otherwise only its largest.
+    # otherwise the one at the item's coordinate (or nearest it), else the largest.
     by_shr = {s_: q for q, s_ in zip(wd.qid, wd.shr) if isinstance(s_, str)}
     shr_q = b.shr_id.map(lambda v: by_shr.get(str(int(v))) if pd.notna(v) else None)
     n_in = b.groupby("shr_id").bid.transform("count")
     largest = b.area == b.assign(a=b.area).groupby("shr_id").a.transform("max")
-    main = shr_q.notna() & ((n_in <= 3) | largest)
+    at_point = pd.Series(False, index=b.index)
+    point_of = wd.set_index("qid").geometry
+    for q_, idx in b.index.groupby(shr_q.where(n_in > 3)).items():
+        if q_ in point_of.index:
+            d = b.geometry.loc[idx].distance(point_of[q_])
+            if d.min() < 50:
+                at_point[d.idxmin()] = True
+    has_point = at_point.groupby(b.shr_id).transform("any").reindex(b.index).fillna(False).astype(bool)
+    main = shr_q.notna() & ((n_in <= 3) | at_point | (largest & ~has_point))
     b["qid_area"] = shr_q                                  # the register entry the building is part of
     b.loc[main & b.qid.isna(), "qid_how"] = "shr"
     b.loc[main, "qid"] = b.loc[main, "qid"].fillna(shr_q[main])
@@ -354,11 +362,13 @@ def main():
     b.loc[fixed, "date_flag"] = 0
     b.loc[fixed, "date_src"] = "wikipedia"
     for i, q in b.qid[~fixed].dropna().items():
-        if q not in wdi.index or wdi.demolished.get(q, False):
+        if q not in wdi.index:
             continue
         # The article's lead first: for heritage places it is written from the State Heritage Inventory, while a
         # Wikidata inception sometimes dates the institution, a restoration or a renaming.
-        for src, y in (("wikipedia", wpy.get(q)), ("wikidata", wdy.get(q))):
+        # An item Wikidata calls demolished or dissolved may still be the building standing now (St Mary's
+        # Cathedral, rebuilt after the fire of 1865): its article's lead describes that building, its dates may not.
+        for src, y in (("wikipedia", wpy.get(q)), ("wikidata", None if wdi.demolished.get(q, False) else wdy.get(q))):
             if y:
                 b.loc[i, ["year", "yfrom", "yto"]] = y[:3]
                 b.loc[i, "date_flag"] = 1 if y[3] else 0
@@ -383,6 +393,28 @@ def main():
     print(f"  documented: {(b.date_flag == 0).sum()} exact, {(b.date_flag == 1).sum()} approximate; "
           + ", ".join(f"{k} {v}" for k, v in b.date_src.value_counts().items()))
 
+    # The other buildings of a State Heritage Register listing (a park's pavilions, a hospital's wings) take the
+    # listing's documented years as an estimate: the place was built then, though not every building of it.
+    # Only listings of a building or a group of buildings, dated by the listing's own article (or Wikidata): a
+    # precinct, a park or a tunnel says nothing about the buildings standing in it.
+    cls = wdi.classes.map(lambda c: " | ".join(c))
+    small = n_in <= 40
+    listing_year = {}
+    for q_ in set(b.qid_area.dropna()):
+        if q_ not in wdi.index or re.search(INSTITUTION_WORDS, cls[q_]) or re.search(
+                r"precinct|(?<!amusement )park|garden|bore|tunnel|village|reserve|domain", cls[q_], re.I):
+            continue
+        y = wpy.get(q_) or (None if wdi.demolished.get(q_, False) else wdy.get(q_))
+        if y:
+            listing_year[q_] = y[:3]
+    part = (b.date_flag < 0) & b.qid_area.isin(listing_year) & (b.height < TALL) & small
+    for i in b.index[part]:
+        y, lo, hi = listing_year[b.qid_area[i]]
+        b.loc[i, ["year", "yfrom", "yto"]] = [y, min(lo, y), max(hi, y)]
+        b.loc[i, "date_flag"] = 3
+        b.loc[i, "date_src"] = "listing"
+    print(f"  heritage listings: {part.sum()} more buildings take their listing's years")
+
     sp = strata(b)
     b["sp"] = sp.plannumber
     b["sp_year"] = sp.fitted
@@ -390,7 +422,7 @@ def main():
 
     old_evidence = (b.contrib == "Contributing") | b["item"].notna() | b.shr.notna()
     tall = b.height >= TALL
-    documented = b.date_flag >= 0
+    documented = b.date_flag.isin([0, 1])
 
     # Strata: apartments dated by their plan, unless heritage evidence says the building is older.
     use_sp = ~documented & b.sp_year.notna() & ~old_evidence

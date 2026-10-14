@@ -102,7 +102,7 @@ ATTR_DTYPE = np.dtype([
     ("sp", "<u4"),         # strata plan number, 0 none
     ("src", "u1"),         # footprint source: 0 OpenStreetMap, 1 Microsoft (via Overture)
     ("floors", "u1"),
-    ("dsrc", "u1"),        # where a documented year comes from: 0 Wikidata, 1 Wikipedia, 2 OpenStreetMap, 3 none
+    ("dsrc", "u1"),        # where a year comes from: 0 Wikidata, 1 Wikipedia, 2 OpenStreetMap, 3 other, 4 its heritage listing
     ("pad", "u1"),
     ("x", "<f4"), ("z", "<f4"),
 ])

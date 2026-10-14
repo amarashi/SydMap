@@ -20,7 +20,7 @@ from .config import DATA, RAW, UA, WEB
 from .s02_years import wikidata_items
 
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
-DSRC = {"wikidata": 0, "wikipedia": 1, "osm": 2}
+DSRC = {"wikidata": 0, "wikipedia": 1, "osm": 2, "listing": 4}
 
 
 def commons_get(params: dict) -> dict:
