@@ -5,8 +5,6 @@ coloured by the age of the city they belong to. Move along the line at the botto
 from the convict town; look at it by its stories, heights or heritage; open any building to read how its year is
 known; follow a walk through the streets; or take every building's data with you.
 
-![SydMap: the city centre, the harbour and North Sydney, coloured by age](docs/screenshots/home.png)
-
 [![Watch SydMap in 25 seconds: the city grows from 1788, the Opera House card, the Harbour Bridge](brag-output/brag.jpg)](brag-output/brag.mp4)
 
 **The film:** [brag-output/brag.mp4](brag-output/brag.mp4), 25 seconds, recorded from the site; the score was generated
