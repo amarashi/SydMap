@@ -1,11 +1,13 @@
-// Turns one binary tile into an extruded mesh. Positions stay in decimetres from the tile origin.
+// Turns one binary tile into a mesh: extruded parts, then any ready-made meshes (pipeline/s03_tiles.py has the
+// layout). Positions stay in decimetres from the tile origin.
 import { ShapeUtils, Vector2 } from './vendor/three.core.js';
 
 function parse(buf) {
   const h = new DataView(buf);
   const nB = h.getUint32(4, true), nP = h.getUint32(8, true), nR = h.getUint32(12, true), nV = h.getUint32(16, true);
-  const origin = [h.getFloat32(20, true), h.getFloat32(24, true)];
-  let o = 28;
+  const nMV = h.getUint32(20, true), nMT = h.getUint32(24, true);
+  const origin = [h.getFloat32(28, true), h.getFloat32(32, true)];
+  let o = 36;
   const take = (Type, n) => { const a = new Type(buf, o, n); o += Math.ceil(n * Type.BYTES_PER_ELEMENT / 4) * 4; return a; };
   return {
     nB, origin,
@@ -14,6 +16,7 @@ function parse(buf) {
     lay0: take(Uint32Array, nB), lay1: take(Uint32Array, nB), partStart: take(Uint32Array, nB + 1),
     height: take(Float32Array, nP), base: take(Float32Array, nP), ringStart: take(Uint32Array, nP + 1),
     vertStart: take(Uint32Array, nR + 1), hole: take(Uint8Array, nR), xz: take(Int16Array, 2 * nV),
+    meshBld: take(Uint16Array, nMV), meshPos: take(Int16Array, 3 * nMV), meshTri: take(Uint16Array, 3 * nMT),
   };
 }
 
@@ -26,6 +29,7 @@ function build(t) {
       nVert += n * (lifted ? 6 : 5); nIdx += n * 6 + n * (lifted ? 6 : 3);
     }
   }
+  nVert += t.meshBld.length; nIdx += t.meshTri.length;
   const pos = new Int16Array(nVert * 3), bld = new Uint16Array(nVert), idx = new Uint32Array(nIdx);
   let v = 0, k = 0;
   for (let b = 0; b < t.nB; b++) {
@@ -60,6 +64,11 @@ function build(t) {
       }
     }
   }
+  // Meshes, as they come; the top bit of their building index tells the shader they are a landmark's own shape.
+  pos.set(t.meshPos, v * 3);
+  for (let i = 0; i < t.meshBld.length; i++) bld[v + i] = t.meshBld[i] | 0x8000;
+  for (let i = 0; i < t.meshTri.length; i++) idx[k + i] = v + t.meshTri[i];
+  v += t.meshBld.length; k += t.meshTri.length;
   // Per-building lookup, two texels: [year, period + 16*flag, floors + 128*heritage, global id], [layer bits in four 16-bit words].
   const attr = new Float32Array(t.nB * 8);
   for (let b = 0; b < t.nB; b++) {

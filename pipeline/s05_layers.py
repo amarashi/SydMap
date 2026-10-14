@@ -253,9 +253,9 @@ def main():
                 if n and p not in notes:
                     notes[p] = n
         spec = L["groups"]
-        if spec == "auto":   # the eight largest groups, named as the data names them
+        if spec == "auto":   # the eight largest groups, named as the data names them; ties by name, so runs agree
             count = Counter(g for gs in groups_of.values() for g in gs)
-            spec = [(g, g) for g, _ in count.most_common(8)]
+            spec = [(g, g) for g, _ in sorted(count.items(), key=lambda kv: (-kv[1], kv[0]))[:8]]
         groups = []
         for key, label in spec:
             hit = b.bid.map(lambda k: key in groups_of.get(k, ())).to_numpy(bool)

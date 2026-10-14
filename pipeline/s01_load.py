@@ -6,11 +6,12 @@ where OSM has none. A footprint's height, in order of preference:
   1  storeys: the OSM `building:levels` tag × 3.2 m
   2  modelled: GlobalBuildingAtlas (TUM), estimated from satellite imagery, matched by overlap
   3  assumed: 7 m, two storeys, when nothing else covers the footprint
-  4  a landmark's height from its Wikipedia article (LANDMARKS), where OSM maps its parts without heights
+  4  a landmark's height from its Wikipedia article (LANDMARKS), where OSM cannot give its shape
 Storeys are the OSM levels where tagged, otherwise the height divided by 3.2 m.
 
-Output: data/buildings.parquet (one row per building) and data/parts.parquet (the 3D parts of the
-buildings that OSM maps in detail; every other building is extruded from its footprint).
+Output: data/buildings.parquet (one row per building), data/parts.parquet (the 3D parts of the buildings that
+OSM maps in detail; every other building is extruded from its footprint) and data/meshes.npz (the landmarks'
+own shapes, see pipeline/landmarks.py).
 """
 import json
 import os
@@ -20,6 +21,7 @@ import numpy as np
 import pandas as pd
 import shapely
 
+from . import landmarks
 from .config import CRS, DATA, RAW
 
 STOREY = 3.2
@@ -35,23 +37,12 @@ def read_wkb(path, crs=4326) -> gpd.GeoDataFrame:
     return gpd.GeoDataFrame(df, geometry=shapely.from_wkb(df.pop("geometry")), crs=crs)
 
 
-# Landmarks whose 3D parts OpenStreetMap maps without heights. Each value rests on the article named.
+# Landmarks OpenStreetMap cannot shape: their OSM parts are dropped, the footprint stands at its own storeys (the
+# podium), and the rest is a mesh from pipeline/landmarks.py. `top` is the highest point, from Wikipedia.
 LANDMARKS = {
-    # Sydney Opera House: "The highest roof point is 67 metres above sea-level" (Wikipedia, Sydney Opera House).
-    # The shells are given heights in proportion to their size up to that point; the podium keeps its levels.
-    "r9596872": dict(top=67.0, article="Sydney Opera House", check="highest roof point is 67 metres"),
+    # Sydney Opera House: OSM maps the shells as flat roof pieces without heights.
+    "r9596872": dict(top=landmarks.OPERA_TOP, mesh=landmarks.opera_house),
 }
-
-
-def landmark_parts(q: pd.DataFrame, b: pd.DataFrame) -> pd.DataFrame:
-    for osm, L in LANDMARKS.items():
-        ids = b.id[b.osm == osm]
-        if ids.empty:
-            continue
-        m = q.building_id.isin(ids) & q.height.isna()
-        size = np.sqrt(q.area[m])
-        q.loc[m, "height"] = (L["top"] * (size / size.max()) ** 0.8).clip(lower=20.0)
-    return q
 
 
 def osm_tags() -> pd.DataFrame:
@@ -97,7 +88,7 @@ def main():
     q["geometry"] = shapely.make_valid(q.geometry.values)
     q["height"] = q.height.fillna(q.num_floors * STOREY)
     q["base"] = q.min_height.fillna(q.min_floor * STOREY).fillna(0.0)
-    q = landmark_parts(q, b)
+    q = q[~q.building_id.isin(b.id[b.osm.isin(list(LANDMARKS))])]
     # A part without a height takes the lowest known height of its building's other parts.
     q["height"] = q.height.fillna(q.groupby("building_id").height.transform("min"))
     q = q[q.height.notna() & (q.height > q.base)]
@@ -132,7 +123,9 @@ def main():
     b["outline_height"] = np.where(has, np.fmin(b.id.map(low).to_numpy(dtype=float), own), np.nan)
 
     for osm, L in LANDMARKS.items():
-        b.loc[b.osm == osm, ["height", "height_src"]] = [L["top"], 4]
+        m = b.osm == osm
+        b.loc[m, "outline_height"] = b.loc[m, "num_floors"] * STOREY
+        b.loc[m, ["height", "height_src"]] = [L["top"], 4]
 
     b["floors_src"] = np.where(b.num_floors.notna(), 0, 1)
     b["floors"] = b.num_floors.fillna(np.round(b.height / STOREY)).clip(1, 99).astype(int)
@@ -166,6 +159,10 @@ def main():
     q = pd.concat([gpd.GeoDataFrame(dict(bid=outline.bid, height=outline.outline_height, base=0.0),
                                     geometry=outline.geometry.values, crs=CRS), q], ignore_index=True)
     q.to_parquet(DATA / "parts.parquet")
+    meshes = [(int(b.bid[b.osm == osm].iloc[0]), *L["mesh"]()) for osm, L in LANDMARKS.items() if (b.osm == osm).any()]
+    np.savez(DATA / "meshes.npz", bid=np.array([m[0] for m in meshes], np.int64),
+             vstart=np.cumsum([0] + [len(m[1]) for m in meshes]), tstart=np.cumsum([0] + [len(m[2]) for m in meshes]),
+             verts=np.concatenate([m[1] for m in meshes]), tris=np.concatenate([m[2] for m in meshes]))
     print(f"{len(b)} buildings ({(b.source == 'osm').sum()} OSM, {(b.source == 'ml').sum()} ML); {len(q)} parts")
     print("height sources:", b.height_src.value_counts().sort_index().to_dict())
     print("by LGA:", b.lga.value_counts().to_dict())

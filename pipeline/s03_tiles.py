@@ -2,12 +2,15 @@
 
 Local frame: metres from the GPO in Martin Place, x east, z south (three.js, y up).
 Tile layout (little-endian, every section 4-byte aligned):
-  header  u32 magic, nB, nP, nR, nV; f32 originX, originZ
+  header  u32 magic, nB, nP, nR, nV, nMV, nMT; f32 originX, originZ
   B       u32 gid[nB]; i16 year[nB]; u8 flag[nB]; u8 period[nB]; u8 floors[nB]; u8 heritage[nB] (see HERITAGE);
           u32 lay0[nB]; u32 lay1[nB] (layer bits, see s05_layers); u32 partStart[nB+1]
   P       f32 height[nP]; f32 base[nP]; u32 ringStart[nP+1]
   R       u32 vertStart[nR+1]; u8 hole[nR]
   V       i16 xz[2*nV], decimetres from the tile origin
+  M       meshes, for the shapes extrusion cannot draw (the Opera House's shells, see landmarks.py):
+          u16 bld[nMV] (the building's index in this tile); i16 xyz[3*nMV], decimetres from the tile origin
+          (y up); u16 tri[3*nMT]
 """
 import json
 import struct
@@ -18,12 +21,13 @@ import pandas as pd
 import shapely
 
 from .config import CRS, DATA, WEB, gpo_mga
+from .landmarks import SHAPES
 from .periods import PERIODS
 
 GPO = gpo_mga()
 TILE = 600.0
 SIMPLIFY = 0.25
-MAGIC = 0x31445953  # 'SYD1'
+MAGIC = 0x32445953  # 'SYD2'
 # Heritage status of a building, the fourth colouring of the map (index 0: none).
 HERITAGE = ["State Heritage Register", "Local heritage item", "Contributing building",
             "Neutral building", "Detracting building"]
@@ -51,7 +55,15 @@ def rings_of(geom):
 def pack_tile(origin, rows):
     gid, year, flag, period, floors, heritage, lay0, lay1, part_start = [], [], [], [], [], [], [], [], [0]
     heights, bases, ring_start, vert_start, holes, verts = [], [], [0], [0], [], []
-    for b in rows:
+    mesh_bld, mesh_pos, mesh_tri, n_mv = [], [], [], 0
+    for i, b in enumerate(rows):
+        if b.get("mesh") is not None:
+            v, t = b["mesh"]
+            xyz = np.c_[to_local(v[:, :2]) - origin, v[:, 2]][:, [0, 2, 1]] * 10
+            mesh_pos.append(np.round(xyz).astype(np.int16))
+            mesh_bld.append(np.full(len(v), i, np.uint16))
+            mesh_tri.append(np.asarray(t, np.uint32) + n_mv)
+            n_mv += len(v)
         gid.append(b["gid"]); year.append(b["year"]); flag.append(b["flag"])
         period.append(b["period"]); floors.append(min(b["floors"], 255)); heritage.append(b["heritage"])
         lay0.append(b["lay0"]); lay1.append(b["lay1"])
@@ -70,8 +82,11 @@ def pack_tile(origin, rows):
             ring_start.append(len(holes))
         part_start.append(len(heights))
     nB, nP, nR = len(gid), len(heights), len(holes)
+    assert nB < 0x8000, "the viewer keeps a building's index in a tile in 15 bits"
     V = np.concatenate(verts) if verts else np.zeros((0, 2), np.int16)
-    out = struct.pack("<5I2f", MAGIC, nB, nP, nR, len(V), *origin)
+    tri = np.concatenate(mesh_tri) if mesh_tri else np.zeros((0, 3), np.uint32)
+    assert n_mv <= 0x10000, "mesh vertices are indexed in 16 bits"
+    out = struct.pack("<7I2f", MAGIC, nB, nP, nR, len(V), n_mv, len(tri), *origin)
     out += pad4(np.array(gid, "<u4").tobytes())
     out += pad4(np.array(year, "<i2").tobytes())
     out += pad4(np.array(flag, "u1").tobytes())
@@ -86,6 +101,10 @@ def pack_tile(origin, rows):
     out += pad4(np.array(vert_start, "<u4").tobytes())
     out += pad4(np.array(holes, "u1").tobytes())
     out += pad4(V.astype("<i2").tobytes())
+    if n_mv:
+        out += pad4(np.concatenate(mesh_bld).astype("<u2").tobytes())
+        out += pad4(np.concatenate(mesh_pos).astype("<i2").tobytes())
+        out += pad4(tri.astype("<u2").tobytes())
     return out
 
 
@@ -118,6 +137,9 @@ def main():
     q["geometry"] = shapely.simplify(q.geometry.values, SIMPLIFY, preserve_topology=True)
     parts = q.groupby("bid")[["height", "base", "geometry"]].apply(
         lambda d: list(zip(d.height, d.base, d.geometry))).to_dict()
+    m = np.load(DATA / "meshes.npz")
+    meshes = {int(bid): (m["verts"][m["vstart"][k]:m["vstart"][k + 1]], m["tris"][m["tstart"][k]:m["tstart"][k + 1]])
+              for k, bid in enumerate(m["bid"])}
     b["geometry"] = shapely.simplify(b.geometry.values, SIMPLIFY, preserve_topology=True)
 
     b = b.reset_index(drop=True)
@@ -132,7 +154,7 @@ def main():
         origin = np.array([tx * TILE, tz * TILE])
         rows = [dict(gid=int(r.gid), year=int(r.year), flag=int(r.date_flag), period=int(r.period),
                      floors=int(r.floors), heritage=int(r.heritage), lay0=int(r.lay0), lay1=int(r.lay1),
-                     parts=parts.get(r.bid) or [(float(r.height), 0.0, r.geometry)])
+                     parts=parts.get(r.bid) or [(float(r.height), 0.0, r.geometry)], mesh=meshes.get(r.bid))
                 for r in grp.itertuples()]
         data = pack_tile(origin, rows)
         name = f"{tx}_{tz}.bin"
@@ -200,6 +222,7 @@ def main():
                       counts=[int((b.heritage == i).sum()) for i in range(len(HERITAGE) + 1)]),
         tiles=index,
         packs=packs,
+        shapes={str(int(g)): SHAPES.get(o) or SHAPES[i] for g, o, i in zip(b.gid, b.osm, b.id) if o in SHAPES or i in SHAPES},
         stats=dict(buildings=len(b),
                    flags={int(k): int(v) for k, v in b.date_flag.value_counts().sort_index().items()},
                    heightSrc={int(k): int(v) for k, v in b.height_src.value_counts().sort_index().items()},

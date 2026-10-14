@@ -1,10 +1,12 @@
-"""Offline tests: the date parsers, the tile format, the fact-check normaliser. No network, no data downloads."""
+"""Offline tests: the date parsers, the tile format, the Opera House's shells, the fact-check normaliser. No network,
+no data downloads."""
 import struct
 
 import numpy as np
 import shapely
 
 from pipeline.checks import norm
+from pipeline.landmarks import OPERA_TOP, SPHERE, SPRING, half_shell, opera_house, sphere_centre
 from pipeline.periods import PERIODS, period_index
 from pipeline.s02_years import parse_osm_date, parse_wiki_built
 from pipeline.s03_tiles import ATTR_DTYPE, GPO, MAGIC, pack_tile
@@ -46,31 +48,53 @@ def test_tile_round_trip():
     at = lambda pts: shapely.Polygon([(GPO[0] + x, GPO[1] + y) for x, y in pts])  # noqa: E731  (MGA, near the GPO)
     sq = at([(10, 10), (30, 10), (30, 25), (10, 25)])
     tower = at([(15, 12), (25, 12), (25, 20), (15, 20)])
+    shell = (np.array([[GPO[0] + 10, GPO[1] + 10, 0.0], [GPO[0] + 30, GPO[1] + 10, 0.0], [GPO[0] + 20, GPO[1] + 20, 40.0]]),
+             np.array([[0, 1, 2]]))
     rows = [dict(gid=7, year=1932, flag=0, period=4, floors=3, heritage=1, lay0=5, lay1=0,
-                 parts=[(12.0, 0.0, sq), (80.0, 12.0, tower)])]
+                 parts=[(12.0, 0.0, sq), (80.0, 12.0, tower)]),
+            dict(gid=8, year=1973, flag=0, period=6, floors=5, heritage=1, lay0=0, lay1=0,
+                 parts=[(16.0, 0.0, sq)], mesh=shell)]
     origin = np.array([0.0, 0.0])
     buf = pack_tile(origin, rows)
-    magic, nB, nP, nR, nV = struct.unpack_from("<5I", buf)
-    assert (magic, nB, nP, nR, nV) == (MAGIC, 1, 2, 2, 8)
-    o = 28
+    magic, nB, nP, nR, nV, nMV, nMT = struct.unpack_from("<7I", buf)
+    assert (magic, nB, nP, nR, nV, nMV, nMT) == (MAGIC, 2, 3, 3, 12, 3, 1)
+    o = 36
     def take(dtype, n):
         nonlocal o
         a = np.frombuffer(buf, dtype, n, o)
         o += -(-n * np.dtype(dtype).itemsize // 4) * 4
         return a
-    gid, year = take("<u4", 1), take("<i2", 1)
+    gid, year = take("<u4", 2), take("<i2", 2)
     for _ in range(4):
-        take("u1", 1)
-    take("<u4", 1); take("<u4", 1); part_start = take("<u4", 2)
-    height, base = take("<f4", 2), take("<f4", 2)
-    ring_start, vert_start, hole = take("<u4", 3), take("<u4", 3), take("u1", 2)
+        take("u1", 2)
+    take("<u4", 2); take("<u4", 2); part_start = take("<u4", 3)
+    height, base = take("<f4", 3), take("<f4", 3)
+    ring_start, vert_start, hole = take("<u4", 4), take("<u4", 4), take("u1", 3)
     xz = take("<i2", 2 * nV).reshape(-1, 2)
-    assert gid[0] == 7 and year[0] == 1932 and list(part_start) == [0, 2]
-    assert list(height) == [12.0, 80.0] and list(base) == [0.0, 12.0]
-    assert list(ring_start) == [0, 1, 2] and list(vert_start) == [0, 4, 8] and not hole.any()
+    assert list(gid) == [7, 8] and year[0] == 1932 and list(part_start) == [0, 2, 3]
+    assert list(height) == [12.0, 80.0, 16.0] and list(base) == [0.0, 12.0, 0.0]
+    assert list(ring_start) == [0, 1, 2, 3] and list(vert_start) == [0, 4, 8, 12] and not hole.any()
     # x east, z south, in decimetres from the tile origin.
     assert set(map(tuple, xz[:4])) == {(100, -100), (300, -100), (300, -250), (100, -250)}
+    # The mesh: its building's index in the tile, then x, height, z in decimetres, then the triangles.
+    mesh_bld, mesh_pos, mesh_tri = take("<u2", nMV), take("<i2", 3 * nMV).reshape(-1, 3), take("<u2", 3 * nMT)
+    assert list(mesh_bld) == [1, 1, 1] and list(mesh_tri) == [0, 1, 2]
+    assert mesh_pos.tolist() == [[100, 0, -100], [300, 0, -100], [200, 400, -200]]
     assert o == len(buf)
+
+
+def test_opera_house_shells():
+    """Every half-shell lies on one 75.2 m sphere through its pedestal, tip and back corner, on its own side of the
+    hall's axis, and the whole roof tops out at the documented 67 m."""
+    tip, back, ped = np.array([-5.0, 0, 67.0]), np.array([-49.7, 0, 32.7]), np.array([-24.0, 25.0, 12.6])
+    v, t = half_shell(tip, back, ped)
+    c = sphere_centre(np.array([ped, tip, back]), SPHERE, np.array([0.0, 1.0, 1.0]))
+    assert np.allclose(np.linalg.norm(v - c, axis=1), SPHERE)
+    assert np.allclose(v[0], ped) and np.allclose(v[12], tip) and np.allclose(v[-1], back)
+    assert v[:, 1].min() > -1e-9 and t.max() < len(v)
+    verts, tris = opera_house()
+    assert abs(verts[:, 2].max() - OPERA_TOP) < 1e-6 and verts[:, 2].min() >= SPRING - 1e-6
+    assert tris.max() < len(verts) <= 0x10000
 
 
 def test_attr_record_is_aligned():

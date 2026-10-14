@@ -35,7 +35,8 @@ stands on, and the Cammeraygal people, the Traditional Custodians of the land of
    the period ramp) and changes only the accent, to waratah red, and the wordmark. See [`design/README.md`](design/README.md).
 2. **Viewer.** [`web/`](web) is the LAYRS three.js viewer (no build step), adapted: Sydney's periods and texts, a
    Heritage mode in place of Amsterdam's energy labels, cards that show the evidence for every year, part bases in
-   the tile format (so the Harbour Bridge arch and floating parts can be drawn), and a 2D GIS dialog.
+   the tile format (so the Harbour Bridge arch and floating parts can be drawn), meshes for shapes extrusion cannot
+   draw (the Opera House's shells), and a 2D GIS dialog.
 3. **Data.** [`pipeline/`](pipeline) (Python, `uv`) turns open data into the binary tiles and JSON the viewer reads.
 4. **RustGIS.** RustGIS is a full GIS (ribbon, attribute table, analysis), not a library for a bespoke 3D city, so
    three.js keeps the 3D map and RustGIS does what it is good at: `pipeline/s09_rustgis.py` uses its Python engine
@@ -62,9 +63,21 @@ single year; they are paler on the map, marked "c." on the cards with the range,
 off ("Colour documented and strata years only"). Treat them as an educated guess about the period, not as a date.
 
 Heights come from OpenStreetMap where it has them (12,273, measured or from storeys), from GlobalBuildingAtlas
-(14,180, modelled from satellite imagery) and are otherwise assumed to be two storeys (3,389). Two landmarks are
-modelled from their Wikipedia figures: the Opera House shells (67 m) and the Harbour Bridge (504 m span, 134 m
-summit, 48.8 m wide; its 89 m pylons are OpenStreetMap buildings), see [`pipeline/landmarks.py`](pipeline/landmarks.py).
+(14,180, modelled from satellite imagery) and are otherwise assumed to be two storeys (3,389).
+
+Two landmarks are modelled, see [`pipeline/landmarks.py`](pipeline/landmarks.py). The Harbour Bridge is a schematic
+model from its Wikipedia figures (504 m span, 134 m summit, 48.8 m wide; its 89 m pylons are OpenStreetMap buildings).
+The Opera House's shells, which OpenStreetMap maps only as flat roof pieces, are a mesh built on the geometry they were
+built to, as Ove Arup & Partners' Michael Lewis described it in
+[*Roof cladding of the Sydney Opera House*](https://www.royalsoc.org.au/wp-content/uploads/2024/09/106_12_lewis.pdf)
+(Journal and Proceedings of the Royal Society of NSW, 1973): every half-shell is a spherical triangle "standing on a
+vertex", cut from a sphere of 75.2 m, its ribs great circles fanning out from the pedestal. The Concert Hall's shells
+are measured off the paper's western elevation, scaled to the 67 m highest point, and placed on OpenStreetMap's plan
+of the roof, which they match to within about 2 m; the Joan Sutherland Theatre's roof is the same layout at 0.79 of
+the size, as the plan shows, and the restaurant's two shells are placed from the plan with heights estimated from
+photographs. Side shells are plain triangles, and the glass walls are left out.
+
+![The Opera House's shells, from the west](docs/screenshots/opera-house.png)
 
 ## Data and licences
 
@@ -78,6 +91,7 @@ summit, 48.8 m wide; its 89 m pylons are OpenStreetMap buildings), see [`pipelin
 | Heritage contributions, Aboriginal history places, Developing Sydney 1900–1920 | [City of Sydney open data](https://data.cityofsydney.nsw.gov.au) | CC BY 4.0 |
 | Names, dates, architects, styles | Wikidata | CC0 |
 | Article extracts, built years, quest facts | English Wikipedia | CC BY-SA 4.0 |
+| The Opera House's shell geometry (measurements, not copied) | M. Lewis, *Roof cladding of the Sydney Opera House*, J. Proc. Roy. Soc. NSW 106 (1973) | facts |
 | Photos | Wikimedia Commons, each credited on its card | per file |
 | Land and water | Overture Maps base theme (OpenStreetMap) | ODbL |
 | 2D basemap | [OpenFreeMap](https://openfreemap.org) | OpenMapTiles, ODbL |
@@ -101,7 +115,7 @@ python3 scripts/serve.py                 # http://localhost:8642, with byte rang
 | Step | What it does |
 |---|---|
 | `s00_fetch` | Downloads every source into `data/raw/` (Overture and GlobalBuildingAtlas through DuckDB on S3, Overpass, Wikidata, Wikipedia, ArcGIS services) |
-| `s01_load` | Footprints in the two LGAs, OSM tags, 3D parts, heights and storeys; the Harbour Bridge model |
+| `s01_load` | Footprints in the two LGAs, OSM tags, 3D parts, heights and storeys; the Harbour Bridge and Opera House models |
 | `s02_years` | Wikidata links, documented years, heritage status, strata calibration, estimates |
 | `s04_water` | Land, water and the other shores |
 | `s05_layers` | Context layers, one bit per group per building |
