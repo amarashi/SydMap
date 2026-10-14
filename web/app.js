@@ -134,9 +134,9 @@ const EDGE_GLSL = `
     vec2 q = min(p - uEdgeMin, uEdgeMin + uEdgeSize - p);
     return max(smoothstep(uFadeRange.x, uFadeRange.y, metres), 1.0 - smoothstep(0.0, 1500.0, min(q.x, q.y)));
   }`;
-// Land fades from 260 m beyond the nearest building; the water only far out, so the harbour between the shores stays
-// clear and only the open water at the edge of the map goes into the wall.
-function groundMaterial(color, from = 260, to = 1150) {
+// Land and water fade together, from 1.4 km beyond the nearest building to 2.4 km: the harbour between the shores
+// stays clear, and the far shores and the open water go into the wall as one.
+function groundMaterial(color, from = 1400, to = 2400) {
   return new THREE.ShaderMaterial({
     uniforms: { uColor: { value: new THREE.Color(color) }, uWall: { value: new THREE.Color(SKY) }, uFadeRange: { value: new THREE.Vector2(from, to) }, ...EDGE },
     vertexShader: 'varying vec2 vXZ; void main() { vec4 w = modelMatrix * vec4(position, 1.0); vXZ = w.xz; gl_Position = projectionMatrix * viewMatrix * w; }',
@@ -145,7 +145,7 @@ function groundMaterial(color, from = 260, to = 1150) {
   });
 }
 const land = new THREE.Mesh(landGeo, groundMaterial(LAND));
-const water = new THREE.Mesh(waterGeo, groundMaterial(WATER, 1700, 2500));
+const water = new THREE.Mesh(waterGeo, groundMaterial(WATER));
 const context = new THREE.Mesh(contextGeo, groundMaterial(CONTEXT));
 land.position.y = -0.05;
 context.position.y = -0.1;

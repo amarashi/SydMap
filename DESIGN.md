@@ -239,9 +239,9 @@ never bold. The name's 0.86 line height is deliberate: it is one word set as a d
 Sheets (the dock, the find field, flaps, chips, the hover label) are paper with a soft offset shadow in ink, never a
 border: `0 6px 16px -8px` at 14% and `0 16px 36px -20px` at 22% for small sheets, `0 24px 48px -20px` at 28% for the
 dock and dialogs. The wall comes forward over the model at the top and bottom (veils) and in a soft patch behind the
-name. The ground fades into the wall with distance from the nearest building (a smoothed 50 m distance field, from
-260 m out to 1,150 m; `EDGE` and `edgeFade` in `app.js`), so its edge follows the councils' outline, never a box. Water
-fades only from 1,700 m, so the harbour between the shores stays clear. The camera stops at 22 km so the far shores stay out of view.
+name. The ground (land and water together) fades into the wall with distance from the nearest building (a smoothed
+50 m distance field, from 1.4 km out to 2.4 km; `EDGE` and `edgeFade` in `app.js`), and over the last 1.5 km before the
+mapped area ends, so its edge follows the councils' outline, never a box, and the harbour between the shores stays clear. The camera stops at 22 km so the far shores stay out of view.
 
 ## Shapes
 
