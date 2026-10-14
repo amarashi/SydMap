@@ -15,7 +15,7 @@ view runs [RustGIS](https://github.com/opengeos/RustGIS). A non-commercial proje
 education.
 
 **Run it locally:** `python3 scripts/serve.py` and open <http://localhost:8642>. The built data is in the
-repository, so nothing else is needed. **Publish it:** see [Cloudflare Pages](#publishing-on-cloudflare-pages).
+repository, so nothing else is needed. **Publish it:** see [Cloudflare](#publishing-on-cloudflare).
 
 SydMap acknowledges the Gadigal people of the Eora Nation, the Traditional Custodians of the land the City of Sydney
 stands on, and the Cammeraygal people, the Traditional Custodians of the land of North Sydney.
@@ -126,7 +126,7 @@ uv run python -m pipeline.run            # all steps; raw downloads are cached i
 uv run python -m pipeline.run s05 s03    # some steps, by prefix
 uv run python -m pipeline.checks         # check every quest and landmark claim against Wikipedia
 uv run pytest                            # offline tests
-python3 scripts/serve.py                 # http://localhost:8642, with byte ranges like Cloudflare Pages
+python3 scripts/serve.py                 # http://localhost:8642, with byte ranges and CORS for RustGIS
 ```
 
 | Step | What it does |
@@ -144,13 +144,19 @@ python3 scripts/serve.py                 # http://localhost:8642, with byte rang
 
 The area is set in [`pipeline/config.py`](pipeline/config.py) (`LGAS`, `BBOX`): add an LGA and its box to grow the map.
 
-## Publishing on Cloudflare Pages
+## Publishing on Cloudflare
 
-The site lives at <https://sydmap.thethirdscript.com/>, served by Cloudflare Pages from this repository. There is no
-build step: Cloudflare publishes the `web/` folder as it is on every push to the production branch. The project is set up
-once in the Cloudflare dashboard (Workers & Pages › Create › Pages › Connect to Git): pick this repository, leave the
-build command empty, set the build output directory to `web`, then add `sydmap.thethirdscript.com` under Custom domains.
-`web/_headers` keeps the `*.pages.dev` preview address out of search results.
+The site lives at <https://sydmap.thethirdscript.com/>, served by Cloudflare as a Worker with static assets: everything
+in `web/`, nothing else, as `wrangler.jsonc` says. There is no build step. `.github/workflows/deploy.yml` runs
+`wrangler deploy` on every push to `main` that touches `web/`, using the repository secrets `CLOUDFLARE_API_TOKEN`
+and `CLOUDFLARE_ACCOUNT_ID`. To publish by hand with the same two values in the environment:
+
+```powershell
+pnpm dlx wrangler@4 deploy
+```
+
+The custom domain, its DNS record and its HTTPS certificate come from `wrangler.jsonc`; thethirdscript.com is a zone
+in the same Cloudflare account.
 
 ## Limitations
 

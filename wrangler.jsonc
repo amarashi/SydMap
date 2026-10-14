@@ -1,0 +1,11 @@
+// The site, served by a Cloudflare Worker as static files: everything in web/, nothing else.
+// Deploy by hand with: pnpm dlx wrangler@4 deploy        (needs CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID)
+// .github/workflows/deploy.yml runs the same command on every push to main that touches web/ or this file.
+// The custom domain gets its DNS record and HTTPS certificate from Cloudflare; thethirdscript.com is a zone in the account.
+{
+  "name": "sydmap",
+  "compatibility_date": "2026-09-01",
+  "assets": { "directory": "./web" },
+  "workers_dev": false,
+  "routes": [{ "pattern": "sydmap.thethirdscript.com", "custom_domain": true }]
+}
