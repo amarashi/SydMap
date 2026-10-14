@@ -1,7 +1,8 @@
 import * as THREE from './vendor/three.module.js';
 import { MapControls } from './vendor/MapControls.js';
 
-// Adapted from LAYRS: Amsterdam (github.com/alexbarakov/amsterdam-by-building, MIT) for Sydney.
+// SydMap's viewer. Its 3D engine began as LAYRS: Amsterdam's (github.com/alexbarakov/amsterdam-by-building, MIT);
+// the page around it, the line through time and the dock, is SydMap's own.
 
 // Colours are authored in sRGB and drawn as they are.
 THREE.ColorManagement.enabled = false;
@@ -52,7 +53,7 @@ controls.mouseButtons = { LEFT: THREE.MOUSE.ROTATE, MIDDLE: THREE.MOUSE.DOLLY, R
 controls.rotateSpeed = 0.6;
 controls.maxPolarAngle = Math.PI * 0.47;
 controls.minDistance = 60;
-controls.maxDistance = 30000;
+controls.maxDistance = 22000;
 
 // ?cam=x,z,azimuth,elevation,span overrides the home view (for sharing a view, and for screenshots).
 const camParam = new URLSearchParams(location.search).get('cam')?.split(',').map(Number);
@@ -92,9 +93,65 @@ async function loadPolygons(url) {
 const flat = new THREE.Group();
 scene.add(flat);
 const [landGeo, waterGeo, contextGeo] = await Promise.all(['land', 'water', 'context'].map(n => loadPolygons(`data/${n}.bin`)));
-const land = new THREE.Mesh(landGeo, new THREE.MeshBasicMaterial({ color: LAND }));
-const water = new THREE.Mesh(waterGeo, new THREE.MeshBasicMaterial({ color: WATER }));
-const context = new THREE.Mesh(contextGeo, new THREE.MeshBasicMaterial({ color: CONTEXT }));
+// The ground fades into the white wall with distance from the nearest building, so the edge follows the outline of
+// the two councils (their shores, the harbour between them) rather than any box. A coarse distance field over the mapped
+// ground (about 50 m a cell, metres stored in tens), smoothed, sampled by the ground's shader.
+const EDGE = (() => {
+  contextGeo.computeBoundingBox();
+  const g = contextGeo.boundingBox, cell = 50;
+  const W = Math.ceil((g.max.x - g.min.x) / cell) + 1, H = Math.ceil((g.max.z - g.min.z) / cell) + 1;
+  const d = new Float32Array(W * H).fill(1e6);
+  const [ox, oz] = [config.attrFields.x[0], config.attrFields.z[0]];
+  for (let o = 0; o < attrBuf.byteLength; o += config.attrStride) {
+    const i = Math.round((attrs.getFloat32(o + ox, true) - g.min.x) / cell), j = Math.round((attrs.getFloat32(o + oz, true) - g.min.z) / cell);
+    if (i >= 0 && i < W && j >= 0 && j < H) d[j * W + i] = 0;
+  }
+  // Two chamfer passes (straight steps of one cell, diagonal ones of 1.414), then a box blur to soften the steps.
+  const pass = (dirs, ys, xs) => { for (const y of ys) for (const x of xs) { let v = d[y * W + x];
+    for (const [dx, dy, w] of dirs) { const X = x + dx, Y = y + dy; if (X >= 0 && X < W && Y >= 0 && Y < H) v = Math.min(v, d[Y * W + X] + w); }
+    d[y * W + x] = v; } };
+  const range = (n, back) => Array.from({ length: n }, (_, k) => back ? n - 1 - k : k);
+  pass([[-1, 0, 1], [0, -1, 1], [-1, -1, 1.414], [1, -1, 1.414]], range(H), range(W));
+  pass([[1, 0, 1], [0, 1, 1], [1, 1, 1.414], [-1, 1, 1.414]], range(H, true), range(W, true));
+  const bytes = new Uint8Array(W * H), r = 3;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    let sum = 0, n = 0;
+    for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) { const X = x + dx, Y = y + dy; if (X >= 0 && X < W && Y >= 0 && Y < H) { sum += d[Y * W + X]; n++; } }
+    bytes[y * W + x] = Math.min(255, Math.round(sum / n * cell / 10));
+  }
+  const tex = new THREE.DataTexture(bytes, W, H, THREE.RedFormat, THREE.UnsignedByteType);
+  tex.magFilter = tex.minFilter = THREE.LinearFilter;
+  tex.needsUpdate = true;
+  return { uEdge: { value: tex }, uEdgeMin: { value: new THREE.Vector2(g.min.x, g.min.z) }, uEdgeSize: { value: new THREE.Vector2((W - 1) * cell, (H - 1) * cell) } };
+})();
+const EDGE_GLSL = `
+  uniform sampler2D uEdge;
+  uniform vec2 uEdgeMin, uEdgeSize;
+  uniform vec2 uFadeRange;
+  // A slow wobble of a few hundred metres, so no edge of the fade runs straight.
+  float wobble(vec2 p) {
+    return 0.55 * sin(p.x / 830.0 + 1.3) * sin(p.y / 1070.0 + 0.7) + 0.45 * sin((p.x - p.y) / 1530.0 + 2.1);
+  }
+  float edgeFade(vec2 p) {
+    float metres = texture2D(uEdge, (p - uEdgeMin) / uEdgeSize).r * 2550.0;
+    // Also into the wall before the mapped ground ends (only 700 m past the last buildings in the north).
+    vec2 q = min(p - uEdgeMin, uEdgeMin + uEdgeSize - p);
+    float w = wobble(p);
+    return max(smoothstep(uFadeRange.x, uFadeRange.y, metres + 220.0 * w), 1.0 - smoothstep(0.0, 700.0, min(q.x, q.y) + 260.0 * w));
+  }`;
+// Land and water fade together, from 650 m beyond the nearest building to 1.6 km: the harbour between the shores
+// stays clear, and the far shores and the open water go into the wall as one.
+function groundMaterial(color, from = 650, to = 1600) {
+  return new THREE.ShaderMaterial({
+    uniforms: { uColor: { value: new THREE.Color(color) }, uWall: { value: new THREE.Color(SKY) }, uFadeRange: { value: new THREE.Vector2(from, to) }, ...EDGE },
+    vertexShader: 'varying vec2 vXZ; void main() { vec4 w = modelMatrix * vec4(position, 1.0); vXZ = w.xz; gl_Position = projectionMatrix * viewMatrix * w; }',
+    fragmentShader: `uniform vec3 uColor, uWall; varying vec2 vXZ; ${EDGE_GLSL}
+      void main() { gl_FragColor = vec4(mix(uColor, uWall, edgeFade(vXZ)), 1.0); }`,
+  });
+}
+const land = new THREE.Mesh(landGeo, groundMaterial(LAND));
+const water = new THREE.Mesh(waterGeo, groundMaterial(WATER));
+const context = new THREE.Mesh(contextGeo, groundMaterial(CONTEXT));
 land.position.y = -0.05;
 context.position.y = -0.1;
 water.position.y = -0.4;
@@ -425,61 +482,60 @@ function building(gid) {
 
 const periodOf = y => periods.find(p => y >= p.from && y <= p.to) || periods[0];
 
-// ---------- Building card ----------
-// Hover shows a light card that follows the pointer; a click pins it, with the article extract and links.
+// ---------- Reading ----------
 let wiki = [], names = [], heritageItems = [];
-fetch('data/wiki.json').then(r => r.json()).then(w => { wiki = w; });
-fetch('data/names.json').then(r => r.json()).then(n => { names = n; });
-fetch('data/heritage.json').then(r => r.json()).then(h => { heritageItems = h; });
+const ready = Promise.all([
+  fetch('data/wiki.json').then(r => r.json()).then(w => { wiki = w; }),
+  fetch('data/names.json').then(r => r.json()).then(n => { names = n; }),
+  fetch('data/heritage.json').then(r => r.json()).then(h => { heritageItems = h; }),
+]);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const link = (href, text) => `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(text)}</a>`;
+const phone = matchMedia('(max-width: 720px)');
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const dot = color => `<i class="dot" style="background:${color}"></i>`;
+// An age's label is its dates and its name ("1870–1890 The boom years"); the line shows them apart.
+const ageParts = p => { const m = p.label.match(/^(Before \d{4}|\d{4}–(?:\d{4})?)\s+(.*)$/); return m ? { dates: m[1], name: m[2] } : { dates: '', name: p.label }; };
+const nameOf = (b, w = b.wk >= 0 ? wiki[b.wk] : null) => w?.label || (b.nm >= 0 ? names[b.nm] : null);
 
 const HEIGHT_NOTE = ['measured, OpenStreetMap', 'from its storeys, OpenStreetMap', 'modelled, GlobalBuildingAtlas', 'assumed: two storeys', 'highest point above sea level, Wikipedia'];
 const range = b => b.yfrom !== b.yto ? `${b.yfrom}–${b.yto}` : `${b.yfrom}`;
+// How the year is known, in a sentence: the first words name the kind of evidence, as Notes does.
 function datingNote(b, w, h) {
-  const src = { 0: 'Wikidata', 1: 'the Wikipedia article', 2: 'OpenStreetMap' }[b.dsrc];
+  const src = { 0: 'Wikidata', 1: 'its Wikipedia article', 2: 'OpenStreetMap' }[b.dsrc] || 'a documented source';
   switch (b.flag) {
-    case 0: return `Year from ${src || 'a documented source'}.`;
-    case 1: return `From ${src || 'a documented source'}, which gives ${range(b)}: read it as “around then”.`;
-    case 2: return `Estimated from its strata plan, SP${b.sp}, registered around ${b.year}. Apartment buildings are strata-titled
-      when they are finished; an older building converted to strata later would show its conversion year.`;
-    case 3: if (b.dsrc === 4) return `Estimated: part of the State Heritage Register listing ${esc(h?.name || '')}, which its Wikipedia article dates ${range(b)}. Not every building of a listed place is as old as the place.`;
-      return `Estimated: ${h?.hca ? `the City marks it as part of the historic fabric of the ${esc(h.hca)} heritage conservation area` : 'a heritage-listed building'}; dated from the documented heritage buildings around it, ${range(b)}.`;
-    default: return `Estimated from the dated buildings around it of similar height, ${range(b)}.${b.height >= 46 ? ' Taller than 46 m, the height limit that held until 1957, so built after it.' : ''}${b.heritage === 5 ? ' Its heritage area marks it as later than the area’s historic fabric.' : ''}`;
+    case 0: return `Documented: the year comes from ${src}.`;
+    case 1: return `Documented, roughly: ${src} gives ${range(b)}, so read it as “around then”.`;
+    case 2: return `From its strata plan, SP${b.sp}, registered around ${b.year}. Apartments are strata-titled when they are
+      finished; an older building turned into apartments later shows the year it was converted.`;
+    case 3: if (b.dsrc === 4) return `From its heritage listing: part of ${esc(h?.name || 'a State Heritage Register listing')}, which its Wikipedia article dates ${range(b)}. Not every building of a listed place is as old as the place.`;
+      return `Estimated from its heritage area: ${h?.hca ? `the City counts it in the historic fabric of the ${esc(h.hca)} heritage conservation area` : 'it is heritage-listed'}, and it is dated from the documented heritage buildings around it.`;
+    default: return `Estimated from its neighbours: the dated buildings around it of a similar height.${b.height >= 46 ? ' At over 46 m, Sydney’s height limit until 1957, it was built after that.' : ''}${b.heritage === 5 ? ' Its heritage area counts it as later than the area’s historic fabric.' : ''}`;
   }
 }
-
 function groupColor(g) {
   return GROUP_COLORS[g.layer.groups.findIndex(x => x.bit === g.bit)] || GROUP_COLORS[0];
 }
 
-function photoHtml(im, pinned) {
-  if (!im?.thumb) return '';
-  const credit = pinned
-    ? `${link(im.page || im.thumb, im.artist || 'Wikimedia Commons')}${im.license ? `, ${im.licenseUrl ? link(im.licenseUrl, im.license) : esc(im.license)}` : ''}`
-    : `${esc(im.artist || 'Wikimedia Commons')}${im.license ? `, ${esc(im.license)}` : ''}`;
-  return `<figure class="photo"><div class="frame"><img src="${esc(im.thumb)}" alt=""></div><figcaption>Photo: ${credit}</figcaption></figure>`;
-}
-
-// The card reads top to bottom: photo, name and year; what the building is; the layers it belongs to and why;
-// the facts; how its date was found; where to read more.
-function cardHtml(gid, pinned) {
+// A building in the dock: photo, name and year, how the year is known, the stories it is in, facts, sources.
+function buildingHtml(gid) {
   const b = building(gid);
   const w = b.wk >= 0 ? wiki[b.wk] : null;
   const hItem = b.hi >= 0 ? heritageItems[b.hi] : null;
-  const name = w?.label || (b.nm >= 0 ? names[b.nm] : null);
+  const name = nameOf(b, w);
   const period = periodOf(b.year);
-  const hcol = HERITAGE_COLORS[b.heritage];
   const shape = config.shapes?.[gid];
+  const im = w?.image;
+  const photo = im?.thumb ? `<figure class="b-photo"><img src="${esc(im.thumb)}" alt=""><figcaption>Photo: ${link(im.page || im.thumb, im.artist || 'Wikimedia Commons')}${im.license ? `, ${im.licenseUrl ? link(im.licenseUrl, im.license) : esc(im.license)}` : ''}</figcaption></figure>` : '';
   const facts = [
-    ['Height', `${b.height.toFixed(1)} m <small class="src-note">${HEIGHT_NOTE[b.hsrc]}</small>`],
-    shape && ['Shape', `${esc(shape[0])} <small class="src-note">${pinned ? link(shape[2], shape[1]) : esc(shape[1])}</small>`],
-    !(shape && b.fsrc !== 0) && ['Storeys', `${b.floors ?? Math.max(1, Math.round(b.height / 3.2))} <small class="src-note">${b.fsrc === 0 ? 'OpenStreetMap' : 'height ÷ 3.2 m'}</small>`],
+    ['Height', `${b.height.toFixed(1)} m<small class="src-note">${HEIGHT_NOTE[b.hsrc]}</small>`],
+    shape && ['Shape', `${esc(shape[0])}<small class="src-note">${link(shape[2], shape[1])}</small>`],
+    !(shape && b.fsrc !== 0) && ['Storeys', `${b.floors ?? Math.max(1, Math.round(b.height / 3.2))}<small class="src-note">${b.fsrc === 0 ? 'OpenStreetMap' : 'height ÷ 3.2 m'}</small>`],
     w?.architects?.length && [w.architects.length > 1 ? 'Architects' : 'Architect', w.architects.map(esc).join(', ')],
     w?.styles?.length && ['Style', w.styles.map(esc).join(', ')],
-    b.heritage && ['Heritage', `<span class="hlabel"><i style="background:${hcol}"></i>${esc(config.heritage.labels[b.heritage - 1])}</span>`],
+    b.heritage && ['Heritage', `${esc(config.heritage.labels[b.heritage - 1])}`],
     hItem?.name && [hItem.kind === 'shr' ? 'Listing' : 'Heritage item', esc(hItem.name)],
-    hItem?.hca && ['Conservation area', esc(hItem.hca)],
+    hItem?.hca && ['Heritage area', esc(hItem.hca)],
     b.sp && ['Strata plan', `SP${b.sp}`],
   ].filter(Boolean);
   const osmUrl = b.osm > 0 ? `https://www.openstreetmap.org/way/${b.osm}` : b.osm < 0 ? `https://www.openstreetmap.org/relation/${-b.osm}` : null;
@@ -489,91 +545,124 @@ function cardHtml(gid, pinned) {
     hItem?.shrId && link(`https://www.hms.heritage.nsw.gov.au/App/Item/ViewItem?itemId=${hItem.shrId}`, 'State Heritage Register'),
     osmUrl && link(osmUrl, 'OpenStreetMap'),
   ].filter(Boolean);
-  const inLayers = b.groups.map(g => {
+  const stories = b.groups.map(g => {
     const note = g.layer.notes?.[gid];
-    return `<li><i style="background:${groupColor(g)}"></i><div><b>${esc(g.layer.title)}</b> <span>${esc(g.label)}</span>
-      ${pinned && note?.story ? `<p>${esc(note.story)}${note.source ? ` ${link(note.source, 'Source')}` : ''}</p>` : ''}</div></li>`;
+    return `<li>${dot(groupColor(g))}<div><b>${esc(g.layer.title)}</b> <span>${esc(g.label)}</span>
+      ${note?.story ? `<p>${esc(note.story)}${note.source ? ` ${link(note.source, 'Source')}` : ''}</p>` : ''}</div></li>`;
   }).join('');
-  return `
-    ${pinned ? `<button class="card-close" aria-label="Close">${CLOSE}</button>` : ''}
-    ${photoHtml(w?.image, pinned)}
-    <header class="card-head">
-      ${name ? `<h3>${esc(name)}</h3>` : ''}
-      <div class="when"><span class="y">${b.flag >= 1 ? 'c. ' : ''}${b.year}</span>
-        <span class="period"><i style="background:${period.color}"></i>${esc(period.label)}</span></div>
-    </header>
-    ${pinned && w?.wiki?.extract ? `<section><p class="extract">${esc(w.wiki.extract)}</p></section>` : ''}
-    ${inLayers ? `<section><h4>In layers</h4><ul class="chips">${inLayers}</ul></section>` : ''}
+  return `<article class="dock-page b-card${photo ? ' has-photo' : ''}">${photo}
+    <header class="b-head"><h2 id="dock-title">${name ? esc(name) : 'A building'}</h2>
+      <div class="b-when"><span class="y">${b.flag >= 1 ? 'c. ' : ''}${b.year}</span><span class="age">${dot(period.color)}${esc(ageParts(period).name)}</span></div></header>
+    <section><h3>How we know the year</h3><p class="how">${datingNote(b, w, hItem)}${b.flag >= 1 && b.yfrom !== b.yto ? `<span class="range">Likely ${b.yfrom}–${b.yto}</span>` : ''}</p></section>
     <section><dl>${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl></section>
-    <section><h4>Dating</h4><p class="why">${datingNote(b, w, hItem)}</p></section>
-    ${pinned ? (sources.length ? `<section class="sources"><h4>Read more</h4><p>${sources.join(', ')}</p></section>` : '')
-      : `<p class="hint">${w?.wiki || b.groups.some(g => g.layer.notes?.[gid]) ? 'Click for the story and sources' : 'Click to keep this card open'}</p>`}`;
+    ${w?.wiki?.extract ? `<section><h3>From Wikipedia</h3><p class="extract">${esc(w.wiki.extract)}</p><button class="read-on" hidden>Read on</button></section>` : ''}
+    ${stories ? `<section><h3>In the stories</h3><ul class="chips">${stories}</ul></section>` : ''}
+    ${sources.length ? `<section class="sources"><h3>Sources</h3><p>${sources.join(' · ')}</p></section>` : ''}</article>`;
 }
 
-const card = document.getElementById('card');
-let pinnedGid = -1;
-let lastPin = [0, 0];
-// On a wide screen a card keeps below the year and the tools (styles.css gives it the height that leaves).
-const CARD_TOP = 186;
-function placeCard(x, y) {
-  const r = card.getBoundingClientRect(), top = phone.matches ? 12 : CARD_TOP;
-  card.style.left = Math.max(12, Math.min(x + 18, innerWidth - r.width - 12)) + 'px';
-  card.style.top = Math.max(top, Math.min(y + 18, innerHeight - r.height - 12)) + 'px';
+// ---------- The dock ----------
+// One thing to read at a time, on the right (a sheet from the bottom on a phone): the notes, the stories, a story, a
+// building, the walks, or the walk in hand. A building opened from a story or a walk offers the way back.
+const dock = document.getElementById('dock');
+const dockLive = document.getElementById('dock-live');
+const notesEl = document.getElementById('notes');
+const dockBack = dock.querySelector('.dock-back');
+let dockView = null;
+function openDock(view, html, back = null) {
+  dockView = view;
+  notesEl.hidden = view !== 'notes';
+  dockLive.innerHTML = view === 'notes' ? '' : html;
+  dock.classList.toggle('has-back', !!back);
+  dockBack.hidden = !back;
+  if (back) { dockBack.innerHTML = `${BACK}${esc(back.label)}`; dockBack.onclick = back.go; }
+  dock.setAttribute('aria-label', (view === 'notes' ? notesEl : dockLive).querySelector('h2')?.textContent || 'Details');
+  dock.hidden = false;
+  dock.scrollTop = 0;
+  document.body.classList.add('docked');
+  syncBar();
 }
+function closeDock() {
+  dock.hidden = true;
+  document.body.classList.remove('docked');
+  dockView = null;
+  syncBar();
+}
+dock.querySelector('.dock-close').onclick = () => {
+  if (dockView === 'walk') { closeQuest(); return; }
+  if (dockView === 'building') unpin();
+  closeDock();
+};
+function syncBar() {
+  document.querySelector('.walks-open').setAttribute('aria-pressed', String(dockView === 'walks' || dockView === 'walk'));
+  document.querySelector('.notes-open').setAttribute('aria-pressed', String(dockView === 'notes'));
+}
+
+// ---------- A building: a label at the pointer, the dock on a click ----------
+const tip = document.getElementById('tip');
 let hoverGid = -1;
-function wirePhoto() {
-  const img = card.querySelector('.photo img');
-  if (!img) return;
-  // A photo that fails to load takes its frame with it.
-  img.addEventListener('error', () => card.querySelector('.photo')?.remove());
-  img.addEventListener('load', () => placeCard(...(pinnedGid >= 0 ? lastPin : pointer || lastPin)));
-}
-function showCard(gid, x, y) {
-  if (pinnedGid >= 0 || phone.matches) return;
-  if (cardsLocked()) { card.hidden = true; return; }
-  if (gid < 0) { card.hidden = true; hoverGid = -1; return; }
-  if (gid !== hoverGid || card.hidden) {
-    // Re-render only when the building changes, so the photo is not reloaded every frame.
+function showTip(gid, x, y) {
+  if (phone.matches || gid < 0 || cardsLocked() || gid === pinnedGid) { tip.hidden = true; hoverGid = -1; return; }
+  if (gid !== hoverGid) {
     hoverGid = gid;
-    card.innerHTML = cardHtml(gid, false);
-    card.classList.remove('pinned');
-    card.hidden = false;
-    wirePhoto();
+    const b = building(gid), name = nameOf(b), p = periodOf(b.year);
+    tip.innerHTML = `${name ? `<b>${esc(name)}</b>` : ''}<span>${dot(p.color)}${b.flag >= 1 ? 'c. ' : ''}${b.year} · ${esc(ageParts(p).name)}</span>`;
   }
-  placeCard(x, y);
+  tip.hidden = false;
+  const r = tip.getBoundingClientRect();
+  tip.style.left = Math.max(12, Math.min(x + 16, innerWidth - r.width - 12)) + 'px';
+  tip.style.top = (y + r.height + 30 > innerHeight ? y - r.height - 14 : y + 18) + 'px';
 }
-function pinCard(gid, x, y) {
-  pinnedGid = gid;
-  hoverGid = -1;
-  uniforms.uSelected.value = gid;
-  if (gid < 0) { card.hidden = true; card.classList.remove('pinned'); return; }
-  card.innerHTML = cardHtml(gid, true);
-  card.classList.add('pinned');
-  lastPin = [x, y];
-  collapsePanelOnPhone();
-  card.hidden = false;
-  card.querySelector('.card-close').onclick = () => pinCard(-1);
-  wirePhoto();
-  placeCard(x, y);
-}
-addEventListener('keydown', e => { if (e.key === 'Escape') pinCard(-1); });
 
-// A click (not a drag) pins the building under the pointer, or clears the pin on empty ground.
+let pinnedGid = -1;
+let buildingBack = null;
+function unpin() {
+  pinnedGid = -1;
+  uniforms.uSelected.value = quizGid;
+}
+function openBuilding(gid, back = backFromHere()) {
+  pinnedGid = gid;
+  uniforms.uSelected.value = gid;
+  tip.hidden = true;
+  buildingBack = back;
+  openDock('building', buildingHtml(gid), back);
+  dockLive.querySelector('.b-photo img')?.addEventListener('error', e => e.target.closest('.b-photo')?.remove());
+  const extract = dockLive.querySelector('.extract'), more = dockLive.querySelector('.read-on');
+  if (extract && extract.scrollHeight > extract.clientHeight + 4) { more.hidden = false; more.onclick = () => { extract.classList.add('open'); more.remove(); }; }
+}
+// The way back from a building: to the walk in hand, the story open in the dock, or the stories.
+function backFromHere() {
+  if (dockView === 'building') return buildingBack;
+  if (quest) return { label: 'Back to the walk', go: () => { unpin(); renderQuest(); } };
+  if (dockView === 'story' && activeLayer) { const L = activeLayer; return { label: L.title, go: () => { unpin(); showStory(L); } }; }
+  if (dockView === 'stories') return { label: 'All stories', go: () => { unpin(); showStories(); } };
+  return null;
+}
+// Kept for the walks and the screenshots: a negative id lets go of the building, any other opens it.
+function pinCard(gid) {
+  if (gid < 0) { const was = dockView === 'building'; unpin(); if (was && !quest) closeDock(); return; }
+  openBuilding(gid);
+}
+addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (document.body.classList.contains('finding') || !findList.hidden) { closeFind(); return; }
+  if (dockView && dockView !== 'walk' && !document.querySelector('dialog[open]')) { if (dockView === 'building') unpin(); closeDock(); }
+});
+
+// A click (not a drag) opens the building under the pointer, or lets it go on empty ground.
 let pointer = null, dragging = false, downAt = null;
 canvas.addEventListener('pointermove', e => { pointer = [e.clientX, e.clientY]; });
-canvas.addEventListener('pointerdown', e => {
-  dragging = true; downAt = [e.clientX, e.clientY];
-  if (pinnedGid < 0) card.hidden = true;
-});
+canvas.addEventListener('pointerdown', e => { dragging = true; downAt = [e.clientX, e.clientY]; tip.hidden = true; });
 canvas.addEventListener('pointerup', e => {
   dragging = false;
-  if (!downAt || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 5) return;
+  if (!downAt) return;
+  if (Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 5) return;
   const gid = pick(e.clientX, e.clientY);
   if (quest && !solved && qStep().kind === 'find') { questClick(gid); return; }
   if (cardsLocked()) return;
-  pinCard(gid === pinnedGid ? -1 : gid, e.clientX, e.clientY);
+  if (gid < 0 || gid === pinnedGid) { pinCard(-1); return; }
+  openBuilding(gid);
 });
-canvas.addEventListener('pointerleave', () => { pointer = null; if (pinnedGid < 0) card.hidden = true; uniforms.uHover.value = -1; });
+canvas.addEventListener('pointerleave', () => { pointer = null; tip.hidden = true; uniforms.uHover.value = -1; });
 
 // ---------- Flying to a building ----------
 let flight = null;
@@ -591,53 +680,131 @@ function stepFlight(now) {
   camera.position.lerpVectors(flight.fromP, flight.toP, e);
   if (k >= 1) { const d = flight.done; flight = null; d?.(); }
 }
+// On a phone the dock is a sheet over the lower half: aim short of the building so it lands in the upper half.
+function aimFly(x, z, dist, done = null) {
+  if (phone.matches && !dock.hidden) {
+    const f = controls.target.clone().sub(camera.position).setY(0).normalize();
+    x -= f.x * dist * 0.35; z -= f.z * dist * 0.35;
+  }
+  flyTo(x, z, done, dist);
+}
 
-// ---------- Quests ----------
-// Short walks through the city as riddles (pipeline/quests.py, checked by s08_quests): find a building on the map,
-// guess a building's year with the colours hidden, or pick one of three answers. Each step is worth three marks;
-// a hint or a wrong answer costs one. Progress stays in this browser.
+// ---------- Find a building or street ----------
+// Every named building (from Wikipedia and Wikidata, or OpenStreetMap's names) and every street and stretch of water
+// the map labels. Prefix matches first, then the start of a later word, then anywhere.
+const findForm = document.querySelector('.find');
+const findInput = document.getElementById('find');
+const findList = document.getElementById('find-results');
+const findIndex = [];
+const fold = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+ready.then(() => {
+  const seen = new Map();
+  const [ow, on, oy, ox, oz, oh] = ['wk', 'nm', 'year', 'x', 'z', 'h'].map(k => config.attrFields[k][0]);
+  for (let gid = 0, o = 0; o < attrBuf.byteLength; gid++, o += config.attrStride) {
+    const wk = attrs.getInt32(o + ow, true), nm = attrs.getInt32(o + on, true);
+    const label = wk >= 0 ? wiki[wk]?.label : nm >= 0 ? names[nm] : null;
+    if (!label) continue;
+    const h = attrs.getUint16(o + oh, true), prev = seen.get(label);
+    if (prev && prev.h >= h) continue;
+    seen.set(label, { label, kind: 'building', gid, h, known: wk >= 0, year: attrs.getInt16(o + oy, true), x: attrs.getFloat32(o + ox, true), z: attrs.getFloat32(o + oz, true) });
+  }
+  findIndex.push(...seen.values());
+  const places = new Map();
+  for (const L of labelData) if (!places.has(L.name) && L.pts?.length) places.set(L.name, { label: L.name, kind: L.water ? 'water' : 'street', x: L.pts[0][0], z: L.pts[0][1] });
+  findIndex.push(...places.values());
+  for (const e of findIndex) e.key = fold(e.label);
+});
+let findHits = [], findAt = -1;
+function search(q) {
+  const k = fold(q.trim());
+  if (k.length < 2) return [];
+  const word = new RegExp(`(^|\\s)${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\s|$)`);
+  const score = e => word.test(e.key) ? (e.key.startsWith(k) ? 0 : 1) : e.key.startsWith(k) ? 2 : e.key.includes(' ' + k) ? 3 : e.key.includes(k) ? 4 : -1;
+  const rank = e => e.kind === 'building' ? (e.known ? 0 : 2) : 1;
+  return findIndex.map(e => [score(e), e]).filter(([s]) => s >= 0)
+    .sort((a, b) => a[0] - b[0] || rank(a[1]) - rank(b[1]) || a[1].label.length - b[1].label.length)
+    .slice(0, 8).map(([, e]) => e);
+}
+function renderFind() {
+  findHits = search(findInput.value);
+  findAt = findHits.length ? 0 : -1;
+  const q = findInput.value.trim();
+  findList.innerHTML = findHits.length ? findHits.map((e, i) => `<li role="option" id="find-${i}" data-i="${i}" aria-selected="${i === findAt}">
+      <b>${esc(e.label)}</b><small>${e.kind === 'building' ? `Built ${e.year}` : e.kind === 'water' ? 'Water' : 'Street'}</small></li>`).join('')
+    : q.length >= 2 ? `<li class="empty">Nothing by that name on the map.</li>` : '';
+  findList.hidden = !findList.innerHTML;
+  findInput.setAttribute('aria-expanded', String(!findList.hidden));
+  findInput.setAttribute('aria-activedescendant', findAt >= 0 ? `find-${findAt}` : '');
+}
+function moveFind(d) {
+  if (!findHits.length) return;
+  findAt = (findAt + d + findHits.length) % findHits.length;
+  findList.querySelectorAll('[role="option"]').forEach((li, i) => li.setAttribute('aria-selected', String(i === findAt)));
+  findInput.setAttribute('aria-activedescendant', `find-${findAt}`);
+}
+function choose(e) {
+  closeFind();
+  findInput.value = '';
+  findInput.blur();
+  if (e.kind === 'building') aimFly(e.x, e.z, 420, () => openBuilding(e.gid));
+  else aimFly(e.x, e.z, e.kind === 'water' ? 1800 : 900);
+}
+function closeFind() {
+  findList.hidden = true;
+  findInput.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('finding');
+}
+findInput.addEventListener('input', renderFind);
+findInput.addEventListener('focus', renderFind);
+findInput.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown') { e.preventDefault(); moveFind(1); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); moveFind(-1); }
+});
+findForm.addEventListener('submit', e => { e.preventDefault(); if (findHits[findAt]) choose(findHits[findAt]); });
+findList.addEventListener('pointerdown', e => { const li = e.target.closest('[data-i]'); if (li) { e.preventDefault(); choose(findHits[+li.dataset.i]); } });
+findInput.addEventListener('blur', () => setTimeout(() => { if (document.activeElement !== findInput) closeFind(); }, 120));
+document.querySelector('.find-open').onclick = () => { document.body.classList.add('finding'); findInput.focus(); };
+
+// ---------- Walks ----------
+// Short routes through the city told as riddles (pipeline/quests.py, checked by s08_quests): find a stop on the map,
+// guess a building's year with the colours off, or pick one of three answers. Each stop earns up to three suns; a
+// hint or a wrong answer costs one. Progress stays in this browser.
 let quests = [];
 fetch('data/quests.json').then(r => r.ok ? r.json() : []).then(q => { quests = q; }).catch(() => {});
-const questEl = document.getElementById('quest');
-const questsDlg = document.getElementById('quests');
 const LEVEL = ['', 'Easy', 'Medium', 'Hard'];
 const qStore = () => { try { return JSON.parse(localStorage.getItem('syd-quests') || '{}'); } catch { return {}; } };
 function qSave(id, patch) {
   try { const p = qStore(); p[id] = { ...(p[id] || {}), ...patch }; localStorage.setItem('syd-quests', JSON.stringify(p)); } catch {}
 }
-// A mark is a small sun (styles.css): lit when earned.
-const crosses = (n, of = 3) => `<span class="q-x" role="img" aria-label="${n} / ${of}">${Array.from({ length: of }, (_, i) =>
-  `<i class="${i < n ? 'on' : ''}"></i>`).join('')}</span>`;
-const levelMark = lv => `<span class="q-level">${crosses(lv)}${LEVEL[lv]}</span>`;
+// Suns: lit for each one earned, of three.
+const suns = (n, of = 3) => `<span class="suns" role="img" aria-label="${n} of ${of}">${Array.from({ length: of }, (_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('')}</span>`;
 // A small seeded generator: the same circle offset and answer order every time a step is played.
 function rng(seed) { let h = 2166136261; for (const c of seed) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return () => ((h = Math.imul(h ^ (h >>> 15), 2246822507) ^ Math.imul(h ^ (h >>> 13), 3266489909)) >>> 0) / 4294967296; }
 
-function renderQuestList() {
+function showWalks() {
   const p = qStore();
   const total = quests.reduce((n, q) => n + (p[q.id]?.best || 0), 0), max = quests.reduce((n, q) => n + q.steps.length * 3, 0);
-  const tile = (q, st) => {
-    const n = q.steps.length, done = Math.min(st.step || 0, n), complete = done >= n;
-    return `<li class="q-tile l${q.level}${complete ? ' complete' : ''}">
-      <h3>${esc(q.title)}</h3><p>${esc(q.intro)}</p>
-      <footer>${levelMark(q.level)}<span class="q-progress">${complete ? `${st.score || 0} / ${n * 3}` : `${done} / ${n}`}</span>
-        <button class="q-start" data-q="${q.id}">${complete ? 'Play again' : done ? 'Continue' : 'Start'}</button></footer></li>`;
+  const route = q => {
+    const st = p[q.id] || {}, n = q.steps.length, done = Math.min(st.step || 0, n), complete = done >= n;
+    return `<li class="route"><h3>${esc(q.title)}</h3><p>${esc(q.intro)}</p>
+      <div class="route-meta"><span>${LEVEL[q.level]} · ${n} stops · ${complete ? `${st.score || 0} of ${n * 3} suns` : done ? `${done} of ${n} done` : 'not started'}</span>
+        <button class="pill${complete ? '' : ' primary'}" data-q="${q.id}">${complete ? 'Walk again' : done ? 'Carry on' : 'Start'}</button></div></li>`;
   };
-  document.getElementById('quests-body').innerHTML = `
-    <h2 id="quests-title">Quests</h2>
-    <p class="q-lede">Find buildings from riddles and photos, guess their age with the colours switched off. Every answer is worth three marks; hints and wrong answers cost one.</p>
-    <p class="q-score">Your marks: <b>${total}</b> / ${max}</p>
-    <ul class="q-grid">${quests.map(q => tile(q, p[q.id] || {})).join('')}</ul>`;
-  questsDlg.querySelectorAll('.q-start').forEach(b => b.onclick = () => {
+  openDock('walks', `<article class="dock-page"><h2 id="dock-title">Walks</h2>
+    <p class="lede">Five short routes through the city, told as riddles. Find each stop on the map, guess a building’s age
+      with the colours off, or pick the right answer. Each stop earns up to three suns; a hint or a wrong guess costs one.</p>
+    <p class="walk-score">Your suns: <b>${total}</b> of ${max}</p>
+    <ul class="routes">${quests.map(route).join('')}</ul></article>`);
+  dockLive.querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
     const q = quests.find(q => q.id === b.dataset.q), st = qStore()[q.id] || {};
-    questsDlg.close();
     const fresh = !st.step || st.step >= q.steps.length;
     startQuest(q, fresh ? 0 : st.step, fresh ? 0 : st.score || 0, fresh ? [] : st.marks || []);
   });
 }
-function openQuests() { renderQuestList(); questsDlg.showModal(); }
-document.querySelector('.quests-open').onclick = openQuests;
-questsDlg.querySelector('.about-close').onclick = () => questsDlg.close();
-questsDlg.addEventListener('click', e => { if (e.target === questsDlg) questsDlg.close(); });
+document.querySelector('.walks-open').onclick = () => {
+  if (quest) { if (dockView !== 'walk') renderQuest(); return; }
+  if (dockView === 'walks') closeDock(); else showWalks();
+};
 
 // The search circle: a terracotta ring on the ground around (not centred on) the answer.
 const ring = new THREE.Group();
@@ -655,65 +822,55 @@ function centre(gids) {
   const bs = gids.map(building);
   return [bs.reduce((a, b) => a + b.x, 0) / bs.length, bs.reduce((a, b) => a + b.z, 0) / bs.length];
 }
-// The map's state while a step asks about one building: its card locked, its colours hidden for a year riddle.
+// The map's state while a stop asks about one building: no card for it, and its colours hidden for a year riddle.
 let quizGid = -1;
 function setQuiz(gid, blind) {
   quizGid = gid;
   uniforms.uSelected.value = gid;
   uniforms.uBlind.value = gid < 0 ? 0 : blind ? 1 : 2;
-  if (gid >= 0) { pinCard(-1); uniforms.uSelected.value = gid; }
+  if (gid >= 0) { pinnedGid = -1; uniforms.uSelected.value = gid; }
 }
 const cardsLocked = () => quest && !solved && quizGid >= 0;
 
 function startQuest(q, n, sc = 0, mk = []) {
   quest = q; step = n; score = sc; marks = mk;
-  document.body.classList.add('questing');
-  pinCard(-1);
+  document.body.classList.add('walking');
+  unpin();
   enterStep(true);
 }
 function enterStep(first) {
   hintsShown = 0; tries = 0; solved = false; revealed = false; lastDist = null; folded = false; guess = 1900;
   ring.visible = false;
   const s = qStep(), gids = stepGids(s);
+  renderQuest();
   if (s.kind === 'find') {
     setQuiz(-1, false);
     if (first) {
-      // Open on the whole quest: every building it visits in view.
+      // Open on the whole walk: every stop in view.
       const all = quest.steps.flatMap(stepGids), [x, z] = centre(all);
       const spread = Math.max(...all.map(g => { const b = building(g); return Math.hypot(b.x - x, b.z - z); }));
-      flyTo(x, z, null, Math.min(5200, Math.max(900, spread * 2.2)));
+      aimFly(x, z, Math.min(5200, Math.max(900, spread * 2.2)));
     }
   } else if (gids.length) {
     const b = building(gids[0]);
     setQuiz(gids[0], s.kind === 'year');
-    questFly(b.x, b.z, s.kind === 'year' ? 300 : 380);
+    aimFly(b.x, b.z, s.kind === 'year' ? 300 : 380);
   }
-  renderQuest();
-}
-// On a phone the quest sits over the top half of the map: aim past the building so it lands in the lower half.
-function questFly(x, z, dist, done = null) {
-  if (phone.matches) {
-    const f = controls.target.clone().sub(camera.position).setY(0).normalize();
-    x += f.x * dist * 0.2; z += f.z * dist * 0.2;
-  }
-  flyTo(x, z, done, dist);
 }
 function closeQuest() {
-  document.body.classList.remove('questing');
-  quest = null; questEl.hidden = true; ring.visible = false; setQuiz(-1, false);
+  document.body.classList.remove('walking');
+  quest = null; ring.visible = false; setQuiz(-1, false); unpin();
+  if (dockView === 'walk' || dockView === 'building') closeDock();
 }
-function setModeNamed(name) {
-  document.querySelector(`.modes button[data-mode="${MODE[name]}"]`)?.click();
-}
+function setModeNamed(name) { setMode(MODE[name]); }
 function showRing() {
   const s = qStep(), [x, z] = centre(stepGids(s));
   const r = { 1: 220, 2: 300, 3: 380 }[quest.level] || 300;
   const k = rng(quest.id + step), a = k() * Math.PI * 2, d = r * 0.55 * Math.sqrt(k());
   const cx = x + Math.cos(a) * d, cz = z + Math.sin(a) * d;
   ring.position.set(cx, 2, cz); ring.scale.setScalar(r); ring.visible = true;
-  questFly(cx, cz, r * 5);
+  aimFly(cx, cz, r * 5);
 }
-
 function photoOf(s) {
   if (s.clue?.thumb) return { src: s.clue.thumb, credit: link(s.clue.page || s.clue.thumb, [s.clue.artist, s.clue.license].filter(Boolean).join(', ') || 'Wikimedia Commons') };
   if (s.photo) {
@@ -722,8 +879,9 @@ function photoOf(s) {
   }
   return null;
 }
-const progress = () => `<div class="q-steps">${quest.steps.map((_, i) => `<i class="${i < step || (i === step && solved) ? 'done' : i === step ? 'now' : ''}"></i>`).join('')}
-  <span>${step + 1} / ${quest.steps.length}</span></div>`;
+// The stops as ticket stubs: stamped with a sun once done.
+const stubs = () => `<div class="stubs" aria-label="Stop ${step + 1} of ${quest.steps.length}">${quest.steps.map((_, i) =>
+  `<span class="stub ${i < step || (i === step && solved) ? 'done' : i === step ? 'now' : ''}">${i + 1}</span>`).join('')}</div>`;
 const worth = () => {
   const s = qStep();
   if (s.kind === 'find') return revealed ? 0 : Math.max(1, 3 - hintsShown);
@@ -734,79 +892,73 @@ function yearPoints(d) { return d <= 5 ? 3 : d <= 15 ? 2 : d <= 35 ? 1 : 0; }
 
 function renderQuest() {
   if (!quest) return;
-  const s = qStep(), ph = photoOf(s);
-  const title = esc(quest.title);
-  questEl.className = `quest k-${s.kind}${solved ? ' solved' : ''}${folded ? ' folded' : ''}`;
+  const s = qStep(), ph = photoOf(s), tap = phone.matches ? 'tap' : 'click';
   let body = '';
   if (s.kind === 'find') {
     const hints = Array.from({ length: hintsShown }, (_, i) => i === 0 ? 'Look inside the circle on the map.' : s.hints[i - 1]);
     const more = hintsShown < s.hints.length + 1;
     body = `
-      ${ph && !solved ? `<figure class="q-photo"><img src="${esc(ph.src)}" alt="A photo of the building to find"></figure><p class="q-credit">${ph.credit}</p>` : ''}
-      <p class="q-riddle">${esc(s.riddle)}</p>
-      ${hints.length ? `<ul class="q-hints">${hints.map(h => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}
-      ${solved ? '' : `<p class="q-feedback">Find it on the map and click it.</p>`}
-      ${solved ? '' : `<div class="q-actions">
-        ${more ? `<button class="q-hint">Hint <small>−1</small></button>` : ''}
-        ${s.mode ? `<button class="q-mode">${s.mode === 'floors' ? 'Colour by floors' : 'Colour by period'}</button>` : ''}
-        <button class="q-reveal">Show me</button>
-        <span class="q-worth">${crosses(worth())}</span></div>`}`;
+      ${ph && !solved ? `<figure class="walk-photo"><img src="${esc(ph.src)}" alt="A photo of the stop to find"></figure><p class="walk-credit">${ph.credit}</p>` : ''}
+      <p class="riddle">${esc(s.riddle)}</p>
+      ${hints.length ? `<ul class="hints">${hints.map(h => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}
+      ${solved ? '' : `<p class="feedback">Find it on the map and ${tap} it.</p>
+        <div class="walk-actions">${more ? `<button class="pill w-hint">A hint <small>−1</small></button>` : ''}
+          ${s.mode ? `<button class="pill w-lens">${s.mode === 'floors' ? 'Show heights' : 'Show ages'}</button>` : ''}
+          <button class="pill w-reveal">Show me</button><span class="worth">Worth ${suns(worth())}</span></div>`}`;
   } else if (s.kind === 'year') {
     body = `
-      ${ph ? `<figure class="q-photo"><img src="${esc(ph.src)}" alt=""></figure><p class="q-credit">${ph.credit}</p>` : ''}
-      <p class="q-riddle">${esc(s.ask)}</p>
-      ${solved ? '' : `<div class="q-year"><output>${guess}</output>
+      ${ph ? `<figure class="walk-photo"><img src="${esc(ph.src)}" alt=""></figure><p class="walk-credit">${ph.credit}</p>` : ''}
+      <p class="riddle">${esc(s.ask)}</p>
+      ${solved ? '' : `<div class="guess"><output>${guess}</output>
         <input type="range" min="1788" max="2026" step="1" value="${guess}" aria-label="Your guess">
-        <div class="q-scale"><span>1788</span><span>1850</span><span>1900</span><span>1950</span><span>2000</span></div></div>
-        <div class="q-actions"><button class="primary q-guess">Guess</button><span class="q-worth">${crosses(3)}</span></div>`}`;
+        <div class="scale"><span>1788</span><span>1850</span><span>1900</span><span>1950</span><span>2000</span></div></div>
+        <div class="walk-actions"><button class="pill primary w-guess">Guess</button><span class="worth">Worth ${suns(3)}</span></div>`}`;
   } else {
     const order = s.options.map((o, i) => i).sort((a, b) => rng(quest.id + step + a)() - rng(quest.id + step + b)());
     body = `
-      <p class="q-riddle">${esc(s.ask)}</p>
-      <div class="q-options">${order.map(i => `<button data-i="${i}" ${solved ? 'disabled' : ''} class="${solved && i === 0 ? 'right' : ''}">${esc(s.options[i])}</button>`).join('')}</div>
-      ${solved ? '' : `<div class="q-actions"><span class="q-feedback"></span><span class="q-worth">${crosses(worth())}</span></div>`}`;
+      <p class="riddle">${esc(s.ask)}</p>
+      <div class="options">${order.map(i => `<button data-i="${i}" ${solved ? 'disabled' : ''} class="${solved && i === 0 ? 'right' : ''}">${esc(s.options[i])}</button>`).join('')}</div>
+      ${solved ? '' : `<div class="walk-actions"><span class="feedback"></span><span class="worth">Worth ${suns(worth())}</span></div>`}`;
   }
-  questEl.innerHTML = `
-    <button class="q-close" aria-label="Close">${CLOSE}</button>
-    <header><b>${title}</b>${levelMark(quest.level)}</header>
-    ${progress()}${body}${solved ? revealHtml(s) : ''}`;
-  questEl.hidden = false;
+  openDock('walk', `<article class="dock-page walk${folded ? ' folded' : ''}">
+    <header class="walk-head"><h2 id="dock-title">${esc(quest.title)}</h2><span class="level">${LEVEL[quest.level]}</span></header>
+    ${stubs()}${body}${solved ? revealHtml(s) : ''}</article>`);
   wireQuest(s);
 }
 function revealHtml(s) {
-  const got = marks[step] ?? 0, last = step === quest.steps.length - 1;
-  const extra = s.kind === 'year' ? `<p class="q-yeardiff">Your guess: <b>${guess}</b>. Built: <b>${s.year}</b>. ${Math.abs(guess - s.year) === 0 ? 'Exactly right.' : `${Math.abs(guess - s.year)} ${Math.abs(guess - s.year) === 1 ? 'year' : 'years'} off.`}</p>` : '';
-  return `<div class="q-found">
-    <div class="q-stamp" aria-hidden="true">${crosses(got)}</div>
+  const got = marks[step] ?? 0, last = step === quest.steps.length - 1, d = Math.abs(guess - s.year);
+  const extra = s.kind === 'year' ? `<p>Your guess: <b>${guess}</b>. Built: <b>${s.year}</b>. ${d === 0 ? 'Spot on.' : `${d} ${d === 1 ? 'year' : 'years'} out.`}</p>` : '';
+  return `<div class="walk-found">
+    <div class="stamp" aria-hidden="true">${suns(got)}</div>
     ${extra}
     <p>${esc(s.reveal)}${s.sources?.length ? ' ' + s.sources.map((u, i) => link(u, s.sources.length > 1 ? `Source ${i + 1}` : 'Source')).join(', ') : ''}</p>
-    <p class="q-earned">${revealed ? 'Shown, not found: no marks.' : got === 3 ? 'Full marks.' : ''}</p></div>
-    <div class="q-actions">${last ? `<button class="primary q-finish">See the result</button>`
-      : `<button class="primary q-next">Next</button>`}<button class="q-card">Open its card</button></div>`;
+    <p class="earned">${revealed ? 'Shown, not found: no suns this time.' : got === 3 ? 'All three suns.' : ''}</p></div>
+    <div class="walk-actions">${last ? `<button class="pill primary w-finish">See how you went</button>`
+      : `<button class="pill primary w-next">Next stop</button>`}<button class="pill w-card">Open its card</button></div>`;
 }
 function wireQuest(s) {
-  questEl.querySelector('header').onclick = () => { folded = !folded; questEl.classList.toggle('folded', folded); };
-  questEl.querySelector('.q-close').onclick = closeQuest;
-  const foldOnPhone = () => { if (phone.matches) { folded = true; questEl.classList.add('folded'); } };
-  questEl.querySelector('.q-hint')?.addEventListener('click', () => { hintsShown++; if (hintsShown === 1) { showRing(); } renderQuest(); if (hintsShown === 1) foldOnPhone(); });
-  questEl.querySelector('.q-mode')?.addEventListener('click', () => { setModeNamed(s.mode); foldOnPhone(); });
-  questEl.querySelector('.q-reveal')?.addEventListener('click', () => {
+  const el = dockLive, on = (sel, fn) => el.querySelector(sel)?.addEventListener('click', fn);
+  const foldOnPhone = () => { if (phone.matches) { folded = true; el.querySelector('.walk')?.classList.add('folded'); } };
+  on('.walk-head', () => { folded = !folded; el.querySelector('.walk').classList.toggle('folded', folded); });
+  on('.w-hint', () => { hintsShown++; if (hintsShown === 1) showRing(); renderQuest(); if (hintsShown === 1) foldOnPhone(); });
+  on('.w-lens', () => { setModeNamed(s.mode); foldOnPhone(); });
+  on('.w-reveal', () => {
     const g = stepGids(s)[0]; if (g === undefined) return;
     revealed = true; const b = building(g);
-    questFly(b.x, b.z, 420, () => solve(g));
+    aimFly(b.x, b.z, 420, () => solve(g));
   });
-  const range = questEl.querySelector('.q-year input');
-  if (range) range.oninput = () => { guess = +range.value; questEl.querySelector('.q-year output').textContent = guess; };
-  questEl.querySelector('.q-guess')?.addEventListener('click', () => solve(stepGids(s)[0], yearPoints(Math.abs(guess - s.year))));
-  questEl.querySelectorAll('.q-options button').forEach(b => b.onclick = () => {
+  const slider = el.querySelector('.guess input');
+  if (slider) slider.oninput = () => { guess = +slider.value; el.querySelector('.guess output').textContent = guess; };
+  on('.w-guess', () => solve(stepGids(s)[0], yearPoints(Math.abs(guess - s.year))));
+  el.querySelectorAll('.options button').forEach(b => b.onclick = () => {
     if (+b.dataset.i === 0) { b.classList.add('right'); solve(stepGids(s)[0]); return; }
     tries++; b.classList.add('wrong'); b.disabled = true;
-    questEl.querySelector('.q-actions .q-worth').innerHTML = crosses(worth());
-    const fb = questEl.querySelector('.q-feedback'); fb.textContent = 'Not that one.'; fb.classList.remove('miss'); void fb.offsetWidth; fb.classList.add('miss');
+    el.querySelector('.walk-actions .worth').innerHTML = `Worth ${suns(worth())}`;
+    const fb = el.querySelector('.feedback'); fb.textContent = 'Not that one.'; fb.classList.remove('miss'); void fb.offsetWidth; fb.classList.add('miss');
   });
-  questEl.querySelector('.q-next')?.addEventListener('click', () => { step++; qSave(quest.id, { step, score, marks }); enterStep(false); });
-  questEl.querySelector('.q-finish')?.addEventListener('click', finished);
-  questEl.querySelector('.q-card')?.addEventListener('click', () => { const g = stepGids(s)[0]; const b = building(g); quizGid = -1; uniforms.uBlind.value = 0; flyTo(b.x, b.z, () => pinCard(g, innerWidth * 0.3, 120), 380); });
+  on('.w-next', () => { step++; qSave(quest.id, { step, score, marks }); enterStep(false); });
+  on('.w-finish', finished);
+  on('.w-card', () => { const g = stepGids(s)[0], b = building(g); quizGid = -1; uniforms.uBlind.value = 0; aimFly(b.x, b.z, 380, () => openBuilding(g)); });
 }
 function solve(gid, points) {
   solved = true; folded = false; ring.visible = false;
@@ -814,39 +966,34 @@ function solve(gid, points) {
   marks[step] = got; score += got;
   uniforms.uBlind.value = 0;
   quizGid = -1;
-  if (gid >= 0) { pinCard(-1); uniforms.uSelected.value = gid; }
+  if (gid >= 0) { pinnedGid = -1; uniforms.uSelected.value = gid; }
   const st = qStore()[quest.id] || {};
   const patch = { step: step + 1, score, marks };
   if (step === quest.steps.length - 1) patch.best = Math.max(st.best || 0, score);
   qSave(quest.id, patch);
   renderQuest();
 }
-// The result, and a line to share: one group of marks per step, a sun for each one earned, a ring for each one lost.
+// The result, and a line to share: one group per stop, a filled sun for each one earned.
 function finished() {
   const n = quest.steps.length, line = marks.map(m => '●'.repeat(m) + '○'.repeat(3 - m)).join(' ');
-  const text = `SydMap: Sydney · ${quest.title}\n${line}\n${score} / ${n * 3}\n${location.origin}${location.pathname}`;
+  const text = `SydMap · ${quest.title}\n${line}\n${score} of ${n * 3} suns\n${location.origin}${location.pathname}`;
   const verdict = score >= n * 3 - 1 ? 'A true Sydneysider.' : score >= n * 2 ? 'You know your way around.' : score >= n ? 'A good walk.' : 'Time for a walk through town.';
-  questEl.className = 'quest done';
-  questEl.innerHTML = `
-    <button class="q-close" aria-label="Close">${CLOSE}</button>
-    <header><b>${esc(quest.title)}</b></header>
-    <div class="q-result"><p class="q-total"><b>${score}</b> / ${n * 3}</p><p class="q-verdict">${verdict}</p>
-      <p class="q-line">${marks.map(m => crosses(m)).join('')}</p></div>
-    <div class="q-actions"><button class="primary q-share">Copy result</button><button class="q-list">More quests</button></div>`;
-  questEl.hidden = false;
+  openDock('walk', `<article class="dock-page walk"><header class="walk-head"><h2 id="dock-title">${esc(quest.title)}</h2></header>
+    <div class="walk-result"><p class="total"><b>${score}</b> of ${n * 3} suns</p><p class="verdict">${verdict}</p>
+      <p class="line">${marks.map(m => suns(m)).join('')}</p></div>
+    <div class="walk-actions"><button class="pill primary w-share">Copy your result</button><button class="pill w-more">More walks</button></div></article>`);
   ring.visible = false; setQuiz(-1, false);
-  questEl.querySelector('.q-close').onclick = closeQuest;
-  questEl.querySelector('.q-list').onclick = () => { closeQuest(); openQuests(); };
-  questEl.querySelector('.q-share').onclick = async e => {
-    try { await navigator.clipboard.writeText(text); e.target.textContent = 'Copied'; } catch { e.target.textContent = text.split('\n')[1]; }
+  dockLive.querySelector('.w-more').onclick = () => { closeQuest(); showWalks(); };
+  dockLive.querySelector('.w-share').onclick = async e => {
+    try { await navigator.clipboard.writeText(text); e.target.textContent = 'Copied'; } catch { e.target.textContent = line; }
   };
 }
-// Every click on the map while a find step is open.
+// Every click on the map while a find stop is open.
 function questClick(gid) {
   if (!quest || solved || gid < 0 || qStep().kind !== 'find') return;
   const s = qStep(), targets = stepGids(s);
   if (targets.includes(gid)) { solve(gid); return; }
-  const fb = questEl.querySelector('.q-feedback');
+  const fb = dockLive.querySelector('.feedback');
   if (!fb) return;
   const b = building(gid);
   const d = Math.min(...targets.map(g => { const a = building(g); return Math.hypot(a.x - b.x, a.z - b.z); }));
@@ -855,25 +1002,11 @@ function questClick(gid) {
   if (lastDist !== null && d >= 40) msg += ' ' + (d < lastDist - 20 ? 'Warmer than before.' : d > lastDist + 20 ? 'Colder than before.' : '');
   lastDist = d;
   fb.textContent = msg.trim();
-  fb.className = `q-feedback ${d < 40 ? 'hot' : d < 200 ? 'warm' : 'cold'}`;
+  fb.className = `feedback ${d < 40 ? 'hot' : d < 200 ? 'warm' : 'cold'}`;
   void fb.offsetWidth; fb.classList.add('miss');
 }
-addEventListener('keydown', e => { if (e.key === 'Escape' && questsDlg.open) questsDlg.close(); });
 
-// ---------- Panel ----------
-const panelEl = document.getElementById('panel');
-const panel = document.getElementById('panel-body');
-const sheetHandle = panelEl.querySelector('.sheet-handle');
-const phone = matchMedia('(max-width: 720px)');
-// On a phone the panel is a sheet: folded to one line until opened, and folded again when the city is the point.
-function setCollapsed(c) {
-  panelEl.classList.toggle('collapsed', c);
-  sheetHandle.setAttribute('aria-expanded', String(!c));
-  sheetHandle.textContent = c ? 'Show legend' : 'Hide legend';
-}
-sheetHandle.onclick = () => setCollapsed(!panelEl.classList.contains('collapsed'));
-function collapsePanelOnPhone() { if (phone.matches) setCollapsed(true); }
-setCollapsed(phone.matches);
+// ---------- Lenses: ages, stories, heights, heritage ----------
 const totals = periods.map(() => 0);
 for (const v of Object.values(config.histogram)) v.forEach((n, i) => totals[i] += n);
 let activeLayer = null;
@@ -891,121 +1024,145 @@ const ICON = {
 };
 const sectionIcon = sec => `<svg class="icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">${ICON[sec] || ''}</svg>`;
 
-function periodNote() {
-  const f = config.stats.flags, documented = (f[0] || 0) + (f[1] || 0);
-  return `Click a period to see it alone. Paler buildings have an estimated year: ${fmt(config.stats.buildings - documented)} of ${fmt(config.stats.buildings)}; see About for how.`;
+// The stories, by section, in the dock.
+function showStories() {
+  const sections = [...new Set(layers.map(L => L.section))].sort((a, b) => SECTION_ORDER.indexOf(a) - SECTION_ORDER.indexOf(b));
+  openDock('stories', `<article class="dock-page"><h2 id="dock-title">Stories</h2>
+    <p class="lede">Threads of Sydney’s history that live in its buildings. Choose one to light up its buildings and read about them.</p>
+    ${sections.map(sec => `<h3 class="st-section">${sectionIcon(sec)}${esc(sec)}</h3><ul class="st-list">${layers.filter(L => L.section === sec).map(L =>
+      `<li><button class="st-row" data-id="${L.id}"><b>${esc(L.title)}</b><span class="n">${fmt(L.count)}</span><span class="era">${esc(L.era)}</span></button></li>`).join('')}</ul>`).join('')}
+    <p class="add-story"><a href="${REPO}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Add a story on GitHub</a></p></article>`);
+  dockLive.querySelectorAll('.st-row').forEach(b => b.onclick = () => { setLayer(layers.find(l => l.id === b.dataset.id)); showStory(activeLayer); });
 }
-function renderPanel() {
-  const mode = uniforms.uMode.value;
-  if (mode === MODE.period) {
-    panel.innerHTML = `<h2>Built in</h2><div class="swatches">${periods.map((p, i) => {
-      const [, dates, name] = p.label.match(/^(Before \d{4}|\d{4}–(?:\d{4})?)\s+(.*)$/) || [, '', p.label];
-      return `<button class="swatch dated" data-i="${i}" aria-pressed="${!!maskTarget[i]}">
-        <i style="background:${p.color}"></i><span class="d">${esc(dates)}</span><span>${esc(name)}</span><span class="n">${fmt(totals[i])}</span>
-      </button>`; }).join('')}</div>
-      <label class="docs-only"><input type="checkbox" ${uniforms.uDocOnly.value ? 'checked' : ''}> Colour documented and strata years only</label>
-      <p class="note">${periodNote()}</p>`;
-    panel.querySelectorAll('.swatch').forEach(b => b.onclick = () => {
-      const i = +b.dataset.i, m = maskTarget;
-      const solo = m.every((v, j) => (j === i) === !!v);
-      maskTarget = periods.map((_, j) => (solo || j === i) ? 1 : 0);
-      renderPanel(); drawHist();
-    });
-    panel.querySelector('.docs-only input').onchange = e => { uniforms.uDocOnly.value = e.target.checked ? 1 : 0; };
-  } else if (mode === MODE.floors) {
-    panel.innerHTML = `<h2>Storeys</h2>
-      <div class="ramp" style="background:linear-gradient(90deg,#e3ecec,#93b7bd,#345a60,#13282b)"></div>
-      <div class="ramp-scale"><span>1</span><span>3</span><span>8</span><span>20</span><span>40+</span></div>
-      <p class="note">${fmt(config.stats.floorsTagged)} buildings take their storeys from OpenStreetMap; the rest,
-        ${fmt(config.stats.floorsHeight)}, from their height divided by 3.2 m. Heights are OpenStreetMap's where it has them
-        (${fmt((config.stats.heightSrc[0] || 0) + (config.stats.heightSrc[1] || 0))}), otherwise modelled from satellite imagery by
-        GlobalBuildingAtlas (${fmt(config.stats.heightSrc[2] || 0)}) or assumed to be two storeys (${fmt(config.stats.heightSrc[3] || 0)}).</p>`;
-  } else if (mode === MODE.heritage) {
-    const h = config.heritage;
-    panel.innerHTML = `<h2>Heritage</h2><div class="heritage-scale">${h.labels.map((l, i) => `
-      <div class="swatch"><i style="background:${h.colors[i + 1]}"></i><span>${esc(l)}</span><span class="n">${fmt(h.counts[i + 1])}</span></div>`).join('')}</div>
-      <p class="note">Listed places first: the State Heritage Register, then the local environmental plans' heritage items.
-        In the City of Sydney's heritage conservation areas the City marks every other building as contributing to the area's
-        historic character, neutral, or detracting from it. ${fmt(h.counts[0])} buildings, white on the map, are none of these.</p>
-      <a class="src" href="https://www.planningportal.nsw.gov.au/spatialviewer" target="_blank" rel="noopener">Heritage NSW, NSW Planning, City of Sydney DCP 2012</a>`;
-  } else if (!activeLayer) {
-    const sections = [...new Set(layers.map(L => L.section))].sort((a, b) => SECTION_ORDER.indexOf(a) - SECTION_ORDER.indexOf(b));
-    panel.innerHTML = `<nav class="jump" aria-label="Context layers">${sections.map(sec => `
-      <button data-sec="${esc(sec)}" title="${esc(sec)}" aria-label="${esc(sec)}">${sectionIcon(sec)}</button>`).join('')}</nav>` +
-      sections.map(sec => `<h2 class="section" id="sec-${sec.replace(/\W+/g, '-')}">${sectionIcon(sec)}${esc(sec)}</h2><div class="layers">${layers.filter(L => L.section === sec).map(L => `
-      <button class="layer" data-id="${L.id}">
-        <b>${esc(L.title)}</b><span class="n">${fmt(L.count)}</span><span class="era">${esc(L.era)}</span>
-      </button>`).join('')}</div>`).join('');
-    panel.insertAdjacentHTML('beforeend', `<p class="contribute"><a href="${REPO}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Add a layer on GitHub</a></p>`);
-    panel.querySelectorAll('.jump button').forEach(b => b.onclick = () =>
-      panel.querySelector(`#sec-${b.dataset.sec.replace(/\W+/g, '-')}`).scrollIntoView({ behavior: 'smooth', block: 'start' }));
-    panel.querySelectorAll('.layer').forEach(b => b.onclick = () => setLayer(layers.find(l => l.id === b.dataset.id)));
-  } else {
-    panel.innerHTML = `<button class="back">${BACK}All context layers</button>
-      <h2 class="layer-title">${sectionIcon(activeLayer.section)}${esc(activeLayer.title)}</h2><p class="layer-era">${esc(activeLayer.era)}</p>${layerDetail(activeLayer)}`;
-    panel.querySelector('.back').onclick = () => setLayer(null);
-    panel.querySelectorAll('.story').forEach(b => b.onclick = () => {
-      const n = activeLayer.notes[b.dataset.gid];
-      collapsePanelOnPhone();
-      flyTo(n.at[0], n.at[1], () => pinCard(+b.dataset.gid, innerWidth * 0.62, innerHeight * 0.18));
-    });
-    panel.querySelectorAll('.swatch').forEach(b => b.onclick = () => {
-      groupOn[b.dataset.bit] = groupOn[b.dataset.bit] === false;
-      setLayer(activeLayer);
-    });
-  }
-}
-
-function layerDetail(L) {
-  const groups = L.groups.length > 1 ? `<div class="swatches">${L.groups.map((g, i) => `
-    <button class="swatch" data-bit="${g.bit}" aria-pressed="${groupOn[g.bit] !== false}">
-      <i style="background:${GROUP_COLORS[i]}"></i><span>${esc(g.label)}</span><span class="n">${fmt(g.count)}</span>
-    </button>`).join('')}</div>` : '';
-  // One line per story: a place on several buildings carries the same note on each.
+// One story: what it is, its places and their stories, and where it comes from.
+function showStory(L) {
   const seenName = new Set();
   const named = Object.entries(L.notes || {}).filter(([, n]) => n.name && n.at && !seenName.has(n.name) && seenName.add(n.name));
-  const stories = named.length ? `<h2 class="section">Buildings and their stories</h2><ul class="stories">${named.map(([gid, n]) => `
-    <li><button class="story" data-gid="${gid}"><b>${esc(n.name)}</b><span>${esc(n.story || '')}</span></button></li>`).join('')}</ul>` : '';
-  return `<div class="layer-detail"><p>${esc(L.text)}</p>${groups}${stories}
+  openDock('story', `<article class="dock-page">
+    <div class="story-head">${sectionIcon(L.section)}<h2 id="dock-title">${esc(L.title)}</h2></div>
+    <p class="story-era">${esc(L.era)} · <span class="n">${fmt(L.count)}</span> buildings</p>
+    <p class="story-text">${esc(L.text)}</p>
+    ${named.length ? `<h3>Places and their stories</h3><ul class="places">${named.map(([gid, n]) => `
+      <li><button class="place" data-gid="${gid}"><b>${esc(n.name)}</b><span>${esc(n.story || '')}</span></button></li>`).join('')}</ul>` : ''}
     ${L.caveat ? `<p class="caveat">${esc(L.caveat)}</p>` : ''}
-    <a href="${esc(L.source.url)}" target="_blank" rel="noopener">${esc(L.source.label)}</a></div>`;
+    <p class="src">${link(L.source.url, L.source.label)}</p></article>`,
+  { label: 'All stories', go: () => { setLayer(null); showStories(); } });
+  dockLive.querySelectorAll('.place').forEach(b => b.onclick = () => {
+    const n = L.notes[b.dataset.gid], back = { label: L.title, go: () => { unpin(); showStory(L); } };
+    aimFly(n.at[0], n.at[1], 520, () => openBuilding(+b.dataset.gid, back));
+  });
 }
-
 function setLayer(L) {
   if (L) uniforms.uLayerAt.value = performance.now() / 1000;
   activeLayer = L;
   const bits = Array(MAX_GROUPS).fill(-1);
   if (L) L.groups.forEach((g, i) => { if (i < MAX_GROUPS && groupOn[g.bit] !== false) bits[i] = g.bit; });
   uniforms.uGroupBit.value = bits;
-  renderPanel(); drawHist();
+  renderKey(); drawHist();
 }
 
-document.querySelectorAll('.modes button[data-mode]').forEach(b => b.onclick = () => {
-  uniforms.uMode.value = +b.dataset.mode;
-  document.querySelectorAll('.modes button[data-mode]').forEach(x => x.setAttribute('aria-pressed', x === b));
+// The key beside the year: what the colours mean for the lens in hand.
+const keyEl = document.getElementById('key');
+const RAMP = ['#e3ecec', '#93b7bd', '#5d878d', '#345a60', '#13282b'];
+function renderKey() {
+  const mode = uniforms.uMode.value;
+  if (mode === MODE.period) {
+    const on = maskTarget.map((v, i) => v ? i : -1).filter(i => i >= 0);
+    const solo = on.length === 1 ? periods[on[0]] : null;
+    keyEl.innerHTML = (solo ? `<button class="chip k-all">${dot(solo.color)}Only ${esc(ageParts(solo).name.replace(/^The /, 'the '))} <span class="n">${fmt(totals[on[0]])}</span>${CLOSE}</button>`
+      : `<span class="key-label">Each station on the line is an age: choose one to see its buildings</span>`) +
+      `<button class="chip k-est" aria-pressed="${!uniforms.uDocOnly.value}" title="Estimated years are paler; switch them off to see the documented and strata years alone">${dot('#d9b2a8')}Estimated years</button>`;
+    keyEl.querySelector('.k-all')?.addEventListener('click', () => { maskTarget = periods.map(() => 1); updateRail(); renderKey(); drawHist(); });
+    keyEl.querySelector('.k-est').onclick = () => { uniforms.uDocOnly.value = uniforms.uDocOnly.value ? 0 : 1; renderKey(); };
+  } else if (mode === MODE.floors) {
+    const stops = ['1', '3', '8', '20', '40+'];
+    keyEl.innerHTML = `<span class="key-label">Storeys</span><span class="ramp">${stops.map((s, i) =>
+      `<div><span>${s}</span><i style="background:linear-gradient(90deg,${RAMP[i]},${RAMP[Math.min(i + 1, 4)]})"></i></div>`).join('')}</span>`;
+  } else if (mode === MODE.heritage) {
+    const h = config.heritage;
+    keyEl.innerHTML = h.labels.map((l, i) => `<span class="chip plain">${dot(h.colors[i + 1])}${esc(l)} <span class="n">${fmt(h.counts[i + 1])}</span></span>`).join('');
+  } else if (!activeLayer) {
+    keyEl.innerHTML = `<span class="key-label">Choose a story to light up its buildings</span>`;
+  } else if (activeLayer.groups.length > 1) {
+    keyEl.innerHTML = activeLayer.groups.map((g, i) => `<button class="chip" data-bit="${g.bit}" aria-pressed="${groupOn[g.bit] !== false}">${dot(GROUP_COLORS[i])}${esc(g.label)} <span class="n">${fmt(g.count)}</span></button>`).join('');
+    keyEl.querySelectorAll('[data-bit]').forEach(b => b.onclick = () => { groupOn[b.dataset.bit] = groupOn[b.dataset.bit] === false; setLayer(activeLayer); });
+  } else {
+    keyEl.innerHTML = `<span class="chip plain">${dot(GROUP_COLORS[0])}${esc(activeLayer.title)} <span class="n">${fmt(activeLayer.count)}</span></span>`;
+  }
+}
+
+function setMode(m) {
+  uniforms.uMode.value = m;
+  document.querySelectorAll('.lenses button').forEach(x => x.setAttribute('aria-pressed', String(+x.dataset.mode === m)));
   const bits = Array(MAX_GROUPS).fill(-1);
   if (activeLayer) activeLayer.groups.forEach((g, i) => { if (groupOn[g.bit] !== false) bits[i] = g.bit; });
   uniforms.uGroupBit.value = bits;
-  if (uniforms.uMode.value === MODE.layers && activeLayer) uniforms.uLayerAt.value = performance.now() / 1000;
-  // On a phone the sheet opens only when there is a choice to make: a layer to pick.
-  if (!phone.matches || (uniforms.uMode.value === MODE.layers && !activeLayer)) setCollapsed(false);
-  renderPanel(); drawHist();
-});
+  if (m === MODE.layers) {
+    if (activeLayer) uniforms.uLayerAt.value = performance.now() / 1000;
+    if (!quest) activeLayer ? showStory(activeLayer) : showStories();
+  } else if (dockView === 'stories' || dockView === 'story') closeDock();
+  renderKey(); updateRail(); drawHist();
+}
+document.querySelectorAll('.lenses button').forEach(b => b.onclick = () => setMode(+b.dataset.mode));
 
-// ---------- Timeline ----------
+// ---------- The line through time ----------
+// The buildings of each year as bars, then the rail of ages: a coloured stretch per age with a station at its start.
+// A station shows its age alone (on Ages) or takes the city to that age's last year (on the other lenses).
 const hist = document.getElementById('hist');
 const hctx = hist.getContext('2d');
+const track = hist.parentElement;
+const rail = document.getElementById('rail');
+const yearSun = track.querySelector('.year-sun'), yearRing = track.querySelector('.year-ring'), fromMark = track.querySelector('.from-mark');
 const T0 = Math.floor(config.yearMin / 25) * 25, T1 = config.yearMax + 1;
 const years = Object.entries(config.histogram).map(([y, v]) => [+y, v]);
 const yMax = Math.max(...years.map(([, v]) => v.reduce((a, b) => a + b, 0)));
 const xOf = y => (y - T0) / (T1 - T0) * hist.clientWidth;
 const yearOf = x => Math.round(T0 + x / hist.clientWidth * (T1 - T0));
+const pct = y => `${((y - T0) / (T1 - T0) * 100).toFixed(3)}%`;
+const NEUTRAL = '#a9a59c';
+rail.innerHTML = periods.map((p, i) => {
+  const { dates, name } = ageParts(p), end = i < periods.length - 1 ? periods[i + 1].from : T1;
+  return `<i style="left:${pct(p.from)};width:calc(${pct(end)} - ${pct(p.from)})"></i>
+    <button class="station" data-i="${i}" style="left:${pct(p.from)}" aria-label="${esc(dates)} ${esc(name)}: ${fmt(totals[i])} buildings" title="${esc(name)}"><span>${p.from}</span></button>`;
+}).join('');
+const segs = [...rail.querySelectorAll('i')], stations = [...rail.querySelectorAll('.station')];
+stations.forEach(b => b.onclick = () => {
+  const i = +b.dataset.i;
+  if (uniforms.uMode.value === MODE.period) {
+    const solo = maskTarget.every((v, j) => (j === i) === !!v);
+    maskTarget = periods.map((_, j) => (solo || j === i) ? 1 : 0);
+    renderKey();
+  } else {
+    stopPlay();
+    uniforms.uYear.value = Math.min(config.yearMax, i < periods.length - 1 ? periods[i + 1].from - 1 : config.yearMax);
+  }
+  updateRail(); drawHist();
+});
+function updateRail() {
+  const Y = uniforms.uYear.value, ages = uniforms.uMode.value === MODE.period, now = periods.indexOf(periodOf(Math.round(Y)));
+  periods.forEach((p, i) => {
+    const end = i < periods.length - 1 ? periods[i + 1].from : T1, f = Math.max(0, Math.min(1, (Y - p.from + 1) / (end - p.from)));
+    const c = ages ? p.color : NEUTRAL, off = ages && !maskTarget[i];
+    segs[i].style.background = `linear-gradient(90deg, ${c} ${(f * 100).toFixed(1)}%, ${c}38 ${(f * 100).toFixed(1)}%)`;
+    segs[i].style.opacity = off ? 0.25 : 1;
+    const s = stations[i];
+    s.style.setProperty('--c', c);
+    s.classList.toggle('past', p.from <= Y);
+    s.classList.toggle('now', i === now && Y < config.yearMax);
+    s.classList.toggle('off', off);
+    s.setAttribute('aria-pressed', ages ? String(!!maskTarget[i] && maskTarget.filter(Boolean).length === 1) : 'false');
+  });
+  const x = Math.max(0, Math.min(hist.clientWidth, xOf(Y)));
+  yearSun.style.left = yearRing.style.left = `${x}px`;
+  const Yf = uniforms.uYearFrom.value;
+  fromMark.hidden = Yf < config.yearMin;
+  if (Yf >= config.yearMin) fromMark.style.left = `${xOf(Yf)}px`;
+}
 
 function layerGroupsShown() {
   if (uniforms.uMode.value !== MODE.layers || !activeLayer) return [];
   return activeLayer.groups.map((g, i) => ({ ...g, color: GROUP_COLORS[i] })).filter(g => groupOn[g.bit] !== false);
 }
-
 function visibleCount() {
   const Y = uniforms.uYear.value;
   const shown = layerGroupsShown();
@@ -1015,32 +1172,46 @@ function visibleCount() {
   return n;
 }
 
+// The year on paper flaps: a digit turns over when it changes.
+const flaps = [...document.querySelectorAll('.flap')];
+const eraEl = document.getElementById('era'), yearEl = document.getElementById('year'), countEl = document.getElementById('count');
+function showYear(Y) {
+  const y = Math.min(config.yearMax, Math.round(Y)), digits = String(y).padStart(4, ' ');
+  flaps.forEach((f, i) => {
+    if (f.textContent === digits[i]) return;
+    f.textContent = digits[i];
+    if (!reduceMotion.matches) { f.classList.remove('turn'); void f.offsetWidth; f.classList.add('turn'); }
+  });
+  eraEl.textContent = ageParts(periodOf(y)).name;
+  yearEl.textContent = Y >= config.yearMax ? 'Today, ' : `${y}, `;
+  const n = visibleCount();
+  countEl.textContent = `${fmt(n)} ${n === 1 ? 'building' : 'buildings'} standing`;
+  hist.setAttribute('aria-valuenow', String(y));
+  hist.setAttribute('aria-valuetext', `${Y >= config.yearMax ? 'Today' : y}: ${countEl.textContent}`);
+}
+
 function drawHist() {
   const w = hist.clientWidth, h = hist.clientHeight, dpr = devicePixelRatio;
+  if (!w) return;
   hist.width = w * dpr; hist.height = h * dpr;
   hctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   hctx.clearRect(0, 0, w, h);
-  const plotH = h - 20, bw = Math.max(1, w / (T1 - T0));
-  const Y = uniforms.uYear.value, Yf = uniforms.uYearFrom.value;
+  const plotH = phone.matches ? 36 : 56, bw = Math.max(1, w / (T1 - T0));
+  const Y = uniforms.uYear.value, Yf = uniforms.uYearFrom.value, ages = uniforms.uMode.value === MODE.period;
   const shown = layerGroupsShown();
   const bar = (y, bh, top, color, on) => {
     hctx.fillStyle = color;
-    hctx.globalAlpha = on ? (y <= Yf ? 0.3 : 1) : 0.18;
+    hctx.globalAlpha = on ? (y <= Yf ? 0.3 : 1) : 0.16;
     hctx.fillRect(xOf(y), top - bh, bw, bh);
   };
   if (shown.length) {
-    // Layer mode: the city in grey behind, the layer's own buildings in its colours.
-    for (const [y, v] of years) {
-      const bh = Math.sqrt(v.reduce((a, b) => a + b, 0) / yMax) * (plotH - 6);
-      bar(y, bh, plotH, '#cfcac1', false);
-    }
-    // Stack the groups per year; the stack's total height follows sqrt(total), split in proportion.
+    // A story: the city in grey behind, the story's own buildings in its colours.
+    for (const [y, v] of years) bar(y, Math.sqrt(v.reduce((a, b) => a + b, 0) / yMax) * (plotH - 4), plotH, '#d6d1c8', false);
     const total = {};
     for (const g of shown) for (const [y, c] of Object.entries(g.years)) total[y] = (total[y] || 0) + c;
-    const lMax = Math.max(1, ...Object.values(total));
-    const stack = {};
+    const lMax = Math.max(1, ...Object.values(total)), stack = {};
     for (const g of shown) for (const [ys, c] of Object.entries(g.years)) {
-      const y = +ys, full = Math.sqrt(total[ys] / lMax) * (plotH - 6) * 0.9, bh = full * c / total[ys];
+      const y = +ys, full = Math.sqrt(total[ys] / lMax) * (plotH - 4) * 0.9, bh = full * c / total[ys];
       bar(y, bh, plotH - (stack[y] || 0), g.color, y <= Y);
       stack[y] = (stack[y] || 0) + bh;
     }
@@ -1049,31 +1220,19 @@ function drawHist() {
       let top = plotH;
       v.forEach((c, i) => {
         if (!c) return;
-        const bh = Math.sqrt(c / yMax) * (plotH - 6);
-        const masked = uniforms.uMode.value === MODE.period && !maskTarget[i];
-        bar(y, bh, top, periods[i].color, !masked && y <= Y);
+        const bh = Math.sqrt(c / yMax) * (plotH - 4);
+        const alone = ages && maskTarget.filter(Boolean).length === 1 && maskTarget[i];
+        bar(y, bh, top, alone ? periods[i].color : '#c9c4ba', !(ages && !maskTarget[i]) && y <= Y);
         top -= bh;
       });
     }
   }
   hctx.globalAlpha = 1;
-  hctx.fillStyle = MUTED;
-  hctx.font = '400 11px Inter, sans-serif';
-  const step = w < 500 ? 50 : 25;
-  for (let y = Math.ceil(T0 / step) * step; y <= T1; y += step) hctx.fillText(y, Math.min(w - 28, Math.max(0, xOf(y) - 13)), h - 4);
-  // The year: a charcoal hairline with the logo's sun riding on top of it.
-  const x = xOf(Y);
+  if (Yf >= config.yearMin) { hctx.fillStyle = MUTED; hctx.fillRect(xOf(Yf) - 0.5, 0, 1, plotH); }
   hctx.fillStyle = INK;
-  hctx.fillRect(x - 0.75, 12, 1.5, plotH - 12);
-  const sx = Math.min(w - 7, Math.max(7, x));
-  hctx.fillStyle = '#ffffff';
-  hctx.beginPath(); hctx.arc(sx, 7, 7, 0, Math.PI * 2); hctx.fill();
-  hctx.fillStyle = ACCENT;
-  hctx.beginPath(); hctx.arc(sx, 7, 5, 0, Math.PI * 2); hctx.fill();
-  if (Yf >= T0) { hctx.fillStyle = MUTED; hctx.fillRect(xOf(Yf) - 0.5, 0, 1, plotH); }
-  // at the end of the timeline the map shows the city as it stands, not a year that reads like a date
-  document.getElementById('year').textContent = Y >= config.yearMax ? 'Today' : Math.round(Y);
-  document.getElementById('count').textContent = fmt(visibleCount());
+  hctx.fillRect(xOf(Y) - 0.75, 0, 1.5, plotH + (phone.matches ? 4 : 6));
+  updateRail();
+  showYear(Y);
 }
 
 let handle = null;
@@ -1092,6 +1251,19 @@ function moveHandle(x) {
   else uniforms.uYearFrom.value = Math.min(y, uniforms.uYear.value - 1);
   drawHist();
 }
+// The line is a slider for the keyboard too: arrows move a year, Shift with them ten, Home and End go to the ends.
+hist.tabIndex = 0;
+hist.setAttribute('role', 'slider');
+hist.setAttribute('aria-valuemin', String(T0));
+hist.setAttribute('aria-valuemax', String(config.yearMax));
+hist.addEventListener('keydown', e => {
+  const step = e.shiftKey ? 10 : 1, Y = Math.round(uniforms.uYear.value);
+  const to = { ArrowLeft: Y - step, ArrowDown: Y - step, ArrowRight: Y + step, ArrowUp: Y + step, Home: T0, End: config.yearMax }[e.key];
+  if (to === undefined) return;
+  e.preventDefault(); stopPlay();
+  uniforms.uYear.value = Math.max(uniforms.uYearFrom.value + 1, Math.min(config.yearMax, to));
+  drawHist();
+});
 
 // Play: quickly through the convict town's sparse decades, then slowly through the dense ones.
 let playing = false, playT0 = 0, playStart = 0;
@@ -1112,22 +1284,20 @@ function startPlay() {
   playBtn.setAttribute('aria-label', 'Pause');
 }
 function stopPlay() {
+  if (!playing) return;
   playing = false;
   uniforms.uPlaying.value = 0;
   uniforms.uRise.value = 0.01;
   uniforms.uYear.value = Math.round(uniforms.uYear.value);
-  playIcon.setAttribute('d', 'M4 2.5v11l9-5.5z');
+  playIcon.setAttribute('d', 'M4.5 2.5v11l9-5.5z');
   playBtn.setAttribute('aria-label', "Play the city's growth");
 }
 playBtn.onclick = () => playing ? stopPlay() : startPlay();
 
-// ---------- About ----------
-const about = document.getElementById('about');
-document.querySelector('.about-open').onclick = () => about.showModal();
-about.querySelector('.about-close').onclick = () => about.close();
-about.addEventListener('click', e => { if (e.target === about) about.close(); });
+// ---------- Notes ----------
+document.querySelector('.notes-open').onclick = () => { if (dockView === 'notes') closeDock(); else { if (dockView === 'building') unpin(); openDock('notes'); } };
 {
-  const f = config.stats.flags, set = (k, v) => about.querySelectorAll(`[data-stat="${k}"]`).forEach(el => { el.textContent = fmt(v); });
+  const f = config.stats.flags, set = (k, v) => notesEl.querySelectorAll(`[data-stat="${k}"]`).forEach(el => { el.textContent = fmt(v); });
   set('buildings', config.stats.buildings);
   set('documented', (f[0] || 0) + (f[1] || 0));
   set('strata', f[2] || 0);
@@ -1137,7 +1307,7 @@ about.addEventListener('click', e => { if (e.target === about) about.close(); })
 
 // ---------- 2D GIS: RustGIS ----------
 // The RustGIS web app in a frame (web.rustgis.app/?embed). Once it says it is ready, the page sends it the project
-// the pipeline built with RustGIS's own engine (pipeline/s09_rustgis.py): the buildings, coloured by period as here,
+// the pipeline built with RustGIS's own engine (pipeline/s09_rustgis.py): the buildings, coloured by age as here,
 // carried inside the project as GeoParquet, with the harbour and the area's boundary.
 const gis = document.getElementById('gis');
 const RUSTGIS = 'https://web.rustgis.app';
@@ -1160,7 +1330,8 @@ async function openGis() {
   box.appendChild(gisFrame);
 }
 document.querySelector('.gis-open').onclick = openGis;
-gis.querySelector('.about-close').onclick = () => gis.close();
+gis.querySelector('.gis-close').onclick = () => gis.close();
+gis.addEventListener('click', e => { if (e.target === gis) gis.close(); });
 
 // ---------- Loop ----------
 function resize() {
@@ -1171,7 +1342,7 @@ function resize() {
   drawHist();
 }
 addEventListener('resize', resize);
-renderPanel();
+renderKey();
 resize();
 document.fonts?.ready.then(drawHist);
 
@@ -1196,9 +1367,9 @@ renderer.setAnimationLoop(now => {
   if (pointer && !dragging && frame % 3 === 0) {
     const gid = pick(pointer[0], pointer[1]);
     uniforms.uHover.value = gid;
-    showCard(gid, pointer[0], pointer[1]);
+    showTip(gid, pointer[0], pointer[1]);
   }
   renderer.render(scene, camera);
 });
 
-window.__dbg = { pick, uniforms, camera, controls, setLayer, layers, pinCard, showCard, building, labelGroup, labels, flyTo, startPlay, questClick, startQuest, goHome, get quests() { return quests; } };
+window.__dbg = { pick, uniforms, camera, controls, setLayer, setMode, layers, pinCard, openBuilding, showStory, showWalks, building, labelGroup, labels, flyTo, startPlay, questClick, startQuest, goHome, drawHist, get quests() { return quests; } };

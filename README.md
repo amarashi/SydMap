@@ -1,11 +1,11 @@
-# SydMap: Sydney, building by building
+# SydMap: Sydney, year by year
 
 Every building in the City of Sydney and North Sydney, either side of the Harbour Bridge, in 3D: 29,844 of them,
-coloured by the year they were built and set in the history that shaped them. Drag the timeline to watch the city
-grow from the convict town, switch to context layers, storeys or heritage status, open any building's card, play the
-quests, or open the same buildings in a full GIS.
+coloured by the age of the city they belong to. Move along the line at the bottom, or press play, to watch Sydney grow
+from the convict town; look at it by its stories, heights or heritage; open any building to read how its year is
+known; follow a walk through the streets; or open the same buildings in a full GIS.
 
-![SydMap: the city centre, the harbour and North Sydney, coloured by period](docs/screenshots/home.png)
+![SydMap: the city centre, the harbour and North Sydney, coloured by age](docs/screenshots/home.png)
 
 SydMap rebuilds [LAYRS: Amsterdam](https://stop-token.com/lab/amsterdam/) by Alex Barakov
 ([source](https://github.com/alexbarakov/amsterdam-by-building), MIT) for Sydney, itself inspired by Sasha Bogachev's
@@ -22,25 +22,28 @@ stands on, and the Cammeraygal people, the Traditional Custodians of the land of
 
 | | |
 |---|---|
-| ![Heritage mode](docs/screenshots/heritage.png) | ![A building card](docs/screenshots/card.png) |
-| **Heritage**: State Heritage Register, local items, and the City's contributing, neutral and detracting buildings | **Cards**: photo, Wikipedia, layers, heights, heritage listing, and the evidence behind the year |
-| ![The apartment city layer](docs/screenshots/layer-strata.png) | ![A quest](docs/screenshots/quest.png) |
-| **Context layers**: Aboriginal Sydney, architects, styles, worship, pubs, Developing Sydney 1900–1920, strata, the skyline | **Quests**: 25 riddles in five walks, every claim checked against Wikipedia |
-| ![The growth film at 1918](docs/screenshots/film.png) | ![RustGIS in the page](docs/screenshots/rustgis.png) |
-| **The film**: the city as it stands, building up year by year | **2D GIS**: the same buildings in the RustGIS web app, styled by period |
+| ![Heritage](docs/screenshots/heritage.png) | ![A building in the dock](docs/screenshots/card.png) |
+| **Heritage**: State Heritage Register, local items, and the City's contributing, neutral and detracting buildings | **A building**: photo, Wikipedia, its stories, heights, heritage listing, and how its year is known |
+| ![The apartment city story](docs/screenshots/layer-strata.png) | ![A walk](docs/screenshots/quest.png) |
+| **Stories**: Aboriginal Sydney, architects, styles, worship, pubs, Developing Sydney 1900–1920, strata, the skyline | **Walks**: 25 riddles on five routes, every claim checked against Wikipedia |
+| ![Sydney in 1918](docs/screenshots/film.png) | ![RustGIS in the page](docs/screenshots/rustgis.png) |
+| **The line through time**: the city in any year, its ten ages as stations along the line | **2D GIS**: the same buildings in the RustGIS web app, styled by age |
 
 ## How it was made
 
-1. **Design.** The first version kept the Amsterdam page's design system, read off it with
+1. **Design.** The first version kept the Amsterdam page's design system and layout, read off it with
    [designlang](https://github.com/Manavarya09/design-extract) (`scripts/extract-design.sh`; the output is in
-   [`design/amsterdam-extract/`](design/amsterdam-extract)). SydMap now wears The Third Script's colours and type: a
-   white wall, the logo's cypress teal for the harbour, its terracotta sun as the mark, the film and the quests' marks,
-   Cormorant Garamond and Inter, and period colours checked for colour-blind separation. See [`DESIGN.md`](DESIGN.md)
-   and [`design/README.md`](design/README.md).
-2. **Viewer.** [`web/`](web) is the LAYRS three.js viewer (no build step), adapted: Sydney's periods and texts, a
-   Heritage mode in place of Amsterdam's energy labels, cards that show the evidence for every year, part bases in
-   the tile format (so floating parts can be drawn), meshes for shapes extrusion cannot draw (the Opera House's
-   shells, the Harbour Bridge), and a 2D GIS dialog.
+   [`design/amsterdam-extract/`](design/amsterdam-extract)). SydMap now has its own: The Third Script's colours and type
+   (a white wall, the logo's cypress teal for the harbour, its terracotta sun, Cormorant Garamond and Inter), and its
+   own layout and words. Time runs along the bottom as one line of ten ages, with the sun as the year and the year on
+   paper flaps; the lenses (Ages, Stories, Heights, Heritage), Walks, Notes and a search sit across the top; anything
+   to read opens in one dock on the right; and the ground fades into the white beyond the buildings. See
+   [`DESIGN.md`](DESIGN.md) and [`design/README.md`](design/README.md).
+2. **Viewer.** [`web/`](web) is a three.js viewer (no build step). Its 3D engine began as the LAYRS viewer's and is
+   adapted: part bases in the tile format (so floating parts can be drawn), meshes for shapes extrusion cannot draw
+   (the Opera House's shells, the Harbour Bridge), a Heritage lens in place of Amsterdam's energy labels, and building
+   cards that show the evidence for every year. The page around it (the line through time, the dock, search, walks and
+   notes) is SydMap's own.
 3. **Data.** [`pipeline/`](pipeline) (Python, `uv`) turns open data into the binary tiles and JSON the viewer reads.
 4. **RustGIS.** RustGIS is a full GIS (ribbon, attribute table, analysis), not a library for a bespoke 3D city, so
    three.js keeps the 3D map and RustGIS does what it is good at: `pipeline/s09_rustgis.py` uses its Python engine
@@ -63,8 +66,8 @@ each building takes the best evidence there is, and its card says which:
 | Neighbours | 9,402 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945 |
 
 Estimated years (everything but the first row) are spread within their range so the film does not drop a suburb in a
-single year; they are paler on the map, marked "c." on the cards with the range, and the Period legend can switch them
-off ("Colour documented and strata years only"). Treat them as an educated guess about the period, not as a date.
+single year; they are paler on the map, marked "c." on the cards with the range, and the "Estimated years" switch beside
+the year turns them off. Treat them as an educated guess about the period, not as a date.
 
 Heights come from OpenStreetMap where it has them (12,273, measured or from storeys), from GlobalBuildingAtlas
 (14,180, modelled from satellite imagery) and are otherwise assumed to be two storeys (3,389).
@@ -132,11 +135,11 @@ python3 scripts/serve.py                 # http://localhost:8642, with byte rang
 | `s01_load` | Footprints in the two LGAs, OSM tags, 3D parts, heights and storeys; the Harbour Bridge and Opera House models |
 | `s02_years` | Wikidata links, documented years, heritage status, strata calibration, estimates |
 | `s04_water` | Land, water and the other shores |
-| `s05_layers` | Context layers, one bit per group per building |
+| `s05_layers` | Stories (the page's name for layers), one bit per group per building |
 | `s06_wiki` | Card data: Wikipedia leads, Commons photos and credits, names, heritage listings |
 | `s03_tiles` | 600 m binary tiles in six packs, `attrs.bin`, `sydney.json` |
 | `s07_labels` | Street and harbour names laid along their lines |
-| `s08_quests` | Quests resolved to buildings, every claim checked (`checks.py`) |
+| `s08_quests` | Walks (quests in the code) resolved to buildings, every claim checked (`checks.py`) |
 | `s09_rustgis` | GeoParquet export, the RustGIS project and its rendered map |
 
 The area is set in [`pipeline/config.py`](pipeline/config.py) (`LGAS`, `BBOX`): add an LGA and its box to grow the map.
@@ -156,8 +159,8 @@ deploy on every push. The site will be at `https://amarashi.github.io/SydMap/`.
 
 ## Contributing
 
-Know a piece of Sydney's history that lives in its buildings? See [CONTRIBUTING.md](CONTRIBUTING.md) to add a layer or
-a quest.
+Know a piece of Sydney's history that lives in its buildings? See [CONTRIBUTING.md](CONTRIBUTING.md) to add a story or
+a walk.
 
 ## Made by
 
