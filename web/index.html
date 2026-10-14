@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SydMap: Sydney, building by building</title>
-<meta name="description" content="Every building in the City of Sydney and North Sydney in 3D, coloured by the year it was built and set in the history that shaped it.">
-<meta property="og:title" content="SydMap: Sydney, building by building">
-<meta property="og:description" content="Every building in the City of Sydney and North Sydney, by age and historical context.">
+<title>SydMap: Sydney, year by year</title>
+<meta name="description" content="Every building in the City of Sydney and North Sydney in 3D. Follow the line from the convict town to today, read how each building's year is known, and walk the city's stories.">
+<meta property="og:title" content="SydMap: Sydney, year by year">
+<meta property="og:description" content="Every building in the City of Sydney and North Sydney in 3D, from the convict town to today.">
 <meta property="og:image" content="https://amarashi.github.io/SydMap/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="author" content="Amir Marashi, The Third Script">
@@ -18,141 +18,175 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<canvas id="scene" aria-label="3D map of Sydney's buildings"></canvas>
+<canvas id="scene" aria-label="3D model of Sydney's buildings"></canvas>
 <div class="veil veil-top" aria-hidden="true"></div>
 <div class="veil veil-bottom" aria-hidden="true"></div>
 
+<!-- The page reads in three bands: what to look at across the top, the city in the middle, and time along the
+     bottom. Anything to read opens in the dock on the right. -->
 <header class="masthead">
-  <h1><span class="sun-disc" aria-hidden="true"></span><span class="name">Sydney</span></h1>
-  <p class="dek"><b>SydMap</b><span class="dek-rest">: every building standing today, by age and historical context.</span></p>
-  <a class="studio" href="https://thethirdscript.com" target="_blank" rel="noopener" aria-label="Made by The Third Script" title="Made by The Third Script">
-    <img class="studio-mark" src="img/the-third-script-symbol.webp" alt="" width="34" height="40">
-    <img class="studio-word" src="img/the-third-script-wordmark.webp" alt="" width="128" height="16">
-  </a>
+  <h1><span class="sun-disc" aria-hidden="true"></span>Sydney</h1>
+  <p class="byline"><b>SydMap</b>
+    <a class="studio" href="https://thethirdscript.com" target="_blank" rel="noopener" title="Made by The Third Script">
+      <img class="studio-mark" src="img/the-third-script-symbol.webp" alt="" width="22" height="26">
+      <img class="studio-word" src="img/the-third-script-wordmark.webp" alt="Made by The Third Script" width="104" height="13">
+    </a></p>
 </header>
 
-<nav class="modes" aria-label="Colour the city by">
-  <button data-mode="0" aria-pressed="true">Period</button>
-  <button data-mode="3" aria-pressed="false">Context layers</button>
-  <button data-mode="1" aria-pressed="false">Floors</button>
-  <button data-mode="2" aria-pressed="false">Heritage</button>
-  <button class="quests-open" aria-haspopup="dialog"><svg viewBox="0 0 26 9" aria-hidden="true"><path d="M1 8.5h24M3 8.5C6 2 20 2 23 8.5M8 4.6v3.9M13 3.4v5.1M18 4.6v3.9"/></svg><span>Quests</span></button>
+<nav class="bar" aria-label="SydMap">
+  <div class="lenses" role="group" aria-label="Colour the city by">
+    <button data-mode="0" aria-pressed="true">Ages</button>
+    <button data-mode="3" aria-pressed="false">Stories</button>
+    <button data-mode="1" aria-pressed="false">Heights</button>
+    <button data-mode="2" aria-pressed="false">Heritage</button>
+  </div>
+  <i class="bar-sep" aria-hidden="true"></i>
+  <button class="walks-open"><svg class="arch" viewBox="0 0 26 9" aria-hidden="true"><path d="M1 8.5h24M3 8.5C6 2 20 2 23 8.5M8 4.6v3.9M13 3.4v5.1M18 4.6v3.9"/></svg>Walks</button>
+  <button class="notes-open">Notes</button>
+  <form class="find" role="search" autocomplete="off">
+    <label class="find-field">
+      <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4l3.6 3.6"/></svg>
+      <span class="sr-only">Find a building or street</span>
+      <input id="find" type="search" placeholder="Find a building or street" role="combobox" aria-expanded="false"
+        aria-controls="find-results" aria-autocomplete="list">
+    </label>
+    <ul id="find-results" class="find-results" role="listbox" hidden></ul>
+  </form>
+  <button class="find-open" aria-label="Find a building or street"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4l3.6 3.6"/></svg></button>
 </nav>
 
-<div class="tools" role="group" aria-label="More">
-  <button class="about-open" aria-haspopup="dialog">About</button>
-  <button class="gis-open" aria-haspopup="dialog" title="The same buildings in RustGIS, a GIS in your browser">2D GIS</button>
-</div>
+<!-- The dock: notes, stories, a building, the walks. One thing at a time. -->
+<aside id="dock" class="dock" hidden aria-label="Details">
+  <div class="dock-chrome">
+    <button class="dock-back" hidden></button>
+    <button class="dock-close" aria-label="Close"><svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+  </div>
+  <div id="dock-live" class="dock-live"></div>
 
-<dialog id="about" class="about" aria-labelledby="about-title">
-  <button class="about-close" aria-label="Close"><svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
-  <article>
-    <h2 id="about-title">About this map</h2>
-    <p class="author">Made by Amir Marashi at <a href="https://thethirdscript.com" target="_blank" rel="noopener">The Third Script</a>, a Sydney studio.</p>
-    <p>All <span data-stat="buildings">30,000</span> buildings of the City of Sydney and North Sydney, either side of the
-      Harbour Bridge, coloured by the year they were built and set in the history that shaped them.</p>
-    <p class="notice">A non-commercial project, made out of curiosity and for education.</p>
+  <article id="notes" class="dock-page notes" hidden>
+    <h2 id="notes-title">Notes</h2>
+    <p class="lede">Sydney has never kept a register of when its buildings went up. SydMap pieces one together, building
+      by building, from open data.</p>
+
+    <h3>What you are looking at</h3>
+    <p>All <span data-stat="buildings">29,844</span> buildings of the City of Sydney and North Sydney, either side of the
+      Harbour Bridge, as they stand today. Each is coloured by the age of the city it belongs to, from the convict town to
+      Barangaroo. Move along the line at the bottom to see the city in any year, or press play to watch it go up.</p>
+
+    <h3>How each year is known</h3>
+    <p>Every building carries the best evidence there is, and its card says which.</p>
+    <dl class="evidence">
+      <dt>Documented <span class="n" data-stat="documented">–</span></dt>
+      <dd>A year from Wikidata, from the opening of its Wikipedia article (for heritage-listed places, written from the NSW
+        State Heritage Inventory) or from OpenStreetMap.</dd>
+      <dt>Strata plan <span class="n" data-stat="strata">–</span></dt>
+      <dd>Apartment buildings are strata-titled when they are finished, so the year their plan was registered dates them.
+        Plans since 1994 carry their date in the NSW cadastre; older ones are placed by their number, back to 1961, when
+        strata title began.</dd>
+      <dt>Heritage <span class="n" data-stat="heritage">–</span></dt>
+      <dd>The other buildings of a State Heritage Register listing take the listing's years. Buildings the City marks as
+        part of a heritage area's historic fabric are dated from the documented heritage buildings around them.</dd>
+      <dt>Neighbours <span class="n" data-stat="neighbours">–</span></dt>
+      <dd>The rest take the years of the dated buildings around them of a similar height. Towers over 46 m, Sydney's
+        height limit until 1957, only take later years.</dd>
+    </dl>
+    <p>Estimated years are paler on the map and marked “c.” on the cards, with the range they come from. Read them as a
+      period, not a date.</p>
+
+    <h3>Heights</h3>
+    <p>From OpenStreetMap where it has them, otherwise modelled from satellite imagery by GlobalBuildingAtlas, or assumed
+      to be two storeys. Storeys are counted where they are mapped and otherwise worked out at 3.2 m a floor.</p>
+
+    <h3>The same buildings in a GIS</h3>
+    <p>Open every building, with its year and the evidence for it, in <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener">RustGIS</a>,
+      an open-source GIS that runs in your browser: the attribute table, queries, measuring and export.</p>
+    <p class="notes-actions"><button class="gis-open">Open the 2D GIS</button>
+      <a href="data/gis/sydney.rgis" download>Download the project</a></p>
+
+    <h3>Where the data comes from</h3>
+    <p>Downloaded in October 2026.</p>
+    <ul class="sources">
+      <li><b>Footprints</b> <a href="https://overturemaps.org" target="_blank" rel="noopener">Overture Maps</a> (2026-09-23),
+        from OpenStreetMap and Microsoft's machine-learned footprints. ODbL, © OpenStreetMap contributors.</li>
+      <li><b>Heights</b> OpenStreetMap; elsewhere <a href="https://github.com/zhu-xlab/GlobalBuildingAtlas" target="_blank" rel="noopener">GlobalBuildingAtlas</a>
+        (Zhu et al., TU Munich, 2025), CC BY-NC 4.0, one more reason SydMap is non-commercial. The GIS download leaves
+        these modelled heights out.</li>
+      <li><b>Landmarks</b> The Opera House's shells follow the spherical geometry they were built to, as Ove Arup &amp;
+        Partners' Michael Lewis describes it (<a href="https://www.royalsoc.org.au/wp-content/uploads/2024/09/106_12_lewis.pdf" target="_blank" rel="noopener">Royal Society of NSW, 1973</a>).
+        The Harbour Bridge is built from its published figures: two 28-panel arch trusses, a 504 m span, a 134 m summit.</li>
+      <li><b>Boundaries and strata plans</b> NSW Spatial Services, CC BY 4.0.</li>
+      <li><b>Heritage</b> The State Heritage Register (Heritage NSW) and the local environmental plans' heritage maps (NSW
+        Department of Planning), CC BY 4.0; heritage area contributions from the City of Sydney's Development Control
+        Plan 2012, CC BY 4.0.</li>
+      <li><b>Stories</b> City of Sydney open data (Aboriginal history places from Barani; Developing Sydney 1900–1920 from
+        the City of Sydney Archives), CC BY 4.0; OpenStreetMap, ODbL.</li>
+      <li><b>Names, photos, histories</b> Wikidata (CC0), Wikipedia (CC BY-SA) and Wikimedia Commons; each photo credits
+        its author and licence.</li>
+    </ul>
+
+    <h3>Add to it</h3>
+    <p>The code and the data pipeline are open <a href="https://github.com/amarashi/SydMap" target="_blank" rel="noopener">on GitHub</a>.
+      Know a piece of Sydney's history that lives in its buildings? Add it as a story: a list of buildings, a few lines
+      on each, and the source it rests on.</p>
+
+    <h3>The original idea</h3>
+    <p>SydMap rebuilds <a href="https://stop-token.com/lab/amsterdam/" target="_blank" rel="noopener">LAYRS: Amsterdam</a>
+      by Alex Barakov (<a href="https://github.com/alexbarakov/amsterdam-by-building" target="_blank" rel="noopener">MIT licence</a>),
+      itself inspired by Sasha Bogachev's <a href="https://paris.bogachev.fr" target="_blank" rel="noopener">Paris, building by building</a>,
+      for Sydney and from Sydney's own open data.</p>
+
     <p class="country">SydMap acknowledges the Gadigal people of the Eora Nation, the Traditional Custodians of the land
       the City of Sydney stands on, and the Cammeraygal people, the Traditional Custodians of the land of North Sydney.
       Sovereignty was never ceded.</p>
-    <p class="credit">A Sydney rebuild of <a href="https://stop-token.com/lab/amsterdam/" target="_blank" rel="noopener">LAYRS: Amsterdam</a>
-      by Alex Barakov (<a href="https://github.com/alexbarakov/amsterdam-by-building" target="_blank" rel="noopener">MIT licence</a>),
-      itself inspired by Sasha Bogachev's <a href="https://paris.bogachev.fr" target="_blank" rel="noopener">Paris, building by building</a>.
-      It wears The Third Script's colours: the cypress teal of its logo for the harbour, and its terracotta sun for the
-      film and the quests' marks. The 2D view runs <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener">RustGIS</a>.</p>
-
-    <h3>Open source</h3>
-    <p>The code and the data pipeline are on <a href="https://github.com/amarashi/SydMap" target="_blank" rel="noopener">GitHub</a>.
-      Know a piece of Sydney's history that lives in its buildings? Add it as a layer: a list of buildings, a short story
-      for each and the source it rests on.</p>
-
-    <h3>How old is each building?</h3>
-    <p>Sydney, unlike Amsterdam, has no register that dates every building. Each one takes the best evidence there is,
-      and its card says which:</p>
-    <ul class="method">
-      <li><b>Documented</b> (<span data-stat="documented">–</span>): a year from Wikidata, from the lead of its Wikipedia
-        article (for heritage-listed places, written from the NSW State Heritage Inventory) or from OpenStreetMap.</li>
-      <li><b>Strata plan</b> (<span data-stat="strata">–</span>): apartment buildings are strata-titled when they are finished,
-        so the year their strata plan was registered dates them. Plans since 1994 carry their date in the NSW cadastre;
-        older ones are placed by their number between those and 1961, when strata title began.</li>
-      <li><b>Heritage</b> (<span data-stat="heritage">–</span>): the other buildings of a State Heritage Register listing take
-        the years of the listing's article; buildings the City of Sydney marks as contributing to a heritage conservation area
-        belong to its historic fabric, and are dated from the documented heritage buildings around them.</li>
-      <li><b>Neighbours</b> (<span data-stat="neighbours">–</span>): the rest take the years of the dated buildings around them
-        of similar height. Towers over 46 m, Sydney's height limit until 1957, only take years after it.</li>
-    </ul>
-    <p>Estimated years are paler on the map and marked “c.” on the cards, with the range they come from. Treat them as an
-      educated guess about the period, not as a date.</p>
-
-    <h3>Data</h3>
-    <p>Downloaded in October 2026.</p>
-    <ul>
-      <li>Footprints: <a href="https://overturemaps.org" target="_blank" rel="noopener">Overture Maps</a> (release 2026-09-23),
-        from OpenStreetMap and Microsoft's machine-learned footprints. ODbL; © OpenStreetMap contributors.</li>
-      <li>Heights: OpenStreetMap heights and levels; elsewhere <a href="https://github.com/zhu-xlab/GlobalBuildingAtlas" target="_blank" rel="noopener">GlobalBuildingAtlas</a>
-        (Zhu et al., TU Munich, 2025), modelled from satellite imagery, CC BY-NC 4.0: one more reason this map is non-commercial.
-        The 2D GIS download leaves these modelled heights out.</li>
-      <li>Landmarks: the Opera House's shells are modelled on the spherical geometry they were built to, as Ove Arup &amp;
-        Partners' Michael Lewis describes it (<a href="https://www.royalsoc.org.au/wp-content/uploads/2024/09/106_12_lewis.pdf" target="_blank" rel="noopener">Royal Society of New South Wales, 1973</a>),
-        placed on OpenStreetMap's plan of the roof; the Harbour Bridge is built from its Wikipedia figures (two 28-panel
-        arch trusses, a 504 m span, a 134 m summit), the height of its deck and its approaches approximated.</li>
-      <li>Boundaries and strata plans: NSW Spatial Services. CC BY 4.0.</li>
-      <li>Heritage: the State Heritage Register (Heritage NSW) and the local environmental plans' heritage maps
-        (NSW Department of Planning), CC BY 4.0; heritage conservation area contributions from the City of Sydney's
-        Development Control Plan 2012, CC BY 4.0.</li>
-      <li>History layers: City of Sydney open data (Aboriginal history places from Barani; Developing Sydney 1900–1920
-        from the City of Sydney Archives), CC BY 4.0; OpenStreetMap, ODbL.</li>
-      <li>Names, photos, stories: Wikidata (CC0), Wikipedia (CC BY-SA) and Wikimedia Commons; each photo credits its author and licence.</li>
-    </ul>
 
     <footer class="colophon">
-      <a class="studio" href="https://thethirdscript.com" target="_blank" rel="noopener" aria-label="The Third Script">
-        <img class="studio-mark" src="img/the-third-script-symbol.webp" alt="" width="47" height="56">
-        <img class="studio-word" src="img/the-third-script-wordmark.webp" alt="" width="160" height="20">
+      <a class="studio" href="https://thethirdscript.com" target="_blank" rel="noopener">
+        <img class="studio-mark" src="img/the-third-script-symbol.webp" alt="" width="40" height="48">
+        <img class="studio-word" src="img/the-third-script-wordmark.webp" alt="The Third Script" width="144" height="18">
       </a>
-      <p>SydMap is made by Amir Marashi at The Third Script, a Sydney studio working across AI and data, websites and
-        digital tools, visual work and video, and 3D design and making. See more of the work at
-        <a href="https://thethirdscript.com" target="_blank" rel="noopener">thethirdscript.com</a>.</p>
+      <p>Made by Amir Marashi at The Third Script, a Sydney studio working across AI and data, websites and digital
+        tools, visual work and video, and 3D design and making. A non-commercial project, made out of curiosity and for
+        education. More of the work is at <a href="https://thethirdscript.com" target="_blank" rel="noopener">thethirdscript.com</a>.</p>
     </footer>
   </article>
-</dialog>
+</aside>
 
-<dialog id="gis" class="about gis" aria-labelledby="gis-title">
-  <header class="gis-bar"><h2 id="gis-title">Sydney in RustGIS</h2>
-    <p>The same buildings in <a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener">RustGIS</a>, an
-      open-source GIS that runs in your browser: open the attribute table, query, measure and export.</p>
+<div id="tip" class="tip" hidden aria-hidden="true"></div>
+
+<!-- Time: the year on paper flaps, then the line. The line is the legend too: its ten stations are the ages of the
+     city, in their colours, and the sun riding it is the year. -->
+<section class="time" aria-label="Time">
+  <div class="time-head">
+    <div class="flaps" aria-hidden="true"><span class="flap">2</span><span class="flap">0</span><span class="flap">2</span><span class="flap">6</span></div>
+    <p class="time-what" aria-live="polite"><i id="era">Today</i><span><span id="year" class="sr-only">Today, </span><span id="count" class="n">29,844 buildings standing</span></span></p>
+    <div id="key" class="key"></div>
+  </div>
+  <div class="time-line">
+    <button id="play" class="play" aria-label="Play the city's growth">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path id="play-icon" d="M4.5 2.5v11l9-5.5z"/></svg>
+    </button>
+    <div class="track">
+      <canvas id="hist" aria-label="Buildings by year built. Drag to set the year."></canvas>
+      <div id="rail" class="rail"></div>
+      <span class="from-mark" hidden aria-hidden="true"></span>
+      <span class="year-ring" aria-hidden="true"></span>
+      <span class="year-sun sun-disc" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+
+<p class="howto">Drag to turn the city · right-drag or Shift-drag to move it · scroll to come closer</p>
+
+<dialog id="gis" class="gis" aria-labelledby="gis-title">
+  <header class="gis-bar"><h2 id="gis-title">The same buildings in RustGIS</h2>
+    <p><a href="https://github.com/opengeos/RustGIS" target="_blank" rel="noopener">RustGIS</a> is an open-source GIS that
+      runs in your browser: open the attribute table, query, measure and export.</p>
     <a class="gis-download" href="data/gis/sydney.rgis" download>Download the project</a>
-    <button class="about-close" aria-label="Close"><svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></header>
+    <button class="gis-close" aria-label="Close"><svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></header>
   <div class="gis-frame"></div>
 </dialog>
 
-<div class="tally" aria-live="polite">
-  <span id="year" class="tally-year">2026</span>
-  <span class="tally-count"><span id="count">0</span> buildings</span>
-</div>
-
-<aside id="panel" class="panel">
-  <button class="sheet-handle" aria-expanded="true" aria-controls="panel-body">Show legend</button>
-  <div id="panel-body"></div>
-</aside>
-
-<div id="card" class="card" hidden></div>
-<section id="quest" class="quest" hidden aria-live="polite"></section>
-<dialog id="quests" class="about quests" aria-labelledby="quests-title">
-  <button class="about-close" aria-label="Close"><svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
-  <article id="quests-body"></article>
-</dialog>
-<p class="howto">Drag to turn. Right-drag or Shift-drag to move. Scroll to zoom.</p>
-
-<footer class="timeline">
-  <button id="play" class="play" aria-label="Play the city's growth">
-    <span class="sun-disc" aria-hidden="true"></span>
-    <svg viewBox="0 0 16 16" aria-hidden="true"><path id="play-icon" d="M4.5 2.5v11l9-5.5z"/></svg>
-  </button>
-  <canvas id="hist" aria-label="Buildings per year; drag to set the year"></canvas>
-</footer>
-
-<div id="loading" class="loading"><img src="img/the-third-script-symbol.webp" alt="" width="34" height="40">Building the city <span id="progress">0</span>%</div>
+<div id="loading" class="loading"><img src="img/the-third-script-symbol.webp" alt="" width="34" height="40">Laying out the city <span id="progress" class="n">0</span>%</div>
 <script type="module" src="app.js"></script>
 </body>
 </html>

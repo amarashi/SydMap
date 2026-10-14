@@ -1,8 +1,8 @@
 # Contributing
 
-## Add a context layer
+## Add a story
 
-A layer is a set of buildings with a story: a hand-picked list with a note for each, or a rule over an open dataset.
+A story (a "layer" in the code) is a set of buildings with something to tell: a hand-picked list with a note for each, or a rule over an open dataset.
 Layers live in [`pipeline/s05_layers.py`](pipeline/s05_layers.py), one function each:
 
 ```python
@@ -24,9 +24,9 @@ def wool():
 
 Then run `uv run python -m pipeline.run s05 s06 s03 s09` and look at it with `python3 scripts/serve.py`.
 
-## Add a quest
+## Add a walk
 
-Quests are in [`pipeline/quests.py`](pipeline/quests.py). Every claim a step makes needs a Wikipedia article and the
+Walks ("quests" in the code) are in [`pipeline/quests.py`](pipeline/quests.py). Every claim a step makes needs a Wikipedia article and the
 exact strings it must contain:
 
 ```python
