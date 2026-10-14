@@ -1,0 +1,4 @@
+# Cloudflare Pages reads this file. The preview address (*.pages.dev) stays out of search results;
+# sydmap.thethirdscript.com is the real address.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
