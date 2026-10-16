@@ -11,6 +11,7 @@ crime figures and the Valuer General's sales are all named by. A suburb's figure
 where the map shows only part of it.
 """
 import json
+import re
 
 import geopandas as gpd
 import numpy as np
@@ -262,9 +263,9 @@ def main():
     s, of = suburbs_on_map()
     polys, owner = land_of(s)
     c = to_local(np.c_[s.geometry.representative_point().x, s.geometry.representative_point().y])
-
+    title = lambda n: re.sub(r"\bMc(\w)", lambda m: "Mc" + m[1].upper(), n.title())  # McMahons Point
     out = dict(
-        suburbs=[dict(name=n.title(), postcode=int(p) if pd.notna(p) else None, km2=round(a / 1e6, 3),
+        suburbs=[dict(name=title(n), postcode=int(p) if pd.notna(p) else None, km2=round(a / 1e6, 3),
                       buildings=int(nb), x=round(float(x)), z=round(float(z)))
                  for n, p, a, nb, (x, z) in zip(s.suburbname, s.postcode, s.geometry.area, s.buildings, c)],
         poly=owner,
