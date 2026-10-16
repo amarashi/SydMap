@@ -13,13 +13,14 @@ LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS H
 # Councils taken only in part: the suburbs of each to keep (NSW Spatial Services suburbname values). The rest of the
 # Inner West runs inland to Marrickville and Ashfield, the rest of Canada Bay to Concord, Willoughby's
 # to Chatswood, the Northern Beaches' to Palm Beach,
-# Ryde's to Macquarie Park.
+# Ryde's to Macquarie Park, Randwick's to La Perouse.
 PARTS = {"INNER WEST": ["BALMAIN", "BALMAIN EAST", "BIRCHGROVE", "ROZELLE", "LILYFIELD", "ANNANDALE",
                         "LEICHHARDT"],
          "CANADA BAY": ["DRUMMOYNE", "RUSSELL LEA", "RODD POINT", "FIVE DOCK", "ABBOTSFORD", "CHISWICK", "WAREEMBA"],
          "WILLOUGHBY": ["NORTHBRIDGE", "CASTLECRAG", "MIDDLE COVE", "CASTLE COVE", "NAREMBURN"],
          "NORTHERN BEACHES": ["MANLY", "FAIRLIGHT", "BALGOWLAH", "BALGOWLAH HEIGHTS", "CLONTARF", "SEAFORTH"],
-         "RYDE": ["GLADESVILLE", "PUTNEY", "TENNYSON POINT"]}
+         "RYDE": ["GLADESVILLE", "PUTNEY", "TENNYSON POINT"],
+         "RANDWICK": ["CLOVELLY", "COOGEE", "SOUTH COOGEE", "RANDWICK"]}
 GPO_LONLAT = (151.20765, -33.86778)         # the GPO clock tower, Martin Place
 # A box that holds the LGAs with a margin of harbour around them (lon/lat), from Putney to Manly and from Seaforth
 # to South Coogee, so suburbs can be added within it without downloading the rest again.
