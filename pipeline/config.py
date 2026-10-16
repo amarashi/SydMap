@@ -13,7 +13,8 @@ LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS H
         "WILLOUGHBY", "CANADA BAY", "BURWOOD"]
 # Councils taken only in part: the suburbs of each to keep (NSW Spatial Services suburbname values). The rest of
 # the Northern Beaches runs to Palm Beach, Ryde's to Macquarie Park, Randwick's to La Perouse,
-# Canterbury-Bankstown's to Bankstown, Bayside's to Botany Bay.
+# Canterbury-Bankstown's to Bankstown, Bayside's to Botany Bay,
+# Ku-ring-gai's to Wahroonga.
 PARTS = {"NORTHERN BEACHES": ["MANLY", "FAIRLIGHT", "BALGOWLAH", "BALGOWLAH HEIGHTS", "CLONTARF", "SEAFORTH",
                               "QUEENSCLIFF", "FRESHWATER", "CURL CURL", "NORTH MANLY", "MANLY VALE",
                               "NORTH BALGOWLAH"],
@@ -24,7 +25,8 @@ PARTS = {"NORTHERN BEACHES": ["MANLY", "FAIRLIGHT", "BALGOWLAH", "BALGOWLAH HEIG
          "CANTERBURY-BANKSTOWN": ["EARLWOOD", "HURLSTONE PARK", "CANTERBURY", "ASHBURY", "CROYDON PARK", "CAMPSIE",
                                   "CLEMTON PARK"],
          "BAYSIDE": ["EASTLAKES", "DACEYVILLE", "PAGEWOOD", "WOLLI CREEK", "TURRELLA", "ARNCLIFFE", "BARDWELL PARK",
-                     "BARDWELL VALLEY", "BEXLEY NORTH"]}
+                     "BARDWELL VALLEY", "BEXLEY NORTH"],
+         "KU-RING-GAI": ["ROSEVILLE", "ROSEVILLE CHASE", "LINDFIELD"]}
 GPO_LONLAT = (151.20765, -33.86778)         # the GPO clock tower, Martin Place
 # A box that holds the LGAs with a margin of harbour around them (lon/lat), from Putney to Manly and from Seaforth
 # to South Coogee, so suburbs can be added within it without downloading the rest again.

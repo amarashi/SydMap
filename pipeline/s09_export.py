@@ -33,6 +33,11 @@ SOURCE = {"wikidata": "Wikidata", "wikipedia": "Wikipedia", "osm": "OpenStreetMa
 HEIGHT_SRC = {0: "OpenStreetMap", 1: "OpenStreetMap storeys", 4: "Wikipedia"}
 
 
+def council(lga: str) -> str:
+    """A council's name as it writes it: "Lane Cove", "Ku-ring-gai"."""
+    return lga.title().replace("Ku-Ring-Gai", "Ku-ring-gai")
+
+
 def export_buildings() -> gpd.GeoDataFrame:
     b = gpd.read_parquet(DATA / "buildings_dated.parquet")
     cards = pd.read_parquet(DATA / "cards.parquet")
@@ -52,7 +57,7 @@ def export_buildings() -> gpd.GeoDataFrame:
         storeys=b.floors.where(b.floors_src == 0),
         height_m=b.height.where(own_height).round(1), height_source=b.height_src.map(HEIGHT_SRC),
         strata_plan=b.sp.map(lambda v: f"SP{int(v)}" if pd.notna(v) else None),
-        lga=b.lga.str.title(), osm=b.osm, wikidata=b.qid, wikipedia=article,
+        lga=b.lga.map(council), osm=b.osm, wikidata=b.qid, wikipedia=article,
         footprint=np.where(b.source == "osm", "OpenStreetMap", "Microsoft ML (via Overture)"),
     ), geometry=b.geometry, crs=CRS).to_crs(4326)
     out["geometry"] = shapely.set_precision(shapely.simplify(out.geometry.values, 0.000002), 1e-7)
@@ -113,7 +118,7 @@ def main():
         councils.append((lga, slug(lga), len(part)))
     councils.sort(key=lambda c: c[0])
     area = gpd.read_parquet(RAW / "boundary.parquet").to_crs(4326)
-    area["name"] = area.lganame.str.title()
+    area["name"] = area.lganame.map(council)
     for lga, suburbs in PARTS.items():  # a council taken in part says which part
         area.loc[area.lganame == lga, "name"] += f" ({', '.join(suburbs).title()} only)"
     (OUT / "area.geojson").write_text(area[["name", "geometry"]].to_json())
