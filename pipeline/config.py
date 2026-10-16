@@ -11,12 +11,13 @@ from pathlib import Path
 CRS = 7856                                  # GDA2020 / MGA zone 56
 LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS HILL", "WAVERLEY"]  # NSW Spatial Services lganame
 # Councils taken only in part: the suburbs of each to keep (NSW Spatial Services suburbname values). The rest of the
-# Inner West runs inland to Marrickville and Ashfield, the rest of Canada Bay to Concord, Willoughby's
+# Inner West runs inland to Marrickville and Ashfield, the rest of Canada Bay to Rhodes, Willoughby's
 # to Chatswood, the Northern Beaches' to Palm Beach,
 # Ryde's to Macquarie Park, Randwick's to La Perouse.
 PARTS = {"INNER WEST": ["BALMAIN", "BALMAIN EAST", "BIRCHGROVE", "ROZELLE", "LILYFIELD", "ANNANDALE",
                         "LEICHHARDT"],
-         "CANADA BAY": ["DRUMMOYNE", "RUSSELL LEA", "RODD POINT", "FIVE DOCK", "ABBOTSFORD", "CHISWICK", "WAREEMBA"],
+         "CANADA BAY": ["DRUMMOYNE", "RUSSELL LEA", "RODD POINT", "FIVE DOCK", "ABBOTSFORD", "CHISWICK", "WAREEMBA",
+                        "CONCORD", "CABARITA", "MORTLAKE", "BREAKFAST POINT", "CANADA BAY"],
          "WILLOUGHBY": ["NORTHBRIDGE", "CASTLECRAG", "MIDDLE COVE", "CASTLE COVE", "NAREMBURN"],
          "NORTHERN BEACHES": ["MANLY", "FAIRLIGHT", "BALGOWLAH", "BALGOWLAH HEIGHTS", "CLONTARF", "SEAFORTH"],
          "RYDE": ["GLADESVILLE", "PUTNEY", "TENNYSON POINT"],
