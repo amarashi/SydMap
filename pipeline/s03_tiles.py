@@ -26,6 +26,7 @@ from .periods import PERIODS
 
 GPO = gpo_mga()
 TILE = 600.0
+PACK_BYTES = 400_000
 SIMPLIFY = 0.25
 MAGIC = 0x32445953  # 'SYD2'
 PALE = 0x8000
@@ -166,21 +167,19 @@ def main():
                           dist=round(float(np.hypot(cx, cz)))))
     index.sort(key=lambda t: t["dist"])
 
-    # Bundle tiles into a few packs, nearest the GPO first, so the city loads centre-out in few requests.
-    packs, n_packs = [], 12
-    per = -(-len(index) // n_packs)
-    for k in range(n_packs):
-        chunk = index[k * per:(k + 1) * per]
-        if not chunk:
-            break
-        name, offset, blob = f"pack{k}.bin", 0, bytearray()
-        for t in chunk:
-            data = (WEB / "tiles" / t["file"]).read_bytes()
-            t.update(pack=name, offset=offset, length=len(data))
-            blob += data
-            offset += len(data)
-        (WEB / name).write_bytes(blob)
-        packs.append(name)
+    # Bundle tiles into packs of about PACK_BYTES, nearest the GPO first, so the city loads centre-out in few requests
+    # however far the map grows.
+    for f in WEB.glob("pack*.bin"):
+        f.unlink()
+    packs, blob = [], bytearray()
+    for i, t in enumerate(index):
+        data = (WEB / "tiles" / t["file"]).read_bytes()
+        t.update(pack=f"pack{len(packs)}.bin", offset=len(blob), length=len(data))
+        blob += data
+        if len(blob) >= PACK_BYTES or i == len(index) - 1:
+            packs.append(t["pack"])
+            (WEB / t["pack"]).write_bytes(blob)
+            blob = bytearray()
     for f in (WEB / "tiles").glob("*.bin"):
         f.unlink()
     (WEB / "tiles").rmdir()

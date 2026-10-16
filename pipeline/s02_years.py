@@ -456,17 +456,23 @@ def main():
     # Everything else: the dated buildings around it, of similar height. Tall buildings take only years from 1958,
     # detracting buildings in heritage areas only years from 1946. Low-rise houses and other buildings that are not
     # strata-titled take documented years only: the strata-dated apartments around them say nothing about them.
+    # Low-rise buildings OSM does not describe (Microsoft's footprints, or just building=yes), mostly suburban houses,
+    # take documented years, the heritage-area estimates and the years of strata villas and townhouses of up to two
+    # storeys: the walk-up flats and towers around them would make a Federation suburb look built after 1960.
     dated = b.date_flag >= 0
     rest = ~dated
     pool_doc = dated & b.date_flag.isin([0, 1])
     pool = dated & b.date_flag.isin([0, 1, 2])
     house = b.building.isin(["house", "terrace", "detached", "semidetached_house", "residential", "bungalow",
                              "industrial", "warehouse", "garage", "shed", "roof", "church", "school"]) & (b.floors <= 3)
+    untagged = (b.building.isna() | (b.building == "yes")) & (b.floors <= 2)
+    pool_untagged = dated & (b.date_flag.isin([0, 1, 3]) | ((b.date_flag == 2) & (b.floors <= 2)))
     everywhere = pd.Series(True, index=b.index)
     for name, target, src in [("tall", rest & tall, pool & (b.year >= 1958)),
                               ("detracting", rest & ~tall & (b.contrib == "Detracting"), pool & (b.year >= 1946)),
                               ("low-rise", rest & ~tall & (b.contrib != "Detracting") & house, pool_doc),
-                              ("other", rest & ~tall & (b.contrib != "Detracting") & ~house, pool & everywhere)]:
+                              ("untagged", rest & ~tall & (b.contrib != "Detracting") & ~house & untagged, pool_untagged),
+                              ("other", rest & ~tall & (b.contrib != "Detracting") & ~house & ~untagged, pool & everywhere)]:
         if not target.any():
             continue
         lo, mid, hi = knn_years(features(b, b.index[src]), b.year[src].to_numpy(), features(b, b.index[target]))

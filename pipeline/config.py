@@ -11,11 +11,13 @@ from pathlib import Path
 CRS = 7856                                  # GDA2020 / MGA zone 56
 LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS HILL"]  # NSW Spatial Services lganame
 # Councils taken only in part: the suburbs of each to keep (NSW Spatial Services suburbname values). The rest of the
-# Inner West runs inland to Marrickville and Ashfield.
-PARTS = {"INNER WEST": ["BALMAIN", "BALMAIN EAST", "BIRCHGROVE", "ROZELLE", "LILYFIELD"]}
+# Inner West runs inland to Marrickville and Ashfield, the rest of Canada Bay to Concord.
+PARTS = {"INNER WEST": ["BALMAIN", "BALMAIN EAST", "BIRCHGROVE", "ROZELLE", "LILYFIELD"],
+         "CANADA BAY": ["DRUMMOYNE", "RUSSELL LEA", "RODD POINT", "FIVE DOCK", "ABBOTSFORD", "CHISWICK", "WAREEMBA"]}
 GPO_LONLAT = (151.20765, -33.86778)         # the GPO clock tower, Martin Place
-# A box that holds the LGAs with a margin of harbour around them (lon/lat).
-BBOX = (151.115, -33.94, 151.30, -33.79)
+# A box that holds the LGAs with a margin of harbour around them (lon/lat), from Putney to Manly and from Seaforth
+# to South Coogee, so suburbs can be added within it without downloading the rest again.
+BBOX = (151.08, -33.95, 151.32, -33.765)
 
 RAW = Path("data/raw")
 DATA = Path("data")

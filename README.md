@@ -1,9 +1,14 @@
 # SydMap: Sydney, year by year
 
-Every building around Sydney Harbour in 3D: the City of Sydney and North Sydney, either side of the Harbour Bridge,
-the harbour councils around them (Mosman, Woollahra, Lane Cove and Hunters Hill) and the Balmain peninsula, 56,800
-buildings in all, coloured by the age of the city they belong to. Move along the line at the bottom, or press play, to watch Sydney grow from the convict town; look at it by its stories, heights or heritage; open any building to read how its year is
-known; follow a walk through the streets; or take every building's data with you.
+Every building around Sydney Harbour in 3D, 65,055 buildings in all, coloured by the age of the city they belong
+to. Move along the line at the bottom, or press play, to watch Sydney grow from the convict town; look at it by its
+stories, heights or heritage; open any building to read how its year is known; follow a walk through the streets; or
+take every building's data with you.
+
+**The area:** the City of Sydney and North Sydney, either side of the Harbour Bridge; the harbour councils around
+them, Mosman, Woollahra, Lane Cove and Hunters Hill; the Balmain peninsula (Balmain, Balmain East, Birchgrove,
+Rozelle and Lilyfield); and Drummoyne and Five Dock (with Russell Lea, Rodd Point, Abbotsford, Chiswick and
+Wareemba).
 
 [![Watch SydMap in 25 seconds: the city grows from 1788, the Opera House card, the Harbour Bridge](brag-output/brag.jpg)](brag-output/brag.mp4)
 
@@ -19,10 +24,15 @@ non-commercial project, made out of curiosity and for education.
 **Run it locally:** `python3 scripts/serve.py` and open <http://localhost:8642>. The built data is in the
 repository, so nothing else is needed. **Publish it:** see [Cloudflare](#publishing-on-cloudflare).
 
-SydMap acknowledges the Traditional Custodians of the land around the harbour: the Gadigal people of the Eora Nation,
-of the City of Sydney; the Cammeraygal people, of North Sydney and Lane Cove; the Borogegal people, of Mosman; the
-Gadigal and Birrabirragal peoples, of Woollahra; the Wallumedegal people, of Hunters Hill; and the Gadigal and
-Wangal peoples, of the Inner West and the Balmain peninsula.
+SydMap acknowledges the Traditional Custodians of the land it maps, as each council names them:
+
+- the City of Sydney: the Gadigal people of the Eora Nation
+- North Sydney and Lane Cove: the Cammeraygal people
+- Mosman: the Borogegal people
+- Woollahra: the Gadigal and Birrabirragal peoples
+- Hunters Hill: the Wallumedegal people
+- the Inner West, of which the Balmain peninsula is part: the Gadigal and Wangal peoples
+- Canada Bay (Drummoyne and Five Dock): the Wangal people
 
 | | |
 |---|---|
@@ -61,18 +71,18 @@ each building takes the best evidence there is, and its card says which:
 
 | Evidence | Buildings | How |
 |---|---:|---|
-| Documented | 554 | a year from the lead of the building's Wikipedia article (387; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (100) or OpenStreetMap `start_date` (67) |
-| Strata plan | 9,006 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44598 (1994) |
+| Documented | 561 | a year from the lead of the building's Wikipedia article (391; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (101) or OpenStreetMap `start_date` (69) |
+| Strata plan | 9,904 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44598 (1994) |
 | Heritage listing | 216 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings, the Harbour Bridge's approaches) take the years the listing's Wikipedia article gives; precincts, parks, tunnels and railway stations (dated by their opening) do not pass their years on |
-| Heritage area | 22,990 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in the other councils' conservation areas, which do not mark contributing buildings) are dated from the documented heritage buildings around them |
-| Neighbours | 24,034 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945 |
+| Heritage area | 23,962 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in the other councils' conservation areas, which do not mark contributing buildings) are dated from the documented heritage buildings around them |
+| Neighbours | 30,412 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945, houses only documented years, and untagged low-rise buildings (mostly suburban houses) documented years, heritage-area estimates and the years of strata villas and townhouses |
 
 Estimated years (everything but the first row) are spread within their range so the film does not drop a suburb in a
 single year; they are paler on the map, marked "c." on the cards with the range, and the "Estimated years" switch beside
 the year turns them off. Treat them as an educated guess about the period, not as a date.
 
-Heights come from OpenStreetMap where it has them (26,809, measured or from storeys), from GlobalBuildingAtlas
-(25,782, modelled from satellite imagery) and are otherwise assumed to be two storeys (4,207).
+Heights come from OpenStreetMap where it has them (27,301, measured or from storeys), from GlobalBuildingAtlas
+(32,796, modelled from satellite imagery) and are otherwise assumed to be two storeys (4,956).
 
 Two landmarks are modelled as meshes, see [`pipeline/landmarks.py`](pipeline/landmarks.py). The Harbour Bridge is
 built from its Wikipedia figures: two 28-panel arch trusses, 18 m deep at the summit and 57 m at the ends, spanning
@@ -142,7 +152,7 @@ hold.
 | `s04_water` | Land, water and the other shores |
 | `s05_layers` | Stories (the page's name for layers), one bit per group per building |
 | `s06_wiki` | Card data: Wikipedia leads, Commons photos and credits, names, heritage listings |
-| `s03_tiles` | 600 m binary tiles in twelve packs, `attrs.bin`, `sydney.json` |
+| `s03_tiles` | 600 m binary tiles in packs of about 400 KB, `attrs.bin`, `sydney.json` |
 | `s07_labels` | Street and harbour names laid along their lines |
 | `s08_quests` | Walks (quests in the code) resolved to buildings, every claim checked (`checks.py`) |
 | `s09_export` | Every building as GeoParquet and CSV, and the councils' boundaries, to download |
@@ -166,6 +176,9 @@ in the same Cloudflare account.
 ## Limitations
 
 - Most years are estimates (see above); the documented ones cluster in the city centre and The Rocks.
+- In the suburbs few buildings are documented, so their houses take years from heritage areas and from strata villas
+  and townhouses around them; a suburb of Federation houses with much later infill (Drummoyne, Five Dock) still
+  comes out younger than it is.
 - OpenStreetMap often maps a terrace row as one building, so "buildings" here are mapped structures, not addresses.
 - About half the heights are modelled from satellite imagery and can be several metres off.
 - The ground is flat: Sydney's ridges and gullies are not modelled.

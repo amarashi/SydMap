@@ -24,7 +24,7 @@ DATING = {0: "documented", 1: "documented, approximate", 2: "strata plan", 3: "h
           4: "estimated from neighbours"}
 SOURCE = {"wikidata": "Wikidata", "wikipedia": "Wikipedia", "osm": "OpenStreetMap", "strata": "NSW cadastre",
           "listing": "its heritage listing (Wikipedia)",
-          "heritage": "heritage area", "tall": "neighbours", "detracting": "neighbours", "low-rise": "neighbours",
+          "heritage": "heritage area", "tall": "neighbours", "detracting": "neighbours", "low-rise": "neighbours", "untagged": "neighbours",
           "other": "neighbours"}
 HEIGHT_SRC = {0: "OpenStreetMap", 1: "OpenStreetMap storeys", 4: "Wikipedia"}
 

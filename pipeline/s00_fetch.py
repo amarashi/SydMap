@@ -219,9 +219,9 @@ def wiki():
     if done(p):
         return
     rows = []
-    # Eight strips keep each query well inside the endpoint's time limit.
+    # Ten strips keep each query well inside the endpoint's time limit.
     x0, y0, x1, y1 = BBOX
-    n = 8
+    n = 10
     step = (x1 - x0) / n
     for i in range(n):
         q = WD_QUERY % dict(w=x0 + i * step, e=x0 + (i + 1) * step, s=y0, n=y1)
@@ -307,7 +307,7 @@ def cadastre():
     import pandas as pd
     import geopandas as gpd
     x0, y0, x1, y1 = BBOX
-    n = 10
+    n = 12
     frames = []
     for i in range(n):
         for k in range(n):
