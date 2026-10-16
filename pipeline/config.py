@@ -13,7 +13,9 @@ LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS H
         "WILLOUGHBY", "CANADA BAY"]
 # Councils taken only in part: the suburbs of each to keep (NSW Spatial Services suburbname values). The rest of
 # the Northern Beaches runs to Palm Beach, Ryde's to Macquarie Park, Randwick's to La Perouse.
-PARTS = {"NORTHERN BEACHES": ["MANLY", "FAIRLIGHT", "BALGOWLAH", "BALGOWLAH HEIGHTS", "CLONTARF", "SEAFORTH"],
+PARTS = {"NORTHERN BEACHES": ["MANLY", "FAIRLIGHT", "BALGOWLAH", "BALGOWLAH HEIGHTS", "CLONTARF", "SEAFORTH",
+                              "QUEENSCLIFF", "FRESHWATER", "CURL CURL", "NORTH MANLY", "MANLY VALE",
+                              "NORTH BALGOWLAH"],
          "RYDE": ["GLADESVILLE", "PUTNEY", "TENNYSON POINT"],
          "RANDWICK": ["CLOVELLY", "COOGEE", "SOUTH COOGEE", "RANDWICK", "KENSINGTON", "KINGSFORD",
                       "CENTENNIAL PARK"]}
