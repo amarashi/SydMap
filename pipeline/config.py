@@ -10,12 +10,10 @@ from pathlib import Path
 CRS = 7856                                  # GDA2020 / MGA zone 56
 # Councils taken whole (NSW Spatial Services lganame values).
 LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS HILL", "WAVERLEY", "INNER WEST",
-        "WILLOUGHBY"]
+        "WILLOUGHBY", "CANADA BAY"]
 # Councils taken only in part: the suburbs of each to keep (NSW Spatial Services suburbname values). The rest of
-# Canada Bay runs to Rhodes, the Northern Beaches' to Palm Beach, Ryde's to Macquarie Park, Randwick's to La Perouse.
-PARTS = {"CANADA BAY": ["DRUMMOYNE", "RUSSELL LEA", "RODD POINT", "FIVE DOCK", "ABBOTSFORD", "CHISWICK", "WAREEMBA",
-                        "CONCORD", "CABARITA", "MORTLAKE", "BREAKFAST POINT", "CANADA BAY"],
-         "NORTHERN BEACHES": ["MANLY", "FAIRLIGHT", "BALGOWLAH", "BALGOWLAH HEIGHTS", "CLONTARF", "SEAFORTH"],
+# the Northern Beaches runs to Palm Beach, Ryde's to Macquarie Park, Randwick's to La Perouse.
+PARTS = {"NORTHERN BEACHES": ["MANLY", "FAIRLIGHT", "BALGOWLAH", "BALGOWLAH HEIGHTS", "CLONTARF", "SEAFORTH"],
          "RYDE": ["GLADESVILLE", "PUTNEY", "TENNYSON POINT"],
          "RANDWICK": ["CLOVELLY", "COOGEE", "SOUTH COOGEE", "RANDWICK", "KENSINGTON", "KINGSFORD",
                       "CENTENNIAL PARK"]}
