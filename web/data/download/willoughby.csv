@@ -1,32 +1,32 @@
 name,longitude,latitude,year,year_from,year_to,period,dating,dating_source,heritage,listing,conservation_area,storeys,height_m,height_source,strata_plan,lga,osm,wikidata,wikipedia,footprint
-,151.144279,-33.801608,2001,1888,2002,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,5.6,OpenStreetMap,,Willoughby,w847569287,,,OpenStreetMap
+,151.144279,-33.801608,2002,1939,2002,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,5.6,OpenStreetMap,,Willoughby,w847569287,,,OpenStreetMap
 ,151.143834,-33.801705,2000,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w847569289,,,OpenStreetMap
-,151.143986,-33.802038,2006,1888,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.144358,-33.802074,1935,1888,2008,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.144425,-33.802765,1900,1888,2008,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.14408,-33.80234,1921,1888,2008,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,,,,Microsoft ML (via Overture)
-,151.143659,-33.801935,1923,1888,2008,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w847569288,,,OpenStreetMap
-,151.146594,-33.802975,1936,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,5.5,OpenStreetMap,,Willoughby,w847569281,,,OpenStreetMap
+,151.143986,-33.802038,2001,1939,2002,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.144358,-33.802074,1964,1939,2002,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.144425,-33.802765,1946,1939,2002,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,2.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.14408,-33.80234,1956,1939,2002,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,,,,Microsoft ML (via Overture)
+,151.143659,-33.801935,1957,1939,2001,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w847569288,,,OpenStreetMap
+,151.146594,-33.802975,1959,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,5.5,OpenStreetMap,,Willoughby,w847569281,,,OpenStreetMap
 ,151.146743,-33.802554,2000,1999,2002,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP66446,Willoughby,w851824059,,,OpenStreetMap
 ,151.146912,-33.802344,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824035,,,OpenStreetMap
 ,151.146967,-33.802363,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824036,,,OpenStreetMap
 ,151.147022,-33.802382,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824037,,,OpenStreetMap
-,151.147132,-33.80242,1944,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824052,,,OpenStreetMap
+,151.147132,-33.80242,1963,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824052,,,OpenStreetMap
 ,151.147077,-33.802401,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824038,,,OpenStreetMap
-,151.147281,-33.802457,1962,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824039,,,OpenStreetMap
+,151.147281,-33.802457,1970,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824039,,,OpenStreetMap
 ,151.147147,-33.802695,2000,1999,2002,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP66446,Willoughby,w851824060,,,OpenStreetMap
 ,151.147447,-33.802803,2000,1999,2002,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP66446,Willoughby,w851824061,,,OpenStreetMap
-,151.147648,-33.802653,1919,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824030,,,OpenStreetMap
-,151.147744,-33.802469,1931,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824034,,,OpenStreetMap
-,151.147768,-33.802423,1965,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824054,,,OpenStreetMap
-,151.14772,-33.802515,1963,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824033,,,OpenStreetMap
-,151.147696,-33.802561,1902,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824032,,,OpenStreetMap
-,151.147672,-33.802607,1949,1888,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824031,,,OpenStreetMap
-,151.147543,-33.802546,1903,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824053,,,OpenStreetMap
+,151.147648,-33.802653,1952,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824030,,,OpenStreetMap
+,151.147744,-33.802469,1957,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824034,,,OpenStreetMap
+,151.147768,-33.802423,1971,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824054,,,OpenStreetMap
+,151.14772,-33.802515,1971,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824033,,,OpenStreetMap
+,151.147696,-33.802561,1945,1939,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824032,,,OpenStreetMap
+,151.147672,-33.802607,1965,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824031,,,OpenStreetMap
+,151.147543,-33.802546,1945,1939,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824053,,,OpenStreetMap
 ,151.147438,-33.80251,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824042,,,OpenStreetMap
 ,151.14749,-33.802528,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824043,,,OpenStreetMap
 ,151.147386,-33.802493,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824041,,,OpenStreetMap
-,151.147333,-33.802475,1973,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824040,,,OpenStreetMap
+,151.147333,-33.802475,1975,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824040,,,OpenStreetMap
 ,151.147488,-33.80215,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824022,,,OpenStreetMap
 ,151.147432,-33.802131,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824021,,,OpenStreetMap
 ,151.147633,-33.80199,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824013,,,OpenStreetMap
@@ -37,72 +37,72 @@ name,longitude,latitude,year,year_from,year_to,period,dating,dating_source,herit
 ,151.147602,-33.802188,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824024,,,OpenStreetMap
 ,151.147827,-33.802263,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824028,,,OpenStreetMap
 ,151.147771,-33.802244,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824027,,,OpenStreetMap
-,151.147884,-33.802282,1924,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824029,,,OpenStreetMap
+,151.147884,-33.802282,1954,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824029,,,OpenStreetMap
 ,151.14794,-33.802301,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824055,,,OpenStreetMap
-,151.14797,-33.8021,1949,1888,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824019,,,OpenStreetMap
+,151.14797,-33.8021,1965,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824019,,,OpenStreetMap
 ,151.148026,-33.802118,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824020,,,OpenStreetMap
 ,151.148082,-33.802136,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824056,,,OpenStreetMap
-,151.147914,-33.802082,1896,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824018,,,OpenStreetMap
-,151.147858,-33.802063,1963,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824017,,,OpenStreetMap
+,151.147914,-33.802082,1943,1939,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824018,,,OpenStreetMap
+,151.147858,-33.802063,1970,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824017,,,OpenStreetMap
 ,151.147745,-33.802027,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824015,,,OpenStreetMap
 ,151.147801,-33.802045,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824016,,,OpenStreetMap
 ,151.148087,-33.801898,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824057,,,OpenStreetMap
-,151.146964,-33.801964,1923,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824045,,,OpenStreetMap
-,151.147075,-33.801859,1912,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824044,,,OpenStreetMap
+,151.146964,-33.801964,1954,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824045,,,OpenStreetMap
+,151.147075,-33.801859,1948,1939,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824044,,,OpenStreetMap
 ,151.14721,-33.802159,2001,1999,2002,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP66340,Willoughby,w851824051,,,OpenStreetMap
 ,151.146736,-33.802158,2000,1999,2002,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP64551,Willoughby,w851824058,,,OpenStreetMap
-,151.146428,-33.801869,1944,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824012,,,OpenStreetMap
-,151.146485,-33.801889,1892,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824011,,,OpenStreetMap
-,151.146599,-33.801928,1929,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824009,,,OpenStreetMap
-,151.146542,-33.801908,1973,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824010,,,OpenStreetMap
+,151.146428,-33.801869,1960,1939,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824012,,,OpenStreetMap
+,151.146485,-33.801889,1940,1939,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824011,,,OpenStreetMap
+,151.146599,-33.801928,1954,1939,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824009,,,OpenStreetMap
+,151.146542,-33.801908,1971,1939,1972,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824010,,,OpenStreetMap
 ,151.146835,-33.80174,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824050,,,OpenStreetMap
 ,151.146778,-33.80172,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824008,,,OpenStreetMap
 ,151.146721,-33.8017,2000,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824007,,,OpenStreetMap
-,151.146664,-33.801681,1959,1888,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824006,,,OpenStreetMap
-,151.146606,-33.801661,1925,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824005,,,OpenStreetMap
-,151.146371,-33.80185,1931,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824049,,,OpenStreetMap
-,151.146311,-33.80181,1966,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.146664,-33.801681,1966,1939,1972,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824006,,,OpenStreetMap
+,151.146606,-33.801661,1953,1939,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824005,,,OpenStreetMap
+,151.146371,-33.80185,1955,1939,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824049,,,OpenStreetMap
+,151.146311,-33.80181,1968,1939,1972,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.146254,-33.802049,2001,1999,2002,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP64624,Willoughby,w851824048,,,OpenStreetMap
-,151.145323,-33.802823,1919,1888,2002,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w847569285,,,OpenStreetMap
-,151.145076,-33.802791,1945,1888,2008,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w847569282,,,OpenStreetMap
-,151.144968,-33.802561,1893,1888,2002,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,Willoughby,w847569286,,,OpenStreetMap
+,151.145323,-33.802823,1956,1939,2002,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w847569285,,,OpenStreetMap
+,151.145076,-33.802791,1969,1939,2002,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w847569282,,,OpenStreetMap
+,151.144968,-33.802561,1942,1939,2002,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w847569286,,,OpenStreetMap
 ,151.146244,-33.801629,1999,1998,2001,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP64188,Willoughby,w851824047,,,OpenStreetMap
-,151.146128,-33.80039,1899,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,1,3.2,OpenStreetMap storeys,,Willoughby,w207662939,,,OpenStreetMap
-,151.146356,-33.80013,1927,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w207662936,,,OpenStreetMap
-,151.146278,-33.800288,1917,1888,1925,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,1,4.6,OpenStreetMap,,Willoughby,w207662937,,,OpenStreetMap
+,151.146128,-33.80039,1947,1939,1999,1946–1960 Post-war,estimated from neighbours,neighbours,,,,1,3.2,OpenStreetMap storeys,,Willoughby,w207662939,,,OpenStreetMap
+,151.146356,-33.80013,1953,1939,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w207662936,,,OpenStreetMap
+,151.146278,-33.800288,1939,1939,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,1,4.6,OpenStreetMap,,Willoughby,w207662937,,,OpenStreetMap
 ,151.147202,-33.800808,2000,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w207662943,,,OpenStreetMap
 ,151.146806,-33.801428,2000,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851823997,,,OpenStreetMap
 ,151.146748,-33.80142,2001,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851823998,,,OpenStreetMap
 ,151.146691,-33.801413,2000,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851823999,,,OpenStreetMap
 ,151.146634,-33.801405,2000,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824000,,,OpenStreetMap
 ,151.146519,-33.801391,2001,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824002,,,OpenStreetMap
-,151.146462,-33.801383,1937,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824046,,,OpenStreetMap
+,151.146462,-33.801383,1957,1939,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824046,,,OpenStreetMap
 ,151.146576,-33.801398,2001,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824001,,,OpenStreetMap
 ,151.146492,-33.801621,2000,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824003,,,OpenStreetMap
-,151.146549,-33.801641,1940,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824004,,,OpenStreetMap
+,151.146549,-33.801641,1959,1939,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851824004,,,OpenStreetMap
 ,151.146863,-33.801435,2000,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851823996,,,OpenStreetMap
 ,151.14692,-33.801442,2001,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851823995,,,OpenStreetMap
 ,151.146978,-33.80145,2000,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851823994,,,OpenStreetMap
 ,151.147035,-33.801457,2001,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851823993,,,OpenStreetMap
 ,151.147092,-33.801464,2001,2000,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851823992,,,OpenStreetMap
-,151.14715,-33.801472,1971,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851823991,,,OpenStreetMap
+,151.14715,-33.801472,1970,1939,1972,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851823991,,,OpenStreetMap
 ,151.147251,-33.801655,2001,2001,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w851823990,,,OpenStreetMap
-,151.149308,-33.801474,1921,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149876,-33.80163,1936,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149576,-33.801176,1911,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149649,-33.800977,1897,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,5.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149433,-33.80125,1942,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.150564,-33.801242,1915,1888,2002,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.150386,-33.80121,1923,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.150206,-33.801033,1992,1888,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.150007,-33.801068,1920,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.150852,-33.801237,1917,1888,2002,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149308,-33.801474,1953,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149876,-33.80163,1959,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149576,-33.801176,1948,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149649,-33.800977,1943,1939,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,5.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149433,-33.80125,1962,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.150564,-33.801242,1954,1939,2002,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.150386,-33.80121,1954,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.150206,-33.801033,1996,1939,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.150007,-33.801068,1952,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.150852,-33.801237,1955,1939,2002,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.151162,-33.801201,1975,1972,2002,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.151375,-33.801248,1994,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.151681,-33.801282,1972,1972,2002,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.151338,-33.801591,1993,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.151188,-33.801659,1994,1888,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.151012,-33.801696,1942,1888,2002,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.151188,-33.801659,1998,1939,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.151012,-33.801696,1969,1939,2002,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.150872,-33.801727,1976,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,5.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.151218,-33.802114,1982,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.151358,-33.80211,1977,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -120,49 +120,49 @@ name,longitude,latitude,year,year_from,year_to,period,dating,dating_source,herit
 ,151.150606,-33.802726,1975,1972,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.150584,-33.802864,1973,1972,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,5.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.150246,-33.802798,1976,1972,1976,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,5.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.150173,-33.802583,1907,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,5.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.15031,-33.802446,1947,1888,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149922,-33.802403,1906,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.150014,-33.802275,1908,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.150219,-33.802195,1902,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.150173,-33.802583,1947,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,5.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.15031,-33.802446,1964,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149922,-33.802403,1947,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.150014,-33.802275,1947,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.150219,-33.802195,1945,1939,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.150749,-33.80226,1980,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,6.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.150788,-33.802095,1993,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,5.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.150798,-33.801912,1977,1888,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,5.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.150194,-33.801875,1888,1888,1904,1870–1890 The boom years,heritage area estimate,heritage area,Local heritage item,House (including former dairy and original interiors),,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149634,-33.801724,1934,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,6.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149551,-33.801831,1974,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,2.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149543,-33.80201,1939,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,5.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149504,-33.802186,1926,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,5.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149042,-33.801693,1966,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.14894,-33.801897,1906,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148999,-33.802105,1955,1888,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148874,-33.802275,1975,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148668,-33.802465,1901,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148722,-33.802314,1962,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148573,-33.802618,1905,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148449,-33.802704,1963,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148455,-33.802882,1890,1888,1976,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148754,-33.802916,1897,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149036,-33.802681,1906,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148923,-33.802816,1899,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149409,-33.802979,1912,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149174,-33.80255,1958,1888,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,5.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149242,-33.802425,1902,1888,1976,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149812,-33.802559,1954,1888,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.150798,-33.801912,1988,1939,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,5.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.150194,-33.801875,1939,1939,1939,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,Local heritage item,House (including former dairy and original interiors),,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149634,-33.801724,1958,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,6.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149551,-33.801831,1975,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,2.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149543,-33.80201,1960,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,5.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149504,-33.802186,1955,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,5.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149042,-33.801693,1972,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.14894,-33.801897,1947,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148999,-33.802105,1967,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148874,-33.802275,1976,1939,1976,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148668,-33.802465,1944,1939,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148722,-33.802314,1970,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148573,-33.802618,1946,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148449,-33.802704,1970,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148455,-33.802882,1940,1939,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,5.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148754,-33.802916,1943,1939,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149036,-33.802681,1947,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148923,-33.802816,1944,1939,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149409,-33.802979,1949,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149174,-33.80255,1969,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,5.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149242,-33.802425,1945,1939,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149812,-33.802559,1967,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.149737,-33.80306,1973,1972,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.149353,-33.803202,1919,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,5.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148906,-33.80302,1969,1888,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.14882,-33.803201,1953,1888,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148592,-33.803128,1938,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148475,-33.803009,1922,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.148784,-33.803321,1932,1888,1976,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.149353,-33.803202,1952,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,5.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148906,-33.80302,1973,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.14882,-33.803201,1966,1939,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148592,-33.803128,1960,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148475,-33.803009,1953,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.148784,-33.803321,1957,1939,1976,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.150122,-33.803528,1988,1972,2000,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.150274,-33.803535,1980,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,4.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.150364,-33.803357,1973,1972,2000,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.149956,-33.803041,1972,1972,1976,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.150151,-33.802988,1996,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,6.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.150492,-33.803054,1988,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.150595,-33.803401,1889,1888,1906,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,Willoughby,w1240428095,,,OpenStreetMap
+,151.150595,-33.803401,1939,1939,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w1240428095,,,OpenStreetMap
 ,151.15051,-33.803546,1978,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,4.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.150925,-33.803647,1975,1972,2002,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.15104,-33.803454,1994,1972,2000,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -172,7 +172,7 @@ name,longitude,latitude,year,year_from,year_to,period,dating,dating_source,herit
 ,151.151502,-33.802984,1985,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.151508,-33.803687,1999,1972,2000,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.151211,-33.803667,1989,1972,2002,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.15625,-33.804324,1892,1888,1980,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,w561933508,,,OpenStreetMap
+,151.15625,-33.804324,1939,1939,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,w561933508,,,OpenStreetMap
 ,151.157549,-33.80458,2022,2020,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.158156,-33.804705,2024,2020,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.158025,-33.804662,2023,2020,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -382,21 +382,21 @@ Mowbray Eatery,151.163214,-33.805297,1994,1988,2014,1976–1999 Darling Harbour 
 ,151.165478,-33.800223,1977,1964,2000,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,Willoughby,w964945102,,,OpenStreetMap
 ,151.165731,-33.800283,1905,1888,1906,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,Willoughby,w964945103,,,OpenStreetMap
 ,151.160166,-33.800413,2011,2000,2022,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.1599,-33.800704,2012,2008,2024,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,5.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.1599,-33.800704,2006,2000,2024,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,5.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.160036,-33.80141,2011,2000,2024,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.159961,-33.801169,2015,2008,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.15936,-33.801148,2022,2013,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.15886,-33.801276,2017,2014,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,4.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.159137,-33.801293,2018,2014,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,5.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159546,-33.80058,2019,2008,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159122,-33.800474,2021,2013,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159401,-33.799808,2010,2008,2024,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159546,-33.80058,2017,2000,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159122,-33.800474,2020,2008,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159401,-33.799808,1947,1939,2022,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.159332,-33.800123,2013,2008,2024,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159536,-33.800206,2024,2008,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159996,-33.800089,2015,2000,2022,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159913,-33.7999,2009,2000,2022,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,4.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159799,-33.799639,2008,2000,2014,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159573,-33.799473,2005,2000,2022,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159536,-33.800206,2024,2000,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159996,-33.800089,1991,1939,2014,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159913,-33.7999,1968,1939,2013,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159799,-33.799639,1980,1939,2013,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159573,-33.799473,1956,1939,2014,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.158119,-33.802261,2025,2015,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,4.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.157208,-33.802824,2024,2015,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.157515,-33.802729,2016,2015,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -426,17 +426,17 @@ Mowbray Eatery,151.163214,-33.805297,1994,1988,2014,1976–1999 Darling Harbour 
 ,151.156526,-33.803074,2017,2014,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,2.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.156243,-33.803077,2019,2014,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.155882,-33.803998,2019,2015,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.155269,-33.804061,1933,1888,1980,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w561933511,,,OpenStreetMap
-,151.154658,-33.803912,1891,1888,1980,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,Willoughby,w561933503,,,OpenStreetMap
-,151.1553,-33.80379,1894,1888,1980,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.9,OpenStreetMap,,Willoughby,w561933504,,,OpenStreetMap
-,151.155385,-33.803352,1958,1888,1980,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w561933506,,,OpenStreetMap
+,151.155269,-33.804061,1939,1939,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w561933511,,,OpenStreetMap
+,151.154658,-33.803912,1939,1939,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w561933503,,,OpenStreetMap
+,151.1553,-33.80379,1939,1939,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.9,OpenStreetMap,,Willoughby,w561933504,,,OpenStreetMap
+,151.155385,-33.803352,1939,1939,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w561933506,,,OpenStreetMap
 ,151.155921,-33.803063,2020,2013,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,2.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.15544,-33.803036,2016,2013,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.155468,-33.802602,2016,2013,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.157003,-33.802701,2020,2014,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.15651,-33.802648,2023,2014,2025,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.156182,-33.802598,2022,2013,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,2.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.154256,-33.802805,1902,1888,1980,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,Willoughby,w858837799,,,OpenStreetMap
+,151.154256,-33.802805,1939,1939,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,Willoughby,w858837799,,,OpenStreetMap
 ,151.155064,-33.802576,2020,2002,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.15492,-33.802986,2006,2002,2024,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.15513,-33.803014,2016,2013,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -444,7 +444,7 @@ Mowbray Eatery,151.163214,-33.805297,1994,1988,2014,1976–1999 Darling Harbour 
 ,151.154747,-33.803454,2018,2013,2023,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,8.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.154698,-33.803589,2019,2013,2024,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.154822,-33.80334,2020,2014,2023,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,9.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.15513,-33.803507,1955,1888,1980,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,Willoughby,w561933505,,,OpenStreetMap
+,151.15513,-33.803507,1939,1939,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,Willoughby,w561933505,,,OpenStreetMap
 ,151.15402,-33.803722,2015,1976,2015,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.153986,-33.804015,1985,1976,2015,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.153861,-33.804036,1999,1976,2015,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -497,17 +497,17 @@ Mowbray Eatery,151.163214,-33.805297,1994,1988,2014,1976–1999 Darling Harbour 
 ,151.160146,-33.796607,2003,1888,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.160349,-33.796382,1892,1888,2008,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.160683,-33.79666,2010,2000,2015,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w1201589177,,,OpenStreetMap
-,151.162212,-33.796479,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162204,-33.796752,1910,1888,1992,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162186,-33.797042,1897,1888,2000,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162114,-33.797459,1943,1888,2000,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162131,-33.797328,1889,1888,2000,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162007,-33.7982,1986,1888,2000,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162212,-33.796479,1919,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162204,-33.796752,1899,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162186,-33.797042,1892,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162114,-33.797459,1939,1888,1992,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162131,-33.797328,1889,1888,1992,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162007,-33.7982,1979,1888,1992,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.161742,-33.797921,1989,1888,2000,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.162389,-33.798264,1935,1888,2000,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.162676,-33.798055,1989,1888,2000,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162319,-33.798039,1919,1888,2000,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162475,-33.797824,1893,1888,2000,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162319,-33.798039,1916,1888,1992,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162475,-33.797824,1893,1888,1992,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.162736,-33.797651,2012,2000,2014,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,w1517052700,,,OpenStreetMap
 ,151.163455,-33.797702,2003,1999,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.164044,-33.79813,1966,1888,1992,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -535,26 +535,26 @@ Mowbray Eatery,151.163214,-33.805297,1994,1988,2014,1976–1999 Darling Harbour 
 ,151.163908,-33.797282,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163696,-33.797508,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.1635,-33.797524,1943,1888,1992,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.16321,-33.797264,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.16321,-33.797264,1906,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163286,-33.797151,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163441,-33.797068,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.163065,-33.797335,1894,1888,1992,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162947,-33.797463,1920,1888,2000,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162709,-33.79669,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162813,-33.796934,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.163125,-33.7967,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162756,-33.796526,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162852,-33.796392,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162951,-33.796056,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.163065,-33.797335,1891,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162947,-33.797463,1903,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162709,-33.79669,1891,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162813,-33.796934,1890,1888,1939,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.163125,-33.7967,1933,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162756,-33.796526,1931,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162852,-33.796392,1928,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162951,-33.796056,1906,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163119,-33.79596,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.163034,-33.795884,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162852,-33.795704,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162375,-33.795918,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162404,-33.79554,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162638,-33.795605,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162321,-33.795189,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162528,-33.795148,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162675,-33.79513,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.163034,-33.795884,1937,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162852,-33.795704,1939,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162375,-33.795918,1918,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,5.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162404,-33.79554,1911,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,5.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162638,-33.795605,1938,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162321,-33.795189,1920,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162528,-33.795148,1892,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162675,-33.79513,1922,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163213,-33.795535,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163531,-33.795625,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163222,-33.795098,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -578,7 +578,7 @@ Mowbray Eatery,151.163214,-33.805297,1994,1988,2014,1976–1999 Darling Harbour 
 ,151.165651,-33.79625,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.165704,-33.796114,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.165039,-33.795969,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.165251,-33.795341,1896,1888,1903,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,House (including original interiors),,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.165251,-33.795341,1898,1888,1906,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,House (including original interiors),,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.165457,-33.795569,1889,1888,1903,1870–1890 The boom years,heritage area estimate,heritage area,Local heritage item,House (including original interiors),,,4.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.165778,-33.795017,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.165066,-33.795137,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -608,70 +608,70 @@ Mowbray Eatery,151.163214,-33.805297,1994,1988,2014,1976–1999 Darling Harbour 
 ,151.163569,-33.794201,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163724,-33.794249,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.16386,-33.794279,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162952,-33.794578,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162952,-33.794578,1893,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163103,-33.794586,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162498,-33.794702,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162298,-33.79467,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162356,-33.794165,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162505,-33.794122,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162498,-33.794702,1910,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162298,-33.79467,1921,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162356,-33.794165,1926,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162505,-33.794122,1913,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163176,-33.794106,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162888,-33.79415,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162888,-33.79415,1898,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163101,-33.793646,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162472,-33.793643,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162337,-33.793616,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161948,-33.793734,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.16222,-33.794196,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161888,-33.794202,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161726,-33.794241,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161556,-33.794234,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161782,-33.793767,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161492,-33.793714,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161319,-33.793808,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.160937,-33.793762,1931,1888,1992,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,5.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.160725,-33.793737,1973,1888,1992,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161063,-33.794245,1931,1888,1992,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161405,-33.794261,1946,1888,1992,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161258,-33.79432,1964,1888,1992,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.16087,-33.794332,1897,1888,2008,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162472,-33.793643,1908,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,5.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162337,-33.793616,1903,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161948,-33.793734,1932,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.16222,-33.794196,1907,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161888,-33.794202,1938,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161726,-33.794241,1907,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161556,-33.794234,1931,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,5.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161782,-33.793767,1926,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161492,-33.793714,1902,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161319,-33.793808,1924,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.160937,-33.793762,1909,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,5.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.160725,-33.793737,1930,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161063,-33.794245,1909,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161405,-33.794261,1916,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161258,-33.79432,1925,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.16087,-33.794332,1892,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.160851,-33.794722,1927,1888,2008,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161149,-33.794756,1891,1888,1992,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161288,-33.794704,1943,1888,1992,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161834,-33.794759,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161654,-33.794713,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161438,-33.79477,1896,1888,1992,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162074,-33.794366,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162153,-33.794752,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161971,-33.794744,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162073,-33.795158,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161971,-33.795213,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161674,-33.795262,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161838,-33.795214,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162162,-33.795549,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161957,-33.795648,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162191,-33.795948,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162243,-33.796252,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162032,-33.796014,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161194,-33.795763,1960,1888,2008,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161083,-33.796218,1947,1888,2008,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161149,-33.794756,1890,1888,1939,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161288,-33.794704,1915,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161834,-33.794759,1908,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161654,-33.794713,1890,1888,1939,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161438,-33.79477,1892,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162074,-33.794366,1923,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162153,-33.794752,1927,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161971,-33.794744,1890,1888,1939,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162073,-33.795158,1905,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161971,-33.795213,1901,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161674,-33.795262,1917,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161838,-33.795214,1935,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162162,-33.795549,1923,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161957,-33.795648,1893,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162191,-33.795948,1895,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,5.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162243,-33.796252,1931,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162032,-33.796014,1908,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161194,-33.795763,1918,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161083,-33.796218,1913,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.160617,-33.795652,1987,1888,2008,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,2.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161242,-33.795293,1930,1888,1992,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161062,-33.795328,2003,1888,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161242,-33.795293,1908,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161062,-33.795328,1937,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.160669,-33.795242,1954,1888,2008,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.160534,-33.795197,1980,1888,2008,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.15981,-33.794979,1983,1888,2008,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,4.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159654,-33.795491,2007,1992,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159654,-33.795491,2002,1939,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.159983,-33.795504,1942,1888,2008,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.160497,-33.796254,1958,1888,2008,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.160173,-33.796019,1997,1888,2008,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.159938,-33.796096,1963,1888,2008,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,2.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.16005,-33.795723,1955,1888,2008,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.15951,-33.795809,2002,1888,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.15951,-33.795809,2004,1939,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,4.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.15952,-33.796234,1909,1888,2008,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159396,-33.795971,1888,1888,2008,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159188,-33.796226,1994,1888,2008,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159008,-33.795725,2004,2002,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159396,-33.795971,1939,1939,2008,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159188,-33.796226,2000,1939,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159008,-33.795725,1963,1939,2008,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.159244,-33.795522,2008,2006,2009,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,3.1,OpenStreetMap,SP80755,Willoughby,,,,Microsoft ML (via Overture)
-,151.158767,-33.795105,1900,1888,2008,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.158767,-33.795105,1946,1939,2008,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.15899,-33.794836,1904,1888,2008,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.158867,-33.794655,1950,1888,2008,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.159583,-33.79466,1987,1888,2008,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,4.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -683,31 +683,31 @@ Mowbray Eatery,151.163214,-33.805297,1994,1988,2014,1976–1999 Darling Harbour 
 ,151.16041,-33.794362,1903,1888,2008,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.159898,-33.794489,1907,1888,2008,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,5.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.159865,-33.794345,1949,1888,2008,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.160428,-33.794273,1975,1888,2008,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.160207,-33.793834,1917,1888,1992,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,6.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.160461,-33.793808,1964,1888,1992,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.160013,-33.793834,2006,1888,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,5.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159838,-33.793862,1936,1888,2008,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.15913,-33.793637,2003,1888,2008,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.160028,-33.79309,1904,1888,1992,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159904,-33.792837,1893,1888,1992,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.16018,-33.792903,1917,1888,1992,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159324,-33.792805,1983,1888,1992,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.159035,-33.792722,1926,1888,1992,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161801,-33.792843,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.16119,-33.793055,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.160723,-33.793004,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161065,-33.793511,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161262,-33.793547,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161444,-33.793427,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161835,-33.793216,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162242,-33.793093,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.161954,-33.793428,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.16263,-33.793566,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.16277,-33.793602,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162958,-33.793629,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.160428,-33.794273,1925,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.160207,-33.793834,1902,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,6.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.160461,-33.793808,1925,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.160013,-33.793834,1938,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,5.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159838,-33.793862,1909,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.15913,-33.793637,1937,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.160028,-33.79309,1896,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159904,-33.792837,1890,1888,1939,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.16018,-33.792903,1902,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.6,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159324,-33.792805,1935,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.159035,-33.792722,1907,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161801,-33.792843,1928,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.16119,-33.793055,1926,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.0,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.160723,-33.793004,1915,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161065,-33.793511,1892,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161262,-33.793547,1903,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,2.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161444,-33.793427,1916,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161835,-33.793216,1903,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162242,-33.793093,1909,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.161954,-33.793428,1891,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,5.4,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.16263,-33.793566,1903,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,4.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.16277,-33.793602,1919,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162958,-33.793629,1904,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163122,-33.793154,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.162683,-33.792777,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.162683,-33.792777,1928,1888,1939,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163133,-33.792781,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.16283,-33.792964,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.163388,-33.792823,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.3,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -718,8 +718,8 @@ Mowbray Eatery,151.163214,-33.805297,1994,1988,2014,1976–1999 Darling Harbour 
 ,151.16433,-33.793353,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.1,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.164099,-33.79332,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.164654,-33.793535,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.158713,-33.793025,1902,1888,1992,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
-,151.158635,-33.793232,1888,1888,2008,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.158713,-33.793025,1895,1888,1939,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.9,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
+,151.158635,-33.793232,1888,1888,1939,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.17696,-33.788314,1928,1928,1928,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.177088,-33.788226,1928,1928,1928,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,3.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.177259,-33.788191,1928,1928,1928,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
@@ -3194,7 +3194,7 @@ Chatswood Hall Blue Gum Park,151.172261,-33.791903,1985,1983,2011,1976–1999 Da
 ,151.167997,-33.794892,1996,1980,2011,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,Willoughby,w958154401,,,OpenStreetMap
 ,151.168469,-33.793842,1988,1980,2011,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,Willoughby,w958154421,,,OpenStreetMap
 ,151.168173,-33.793718,1995,1991,1999,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,Willoughby,w958154422,,,OpenStreetMap
-,151.166873,-33.793711,1892,1888,1903,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Former National Accoustic Laboratory,,,,,,Willoughby,w207666456,,,OpenStreetMap
+,151.166873,-33.793711,1892,1888,1906,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Former National Accoustic Laboratory,,,,,,Willoughby,w207666456,,,OpenStreetMap
 ,151.165914,-33.794233,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,4.2,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
 ,151.166654,-33.794193,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,Willoughby,w959597935,,,OpenStreetMap
 ,151.166,-33.794549,1888,1888,1888,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,5.8,OpenStreetMap,,Willoughby,,,,Microsoft ML (via Overture)
