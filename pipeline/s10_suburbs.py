@@ -35,7 +35,7 @@ CRIME_OUT = {"Assault Police", "Fraud", "Receiving or handling stolen goods"}
 # The councils a suburb on the map can be in, as sources write them to tell suburbs of one name apart.
 COUNCILS = {"SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS HILL", "WAVERLEY", "INNER WEST",
             "CANADA BAY", "WILLOUGHBY", "NORTHERN BEACHES", "RYDE", "RANDWICK", "BURWOOD",
-            "CANTERBURY-BANKSTOWN", "CANTERBURY", "NSW",
+            "CANTERBURY-BANKSTOWN", "CANTERBURY", "BAYSIDE", "ROCKDALE", "BOTANY BAY", "NSW",
             "MARRICKVILLE", "LEICHHARDT", "ASHFIELD", "MANLY", "CITY OF CANADA BAY"}  # the councils before the 2016 mergers
 
 

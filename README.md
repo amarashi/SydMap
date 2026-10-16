@@ -1,6 +1,6 @@
 # SydMap: Sydney, year by year
 
-Every building around Sydney Harbour in 3D, 192,251 buildings in all, coloured by the age of the city they belong
+Every building around Sydney Harbour in 3D, 200,445 buildings in all, coloured by the age of the city they belong
 to. Move along the line at the bottom, or press play, to watch Sydney grow from the convict town; look at it by its
 stories, heights or heritage, or paint its suburbs by population, density, income, education, crime and sale
 prices; open any building to read how its year is known; follow a walk through the streets; or
@@ -8,7 +8,7 @@ take every building's data with you.
 
 **The area:** both shores of Sydney Harbour and the Parramatta River, from Ryde and Rhodes in the west to Manly in
 the north-east; the ocean coast from Bondi to Coogee; and the inner suburbs south and west of the city, as far as
-Burwood and Campsie. It covers fifteen councils, some whole and some only in part. They are listed further down with their Traditional Custodians, and for each council taken in part the list
+Burwood, Campsie and Arncliffe. It covers sixteen councils, some whole and some only in part. They are listed further down with their Traditional Custodians, and for each council taken in part the list
 names the suburbs on the map.
 
 [![Watch SydMap in 25 seconds: the city grows from 1788, the Opera House card, the Harbour Bridge](brag-output/brag.jpg)](brag-output/brag.mp4)
@@ -40,6 +40,8 @@ peoples it names as custodians:
 - Burwood, with Croydon, Enfield and part of Strathfield: the Wangal people
 - Canterbury-Bankstown, in part (Earlwood, Hurlstone Park, Canterbury, Ashbury, Croydon Park, Campsie and Clemton
   Park): the Darug people
+- Bayside, in part (Eastlakes, Daceyville, Pagewood, Wolli Creek, Turrella, Arncliffe, Bardwell Park, Bardwell Valley
+  and Bexley North): the Bidjigal and Gadigal peoples
 - Willoughby, from Chatswood and Artarmon to Northbridge and Castlecrag: the Gamaragal people
 - the Northern Beaches, in part (Manly, Fairlight, Balgowlah, Balgowlah Heights, North Balgowlah, Clontarf, Seaforth,
   Queenscliff, Freshwater, Curl Curl, North Manly and Manly Vale): the Gayamaygal and Garigal peoples, named on the
@@ -90,18 +92,18 @@ each building takes the best evidence there is, and its card says which:
 
 | Evidence | Buildings | How |
 |---|---:|---|
-| Documented | 765 | a year from the lead of the building's Wikipedia article (495; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (166) or OpenStreetMap `start_date` (104) |
-| Strata plan | 22,533 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44598 (1994) |
-| Heritage listing | 294 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings, the Harbour Bridge's approaches) take the years the listing's Wikipedia article gives; precincts, parks, tunnels and railway stations (dated by their opening) do not pass their years on |
-| Heritage area | 49,671 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in the other councils' conservation areas, which do not mark contributing buildings) are dated from the documented heritage buildings around them |
-| Neighbours | 118,988 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945, houses only documented years, and untagged low-rise buildings (mostly suburban houses) documented years, heritage-area estimates and the years of strata villas and townhouses |
+| Documented | 773 | a year from the lead of the building's Wikipedia article (498; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (170) or OpenStreetMap `start_date` (105) |
+| Strata plan | 23,115 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44598 (1994) |
+| Heritage listing | 323 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings, the Harbour Bridge's approaches) take the years the listing's Wikipedia article gives; precincts, parks, tunnels and railway stations (dated by their opening) do not pass their years on |
+| Heritage area | 50,047 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in the other councils' conservation areas, which do not mark contributing buildings) are dated from the documented heritage buildings around them |
+| Neighbours | 126,187 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945, houses only documented years, and untagged low-rise buildings (mostly suburban houses) documented years, heritage-area estimates and the years of strata villas and townhouses |
 
 Estimated years (everything but the first row) are spread within their range so the film does not drop a suburb in a
 single year; they are paler on the map, marked "c." on the cards with the range, and the "Estimated years" switch beside
 the year turns them off. Treat them as an educated guess about the period, not as a date.
 
-Heights come from OpenStreetMap where it has them (102,417, measured or from storeys), from GlobalBuildingAtlas
-(79,442, modelled from satellite imagery) and are otherwise assumed to be two storeys (10,390).
+Heights come from OpenStreetMap where it has them (107,451, measured or from storeys), from GlobalBuildingAtlas
+(82,185, modelled from satellite imagery) and are otherwise assumed to be two storeys (10,807).
 
 Two landmarks are modelled as meshes, see [`pipeline/landmarks.py`](pipeline/landmarks.py). The Harbour Bridge is
 built from its Wikipedia figures: two 28-panel arch trusses, 18 m deep at the summit and 57 m at the ends, spanning
