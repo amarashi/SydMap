@@ -1,18 +1,14 @@
 # SydMap: Sydney, year by year
 
-Every building around Sydney Harbour in 3D, 108,125 buildings in all, coloured by the age of the city they belong
+Every building around Sydney Harbour in 3D, 115,550 buildings in all, coloured by the age of the city they belong
 to. Move along the line at the bottom, or press play, to watch Sydney grow from the convict town; look at it by its
 stories, heights or heritage; open any building to read how its year is known; follow a walk through the streets; or
 take every building's data with you.
 
-**The area:** the City of Sydney and North Sydney, either side of the Harbour Bridge; the harbour councils around them,
-Mosman, Woollahra, Lane Cove and Hunters Hill; Waverley, from Bondi Junction to Bondi Beach; the Balmain peninsula
-(Balmain, Balmain East, Birchgrove, Rozelle and Lilyfield) and, south of it, Annandale and Leichhardt; Drummoyne, Five
-Dock and Concord on the Parramatta River (with Russell Lea, Rodd Point, Abbotsford, Chiswick, Wareemba, Cabarita,
-Mortlake, Breakfast Point and Canada Bay); Northbridge and Castlecrag on Middle Harbour (with Middle Cove, Castle Cove
-and Naremburn); Manly, from Seaforth and Clontarf to the Corso (with Fairlight, Balgowlah and Balgowlah Heights);
-Gladesville, Putney and Tennyson Point on the Parramatta River; and the Randwick coast (Clovelly, Coogee, South Coogee
-and Randwick).
+**The area:** both shores of Sydney Harbour and the Parramatta River, from Putney and Concord in the west to Manly
+in the north-east, and the ocean coast from Bondi to Coogee. It covers thirteen councils, some whole and some only in
+part. They are listed further down with their Traditional Custodians, and for each council taken in part the list
+names the suburbs on the map.
 
 [![Watch SydMap in 25 seconds: the city grows from 1788, the Opera House card, the Harbour Bridge](brag-output/brag.jpg)](brag-output/brag.mp4)
 
@@ -28,20 +24,25 @@ non-commercial project, made out of curiosity and for education.
 **Run it locally:** `python3 scripts/serve.py` and open <http://localhost:8642>. The built data is in the
 repository, so nothing else is needed. **Publish it:** see [Cloudflare](#publishing-on-cloudflare).
 
-SydMap acknowledges the Traditional Custodians of the land it maps, as each council names them:
+SydMap acknowledges the Traditional Custodians of the land it maps. Each council below is followed by the
+peoples it names as custodians:
 
 - the City of Sydney: the Gadigal people of the Eora Nation
-- North Sydney and Lane Cove: the Cammeraygal people
+- North Sydney: the Cammeraygal people
+- Lane Cove: the Cammeraygal people
 - Mosman: the Borogegal people
 - Woollahra: the Gadigal and Birrabirragal peoples
 - Hunters Hill: the Wallumedegal people
-- the Inner West (the Balmain peninsula, Annandale and Leichhardt): the Gadigal and Wangal peoples
-- Canada Bay (Drummoyne, Five Dock and Concord): the Wangal people
-- Waverley: the Bidjigal, Birrabirragal and Gadigal peoples
-- Willoughby (Northbridge and Castlecrag): the Gamaragal people
-- the Northern Beaches (Manly): the Gayamaygal and Garigal peoples, named on the council's own signs
-- Ryde (Gladesville and Putney): the Wallumedegal people
-- Randwick (Clovelly, Coogee and Randwick): the Bidjigal and Gadigal peoples
+- Waverley, from Bondi Junction to Bondi Beach: the Bidjigal, Birrabirragal and Gadigal peoples
+- the Inner West, in part (Balmain, Balmain East, Birchgrove, Rozelle, Lilyfield, Annandale, Leichhardt, Stanmore,
+  Enmore, Petersham, Lewisham, and the council's side of Camperdown and Newtown): the Gadigal and Wangal peoples
+- Canada Bay, in part (Drummoyne, Russell Lea, Rodd Point, Five Dock, Abbotsford, Chiswick, Wareemba, Concord,
+  Cabarita, Mortlake, Breakfast Point and Canada Bay): the Wangal people
+- Willoughby, in part (Northbridge, Castlecrag, Middle Cove, Castle Cove and Naremburn): the Gamaragal people
+- the Northern Beaches, in part (Manly, Fairlight, Balgowlah, Balgowlah Heights, Clontarf and Seaforth): the
+  Gayamaygal and Garigal peoples, named on the council's own signs
+- Ryde, in part (Gladesville, Putney and Tennyson Point): the Wallumedegal people
+- Randwick, in part (Clovelly, Coogee, South Coogee and Randwick): the Bidjigal and Gadigal peoples
 
 | | |
 |---|---|
@@ -84,18 +85,18 @@ each building takes the best evidence there is, and its card says which:
 
 | Evidence | Buildings | How |
 |---|---:|---|
-| Documented | 645 | a year from the lead of the building's Wikipedia article (434; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (129) or OpenStreetMap `start_date` (82) |
-| Strata plan | 15,829 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44598 (1994) |
+| Documented | 662 | a year from the lead of the building's Wikipedia article (447; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (133) or OpenStreetMap `start_date` (82) |
+| Strata plan | 16,220 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44598 (1994) |
 | Heritage listing | 245 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings, the Harbour Bridge's approaches) take the years the listing's Wikipedia article gives; precincts, parks, tunnels and railway stations (dated by their opening) do not pass their years on |
-| Heritage area | 30,579 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in the other councils' conservation areas, which do not mark contributing buildings) are dated from the documented heritage buildings around them |
-| Neighbours | 60,827 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945, houses only documented years, and untagged low-rise buildings (mostly suburban houses) documented years, heritage-area estimates and the years of strata villas and townhouses |
+| Heritage area | 34,694 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in the other councils' conservation areas, which do not mark contributing buildings) are dated from the documented heritage buildings around them |
+| Neighbours | 63,729 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945, houses only documented years, and untagged low-rise buildings (mostly suburban houses) documented years, heritage-area estimates and the years of strata villas and townhouses |
 
 Estimated years (everything but the first row) are spread within their range so the film does not drop a suburb in a
 single year; they are paler on the map, marked "c." on the cards with the range, and the "Estimated years" switch beside
 the year turns them off. Treat them as an educated guess about the period, not as a date.
 
-Heights come from OpenStreetMap where it has them (42,404, measured or from storeys), from GlobalBuildingAtlas
-(58,004, modelled from satellite imagery) and are otherwise assumed to be two storeys (7,715).
+Heights come from OpenStreetMap where it has them (46,560, measured or from storeys), from GlobalBuildingAtlas
+(61,126, modelled from satellite imagery) and are otherwise assumed to be two storeys (7,862).
 
 Two landmarks are modelled as meshes, see [`pipeline/landmarks.py`](pipeline/landmarks.py). The Harbour Bridge is
 built from its Wikipedia figures: two 28-panel arch trusses, 18 m deep at the summit and 57 m at the ends, spanning

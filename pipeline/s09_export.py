@@ -84,7 +84,11 @@ def mb(name: str) -> str:
 
 def write_list(councils: list[tuple[str, str, int]]):
     """The downloads in the page's Notes: a CSV and a GeoParquet for each council, then the boundaries."""
-    rows = [f'      <li><b>{html.escape(title)}{" (part)" if title.upper() in PARTS else ""}</b> <span>{n:,} buildings: '
+    def where(title):  # a council taken in part names its suburbs
+        suburbs = PARTS.get(title.upper())
+        return f" in {', '.join(suburbs[:-1]).title()} and {suburbs[-1].title()}" if suburbs else ""
+
+    rows = [f'      <li><b>{html.escape(title)}</b> <span>{n:,} buildings{where(title)}: '
             f'<a href="data/download/{name}.csv" download>CSV</a> {mb(name + ".csv")}, '
             f'<a href="data/download/{name}.parquet" download>GeoParquet</a> {mb(name + ".parquet")}</span></li>'
             for title, name, n in councils]

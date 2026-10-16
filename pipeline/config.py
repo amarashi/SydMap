@@ -15,7 +15,7 @@ LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS H
 # to Chatswood, the Northern Beaches' to Palm Beach,
 # Ryde's to Macquarie Park, Randwick's to La Perouse.
 PARTS = {"INNER WEST": ["BALMAIN", "BALMAIN EAST", "BIRCHGROVE", "ROZELLE", "LILYFIELD", "ANNANDALE",
-                        "LEICHHARDT"],
+                        "LEICHHARDT", "CAMPERDOWN", "NEWTOWN", "STANMORE", "ENMORE", "PETERSHAM", "LEWISHAM"],
          "CANADA BAY": ["DRUMMOYNE", "RUSSELL LEA", "RODD POINT", "FIVE DOCK", "ABBOTSFORD", "CHISWICK", "WAREEMBA",
                         "CONCORD", "CABARITA", "MORTLAKE", "BREAKFAST POINT", "CANADA BAY"],
          "WILLOUGHBY": ["NORTHBRIDGE", "CASTLECRAG", "MIDDLE COVE", "CASTLE COVE", "NAREMBURN"],
