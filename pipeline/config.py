@@ -18,7 +18,8 @@ PARTS = {"CANADA BAY": ["DRUMMOYNE", "RUSSELL LEA", "RODD POINT", "FIVE DOCK", "
          "WILLOUGHBY": ["NORTHBRIDGE", "CASTLECRAG", "MIDDLE COVE", "CASTLE COVE", "NAREMBURN"],
          "NORTHERN BEACHES": ["MANLY", "FAIRLIGHT", "BALGOWLAH", "BALGOWLAH HEIGHTS", "CLONTARF", "SEAFORTH"],
          "RYDE": ["GLADESVILLE", "PUTNEY", "TENNYSON POINT"],
-         "RANDWICK": ["CLOVELLY", "COOGEE", "SOUTH COOGEE", "RANDWICK"]}
+         "RANDWICK": ["CLOVELLY", "COOGEE", "SOUTH COOGEE", "RANDWICK", "KENSINGTON", "KINGSFORD",
+                      "CENTENNIAL PARK"]}
 GPO_LONLAT = (151.20765, -33.86778)         # the GPO clock tower, Martin Place
 # A box that holds the LGAs with a margin of harbour around them (lon/lat), from Putney to Manly and from Seaforth
 # to South Coogee, so suburbs can be added within it without downloading the rest again.
