@@ -1,44 +1,44 @@
 name,longitude,latitude,year,year_from,year_to,period,dating,dating_source,heritage,listing,conservation_area,storeys,height_m,height_source,strata_plan,lga,osm,wikidata,wikipedia,footprint
 ,151.199221,-33.822265,1955,1927,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196681,,,OpenStreetMap
-,151.199312,-33.82228,2014,1999,2016,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196683,,,OpenStreetMap
+,151.199312,-33.82228,2016,1999,2018,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196683,,,OpenStreetMap
 ,151.199369,-33.82228,2005,1999,2016,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196682,,,OpenStreetMap
 ,151.199463,-33.822239,1999,1999,2016,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196684,,,OpenStreetMap
-,151.199571,-33.822666,1956,1926,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196687,,,OpenStreetMap
+,151.199571,-33.822666,1957,1927,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196687,,,OpenStreetMap
 ,151.199289,-33.822694,2014,2013,2016,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,2.8,OpenStreetMap,SP91359,North Sydney,w919962675,,,OpenStreetMap
 ,151.198784,-33.822701,1996,1975,2015,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w257031975,,,OpenStreetMap
-,151.198895,-33.822688,1993,1975,2006,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w257031974,,,OpenStreetMap
-Jazz Workshop Australia,151.198898,-33.822325,1976,1975,2007,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444764,,,OpenStreetMap
+,151.198895,-33.822688,1999,1975,2018,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w257031974,,,OpenStreetMap
+Jazz Workshop Australia,151.198898,-33.822325,1977,1976,2018,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444764,,,OpenStreetMap
 ,151.1988,-33.822313,1966,1927,2000,1961–1975 The first towers,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w595444765,,,OpenStreetMap
-,151.198686,-33.822324,1991,1975,2005,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444766,,,OpenStreetMap
-,151.198548,-33.822322,1980,1975,2005,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444767,,,OpenStreetMap
-,151.198419,-33.82232,1978,1976,2005,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444768,,,OpenStreetMap
+,151.198686,-33.822324,1999,1976,2018,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444766,,,OpenStreetMap
+,151.198548,-33.822322,1982,1976,2018,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444767,,,OpenStreetMap
+,151.198419,-33.82232,1979,1976,2018,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444768,,,OpenStreetMap
 ,151.198675,-33.822671,1993,1975,2015,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w257031976,,,OpenStreetMap
 ,151.198579,-33.822681,2006,1975,2015,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w257031977,,,OpenStreetMap
-,151.198416,-33.82268,1977,1976,2005,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w257031978,,,OpenStreetMap
+,151.198416,-33.82268,1978,1976,2018,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w257031978,,,OpenStreetMap
 ,151.19825,-33.822679,1935,1927,2000,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w595444769,,,OpenStreetMap
 ,151.198002,-33.822681,2002,2002,2005,2000–2014 The apartment city,strata plan,NSW cadastre,,,,11,35.2,OpenStreetMap storeys,SP72517,North Sydney,w595444770,,,OpenStreetMap
-,151.198226,-33.822317,1983,1976,2000,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444763,,,OpenStreetMap
-,151.198039,-33.822313,1982,1976,2000,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444762,,,OpenStreetMap
-,151.19785,-33.822297,2004,2003,2010,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,7,22.4,OpenStreetMap storeys,,North Sydney,w595444760,,,OpenStreetMap
+,151.198226,-33.822317,2003,1997,2018,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444763,,,OpenStreetMap
+,151.198039,-33.822313,2003,1997,2018,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595444762,,,OpenStreetMap
+,151.19785,-33.822297,2004,2003,2013,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,7,22.4,OpenStreetMap storeys,,North Sydney,w595444760,,,OpenStreetMap
 ,151.197548,-33.822292,2009,2008,2011,2000–2014 The apartment city,strata plan,NSW cadastre,,,,12,38.4,OpenStreetMap storeys,SP83145,North Sydney,w595444759,,,OpenStreetMap
 ,151.197631,-33.822694,2015,2014,2017,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,13,41.6,OpenStreetMap storeys,SP92232,North Sydney,w595444771,,,OpenStreetMap
 ,151.19734,-33.822649,1997,1995,1998,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,5,16.0,OpenStreetMap storeys,SP54438,North Sydney,w595444772,,,OpenStreetMap
 ,151.197285,-33.822307,1927,1927,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w595444758,,,OpenStreetMap
-,151.196877,-33.822674,1998,1997,2006,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,5,16.0,OpenStreetMap storeys,,North Sydney,w595432220,,,OpenStreetMap
+,151.196877,-33.822674,1998,1997,2010,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,5,16.0,OpenStreetMap storeys,,North Sydney,w595432220,,,OpenStreetMap
 ,151.196798,-33.822878,1930,1927,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1375548383,,,OpenStreetMap
-,151.196659,-33.822672,1993,1978,2005,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595432219,,,OpenStreetMap
+,151.196659,-33.822672,1994,1978,2006,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w595432219,,,OpenStreetMap
 Quest St Leonards,151.196285,-33.822678,2010,2003,2013,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,83.2,OpenStreetMap,,North Sydney,w933209693,Q111407640,,OpenStreetMap
-,151.196434,-33.822287,2008,2002,2013,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,6,19.2,OpenStreetMap storeys,,North Sydney,w595432228,,,OpenStreetMap
-,151.196647,-33.822301,2004,1997,2010,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,6,19.2,OpenStreetMap storeys,,North Sydney,w595432229,,,OpenStreetMap
-,151.196888,-33.822276,2010,1997,2010,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,6,19.2,OpenStreetMap storeys,,North Sydney,w595432230,,,OpenStreetMap
+,151.196434,-33.822287,2004,1997,2010,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,6,19.2,OpenStreetMap storeys,,North Sydney,w595432228,,,OpenStreetMap
+,151.196647,-33.822301,2006,1997,2013,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,6,19.2,OpenStreetMap storeys,,North Sydney,w595432229,,,OpenStreetMap
+,151.196888,-33.822276,2013,1997,2013,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,6,19.2,OpenStreetMap storeys,,North Sydney,w595432230,,,OpenStreetMap
 ,151.195615,-33.822274,1905,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Commercial building,,12,38.4,OpenStreetMap storeys,,North Sydney,w595432224,,,OpenStreetMap
 ,151.195928,-33.822275,2004,2002,2005,2000–2014 The apartment city,strata plan,NSW cadastre,,,,4,32.0,OpenStreetMap storeys,SP72241,North Sydney,w595432225,,,OpenStreetMap
 ,151.196218,-33.822294,1977,1974,1981,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,3,9.6,OpenStreetMap storeys,SP22997,North Sydney,w595432227,,,OpenStreetMap
 ,151.195918,-33.822662,2000,2000,2003,2000–2014 The apartment city,strata plan,NSW cadastre,,,,16,51.2,OpenStreetMap storeys,SP69052,North Sydney,w595432216,,,OpenStreetMap
-,151.195668,-33.822688,2001,1978,2017,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w595432223,,,OpenStreetMap
-,151.195648,-33.822775,2005,1978,2017,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w595432215,,,OpenStreetMap
+,151.195668,-33.822688,2004,1978,2022,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w595432223,,,OpenStreetMap
+,151.195648,-33.822775,2009,1978,2022,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w595432215,,,OpenStreetMap
 ,151.195658,-33.822576,1927,1927,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w595432221,,,OpenStreetMap
-,151.195121,-33.822641,2010,2002,2016,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,12,36.0,OpenStreetMap,,North Sydney,w242930871,,,OpenStreetMap
+,151.195121,-33.822641,2004,2002,2005,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,12,36.0,OpenStreetMap,,North Sydney,w242930871,,,OpenStreetMap
 ,151.19442,-33.827898,1967,1967,1974,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP14251,North Sydney,w645493421,,,OpenStreetMap
 ,151.196224,-33.827297,1994,1992,1995,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP46271,North Sydney,w955692801,,,OpenStreetMap
 ,151.196135,-33.826988,1994,1993,1996,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP50610,North Sydney,w955692802,,,OpenStreetMap
@@ -48,18 +48,18 @@ Quest St Leonards,151.196285,-33.822678,2010,2003,2013,2000–2014 The apartment
 ,151.196047,-33.826561,1998,1995,1998,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w955692807,,,OpenStreetMap
 ,151.195935,-33.826361,1996,1994,1998,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w955692809,,,OpenStreetMap
 ,151.195982,-33.826462,1996,1995,1998,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w955692808,,,OpenStreetMap
-,151.195032,-33.823039,2003,1999,2013,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,8,25.6,OpenStreetMap storeys,,North Sydney,w242930870,,,OpenStreetMap
-,151.195243,-33.822995,2001,1999,2013,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,7,22.4,OpenStreetMap storeys,,North Sydney,w595381548,,,OpenStreetMap
+,151.195032,-33.823039,2001,1999,2004,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,8,25.6,OpenStreetMap storeys,,North Sydney,w242930870,,,OpenStreetMap
+,151.195243,-33.822995,2000,1999,2004,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,7,22.4,OpenStreetMap storeys,,North Sydney,w595381548,,,OpenStreetMap
 ,151.195761,-33.823052,2009,2002,2010,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,11,35.2,OpenStreetMap storeys,,North Sydney,w595381551,,,OpenStreetMap
 ,151.196114,-33.823055,2004,2002,2010,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,7,22.4,OpenStreetMap storeys,,North Sydney,w595381553,,,OpenStreetMap
 ,151.197873,-33.824187,1926,1926,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,Local heritage item,Former Marco Building,,1,3.2,OpenStreetMap storeys,,North Sydney,w595381564,,,OpenStreetMap
 ,151.196602,-33.823173,2013,2003,2016,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,1,48.0,OpenStreetMap storeys,,North Sydney,w595381554,,,OpenStreetMap
-,151.197099,-33.823529,1990,1978,2005,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530034150,,,OpenStreetMap
-,151.197308,-33.823148,2005,1997,2006,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,5,16.0,OpenStreetMap storeys,,North Sydney,w257031981,,,OpenStreetMap
+,151.197099,-33.823529,1990,1976,2006,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530034150,,,OpenStreetMap
+,151.197308,-33.823148,2004,1997,2005,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,5,16.0,OpenStreetMap storeys,,North Sydney,w257031981,,,OpenStreetMap
 ,151.197524,-33.823165,2015,2015,2018,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,12,38.4,OpenStreetMap storeys,SP95676,North Sydney,w595444773,,,OpenStreetMap
 T1,151.197742,-33.823169,2012,2011,2014,2000–2014 The apartment city,strata plan,NSW cadastre,,,,13,41.6,OpenStreetMap storeys,SP88056,North Sydney,w1243403311,,,OpenStreetMap
 Abode,151.197617,-33.82355,2002,2002,2005,2000–2014 The apartment city,strata plan,NSW cadastre,,,,2,67.2,OpenStreetMap storeys,SP71980,North Sydney,w595381557,,,OpenStreetMap
-,151.197703,-33.824002,1876,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,Local heritage item,Former Marco Building,,3,9.6,OpenStreetMap storeys,,North Sydney,w595381563,,,OpenStreetMap
+,151.197703,-33.824002,1915,1915,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Former Marco Building,,3,9.6,OpenStreetMap storeys,,North Sydney,w595381563,,,OpenStreetMap
 ,151.19817,-33.824054,2005,2003,2006,2000–2014 The apartment city,strata plan,NSW cadastre,,,,9,28.8,OpenStreetMap storeys,SP73937,North Sydney,w428441834,,,OpenStreetMap
 ,151.198601,-33.824037,2007,2005,2013,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w981959747,,,OpenStreetMap
 ,151.198657,-33.823568,2005,2003,2006,2000–2014 The apartment city,strata plan,NSW cadastre,,,,5,16.0,OpenStreetMap storeys,SP73656,North Sydney,w595381562,,,OpenStreetMap
@@ -70,7 +70,7 @@ Nexus,151.198014,-33.823172,2004,2001,2004,2000–2014 The apartment city,strata
 ,151.199331,-33.823108,1943,1927,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196696,,,OpenStreetMap
 ,151.199212,-33.823114,1928,1927,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196693,,,OpenStreetMap
 ,151.199327,-33.823249,1964,1927,1972,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196695,,,OpenStreetMap
-,151.199209,-33.823271,1927,1927,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,North Sydney,w1511196694,,,OpenStreetMap
+,151.199209,-33.823271,1950,1927,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,North Sydney,w1511196694,,,OpenStreetMap
 ,151.19958,-33.823481,1998,1997,2000,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP60857,North Sydney,w919962672,,,OpenStreetMap
 ,151.199242,-33.82356,1978,1972,1979,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP21397,North Sydney,w919962674,,,OpenStreetMap
 Moss Apartments,151.198873,-33.82357,2005,2005,2006,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,5,16.0,OpenStreetMap storeys,,North Sydney,w1243404418,,,OpenStreetMap
@@ -92,9 +92,9 @@ St Leonards Centre,151.199023,-33.824926,1972,1972,1972,1961–1975 The first to
 ,151.199134,-33.826509,1927,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,Local heritage item,Higgins Buildings,,1,3.2,OpenStreetMap storeys,,North Sydney,w609151833,,,OpenStreetMap
 ,151.198845,-33.826136,1997,1983,2001,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w609151829,,,OpenStreetMap
 ,151.198775,-33.826058,2000,1983,2001,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w609151828,,,OpenStreetMap
-,151.198365,-33.826168,1958,1874,1964,1946–1960 Post-war,estimated from neighbours,neighbours,,,,1,3.2,OpenStreetMap storeys,,North Sydney,w1227915442,,,OpenStreetMap
-,151.198469,-33.82624,1916,1874,1964,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,1,3.2,OpenStreetMap storeys,,North Sydney,w1227915441,,,OpenStreetMap
-,151.198528,-33.826333,1940,1874,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,1,3.2,OpenStreetMap storeys,,North Sydney,w1227915440,,,OpenStreetMap
+,151.198365,-33.826168,1969,1926,1972,1961–1975 The first towers,estimated from neighbours,neighbours,,,,1,3.2,OpenStreetMap storeys,,North Sydney,w1227915442,,,OpenStreetMap
+,151.198469,-33.82624,1947,1926,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,1,3.2,OpenStreetMap storeys,,North Sydney,w1227915441,,,OpenStreetMap
+,151.198528,-33.826333,1957,1915,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,1,3.2,OpenStreetMap storeys,,North Sydney,w1227915440,,,OpenStreetMap
 ,151.197999,-33.826594,2000,1999,2002,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP65770,North Sydney,w955692815,,,OpenStreetMap
 ,151.198012,-33.825842,1984,1979,1986,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP30607,North Sydney,w955692811,,,OpenStreetMap
 ,151.198403,-33.825998,1980,1979,1986,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP30607,North Sydney,w1526396996,,,OpenStreetMap
@@ -212,7 +212,7 @@ Shirley Road Church,151.199244,-33.828185,1901,1858,1926,1891–1918 Depression 
 ,151.196352,-33.829359,1907,1858,1964,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219155,,,OpenStreetMap
 ,151.196623,-33.828964,1901,1858,1964,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219177,,,OpenStreetMap
 ,151.196476,-33.828889,1862,1858,1964,1840–1869 Free colony and gold,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219178,,,OpenStreetMap
-,151.196316,-33.82886,1925,1858,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219179,,,OpenStreetMap
+,151.196316,-33.82886,1936,1874,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219179,,,OpenStreetMap
 ,151.196746,-33.828563,1961,1961,1967,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP4260,North Sydney,w938219167,,,OpenStreetMap
 ,151.197018,-33.828513,2000,1999,2002,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP65228,North Sydney,w938219168,,,OpenStreetMap
 ,151.196752,-33.829022,1909,1858,1964,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219176,,,OpenStreetMap
@@ -232,10 +232,10 @@ Shirley Road Church,151.199244,-33.828185,1901,1858,1926,1891–1918 Depression 
 ,151.196293,-33.828454,1967,1961,1968,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP5453,North Sydney,w938219165,,,OpenStreetMap
 ,151.196532,-33.827905,1981,1965,1983,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w955692766,,,OpenStreetMap
 ,151.196017,-33.828277,1976,1972,1979,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP20574,North Sydney,w938219164,,,OpenStreetMap
-,151.196017,-33.828714,1878,1874,1964,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219181,,,OpenStreetMap
-,151.195863,-33.828647,1944,1874,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219182,,,OpenStreetMap
-,151.196195,-33.828773,1959,1874,1964,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219180,,,OpenStreetMap
-,151.19577,-33.829105,1868,1858,1964,1840–1869 Free colony and gold,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219159,,,OpenStreetMap
+,151.196017,-33.828714,1878,1874,1972,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219181,,,OpenStreetMap
+,151.195863,-33.828647,1950,1874,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219182,,,OpenStreetMap
+,151.196195,-33.828773,1966,1874,1972,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219180,,,OpenStreetMap
+,151.19577,-33.829105,1869,1858,1972,1840–1869 Free colony and gold,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219159,,,OpenStreetMap
 ,151.195589,-33.829011,1970,1969,1976,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP16432,North Sydney,w938219161,,,OpenStreetMap
 ,151.19504,-33.828866,1974,1972,1975,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1415873579,,,OpenStreetMap
 ,151.194587,-33.828982,1977,1972,1979,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,4,12.8,OpenStreetMap storeys,SP20225,North Sydney,w680468673,,,OpenStreetMap
@@ -264,25 +264,25 @@ Berkshire Park,151.193598,-33.829058,1998,1996,1999,1976–1999 Darling Harbour 
 ,151.193268,-33.830323,1974,1970,1977,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP17926,North Sydney,w804476246,,,OpenStreetMap
 ,151.193445,-33.83025,1971,1971,1978,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP18730,North Sydney,w804476245,,,OpenStreetMap
 ,151.19385,-33.830147,1974,1972,1979,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP20911,North Sydney,w938219124,,,OpenStreetMap
-,151.194019,-33.830064,1875,1858,1964,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1537627911,,,OpenStreetMap
-,151.194188,-33.83005,1960,1858,1964,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219125,,,OpenStreetMap
-,151.194524,-33.829961,1895,1858,1964,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219126,,,OpenStreetMap
+,151.194019,-33.830064,1876,1858,1972,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1537627911,,,OpenStreetMap
+,151.194188,-33.83005,1968,1858,1972,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219125,,,OpenStreetMap
+,151.194524,-33.829961,1898,1858,1972,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219126,,,OpenStreetMap
 ,151.194351,-33.829976,2021,2020,2023,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,,,SP104074,North Sydney,w1537627910,,,OpenStreetMap
 ,151.194809,-33.830354,1894,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,House,,,,,,North Sydney,w938219132,,,OpenStreetMap
 ,151.195008,-33.830312,1906,1858,1964,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219133,,,OpenStreetMap
 ,151.195138,-33.830227,1862,1858,1964,1840–1869 Free colony and gold,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219134,,,OpenStreetMap
 ,151.195322,-33.830196,1948,1858,1964,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219135,,,OpenStreetMap
-,151.194815,-33.829809,1934,1858,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219128,,,OpenStreetMap
-,151.194669,-33.829891,1948,1858,1964,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219127,,,OpenStreetMap
-,151.194561,-33.829716,1947,1858,1964,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1537627912,,,OpenStreetMap
-,151.194948,-33.829758,1948,1858,1964,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219129,,,OpenStreetMap
-,151.194803,-33.829571,1875,1858,1964,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1537627913,,,OpenStreetMap
+,151.194815,-33.829809,1940,1858,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219128,,,OpenStreetMap
+,151.194669,-33.829891,1954,1858,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219127,,,OpenStreetMap
+,151.194561,-33.829716,1954,1858,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1537627912,,,OpenStreetMap
+,151.194948,-33.829758,1954,1858,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219129,,,OpenStreetMap
+,151.194803,-33.829571,1877,1858,1972,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1537627913,,,OpenStreetMap
 ,151.195052,-33.829498,1971,1971,1978,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP19997,North Sydney,w938219131,,,OpenStreetMap
 ,151.195098,-33.829703,1971,1968,1975,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP15474,North Sydney,w938219130,,,OpenStreetMap
 ,151.195398,-33.829679,1973,1972,1979,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP20594,North Sydney,w938219138,,,OpenStreetMap
 ,151.19556,-33.82977,1885,1858,1964,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219139,,,OpenStreetMap
 ,151.195446,-33.829221,1974,1969,1976,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP16432,North Sydney,w938219160,,,OpenStreetMap
-,151.195621,-33.829318,1893,1858,1964,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219162,,,OpenStreetMap
+,151.195621,-33.829318,1896,1858,1972,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219162,,,OpenStreetMap
 ,151.19582,-33.829359,1949,1889,1975,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w955692824,,,OpenStreetMap
 ,151.195923,-33.82918,1954,1858,1964,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219158,,,OpenStreetMap
 ,151.19607,-33.829246,1937,1858,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w938219157,,,OpenStreetMap
@@ -313,9 +313,9 @@ Clydon,151.195128,-33.830931,1966,1961,1966,1961–1975 The first towers,strata 
 ,151.193397,-33.830829,1988,1987,1994,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP41325,North Sydney,w804476244,,,OpenStreetMap
 ,151.193637,-33.830861,1906,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,House,,,,,,North Sydney,w804476243,,,OpenStreetMap
 ,151.193621,-33.831135,1973,1963,1991,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,North Sydney,w804476239,,,OpenStreetMap
-,151.193488,-33.831012,1907,1858,1964,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w804476242,,,OpenStreetMap
-,151.19331,-33.83102,1862,1858,1964,1840–1869 Free colony and gold,estimated from neighbours,neighbours,,,,,,,,North Sydney,w804476241,,,OpenStreetMap
-,151.193129,-33.831011,1921,1858,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w804476240,,,OpenStreetMap
+,151.193488,-33.831012,1910,1858,1972,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w804476242,,,OpenStreetMap
+,151.19331,-33.83102,1862,1858,1972,1840–1869 Free colony and gold,estimated from neighbours,neighbours,,,,,,,,North Sydney,w804476241,,,OpenStreetMap
+,151.193129,-33.831011,1925,1858,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w804476240,,,OpenStreetMap
 ,151.19312,-33.831204,1993,1992,1995,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP46421,North Sydney,w804476236,,,OpenStreetMap
 ,151.19308,-33.8314,1962,1961,1965,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP1633,North Sydney,w804476237,,,OpenStreetMap
 ,151.193675,-33.831371,1961,1961,1967,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP4259,North Sydney,w804476238,,,OpenStreetMap
@@ -6236,19 +6236,19 @@ Capri Tower,151.226831,-33.82789,1964,1961,1968,1961–1975 The first towers,str
 ,151.216726,-33.820271,1902,1874,1935,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531006181,,,OpenStreetMap
 ,151.216531,-33.820346,1881,1874,1935,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531006179,,,OpenStreetMap
 ,151.216529,-33.820244,1889,1874,1935,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531006180,,,OpenStreetMap
-,151.216547,-33.820033,1906,1874,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531006151,,,OpenStreetMap
+,151.216547,-33.820033,1909,1874,1918,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531006151,,,OpenStreetMap
 ,151.216632,-33.819892,1962,1961,1968,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP5387,North Sydney,w1530597804,,,OpenStreetMap
 ,151.216578,-33.819733,1966,1961,1968,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP5387,North Sydney,w1530597805,,,OpenStreetMap
 ,151.216863,-33.819742,1909,1874,1919,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,3.7,OpenStreetMap,,North Sydney,w1530597808,,,OpenStreetMap
 ,151.217013,-33.819761,1971,1969,1976,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP16009,North Sydney,w1530597809,,,OpenStreetMap
 ,151.217167,-33.819779,1997,1994,1997,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,3.6,OpenStreetMap,SP51305,North Sydney,w1530597810,,,OpenStreetMap
-,151.216966,-33.819174,1888,1874,1918,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209702,,,OpenStreetMap
+,151.216966,-33.819174,1889,1874,1919,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209702,,,OpenStreetMap
 ,151.216973,-33.819325,1961,1961,1965,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP1367,North Sydney,w1531209696,,,OpenStreetMap
 ,151.216681,-33.81928,1970,1969,1976,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP16564,North Sydney,w1531209697,,,OpenStreetMap
 ,151.216438,-33.819162,1904,1874,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209698,,,OpenStreetMap
 ,151.216539,-33.818755,1934,1915,1935,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209713,,,OpenStreetMap
 ,151.216492,-33.81874,1923,1915,1935,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209712,,,OpenStreetMap
-,151.216388,-33.818706,1925,1915,1935,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209714,,,OpenStreetMap
+,151.216388,-33.818706,1924,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209714,,,OpenStreetMap
 ,151.21678,-33.818724,1951,1915,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209708,,,OpenStreetMap
 ,151.216671,-33.818742,1915,1915,1935,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209711,,,OpenStreetMap
 ,151.216908,-33.818791,1939,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209706,,,OpenStreetMap
@@ -6259,7 +6259,7 @@ Capri Tower,151.226831,-33.82789,1964,1961,1968,1961–1975 The first towers,str
 ,151.217339,-33.818499,1946,1915,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,2.5,OpenStreetMap,,North Sydney,w1530597762,,,OpenStreetMap
 ,151.217246,-33.81828,1925,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597761,,,OpenStreetMap
 ,151.21648,-33.818232,2006,2006,2009,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,3.8,OpenStreetMap,SP81011,North Sydney,w1530597760,,,OpenStreetMap
-,151.215754,-33.818111,1897,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,House,,,,,,North Sydney,w1530597759,,,OpenStreetMap
+,151.215754,-33.818111,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,House,,,,,,North Sydney,w1530597759,,,OpenStreetMap
 ,151.215877,-33.818167,1890,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,Local heritage item,House,,,,,,North Sydney,w1530597758,,,OpenStreetMap
 ,151.216211,-33.818642,1972,1971,1978,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP19116,North Sydney,w1531209715,,,OpenStreetMap
 ,151.216185,-33.818775,1994,1993,1996,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP50406,North Sydney,w1531209716,,,OpenStreetMap
@@ -6270,76 +6270,76 @@ Capri Tower,151.226831,-33.82789,1964,1961,1968,1961–1975 The first towers,str
 ,151.215722,-33.81912,2021,2020,2023,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,,,SP103609,North Sydney,w1531209719,,,OpenStreetMap
 ,151.215576,-33.818932,1889,1874,1915,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209775,,,OpenStreetMap
 ,151.21582,-33.818732,1972,1968,1975,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP14746,North Sydney,w1531209722,,,OpenStreetMap
-,151.215856,-33.818618,1918,1915,1919,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209723,,,OpenStreetMap
-,151.215617,-33.818603,1917,1915,1918,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209724,,,OpenStreetMap
-,151.215327,-33.818662,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209726,,,OpenStreetMap
+,151.215856,-33.818618,1925,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209723,,,OpenStreetMap
+,151.215617,-33.818603,1918,1915,1919,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209724,,,OpenStreetMap
+,151.215327,-33.818662,1928,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209726,,,OpenStreetMap
 ,151.215476,-33.818797,2002,2002,2005,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP72019,North Sydney,w1531209725,,,OpenStreetMap
 ,151.215167,-33.818942,2003,2000,2003,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP67549,North Sydney,w1531209772,,,OpenStreetMap
 ,151.215305,-33.819,1913,1874,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209773,,,OpenStreetMap
 ,151.215312,-33.818937,1914,1874,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209774,,,OpenStreetMap
 ,151.215059,-33.818873,1982,1980,1987,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP32479,North Sydney,w1531209771,,,OpenStreetMap
-,151.214723,-33.81887,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209769,,,OpenStreetMap
+,151.214723,-33.81887,1916,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209769,,,OpenStreetMap
 ,151.214866,-33.818813,2003,2002,2005,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP72702,North Sydney,w1531209770,,,OpenStreetMap
-,151.214881,-33.818604,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209765,,,OpenStreetMap
-,151.214732,-33.818732,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209767,,,OpenStreetMap
-,151.214878,-33.818392,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209763,,,OpenStreetMap
-,151.215033,-33.818244,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209777,,,OpenStreetMap
+,151.214881,-33.818604,1921,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209765,,,OpenStreetMap
+,151.214732,-33.818732,1921,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209767,,,OpenStreetMap
+,151.214878,-33.818392,1931,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209763,,,OpenStreetMap
+,151.215033,-33.818244,1928,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209777,,,OpenStreetMap
 ,151.215073,-33.818533,1962,1961,1967,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP4741,North Sydney,w1531209764,,,OpenStreetMap
-,151.215376,-33.818413,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209727,,,OpenStreetMap
-,151.215387,-33.818313,1917,1915,1918,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209728,,,OpenStreetMap
+,151.215376,-33.818413,1920,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209727,,,OpenStreetMap
+,151.215387,-33.818313,1927,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209728,,,OpenStreetMap
 ,151.215158,-33.8183,2004,2003,2006,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP75055,North Sydney,w1531209732,,,OpenStreetMap
-,151.215394,-33.818178,1917,1915,1918,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209729,,,OpenStreetMap
-,151.215411,-33.818056,1916,1915,1919,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209730,,,OpenStreetMap
+,151.215394,-33.818178,1929,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209729,,,OpenStreetMap
+,151.215411,-33.818056,1917,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209730,,,OpenStreetMap
 ,151.215203,-33.818084,2005,2003,2006,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP75055,North Sydney,w1531209731,,,OpenStreetMap
 ,151.215227,-33.817958,2003,2003,2006,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP75055,North Sydney,w1531209786,,,OpenStreetMap
-,151.215106,-33.817936,1918,1915,1919,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209785,,,OpenStreetMap
-,151.214954,-33.817958,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209736,,,OpenStreetMap
-,151.215075,-33.818036,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209735,,,OpenStreetMap
-,151.214884,-33.818205,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209761,,,OpenStreetMap
+,151.215106,-33.817936,1931,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209785,,,OpenStreetMap
+,151.214954,-33.817958,1929,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209736,,,OpenStreetMap
+,151.215075,-33.818036,1918,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209735,,,OpenStreetMap
+,151.214884,-33.818205,1921,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209761,,,OpenStreetMap
 ,151.214738,-33.818206,1969,1963,1970,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP8974,North Sydney,w1531209737,,,OpenStreetMap
-,151.214324,-33.818044,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209782,,,OpenStreetMap
-,151.214424,-33.818059,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209780,,,OpenStreetMap
-,151.214494,-33.818049,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209781,,,OpenStreetMap
-,151.214582,-33.818075,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209778,,,OpenStreetMap
-,151.214637,-33.818124,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209779,,,OpenStreetMap
+,151.214324,-33.818044,1920,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209782,,,OpenStreetMap
+,151.214424,-33.818059,1919,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209780,,,OpenStreetMap
+,151.214494,-33.818049,1916,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209781,,,OpenStreetMap
+,151.214582,-33.818075,1915,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209778,,,OpenStreetMap
+,151.214637,-33.818124,1918,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209779,,,OpenStreetMap
 ,151.214681,-33.818304,1969,1963,1970,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP8974,North Sydney,w1531209738,,,OpenStreetMap
-,151.214608,-33.818309,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209739,,,OpenStreetMap
-,151.214534,-33.8183,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209740,,,OpenStreetMap
-,151.21454,-33.818418,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209752,,,OpenStreetMap
-,151.214314,-33.818532,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209750,,,OpenStreetMap
-,151.214381,-33.818398,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209753,,,OpenStreetMap
-,151.214335,-33.818393,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209748,,,OpenStreetMap
-,151.214302,-33.818374,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209747,,,OpenStreetMap
-,151.21446,-33.818286,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209741,,,OpenStreetMap
-,151.21438,-33.818272,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209742,,,OpenStreetMap
-,151.214298,-33.818266,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209743,,,OpenStreetMap
-,151.214253,-33.818371,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209746,,,OpenStreetMap
-,151.214185,-33.818406,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209745,,,OpenStreetMap
-,151.214189,-33.818532,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209751,,,OpenStreetMap
-,151.214144,-33.818052,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209787,,,OpenStreetMap
-,151.214259,-33.818036,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209783,,,OpenStreetMap
-,151.214004,-33.818074,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209788,,,OpenStreetMap
-,151.213661,-33.818,1925,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209791,,,OpenStreetMap
-,151.213857,-33.818129,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209789,,,OpenStreetMap
-,151.213732,-33.818102,1917,1915,1927,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,5.5,OpenStreetMap,,North Sydney,w1531209790,,,OpenStreetMap
-,151.213584,-33.818192,1924,1915,1926,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209793,,,OpenStreetMap
-,151.213608,-33.817981,1919,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209792,,,OpenStreetMap
+,151.214608,-33.818309,1932,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209739,,,OpenStreetMap
+,151.214534,-33.8183,1921,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209740,,,OpenStreetMap
+,151.21454,-33.818418,1916,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209752,,,OpenStreetMap
+,151.214314,-33.818532,1916,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209750,,,OpenStreetMap
+,151.214381,-33.818398,1916,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209753,,,OpenStreetMap
+,151.214335,-33.818393,1931,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209748,,,OpenStreetMap
+,151.214302,-33.818374,1927,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209747,,,OpenStreetMap
+,151.21446,-33.818286,1930,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209741,,,OpenStreetMap
+,151.21438,-33.818272,1924,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209742,,,OpenStreetMap
+,151.214298,-33.818266,1924,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209743,,,OpenStreetMap
+,151.214253,-33.818371,1934,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209746,,,OpenStreetMap
+,151.214185,-33.818406,1923,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209745,,,OpenStreetMap
+,151.214189,-33.818532,1924,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209751,,,OpenStreetMap
+,151.214144,-33.818052,1926,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209787,,,OpenStreetMap
+,151.214259,-33.818036,1927,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209783,,,OpenStreetMap
+,151.214004,-33.818074,1932,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209788,,,OpenStreetMap
+,151.213661,-33.818,1931,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209791,,,OpenStreetMap
+,151.213857,-33.818129,1933,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209789,,,OpenStreetMap
+,151.213732,-33.818102,1918,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,5.5,OpenStreetMap,,North Sydney,w1531209790,,,OpenStreetMap
+,151.213584,-33.818192,1925,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209793,,,OpenStreetMap
+,151.213608,-33.817981,1921,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209792,,,OpenStreetMap
 ,151.213429,-33.818028,2002,2002,2005,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP71781,North Sydney,w1531209794,,,OpenStreetMap
-,151.213305,-33.81802,1924,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209795,,,OpenStreetMap
+,151.213305,-33.81802,1930,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209795,,,OpenStreetMap
 ,151.213244,-33.81803,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,House,,,,,,North Sydney,w1531209796,,,OpenStreetMap
 ,151.213171,-33.818239,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,House,,,,,,North Sydney,w1531209798,,,OpenStreetMap
-,151.213368,-33.818266,1927,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.1,OpenStreetMap,,North Sydney,w1531209797,,,OpenStreetMap
+,151.213368,-33.818266,1934,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.1,OpenStreetMap,,North Sydney,w1531209797,,,OpenStreetMap
 ,151.213112,-33.818499,1970,1966,1973,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP12798,North Sydney,w1531210310,,,OpenStreetMap
 ,151.21308,-33.818505,1973,1966,1973,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP12798,North Sydney,w1531210308,,,OpenStreetMap
 ,151.213144,-33.818494,1972,1966,1973,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP12798,North Sydney,w1531210309,,,OpenStreetMap
 ,151.213176,-33.818487,1966,1966,1973,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP12798,North Sydney,w1531210311,,,OpenStreetMap
-,151.213778,-33.818621,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210302,,,OpenStreetMap
-,151.213773,-33.818777,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209755,,,OpenStreetMap
-,151.213849,-33.818775,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209756,,,OpenStreetMap
+,151.213778,-33.818621,1924,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210302,,,OpenStreetMap
+,151.213773,-33.818777,1916,1915,1927,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209755,,,OpenStreetMap
+,151.213849,-33.818775,1921,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209756,,,OpenStreetMap
 ,151.213575,-33.818766,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209758,,,OpenStreetMap
 ,151.213514,-33.818766,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209759,,,OpenStreetMap
-,151.213634,-33.818632,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210303,,,OpenStreetMap
-,151.213508,-33.818623,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210304,,,OpenStreetMap
+,151.213634,-33.818632,1923,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210303,,,OpenStreetMap
+,151.213508,-33.818623,1915,1915,1927,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210304,,,OpenStreetMap
 ,151.213366,-33.818616,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210305,,,OpenStreetMap
 ,151.213232,-33.818678,2018,2016,2019,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,,,SP96312,North Sydney,w1531210306,,,OpenStreetMap
 ,151.213077,-33.818742,1970,1966,1973,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP12798,North Sydney,w1531210307,,,OpenStreetMap
@@ -6347,18 +6347,18 @@ Capri Tower,151.226831,-33.82789,1964,1961,1968,1961–1975 The first towers,str
 ,151.213465,-33.819006,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1530592946,,,OpenStreetMap
 ,151.213903,-33.819158,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006098,,,OpenStreetMap
 ,151.213911,-33.819082,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006100,,,OpenStreetMap
-,151.214036,-33.818781,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209757,,,OpenStreetMap
-,151.213895,-33.818598,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210301,,,OpenStreetMap
-,151.214045,-33.818585,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210300,,,OpenStreetMap
+,151.214036,-33.818781,1921,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209757,,,OpenStreetMap
+,151.213895,-33.818598,1919,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210301,,,OpenStreetMap
+,151.214045,-33.818585,1916,1915,1927,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210300,,,OpenStreetMap
 ,151.214162,-33.818662,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210299,,,OpenStreetMap
 ,151.214289,-33.818684,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210298,,,OpenStreetMap
-,151.214402,-33.818715,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210297,,,OpenStreetMap
-,151.21451,-33.818669,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209802,,,OpenStreetMap
-,151.214663,-33.818743,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209766,,,OpenStreetMap
+,151.214402,-33.818715,1919,1915,1926,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210297,,,OpenStreetMap
+,151.21451,-33.818669,1918,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209802,,,OpenStreetMap
+,151.214663,-33.818743,1919,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531209766,,,OpenStreetMap
 ,151.214287,-33.81912,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006101,,,OpenStreetMap
-,151.214487,-33.819144,1893,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006102,,,OpenStreetMap
+,151.214487,-33.819144,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006102,,,OpenStreetMap
 ,151.214389,-33.819358,1966,1961,1967,1961–1975 The first towers,strata plan,NSW cadastre,,,Plateau,,,,SP3560,North Sydney,w1530597790,,,OpenStreetMap
-,151.214498,-33.819773,1876,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006105,,,OpenStreetMap
+,151.214498,-33.819773,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006105,,,OpenStreetMap
 ,151.214382,-33.819694,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006104,,,OpenStreetMap
 ,151.214308,-33.81978,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006106,,,OpenStreetMap
 ,151.214362,-33.81958,2002,2002,2005,2000–2014 The apartment city,strata plan,NSW cadastre,,,Plateau,,,,SP71676,North Sydney,w1531006103,,,OpenStreetMap
@@ -6403,7 +6403,7 @@ Capri Tower,151.226831,-33.82789,1964,1961,1968,1961–1975 The first towers,str
 ,151.214286,-33.820124,1876,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006109,,,OpenStreetMap
 ,151.213924,-33.820074,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006082,,,OpenStreetMap
 ,151.214442,-33.820099,1891,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006110,,,OpenStreetMap
-,151.214348,-33.820008,1913,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006108,,,OpenStreetMap
+,151.214348,-33.820008,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006108,,,OpenStreetMap
 ,151.21433,-33.819905,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006107,,,OpenStreetMap
 ,151.214815,-33.820403,1890,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531209644,,,OpenStreetMap
 ,151.214835,-33.820306,1895,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531209645,,,OpenStreetMap
@@ -6440,14 +6440,14 @@ Capri Tower,151.226831,-33.82789,1964,1961,1968,1961–1975 The first towers,str
 ,151.216042,-33.820009,1909,1874,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597794,,,OpenStreetMap
 ,151.216019,-33.819852,1905,1874,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597795,,,OpenStreetMap
 ,151.215988,-33.820271,1904,1874,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597792,,,OpenStreetMap
-,151.216016,-33.820154,1890,1874,1918,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,North Sydney,w1530597793,,,OpenStreetMap
+,151.216016,-33.820154,1890,1874,1919,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,North Sydney,w1530597793,,,OpenStreetMap
 ,151.216327,-33.820725,1910,1874,1935,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531006177,,,OpenStreetMap
 ,151.216062,-33.820591,1913,1874,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531003310,,,OpenStreetMap
 ,151.215956,-33.820501,1999,1997,2000,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,3.4,OpenStreetMap,SP58394,North Sydney,w1531003309,,,OpenStreetMap
 ,151.215728,-33.820727,1889,1874,1915,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531003315,,,OpenStreetMap
 ,151.215915,-33.82061,1875,1874,1915,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531003311,,,OpenStreetMap
 ,151.215908,-33.820718,1881,1874,1915,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531003313,,,OpenStreetMap
-,151.215898,-33.82082,1892,1874,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531003314,,,OpenStreetMap
+,151.215898,-33.82082,1894,1874,1918,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531003314,,,OpenStreetMap
 ,151.215716,-33.820954,1884,1874,1915,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531003316,,,OpenStreetMap
 ,151.21586,-33.820924,1910,1874,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531003317,,,OpenStreetMap
 ,151.216377,-33.820999,1885,1874,1935,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531006174,,,OpenStreetMap
@@ -6506,9 +6506,9 @@ Capri Tower,151.226831,-33.82789,1964,1961,1968,1961–1975 The first towers,str
 ,151.214235,-33.820546,1904,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006116,,,OpenStreetMap
 ,151.214235,-33.820475,1886,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006115,,,OpenStreetMap
 ,151.214244,-33.820426,1887,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006114,,,OpenStreetMap
-,151.213677,-33.820572,1885,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006073,,,OpenStreetMap
+,151.213677,-33.820572,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006073,,,OpenStreetMap
 ,151.213666,-33.820705,1900,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006072,,,OpenStreetMap
-,151.213655,-33.82062,1896,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006074,,,OpenStreetMap
+,151.213655,-33.82062,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006074,,,OpenStreetMap
 ,151.213637,-33.820466,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1531006075,,,OpenStreetMap
 ,151.213106,-33.820531,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1463388032,,,OpenStreetMap
 ,151.213125,-33.820733,1990,1989,1996,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,Plateau,,2.5,OpenStreetMap,SP44517,North Sydney,w1530592938,,,OpenStreetMap
@@ -10825,16 +10825,16 @@ Metro Services Building,151.199702,-33.826231,1998,1983,2004,1976–1999 Darling
 ,151.200612,-33.825354,1931,1915,2003,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444885,,,OpenStreetMap
 ,151.200612,-33.82531,1965,1915,2003,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444887,,,OpenStreetMap
 ,151.200614,-33.825127,1997,1996,2006,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444890,,,OpenStreetMap
-,151.200613,-33.825172,1951,1915,2003,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444889,,,OpenStreetMap
-,151.200612,-33.825244,1984,1915,2003,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444888,,,OpenStreetMap
+,151.200613,-33.825172,1958,1926,2003,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444889,,,OpenStreetMap
+,151.200612,-33.825244,1986,1926,2003,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444888,,,OpenStreetMap
 ,151.201192,-33.825183,2000,1996,2007,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428440856,,,OpenStreetMap
 ,151.201176,-33.825084,2004,1999,2009,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428440857,,,OpenStreetMap
 ,151.201207,-33.825035,2006,1999,2009,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428440858,,,OpenStreetMap
 ,151.20117,-33.824982,2002,1999,2009,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428440859,,,OpenStreetMap
 ,151.20118,-33.824904,2001,1999,2009,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428440860,,,OpenStreetMap
 ,151.200687,-33.825061,1921,1915,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1385522657,,,OpenStreetMap
-,151.200616,-33.824946,1990,1915,2006,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444893,,,OpenStreetMap
-,151.200615,-33.82499,1982,1915,2006,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444892,,,OpenStreetMap
+,151.200616,-33.824946,1992,1926,2006,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444893,,,OpenStreetMap
+,151.200615,-33.82499,1985,1926,2006,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444892,,,OpenStreetMap
 ,151.200616,-33.824878,1944,1926,2006,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444895,,,OpenStreetMap
 ,151.200617,-33.824808,1985,1926,2006,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444868,,,OpenStreetMap
 ,151.200618,-33.824764,1986,1926,2003,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444869,,,OpenStreetMap
@@ -10863,19 +10863,19 @@ Only Coffee Project,151.200632,-33.82429,2012,1999,2015,2000–2014 The apartmen
 ,151.200291,-33.824077,2021,2018,2021,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,,,SP99868,North Sydney,w919962665,,,OpenStreetMap
 ,151.200239,-33.82362,1998,1997,2000,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP60004,North Sydney,w919962668,,,OpenStreetMap
 ,151.200349,-33.823642,1992,1988,1999,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919962667,,,OpenStreetMap
-,151.200126,-33.82362,1936,1926,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919962669,,,OpenStreetMap
-,151.20001,-33.823626,1938,1926,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919962671,,,OpenStreetMap
-,151.199889,-33.823628,1944,1927,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919962670,,,OpenStreetMap
+,151.200126,-33.82362,1937,1927,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919962669,,,OpenStreetMap
+,151.20001,-33.823626,1939,1927,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919962671,,,OpenStreetMap
+,151.199889,-33.823628,1948,1927,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919962670,,,OpenStreetMap
 ,151.199598,-33.823669,2000,1997,2000,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,3.7,OpenStreetMap,SP60857,North Sydney,w919962673,,,OpenStreetMap
-,151.19993,-33.823443,1955,1926,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196698,,,OpenStreetMap
-,151.199874,-33.823443,1936,1926,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196697,,,OpenStreetMap
+,151.19993,-33.823443,1956,1927,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196698,,,OpenStreetMap
+,151.199874,-33.823443,1937,1927,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196697,,,OpenStreetMap
 ,151.199615,-33.823202,2018,2016,2019,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,,,SP97270,North Sydney,w1511196692,,,OpenStreetMap
 ,151.19989,-33.823125,1971,1968,1975,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP15827,North Sydney,w1511196691,,,OpenStreetMap
 ,151.200045,-33.82321,2019,2017,2020,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,,,SP98620,North Sydney,w919962677,,,OpenStreetMap
 ,151.200297,-33.823209,2005,2005,2008,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP79884,North Sydney,w919962676,,,OpenStreetMap
 ,151.200217,-33.823454,2000,1997,2000,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP60004,North Sydney,w1511196699,,,OpenStreetMap
 ,151.200272,-33.823454,2000,1997,2000,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP60004,North Sydney,w1511196700,,,OpenStreetMap
-,151.200394,-33.823445,1935,1926,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196701,,,OpenStreetMap
+,151.200394,-33.823445,1936,1927,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196701,,,OpenStreetMap
 Phillip Place,151.200733,-33.823244,1988,1988,2018,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919962679,,,OpenStreetMap
 ,151.200603,-33.823377,2010,1999,2015,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919962680,,,OpenStreetMap
 ,151.200607,-33.823107,2004,1988,2016,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919962678,,,OpenStreetMap
@@ -10937,13 +10937,13 @@ Kingdom Hall of Jehovah's Witnesses,151.202484,-33.823796,1903,1874,1927,1891–
 ,151.201856,-33.824191,2010,2003,2018,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428441844,,,OpenStreetMap
 ,151.201528,-33.824192,2003,2003,2018,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428441843,,,OpenStreetMap
 ,151.201558,-33.824579,1908,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Crows Nest Performing Arts Centre,,,,,,North Sydney,w428444876,,,OpenStreetMap
-,151.201826,-33.824656,1893,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Uniting Church parsonage,,,,,,North Sydney,w428444867,,,OpenStreetMap
-,151.201706,-33.824628,1881,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,Local heritage item,Uniting Church hall,,,,,,North Sydney,w428444886,,,OpenStreetMap
-,151.201977,-33.824626,1922,1915,1926,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444872,,,OpenStreetMap
+,151.201826,-33.824656,1901,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Uniting Church parsonage,,,,,,North Sydney,w428444867,,,OpenStreetMap
+,151.201706,-33.824628,1891,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Uniting Church hall,,,,,,North Sydney,w428444886,,,OpenStreetMap
+,151.201977,-33.824626,1926,1926,1926,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w428444872,,,OpenStreetMap
 Holtermann Street Car Park,151.201726,-33.825115,1999,1996,2009,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,4,12.8,OpenStreetMap storeys,,North Sydney,w219186467,,,OpenStreetMap
 ,151.202137,-33.825386,1988,1889,2003,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,4.4,OpenStreetMap,,North Sydney,w810730631,,,OpenStreetMap
 ,151.202209,-33.825109,2002,2001,2004,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP70887,North Sydney,w810730628,,,OpenStreetMap
-,151.202885,-33.824862,1931,1874,1986,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w810730627,,,OpenStreetMap
+,151.202885,-33.824862,1951,1915,1986,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w810730627,,,OpenStreetMap
 ,151.202803,-33.825227,2002,1986,2009,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196746,,,OpenStreetMap
 ,151.202823,-33.825145,2003,1889,2009,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w810730629,,,OpenStreetMap
 ,151.20272,-33.8254,1877,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,Local heritage item,House,,,,,,North Sydney,w1511196749,,,OpenStreetMap
@@ -10978,34 +10978,34 @@ Orthodox Church,151.203125,-33.825317,1919,1858,1927,1919–1945 Interwar and th
 ,151.20401,-33.824995,1900,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925458,,,OpenStreetMap
 ,151.203915,-33.824903,1900,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925468,,,OpenStreetMap
 ,151.203816,-33.824873,1862,1858,1927,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925470,,,OpenStreetMap
-,151.203862,-33.824864,1872,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925469,,,OpenStreetMap
+,151.203862,-33.824864,1872,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925469,,,OpenStreetMap
 ,151.203962,-33.824938,1865,1858,1926,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925467,,,OpenStreetMap
-,151.203968,-33.824653,1864,1858,1926,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389053,,,OpenStreetMap
-,151.203822,-33.824594,1894,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389051,,,OpenStreetMap
-,151.203872,-33.824612,1881,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389052,,,OpenStreetMap
+,151.203968,-33.824653,1864,1858,1927,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389053,,,OpenStreetMap
+,151.203822,-33.824594,1894,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389051,,,OpenStreetMap
+,151.203872,-33.824612,1881,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389052,,,OpenStreetMap
 ,151.203799,-33.824473,1897,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389038,,,OpenStreetMap
-,151.204027,-33.824627,1886,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389054,,,OpenStreetMap
-,151.204019,-33.824495,1900,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389037,,,OpenStreetMap
-,151.204075,-33.824738,1917,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925465,,,OpenStreetMap
-,151.204149,-33.824723,1872,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925462,,,OpenStreetMap
-,151.204277,-33.824745,1860,1858,1926,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925463,,,OpenStreetMap
-,151.204213,-33.824734,1905,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925464,,,OpenStreetMap
-,151.204371,-33.824777,1861,1858,1926,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925461,,,OpenStreetMap
-,151.20447,-33.824784,1866,1858,1926,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925460,,,OpenStreetMap
-,151.204552,-33.824705,1923,1858,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1511381441,,,OpenStreetMap
+,151.204027,-33.824627,1886,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389054,,,OpenStreetMap
+,151.204019,-33.824495,1900,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389037,,,OpenStreetMap
+,151.204075,-33.824738,1918,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925465,,,OpenStreetMap
+,151.204149,-33.824723,1872,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925462,,,OpenStreetMap
+,151.204277,-33.824745,1860,1858,1927,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925463,,,OpenStreetMap
+,151.204213,-33.824734,1905,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925464,,,OpenStreetMap
+,151.204371,-33.824777,1861,1858,1927,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925461,,,OpenStreetMap
+,151.20447,-33.824784,1867,1858,1927,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532925460,,,OpenStreetMap
+,151.204552,-33.824705,1924,1858,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1511381441,,,OpenStreetMap
 ,151.204433,-33.824566,1985,1983,1990,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,Holtermann Estate A,,,,SP36092,North Sydney,w1511381372,,,OpenStreetMap
 ,151.204463,-33.82457,1987,1983,1990,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,Holtermann Estate A,,,,SP36092,North Sydney,w1511381373,,,OpenStreetMap
-,151.204492,-33.824575,1888,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381374,,,OpenStreetMap
-,151.204323,-33.824542,1892,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381369,,,OpenStreetMap
+,151.204492,-33.824575,1889,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381374,,,OpenStreetMap
+,151.204323,-33.824542,1892,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381369,,,OpenStreetMap
 ,151.204403,-33.824561,1984,1983,1990,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,Holtermann Estate A,,,,SP36092,North Sydney,w1511381371,,,OpenStreetMap
 ,151.204374,-33.824556,1986,1983,1990,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,Holtermann Estate A,,,,SP36092,North Sydney,w1511381370,,,OpenStreetMap
-,151.204211,-33.824362,1897,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389034,,,OpenStreetMap
-,151.204326,-33.82438,1874,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,4.4,OpenStreetMap,,North Sydney,w1531389033,,,OpenStreetMap
+,151.204211,-33.824362,1898,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389034,,,OpenStreetMap
+,151.204326,-33.82438,1874,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,4.4,OpenStreetMap,,North Sydney,w1531389033,,,OpenStreetMap
 ,151.204437,-33.824438,1988,1983,1990,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,Holtermann Estate A,,,,SP36092,North Sydney,w1531389031,,,OpenStreetMap
-,151.204533,-33.824451,1897,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389030,,,OpenStreetMap
-,151.204626,-33.824428,1922,1858,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389029,,,OpenStreetMap
-,151.20406,-33.824342,1885,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389035,,,OpenStreetMap
-,151.203985,-33.824348,1878,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389036,,,OpenStreetMap
+,151.204533,-33.824451,1897,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389030,,,OpenStreetMap
+,151.204626,-33.824428,1923,1858,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389029,,,OpenStreetMap
+,151.20406,-33.824342,1885,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389035,,,OpenStreetMap
+,151.203985,-33.824348,1878,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389036,,,OpenStreetMap
 ,151.203906,-33.824326,1914,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389039,,,OpenStreetMap
 ,151.203801,-33.824328,1904,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389040,,,OpenStreetMap
 ,151.20368,-33.824281,1878,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389041,,,OpenStreetMap
@@ -11051,72 +11051,72 @@ Orthodox Church,151.203125,-33.825317,1919,1858,1927,1919–1945 Interwar and th
 ,151.20416,-33.822931,1875,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381332,,,OpenStreetMap
 ,151.204056,-33.823217,1895,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964771,,,OpenStreetMap
 ,151.204273,-33.822955,1885,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381331,,,OpenStreetMap
-,151.204533,-33.823275,1884,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964768,,,OpenStreetMap
-,151.204571,-33.823695,1920,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,2.8,OpenStreetMap,,North Sydney,w1511381338,,,OpenStreetMap
-,151.204436,-33.823714,1891,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381337,,,OpenStreetMap
+,151.204533,-33.823275,1884,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964768,,,OpenStreetMap
+,151.204571,-33.823695,1921,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,2.8,OpenStreetMap,,North Sydney,w1511381338,,,OpenStreetMap
+,151.204436,-33.823714,1891,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381337,,,OpenStreetMap
 ,151.204089,-33.823668,1878,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964671,,,OpenStreetMap
 ,151.203873,-33.82364,1910,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964673,,,OpenStreetMap
 ,151.203788,-33.82362,1918,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964674,,,OpenStreetMap
 ,151.203981,-33.823625,1896,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964672,,,OpenStreetMap
 ,151.204025,-33.823946,1918,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964670,,,OpenStreetMap
 ,151.203859,-33.823915,1878,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964669,,,OpenStreetMap
-,151.204364,-33.823979,1924,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381368,,,OpenStreetMap
-,151.204476,-33.823989,1889,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381367,,,OpenStreetMap
-,151.20453,-33.82401,1920,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381366,,,OpenStreetMap
-,151.204647,-33.82412,1904,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381365,,,OpenStreetMap
-,151.204735,-33.824026,1924,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381362,,,OpenStreetMap
-,151.204791,-33.824038,1896,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381363,,,OpenStreetMap
-,151.204637,-33.824002,1901,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381364,,,OpenStreetMap
-,151.204865,-33.824049,1895,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381361,,,OpenStreetMap
-,151.204901,-33.824076,1887,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381360,,,OpenStreetMap
-,151.204989,-33.824089,1898,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381358,,,OpenStreetMap
-,151.205116,-33.824115,1917,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381357,,,OpenStreetMap
-,151.205049,-33.824099,1913,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381359,,,OpenStreetMap
-,151.205175,-33.824117,1900,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381356,,,OpenStreetMap
-,151.205275,-33.824147,1874,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381355,,,OpenStreetMap
-,151.20544,-33.823872,1920,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381350,,,OpenStreetMap
-,151.205368,-33.823858,1897,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381348,,,OpenStreetMap
-,151.205314,-33.82385,1919,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381349,,,OpenStreetMap
-,151.205051,-33.823811,1923,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381344,,,OpenStreetMap
-,151.205111,-33.823814,1902,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381345,,,OpenStreetMap
-,151.205181,-33.823818,1901,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381347,,,OpenStreetMap
-,151.205236,-33.823836,1917,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381346,,,OpenStreetMap
-,151.204982,-33.823784,1885,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381342,,,OpenStreetMap
-,151.204924,-33.823776,1894,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381343,,,OpenStreetMap
-,151.204847,-33.823777,1883,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381340,,,OpenStreetMap
-,151.204792,-33.823763,1922,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381341,,,OpenStreetMap
-,151.204694,-33.823751,1877,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381339,,,OpenStreetMap
-,151.204922,-33.823348,1890,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964765,,,OpenStreetMap
-,151.204791,-33.823322,1904,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964766,,,OpenStreetMap
-,151.204658,-33.823313,1907,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964767,,,OpenStreetMap
-,151.204727,-33.82314,1893,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936694,,,OpenStreetMap
-,151.204703,-33.823013,1883,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381327,,,OpenStreetMap
-,151.204805,-33.823029,1921,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381326,,,OpenStreetMap
-,151.204859,-33.823158,1919,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936693,,,OpenStreetMap
-,151.204971,-33.823185,1878,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936692,,,OpenStreetMap
-,151.205127,-33.823207,1892,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936691,,,OpenStreetMap
-,151.205194,-33.823224,1903,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936690,,,OpenStreetMap
-,151.205145,-33.823097,1884,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381313,,,OpenStreetMap
-,151.205068,-33.823077,1896,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381312,,,OpenStreetMap
-,151.205251,-33.823052,1911,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381317,,,OpenStreetMap
-,151.205378,-33.822938,1905,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381322,,,OpenStreetMap
-,151.205437,-33.822943,1902,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381323,,,OpenStreetMap
-,151.20546,-33.823138,1923,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381311,,,OpenStreetMap
-,151.20545,-33.823255,1905,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936688,,,OpenStreetMap
-,151.20539,-33.823255,1886,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936689,,,OpenStreetMap
-,151.205052,-33.823367,1898,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964764,,,OpenStreetMap
-,151.205175,-33.823421,1905,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964763,,,OpenStreetMap
-,151.205304,-33.823413,1889,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964762,,,OpenStreetMap
-,151.205403,-33.823417,1890,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964761,,,OpenStreetMap
-,151.205464,-33.823427,1907,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964760,,,OpenStreetMap
+,151.204364,-33.823979,1925,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381368,,,OpenStreetMap
+,151.204476,-33.823989,1889,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381367,,,OpenStreetMap
+,151.20453,-33.82401,1921,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381366,,,OpenStreetMap
+,151.204647,-33.82412,1905,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381365,,,OpenStreetMap
+,151.204735,-33.824026,1925,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381362,,,OpenStreetMap
+,151.204791,-33.824038,1896,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381363,,,OpenStreetMap
+,151.204637,-33.824002,1902,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381364,,,OpenStreetMap
+,151.204865,-33.824049,1896,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381361,,,OpenStreetMap
+,151.204901,-33.824076,1887,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381360,,,OpenStreetMap
+,151.204989,-33.824089,1899,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381358,,,OpenStreetMap
+,151.205116,-33.824115,1918,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381357,,,OpenStreetMap
+,151.205049,-33.824099,1914,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381359,,,OpenStreetMap
+,151.205175,-33.824117,1900,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381356,,,OpenStreetMap
+,151.205275,-33.824147,1874,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381355,,,OpenStreetMap
+,151.20544,-33.823872,1921,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381350,,,OpenStreetMap
+,151.205368,-33.823858,1897,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381348,,,OpenStreetMap
+,151.205314,-33.82385,1920,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381349,,,OpenStreetMap
+,151.205051,-33.823811,1924,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381344,,,OpenStreetMap
+,151.205111,-33.823814,1902,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381345,,,OpenStreetMap
+,151.205181,-33.823818,1901,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381347,,,OpenStreetMap
+,151.205236,-33.823836,1918,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381346,,,OpenStreetMap
+,151.204982,-33.823784,1885,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381342,,,OpenStreetMap
+,151.204924,-33.823776,1894,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381343,,,OpenStreetMap
+,151.204847,-33.823777,1883,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381340,,,OpenStreetMap
+,151.204792,-33.823763,1923,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381341,,,OpenStreetMap
+,151.204694,-33.823751,1877,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381339,,,OpenStreetMap
+,151.204922,-33.823348,1890,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964765,,,OpenStreetMap
+,151.204791,-33.823322,1904,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964766,,,OpenStreetMap
+,151.204658,-33.823313,1907,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964767,,,OpenStreetMap
+,151.204727,-33.82314,1894,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936694,,,OpenStreetMap
+,151.204703,-33.823013,1883,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381327,,,OpenStreetMap
+,151.204805,-33.823029,1922,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381326,,,OpenStreetMap
+,151.204859,-33.823158,1919,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936693,,,OpenStreetMap
+,151.204971,-33.823185,1878,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936692,,,OpenStreetMap
+,151.205127,-33.823207,1892,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936691,,,OpenStreetMap
+,151.205194,-33.823224,1903,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936690,,,OpenStreetMap
+,151.205145,-33.823097,1884,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381313,,,OpenStreetMap
+,151.205068,-33.823077,1896,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381312,,,OpenStreetMap
+,151.205251,-33.823052,1912,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381317,,,OpenStreetMap
+,151.205378,-33.822938,1905,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381322,,,OpenStreetMap
+,151.205437,-33.822943,1903,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381323,,,OpenStreetMap
+,151.20546,-33.823138,1924,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381311,,,OpenStreetMap
+,151.20545,-33.823255,1905,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936688,,,OpenStreetMap
+,151.20539,-33.823255,1886,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936689,,,OpenStreetMap
+,151.205052,-33.823367,1898,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964764,,,OpenStreetMap
+,151.205175,-33.823421,1905,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964763,,,OpenStreetMap
+,151.205304,-33.823413,1889,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964762,,,OpenStreetMap
+,151.205403,-33.823417,1891,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964761,,,OpenStreetMap
+,151.205464,-33.823427,1907,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964760,,,OpenStreetMap
 ,151.20553,-33.823438,1896,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964759,,,OpenStreetMap
 ,151.205672,-33.82345,1907,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964757,,,OpenStreetMap
 ,151.205593,-33.823461,1918,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964758,,,OpenStreetMap
 ,151.205881,-33.823228,1913,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196829,,,OpenStreetMap
 ,151.205628,-33.823284,1883,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936685,,,OpenStreetMap
 ,151.205553,-33.823271,1912,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936686,,,OpenStreetMap
-,151.205493,-33.823261,1904,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936687,,,OpenStreetMap
-,151.20553,-33.822983,1880,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381318,,,OpenStreetMap
+,151.205493,-33.823261,1904,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1532936687,,,OpenStreetMap
+,151.20553,-33.822983,1881,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381318,,,OpenStreetMap
 ,151.205635,-33.822993,1915,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381320,,,OpenStreetMap
 ,151.205762,-33.823017,1911,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381321,,,OpenStreetMap
 ,151.205691,-33.823016,1890,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381319,,,OpenStreetMap
@@ -11124,9 +11124,9 @@ Orthodox Church,151.203125,-33.825317,1919,1858,1927,1919–1945 Interwar and th
 ,151.205615,-33.823825,1881,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381352,,,OpenStreetMap
 ,151.205497,-33.82388,1907,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381351,,,OpenStreetMap
 ,151.206248,-33.824686,1914,1858,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389068,,,OpenStreetMap
-,151.206122,-33.824731,1904,1858,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389069,,,OpenStreetMap
+,151.206122,-33.824731,1913,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389069,,,OpenStreetMap
 ,151.206189,-33.824694,1909,1858,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389070,,,OpenStreetMap
-,151.206059,-33.824627,1860,1858,1915,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389067,,,OpenStreetMap
+,151.206059,-33.824627,1861,1858,1926,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389067,,,OpenStreetMap
 ,151.205969,-33.824662,1873,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389066,,,OpenStreetMap
 ,151.205895,-33.82462,1903,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389065,,,OpenStreetMap
 ,151.205694,-33.82448,1971,1965,1972,1961–1975 The first towers,strata plan,NSW cadastre,,,Holtermann Estate B,,,,SP10670,North Sydney,w1531389062,,,OpenStreetMap
@@ -11134,14 +11134,14 @@ Orthodox Church,151.203125,-33.825317,1919,1858,1927,1919–1945 Interwar and th
 ,151.205723,-33.824643,1864,1858,1926,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389063,,,OpenStreetMap
 ,151.205607,-33.824638,1967,1965,1972,1961–1975 The first towers,strata plan,NSW cadastre,,,Holtermann Estate B,,,,SP10670,North Sydney,w1531389061,,,OpenStreetMap
 ,151.205546,-33.824189,1920,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381353,,,OpenStreetMap
-,151.205405,-33.824158,1884,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381354,,,OpenStreetMap
-,151.204885,-33.824554,1917,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,2.5,OpenStreetMap,,North Sydney,w1531389027,,,OpenStreetMap
-,151.204744,-33.8245,1879,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389028,,,OpenStreetMap
+,151.205405,-33.824158,1884,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381354,,,OpenStreetMap
+,151.204885,-33.824554,1918,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,2.5,OpenStreetMap,,North Sydney,w1531389027,,,OpenStreetMap
+,151.204744,-33.8245,1879,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389028,,,OpenStreetMap
 ,151.204736,-33.824759,1919,1858,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1511381432,,,OpenStreetMap
 ,151.204808,-33.824759,1910,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1511381433,,,OpenStreetMap
 ,151.204875,-33.824771,1921,1858,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1511381434,,,OpenStreetMap
-,151.205052,-33.82468,1911,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381375,,,OpenStreetMap
-,151.205069,-33.824521,1873,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,5.8,OpenStreetMap,,North Sydney,w1531389026,,,OpenStreetMap
+,151.205052,-33.82468,1912,1858,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381375,,,OpenStreetMap
+,151.205069,-33.824521,1873,1858,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,5.8,OpenStreetMap,,North Sydney,w1531389026,,,OpenStreetMap
 ,151.205201,-33.824613,1916,1858,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389025,,,OpenStreetMap
 ,151.205335,-33.824638,1860,1858,1926,1840–1869 Free colony and gold,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1531389024,,,OpenStreetMap
 ,151.205267,-33.824899,1884,1858,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1532922295,,,OpenStreetMap
@@ -11912,7 +11912,7 @@ Tarella,151.208739,-33.82341,1874,1874,1886,1870–1890 The boom years,"document
 ,151.207009,-33.824713,1872,1858,1915,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389080,,,OpenStreetMap
 ,151.207008,-33.824658,1887,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389079,,,OpenStreetMap
 ,151.207017,-33.824595,1877,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate B,,,,,North Sydney,w1531389081,,,OpenStreetMap
-,151.207208,-33.823909,1905,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,St Thomas Rest Park (including Sexton's Cottage and cemetery fence),,,,,,North Sydney,w47411701,,,OpenStreetMap
+,151.207208,-33.823909,1913,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,St Thomas Rest Park (including Sexton's Cottage and cemetery fence),,,,,,North Sydney,w47411701,,,OpenStreetMap
 ,151.207941,-33.82324,1927,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363471,,,OpenStreetMap
 ,151.207886,-33.82306,1910,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363472,,,OpenStreetMap
 ,151.207911,-33.822951,1906,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363473,,,OpenStreetMap
@@ -12138,8 +12138,8 @@ Norths Cammeray,151.208776,-33.821528,1955,1955,1955,1946–1960 Post-war,docume
 ,151.21278,-33.820486,1879,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,,,Plateau,,3.0,OpenStreetMap,,North Sydney,w1530592928,,,OpenStreetMap
 ,151.212573,-33.820448,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1462695159,,,OpenStreetMap
 ,151.212537,-33.820553,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1462695158,,,OpenStreetMap
-,151.212543,-33.820647,1899,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1462695157,,,OpenStreetMap
-,151.212527,-33.820705,1906,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1462695156,,,OpenStreetMap
+,151.212543,-33.820647,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1462695157,,,OpenStreetMap
+,151.212527,-33.820705,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1462695156,,,OpenStreetMap
 ,151.212054,-33.820564,1876,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,Local heritage item,Cammeray Public School,Plateau,,,,,North Sydney,w47414766,,,OpenStreetMap
 ,151.212072,-33.820478,1905,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Cammeray Public School,Plateau,,,,,North Sydney,w47414765,,,OpenStreetMap
 ,151.211819,-33.820565,1887,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,Local heritage item,Cammeray Public School,Plateau,,,,,North Sydney,w47414755,,,OpenStreetMap
@@ -12171,7 +12171,7 @@ Shell,151.210876,-33.821394,1953,1874,1955,1946–1960 Post-war,estimated from n
 ,151.210142,-33.820467,1995,1994,1997,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP52968,North Sydney,w1530592892,,,OpenStreetMap
 ,151.21004,-33.820471,1995,1994,1997,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP52968,North Sydney,w1530592891,,,OpenStreetMap
 ,151.209925,-33.820455,1994,1994,1997,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP52968,North Sydney,w1530592890,,,OpenStreetMap
-,151.209694,-33.820562,1875,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592887,,,OpenStreetMap
+,151.209694,-33.820562,1915,1915,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592887,,,OpenStreetMap
 ,151.209816,-33.820423,1997,1994,1997,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP52968,North Sydney,w1530592889,,,OpenStreetMap
 ,151.209726,-33.820408,1997,1994,1997,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP52968,North Sydney,w1530592888,,,OpenStreetMap
 ,151.20974,-33.820126,1938,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592896,,,OpenStreetMap
@@ -12208,7 +12208,7 @@ Shell,151.210876,-33.821394,1953,1874,1955,1946–1960 Post-war,estimated from n
 ,151.212126,-33.82001,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1530597753,,,OpenStreetMap
 ,151.212136,-33.820162,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1530597754,,,OpenStreetMap
 ,151.212106,-33.820275,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1530597755,,,OpenStreetMap
-,151.21209,-33.820382,1914,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Cammeray Public School,Plateau,,,,,North Sydney,w47414764,,,OpenStreetMap
+,151.21209,-33.820382,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Cammeray Public School,Plateau,,,,,North Sydney,w47414764,,,OpenStreetMap
 ,151.212595,-33.820351,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1462695160,,,OpenStreetMap
 ,151.212889,-33.820407,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1530597757,,,OpenStreetMap
 ,151.212971,-33.820308,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1463388036,,,OpenStreetMap
@@ -12239,16 +12239,16 @@ Cammeray Substation,151.21267,-33.819527,1915,1915,1915,1891–1918 Depression a
 ,151.211764,-33.819506,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1530597742,,,OpenStreetMap
 ,151.211656,-33.819481,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1530597738,,,OpenStreetMap
 ,151.211544,-33.819503,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1530597737,,,OpenStreetMap
-,151.211439,-33.819492,1923,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597736,,,OpenStreetMap
+,151.211439,-33.819492,1928,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597736,,,OpenStreetMap
 ,151.211542,-33.819339,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1530597740,,,OpenStreetMap
 ,151.211762,-33.81937,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1530597741,,,OpenStreetMap
 ,151.211656,-33.819358,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Plateau,,,,,North Sydney,w1530597739,,,OpenStreetMap
-,151.211746,-33.819092,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592948,,,OpenStreetMap
+,151.211746,-33.819092,1920,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592948,,,OpenStreetMap
 ,151.2114,-33.81879,1962,1961,1964,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP574,North Sydney,w1530592917,,,OpenStreetMap
 ,151.211517,-33.818558,2003,2003,2006,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,4.9,OpenStreetMap,SP73644,North Sydney,w1530592920,,,OpenStreetMap
 ,151.212029,-33.818874,1972,1971,1978,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP19599,North Sydney,w1530597727,,,OpenStreetMap
-,151.211903,-33.818951,1925,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.5,OpenStreetMap,,North Sydney,w1530597726,,,OpenStreetMap
-,151.211774,-33.81901,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597725,,,OpenStreetMap
+,151.211903,-33.818951,1930,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,4.5,OpenStreetMap,,North Sydney,w1530597726,,,OpenStreetMap
+,151.211774,-33.81901,1917,1915,1927,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597725,,,OpenStreetMap
 ,151.211984,-33.819165,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592947,,,OpenStreetMap
 ,151.212094,-33.819096,1974,1971,1978,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP19599,North Sydney,w1530597734,,,OpenStreetMap
 ,151.212382,-33.819116,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592952,,,OpenStreetMap
@@ -12259,8 +12259,8 @@ Cammeray Substation,151.21267,-33.819527,1915,1915,1915,1891–1918 Depression a
 ,151.212599,-33.819161,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592953,,,OpenStreetMap
 ,151.21283,-33.818986,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210313,,,OpenStreetMap
 ,151.212929,-33.818936,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210312,,,OpenStreetMap
-,151.212946,-33.818628,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210314,,,OpenStreetMap
-,151.212519,-33.818713,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597730,,,OpenStreetMap
+,151.212946,-33.818628,1916,1915,1927,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1531210314,,,OpenStreetMap
+,151.212519,-33.818713,1916,1915,1926,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597730,,,OpenStreetMap
 ,151.212379,-33.818839,1969,1964,1971,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP9525,North Sydney,w1530597729,,,OpenStreetMap
 ,151.212345,-33.818247,2014,2012,2015,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP88989,North Sydney,w1530592923,,,OpenStreetMap
 ,151.21293,-33.818464,2020,2019,2022,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,,,SP103280,North Sydney,w1531209801,,,OpenStreetMap
@@ -12269,9 +12269,9 @@ Cammeray Substation,151.21267,-33.819527,1915,1915,1915,1891–1918 Depression a
 ,151.211998,-33.8184,2005,2003,2006,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP73644,North Sydney,w1530592922,,,OpenStreetMap
 ,151.211757,-33.818479,2005,2003,2006,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP73644,North Sydney,w1530592921,,,OpenStreetMap
 ,151.211243,-33.81854,1963,1961,1964,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP574,North Sydney,w1530592918,,,OpenStreetMap
-,151.211222,-33.818663,1916,1915,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592919,,,OpenStreetMap
+,151.211222,-33.818663,1916,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592919,,,OpenStreetMap
 ,151.211342,-33.818713,1963,1961,1964,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP574,North Sydney,w1530592916,,,OpenStreetMap
-,151.211278,-33.818812,1946,1915,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592915,,,OpenStreetMap
+,151.211278,-33.818812,1930,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592915,,,OpenStreetMap
 ,151.211121,-33.818864,2016,2015,2018,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,,,SP94695,North Sydney,w1530592914,,,OpenStreetMap
 ,151.210729,-33.818917,1986,1981,1988,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,1,3.2,OpenStreetMap storeys,SP32961,North Sydney,w1530592913,,,OpenStreetMap
 ,151.210708,-33.819014,1983,1981,1988,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,3,2.5,OpenStreetMap,SP32961,North Sydney,w1530592912,,,OpenStreetMap
@@ -12279,46 +12279,46 @@ Cammeray Substation,151.21267,-33.819527,1915,1915,1915,1891–1918 Depression a
 ,151.210289,-33.81917,1978,1972,1979,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP20544,North Sydney,w1530592908,,,OpenStreetMap
 ,151.209971,-33.818943,1970,1968,1975,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP15481,North Sydney,w1530592906,,,OpenStreetMap
 ,151.20993,-33.819106,1970,1968,1975,1961–1975 The first towers,strata plan,NSW cadastre,,,,,4.1,OpenStreetMap,SP15481,North Sydney,w1530592905,,,OpenStreetMap
-,151.208689,-33.819152,1881,1874,1915,1870–1890 The boom years,heritage area estimate,heritage area,Local heritage item,House,,,,,,North Sydney,w1530592868,,,OpenStreetMap
+,151.208689,-33.819152,1883,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,Local heritage item,House,,,,,,North Sydney,w1530592868,,,OpenStreetMap
 ,151.209259,-33.818987,1913,1874,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,House,,,,,SP98749,North Sydney,w1530592869,,,OpenStreetMap
 ,151.209464,-33.819287,1973,1967,1974,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP13685,North Sydney,w1530592873,,,OpenStreetMap
-,151.209432,-33.819459,1932,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592870,,,OpenStreetMap
+,151.209432,-33.819459,1944,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592870,,,OpenStreetMap
 ,151.208929,-33.819375,1967,1963,1970,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP8944,North Sydney,w1530592865,,,OpenStreetMap
 ,151.209135,-33.819398,1935,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592866,,,OpenStreetMap
-,151.20908,-33.819616,1884,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592867,,,OpenStreetMap
-,151.209383,-33.81968,1908,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592872,,,OpenStreetMap
-,151.209404,-33.819577,1931,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592871,,,OpenStreetMap
+,151.20908,-33.819616,1920,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592867,,,OpenStreetMap
+,151.209383,-33.81968,1932,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592872,,,OpenStreetMap
+,151.209404,-33.819577,1943,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530592871,,,OpenStreetMap
 ,151.209345,-33.819966,1936,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306944,,,OpenStreetMap
-,151.209345,-33.820062,1909,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306945,,,OpenStreetMap
-,151.209297,-33.820143,1952,1874,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306946,,,OpenStreetMap
+,151.209345,-33.820062,1932,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306945,,,OpenStreetMap
+,151.209297,-33.820143,1954,1915,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306946,,,OpenStreetMap
 ,151.209147,-33.820338,1962,1961,1967,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP4297,North Sydney,w1515306932,,,OpenStreetMap
-,151.209116,-33.819963,1939,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306941,,,OpenStreetMap
+,151.209116,-33.819963,1947,1915,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306941,,,OpenStreetMap
 ,151.209011,-33.819901,1943,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306940,,,OpenStreetMap
 ,151.20888,-33.81991,1919,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306939,,,OpenStreetMap
-,151.208662,-33.819864,1880,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306938,,,OpenStreetMap
-,151.208553,-33.819962,1888,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306937,,,OpenStreetMap
+,151.208662,-33.819864,1918,1915,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306938,,,OpenStreetMap
+,151.208553,-33.819962,1922,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306937,,,OpenStreetMap
 ,151.208652,-33.820112,1976,1973,1980,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP21898,North Sydney,w1515306935,,,OpenStreetMap
 ,151.208749,-33.82045,1993,1992,1995,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP45687,North Sydney,w1515306934,,,OpenStreetMap
 ,151.208488,-33.820351,1993,1992,1995,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP45687,North Sydney,w1515306933,,,OpenStreetMap
-,151.208019,-33.820001,1901,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306818,,,OpenStreetMap
+,151.208019,-33.820001,1929,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306818,,,OpenStreetMap
 ,151.208671,-33.819505,1974,1973,1980,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP22307,North Sydney,w1530592864,,,OpenStreetMap
-,151.207325,-33.819381,1945,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306794,,,OpenStreetMap
+,151.207325,-33.819381,1950,1915,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306794,,,OpenStreetMap
 ,151.207576,-33.819372,1974,1973,1980,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP22097,North Sydney,w1515306795,,,OpenStreetMap
-,151.207718,-33.82007,1913,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306819,,,OpenStreetMap
-,151.20797,-33.820116,1909,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306817,,,OpenStreetMap
-,151.207992,-33.820232,1908,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306815,,,OpenStreetMap
-,151.207889,-33.820335,1943,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306814,,,OpenStreetMap
-,151.207767,-33.820241,1938,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306816,,,OpenStreetMap
-,151.207613,-33.820081,1901,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306820,,,OpenStreetMap
+,151.207718,-33.82007,1934,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306819,,,OpenStreetMap
+,151.20797,-33.820116,1932,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306817,,,OpenStreetMap
+,151.207992,-33.820232,1932,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306815,,,OpenStreetMap
+,151.207889,-33.820335,1949,1915,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306814,,,OpenStreetMap
+,151.207767,-33.820241,1947,1915,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306816,,,OpenStreetMap
+,151.207613,-33.820081,1928,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306820,,,OpenStreetMap
 ,151.207172,-33.820412,1921,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306806,,,OpenStreetMap
-,151.207211,-33.820052,1901,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306824,,,OpenStreetMap
-,151.207315,-33.820068,1879,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306823,,,OpenStreetMap
-,151.207414,-33.820076,1910,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306822,,,OpenStreetMap
-,151.207514,-33.820073,1943,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306821,,,OpenStreetMap
-,151.206879,-33.82004,1900,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306827,,,OpenStreetMap
-,151.20675,-33.820022,1876,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306828,,,OpenStreetMap
-,151.207,-33.820042,1876,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306826,,,OpenStreetMap
-,151.207098,-33.820049,1935,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306825,,,OpenStreetMap
+,151.207211,-33.820052,1928,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306824,,,OpenStreetMap
+,151.207315,-33.820068,1918,1915,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306823,,,OpenStreetMap
+,151.207414,-33.820076,1933,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306822,,,OpenStreetMap
+,151.207514,-33.820073,1949,1915,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306821,,,OpenStreetMap
+,151.206879,-33.82004,1928,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306827,,,OpenStreetMap
+,151.20675,-33.820022,1916,1915,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306828,,,OpenStreetMap
+,151.207,-33.820042,1916,1915,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306826,,,OpenStreetMap
+,151.207098,-33.820049,1945,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306825,,,OpenStreetMap
 ,151.206964,-33.820366,1954,1874,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306804,,,OpenStreetMap
 ,151.206869,-33.820368,1891,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306803,,,OpenStreetMap
 ,151.206777,-33.820358,1953,1874,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306802,,,OpenStreetMap
@@ -12328,9 +12328,9 @@ Cammeray Substation,151.21267,-33.819527,1915,1915,1915,1891–1918 Depression a
 ,151.206487,-33.820314,1928,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306798,,,OpenStreetMap
 ,151.206394,-33.8203,1879,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306797,,,OpenStreetMap
 ,151.206556,-33.819996,1977,1972,1979,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP21379,North Sydney,w1515306829,,,OpenStreetMap
-,151.20693,-33.819402,1882,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306791,,,OpenStreetMap
+,151.20693,-33.819402,1919,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306791,,,OpenStreetMap
 ,151.207126,-33.819416,1985,1981,1988,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP32687,North Sydney,w1515306793,,,OpenStreetMap
-,151.206958,-33.819263,1940,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306790,,,OpenStreetMap
+,151.206958,-33.819263,1948,1915,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306790,,,OpenStreetMap
 ,151.207146,-33.819266,1983,1981,1988,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP32687,North Sydney,w1515306792,,,OpenStreetMap
 ,151.203087,-33.820193,1953,1915,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363420,,,OpenStreetMap
 ,151.206303,-33.820271,1926,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306796,,,OpenStreetMap
@@ -12369,25 +12369,25 @@ Cammeray Substation,151.21267,-33.819527,1915,1915,1915,1891–1918 Depression a
 ,151.206126,-33.822066,1997,1996,1999,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP57844,North Sydney,w1511363434,,,OpenStreetMap
 ,151.206205,-33.82208,1998,1996,1999,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP57844,North Sydney,w1511363437,,,OpenStreetMap
 ,151.206269,-33.8221,1997,1996,1999,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP57844,North Sydney,w1511363435,,,OpenStreetMap
-,151.205188,-33.822289,1875,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196796,,,OpenStreetMap
-,151.20517,-33.822495,1907,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196819,,,OpenStreetMap
-,151.205067,-33.822472,1918,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196818,,,OpenStreetMap
-,151.205298,-33.822491,1907,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196820,,,OpenStreetMap
-,151.205413,-33.822528,1875,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196821,,,OpenStreetMap
-,151.205298,-33.822887,1879,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381324,,,OpenStreetMap
-,151.205163,-33.822888,1880,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381316,,,OpenStreetMap
-,151.205024,-33.822872,1894,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381315,,,OpenStreetMap
-,151.204893,-33.822863,1877,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381325,,,OpenStreetMap
-,151.204766,-33.822825,1877,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381328,,,OpenStreetMap
-,151.204661,-33.822825,1885,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381330,,,OpenStreetMap
-,151.204846,-33.822457,1883,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196816,,,OpenStreetMap
-,151.204964,-33.822441,1908,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196817,,,OpenStreetMap
-,151.204746,-33.822434,1909,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196815,,,OpenStreetMap
-,151.204653,-33.822277,1920,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196793,,,OpenStreetMap
-,151.204798,-33.822254,1885,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196794,,,OpenStreetMap
+,151.205188,-33.822289,1875,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196796,,,OpenStreetMap
+,151.20517,-33.822495,1908,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196819,,,OpenStreetMap
+,151.205067,-33.822472,1919,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196818,,,OpenStreetMap
+,151.205298,-33.822491,1907,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196820,,,OpenStreetMap
+,151.205413,-33.822528,1875,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196821,,,OpenStreetMap
+,151.205298,-33.822887,1879,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381324,,,OpenStreetMap
+,151.205163,-33.822888,1880,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381316,,,OpenStreetMap
+,151.205024,-33.822872,1894,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381315,,,OpenStreetMap
+,151.204893,-33.822863,1877,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381325,,,OpenStreetMap
+,151.204766,-33.822825,1877,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381328,,,OpenStreetMap
+,151.204661,-33.822825,1885,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381330,,,OpenStreetMap
+,151.204846,-33.822457,1883,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196816,,,OpenStreetMap
+,151.204964,-33.822441,1908,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196817,,,OpenStreetMap
+,151.204746,-33.822434,1910,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196815,,,OpenStreetMap
+,151.204653,-33.822277,1921,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196793,,,OpenStreetMap
+,151.204798,-33.822254,1886,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196794,,,OpenStreetMap
 ,151.204651,-33.822117,1880,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196788,,,OpenStreetMap
 ,151.204862,-33.822034,1918,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196809,,,OpenStreetMap
-,151.204903,-33.822272,1908,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196795,,,OpenStreetMap
+,151.204903,-33.822272,1909,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196795,,,OpenStreetMap
 ,151.204698,-33.821887,1917,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196808,,,OpenStreetMap
 ,151.204586,-33.82179,1885,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196779,,,OpenStreetMap
 ,151.204557,-33.821971,1875,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196783,,,OpenStreetMap
@@ -12400,21 +12400,21 @@ Cammeray Substation,151.21267,-33.819527,1915,1915,1915,1891–1918 Depression a
 ,151.203886,-33.821682,1970,1968,1975,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP15164,North Sydney,w813349680,,,OpenStreetMap
 ,151.20383,-33.82187,1878,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919964706,,,OpenStreetMap
 ,151.203828,-33.822273,1902,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964708,,,OpenStreetMap
-,151.204327,-33.822189,1916,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196790,,,OpenStreetMap
-,151.204223,-33.822173,1891,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196789,,,OpenStreetMap
+,151.204327,-33.822189,1917,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196790,,,OpenStreetMap
+,151.204223,-33.822173,1892,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196789,,,OpenStreetMap
 ,151.2043,-33.822036,1909,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196797,,,OpenStreetMap
 ,151.20436,-33.821982,1934,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196799,,,OpenStreetMap
 ,151.204482,-33.822086,1883,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196787,,,OpenStreetMap
 ,151.20454,-33.82205,1950,1874,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196785,,,OpenStreetMap
 ,151.204534,-33.822012,1910,1874,1955,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196784,,,OpenStreetMap
 ,151.20453,-33.822093,1929,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196786,,,OpenStreetMap
-,151.204513,-33.822212,1926,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196791,,,OpenStreetMap
-,151.204454,-33.822242,1907,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196792,,,OpenStreetMap
-,151.204619,-33.822422,1885,1874,1926,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196814,,,OpenStreetMap
-,151.204508,-33.822386,1900,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196813,,,OpenStreetMap
-,151.204401,-33.822374,1905,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196812,,,OpenStreetMap
-,151.204291,-33.822359,1925,1874,1926,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196811,,,OpenStreetMap
-,151.204608,-33.822826,1912,1874,1926,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381329,,,OpenStreetMap
+,151.204513,-33.822212,1927,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196791,,,OpenStreetMap
+,151.204454,-33.822242,1908,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196792,,,OpenStreetMap
+,151.204619,-33.822422,1885,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196814,,,OpenStreetMap
+,151.204508,-33.822386,1901,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196813,,,OpenStreetMap
+,151.204401,-33.822374,1905,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196812,,,OpenStreetMap
+,151.204291,-33.822359,1926,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511196811,,,OpenStreetMap
+,151.204608,-33.822826,1913,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w1511381329,,,OpenStreetMap
 ,151.204287,-33.822785,1918,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964782,,,OpenStreetMap
 ,151.204027,-33.822743,1911,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964780,,,OpenStreetMap
 ,151.204159,-33.82275,1925,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964781,,,OpenStreetMap
@@ -12437,31 +12437,31 @@ Cammeray Substation,151.21267,-33.819527,1915,1915,1915,1891–1918 Depression a
 ,151.203452,-33.822173,1891,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964711,,,OpenStreetMap
 ,151.203576,-33.822246,1910,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964710,,,OpenStreetMap
 ,151.203682,-33.822232,1895,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964709,,,OpenStreetMap
-,151.20377,-33.821986,1903,1889,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919964707,,,OpenStreetMap
+,151.20377,-33.821986,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919964707,,,OpenStreetMap
 ,151.203618,-33.821802,1954,1874,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196778,,,OpenStreetMap
 ,151.20299,-33.821377,2001,1972,2010,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1508893162,,,OpenStreetMap
 ,151.203559,-33.821451,1989,1984,1991,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP37774,North Sydney,w919964704,,,OpenStreetMap
 ,151.203609,-33.821643,1973,1968,1975,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP15164,North Sydney,w813349679,,,OpenStreetMap
 ,151.203888,-33.821501,1986,1984,1991,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP37774,North Sydney,w919964705,,,OpenStreetMap
 ,151.203832,-33.821215,1967,1915,1988,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,4.8,OpenStreetMap,,North Sydney,w813349678,,,OpenStreetMap
-,151.203542,-33.82047,1973,1915,2010,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919964746,,,OpenStreetMap
+,151.203542,-33.82047,1977,1927,2010,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919964746,,,OpenStreetMap
 ,151.203808,-33.82079,1886,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363423,,,OpenStreetMap
-,151.203547,-33.820761,1883,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363422,,,OpenStreetMap
+,151.203547,-33.820761,1884,1874,1964,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363422,,,OpenStreetMap
 ,151.203436,-33.821019,1963,1961,1967,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP4123,North Sydney,w919964756,,,OpenStreetMap
-,151.203239,-33.82048,1881,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363421,,,OpenStreetMap
+,151.203239,-33.82048,1919,1915,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363421,,,OpenStreetMap
 ,151.2027,-33.820495,2022,2022,2025,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,2.5,OpenStreetMap,SP108404,North Sydney,,,,Microsoft ML (via Overture)
 ,151.202756,-33.820768,2018,1964,2021,2015– Barangaroo and Green Square,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919964750,,,OpenStreetMap
 ,151.202833,-33.820965,1982,1964,2021,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919964752,,,OpenStreetMap
 ,151.202678,-33.820981,2013,1964,2021,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919964753,,,OpenStreetMap
 ,151.202727,-33.820866,2007,1964,2021,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919964751,,,OpenStreetMap
-,151.202524,-33.821618,1953,1874,1955,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306786,,,OpenStreetMap
-,151.202437,-33.82145,1923,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306783,,,OpenStreetMap
+,151.202524,-33.821618,1963,1915,1964,1961–1975 The first towers,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306786,,,OpenStreetMap
+,151.202437,-33.82145,1944,1915,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306783,,,OpenStreetMap
 ,151.202698,-33.821091,1995,1964,2010,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w919964754,,,OpenStreetMap
 ,151.202669,-33.821361,2009,2008,2011,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP84428,North Sydney,w919964755,,,OpenStreetMap
-,151.202554,-33.821515,1936,1874,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306784,,,OpenStreetMap
-,151.202742,-33.821631,1887,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306787,,,OpenStreetMap
-,151.202743,-33.821516,1884,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306785,,,OpenStreetMap
-,151.202518,-33.821738,1883,1874,1955,1870–1890 The boom years,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306788,,,OpenStreetMap
+,151.202554,-33.821515,1952,1915,1964,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306784,,,OpenStreetMap
+,151.202742,-33.821631,1923,1915,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306787,,,OpenStreetMap
+,151.202743,-33.821516,1921,1915,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306785,,,OpenStreetMap
+,151.202518,-33.821738,1921,1915,1964,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1515306788,,,OpenStreetMap
 ,151.202509,-33.822045,1927,1874,1927,1919–1945 Interwar and the Bridge,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964716,,,OpenStreetMap
 ,151.20237,-33.822006,1898,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964717,,,OpenStreetMap
 ,151.202713,-33.822009,1977,1972,1979,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,Holtermann Estate A,,,,SP20575,North Sydney,w919964715,,,OpenStreetMap
@@ -12486,7 +12486,7 @@ Cammeray Substation,151.21267,-33.819527,1915,1915,1915,1891–1918 Depression a
 ,151.201567,-33.822828,1877,1874,1927,1870–1890 The boom years,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964692,,,OpenStreetMap
 ,151.20156,-33.822501,1903,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964693,,,OpenStreetMap
 ,151.201615,-33.822364,1913,1874,1927,1891–1918 Depression and Federation,heritage area estimate,heritage area,,,Holtermann Estate A,,,,,North Sydney,w919964694,,,OpenStreetMap
-,151.201278,-33.822277,1940,1915,1972,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1477373128,,,OpenStreetMap
+,151.201278,-33.822277,1947,1926,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1477373128,,,OpenStreetMap
 ,151.201174,-33.822442,2000,1987,2016,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w977157648,,,OpenStreetMap
 Excen Corporate Centre,151.201238,-33.822611,2009,1990,2016,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w977157647,,,OpenStreetMap
 ,151.201246,-33.822731,2008,1997,2018,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,3,9.6,OpenStreetMap storeys,,North Sydney,w977157646,,,OpenStreetMap
@@ -12494,33 +12494,33 @@ Excen Corporate Centre,151.201238,-33.822611,2009,1990,2016,2000–2014 The apar
 ,151.201237,-33.822874,2012,1999,2018,2000–2014 The apartment city,estimated from neighbours,neighbours,,,,,,,,North Sydney,w977157645,,,OpenStreetMap
 Element,151.200644,-33.822617,2016,2014,2017,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,4,12.8,OpenStreetMap storeys,SP92639,North Sydney,w595444753,,,OpenStreetMap
 ,151.20064,-33.82281,1958,1926,1999,1946–1960 Post-war,estimated from neighbours,neighbours,,,,1,3.2,OpenStreetMap storeys,,North Sydney,w595444754,,,OpenStreetMap
-,151.200649,-33.822322,1962,1915,1990,1961–1975 The first towers,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w595444752,,,OpenStreetMap
+,151.200649,-33.822322,1966,1926,1990,1961–1975 The first towers,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w595444752,,,OpenStreetMap
 ,151.200309,-33.822332,1974,1972,2000,1961–1975 The first towers,estimated from neighbours,neighbours,,,,2,6.4,OpenStreetMap storeys,,North Sydney,w595444756,,,OpenStreetMap
 ,151.200099,-33.822334,2006,2003,2006,2000–2014 The apartment city,strata plan,NSW cadastre,,,,5,16.0,OpenStreetMap storeys,SP74974,North Sydney,w595444757,,,OpenStreetMap
 ,151.200215,-33.822698,2024,2021,2024,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,,,SP105547,North Sydney,w595444755,,,OpenStreetMap
 ,151.199829,-33.822622,1974,1971,1978,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP19705,North Sydney,w1511196688,,,OpenStreetMap
 ,151.199843,-33.822783,1975,1971,1978,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP19705,North Sydney,w1511196689,,,OpenStreetMap
-,151.199685,-33.822673,1960,1926,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196690,,,OpenStreetMap
+,151.199685,-33.822673,1960,1927,1972,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511196690,,,OpenStreetMap
 ,151.199881,-33.822329,1999,1998,2001,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP61996,North Sydney,w1511196686,,,OpenStreetMap
 ,151.199651,-33.822325,1997,1997,2000,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP61242,North Sydney,w1511196685,,,OpenStreetMap
 ,151.202879,-33.820305,2024,2022,2025,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,,,SP106888,North Sydney,w1434260818,,,OpenStreetMap
-,151.20294,-33.820172,1942,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363419,,,OpenStreetMap
-,151.202802,-33.820142,1940,1915,1955,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363418,,,OpenStreetMap
+,151.20294,-33.820172,1949,1915,1964,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363419,,,OpenStreetMap
+,151.202802,-33.820142,1947,1915,1965,1946–1960 Post-war,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1511363418,,,OpenStreetMap
 ,151.212522,-33.81765,1915,1915,1915,1891–1918 Depression and Federation,heritage area estimate,heritage area,Local heritage item,Suspension bridge,,,,,,North Sydney,w1226417944,,,OpenStreetMap
-,151.213086,-33.817703,1916,1915,1927,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597818,,,OpenStreetMap
-,151.21322,-33.817706,1918,1915,1927,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597819,,,OpenStreetMap
+,151.213086,-33.817703,1917,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597818,,,OpenStreetMap
+,151.21322,-33.817706,1920,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597819,,,OpenStreetMap
 ,151.213376,-33.817657,2019,2017,2020,2015– Barangaroo and Green Square,strata plan,NSW cadastre,,,,,,,SP98384,North Sydney,w1530597820,,,OpenStreetMap
-,151.213554,-33.817615,1924,1915,1927,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597821,,,OpenStreetMap
+,151.213554,-33.817615,1930,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597821,,,OpenStreetMap
 ,151.213727,-33.817537,2008,2007,2010,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP82198,North Sydney,w1530597822,,,OpenStreetMap
 ,151.214448,-33.817132,1992,1984,2009,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,3.1,OpenStreetMap,,North Sydney,,,,Microsoft ML (via Overture)
 ,151.214534,-33.817316,1985,1980,1987,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP32112,North Sydney,w1530597830,,,OpenStreetMap
-,151.214359,-33.817511,1916,1915,1919,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597827,,,OpenStreetMap
-,151.213903,-33.81743,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597823,,,OpenStreetMap
+,151.214359,-33.817511,1918,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597827,,,OpenStreetMap
+,151.213903,-33.81743,1925,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597823,,,OpenStreetMap
 ,151.214003,-33.817533,2010,2007,2010,2000–2014 The apartment city,strata plan,NSW cadastre,,,,,,,SP82019,North Sydney,w1530597824,,,OpenStreetMap
-,151.214139,-33.817483,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597825,,,OpenStreetMap
-,151.214256,-33.81748,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597826,,,OpenStreetMap
-,151.214194,-33.817643,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597828,,,OpenStreetMap
-,151.214121,-33.81765,1915,1915,1915,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597829,,,OpenStreetMap
+,151.214139,-33.817483,1926,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597825,,,OpenStreetMap
+,151.214256,-33.81748,1918,1915,1934,1891–1918 Depression and Federation,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597826,,,OpenStreetMap
+,151.214194,-33.817643,1933,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597828,,,OpenStreetMap
+,151.214121,-33.81765,1929,1915,1934,1919–1945 Interwar and the Bridge,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1530597829,,,OpenStreetMap
 ,151.214713,-33.817393,1984,1984,1991,1976–1999 Darling Harbour to the Games,strata plan,NSW cadastre,,,,,,,SP37396,North Sydney,w1530597831,,,OpenStreetMap
 ,151.215062,-33.817452,1962,1962,1969,1961–1975 The first towers,strata plan,NSW cadastre,,,,,,,SP6861,North Sydney,w1530597832,,,OpenStreetMap
 ,151.214164,-33.815911,1989,1984,2009,1976–1999 Darling Harbour to the Games,estimated from neighbours,neighbours,,,,,,,,North Sydney,w1310838724,,,OpenStreetMap
