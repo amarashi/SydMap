@@ -22,16 +22,22 @@ const GROUP_COLORS = ['#c0594e', '#2a7f93', '#d9a22c', '#5e8f4a', '#6b4a8c', '#c
 const MAX_GROUPS = GROUP_COLORS.length;
 const ATTR_W = 256;
 const WORKERS = Math.min(4, navigator.hardwareConcurrency || 2);
-const MODE = { period: 0, floors: 1, heritage: 2, layers: 3 };
+const MODE = { period: 0, floors: 1, heritage: 2, layers: 3, suburbs: 4 };
+// The Suburbs lens: one hue, light to dark, from the newest age's dusk violet (clear of the Heights lens's teal); its
+// light end stays clear of the white of a suburb with no figure (checked with the dataviz validator, --ordinal).
+const SUB_RAMP = ['#bcadd4', '#9a85c1', '#7860a5', '#553b80', '#2b1d45'];
+const SUB_W = 512;                                  // buildings per row of the building-to-suburb texture
 // Drawn icons, in the line icons' stroke (styles.css .x, .arrow).
 const CLOSE = '<svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>';
 const BACK = '<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3.5M7.5 4L3.5 8l4 4"/></svg>';
 const REPO = 'https://github.com/amarashi/SydMap';
 
-const [config, layers, attrBuf] = await Promise.all([
+const [config, layers, attrBuf, subData, subOf] = await Promise.all([
   fetch('data/sydney.json').then(r => r.json()),
   fetch('data/layers.json').then(r => r.json()),
   fetch('data/attrs.bin').then(r => r.arrayBuffer()),
+  fetch('data/suburbs.json').then(r => r.json()).catch(() => null),
+  fetch('data/suburbs.bin').then(r => r.arrayBuffer()).then(b => new Uint8Array(b)).catch(() => null),
 ]);
 const attrs = new DataView(attrBuf);
 const HERITAGE_COLORS = config.heritage.colors;
@@ -242,6 +248,26 @@ function updateLabels(dist) {
 
 // ---------- Shared uniforms ----------
 const col = c => new THREE.Color(c);
+// A ramp of evenly spaced colours as a GLSL function of 0–1.
+function glslRamp(name, hexes) {
+  const v = hexes.map(h => { const c = col(h); return `vec3(${c.r.toFixed(3)}, ${c.g.toFixed(3)}, ${c.b.toFixed(3)})`; });
+  const n = v.length - 1;
+  return `vec3 ${name}(float t) { t = clamp(t, 0.0, 1.0) * ${n}.0;
+    ${v.slice(0, -1).map((a, i) => `if (t <= ${i + 1}.0) return mix(${a}, ${v[i + 1]}, t - ${i}.0);`).join(' ')}
+    return ${v[n]}; }`;
+}
+// The Suburbs lens's lookups: building to suburb (by gid, SUB_W a row), and the suburbs' values, refilled each year.
+const nB = attrBuf.byteLength / config.attrStride;
+const subOk = !!(subData && subOf && subOf.length === nB);
+const subOfTex = (() => {
+  const rows = Math.ceil(nB / SUB_W), d = new Float32Array(SUB_W * rows).fill(255);
+  if (subOk) d.set(subOf);
+  const t = new THREE.DataTexture(d, SUB_W, rows, THREE.RedFormat, THREE.FloatType);
+  t.needsUpdate = true;
+  return t;
+})();
+const subValTex = new THREE.DataTexture(new Float32Array(256).fill(-1), 256, 1, THREE.RedFormat, THREE.FloatType);
+subValTex.needsUpdate = true;
 const uniforms = {
   uYear: { value: config.yearMax },
   uYearFrom: { value: config.yearMin - 1 },
@@ -260,13 +286,59 @@ const uniforms = {
   uHover: { value: -1 },
   uSelected: { value: -1 },
   uBlind: { value: 0 },
+  uSubOf: { value: subOfTex },                     // each building's suburb (s10_suburbs), 255 none
+  uSubVal: { value: subValTex },                   // each suburb's measure in the year, 0–1 along the ramp, -1 none
   uFogColor: { value: col(SKY) },
   uFog: { value: new THREE.Vector2(9000, 26000) },
 };
 
+// The Suburbs lens's ground: each suburb's land tinted by its value, with its outline in white (pipeline/s10_suburbs.py).
+// The polygons share land.bin's layout; subData.poly names the suburb of each.
+const subGround = new THREE.Group();
+subGround.visible = false;
+flat.add(subGround);
+if (subOk) {
+  const buf = await (await fetch('data/suburbs-land.bin')).arrayBuffer();
+  const [nPoly, nRing, nVert] = new Uint32Array(buf, 0, 3);
+  const ringStart = new Uint32Array(buf, 12, nPoly + 1);
+  const vertStart = new Uint32Array(buf, 12 + 4 * (nPoly + 1), nRing + 1);
+  const xz = new Float32Array(buf, 12 + 4 * (nPoly + 1) + 4 * (nRing + 1), 2 * nVert);
+  const ring = r => Array.from({ length: vertStart[r + 1] - vertStart[r] }, (_, k) => new THREE.Vector2(xz[2 * (vertStart[r] + k)], -xz[2 * (vertStart[r] + k) + 1]));
+  const pos = [], sub = [], idx = [], line = [];
+  for (let p = 0; p < nPoly; p++) {
+    const outer = ring(ringStart[p]), holes = [];
+    for (let r = ringStart[p] + 1; r < ringStart[p + 1]; r++) holes.push(ring(r));
+    const base = pos.length / 3, pts = [outer, ...holes].flat();
+    for (const v of pts) { pos.push(v.x, 0, -v.y); sub.push(subData.poly[p]); }
+    for (const t of THREE.ShapeUtils.triangulateShape(outer, holes)) idx.push(base + t[0], base + t[1], base + t[2]);
+    for (const r of [outer, ...holes]) r.forEach((v, k) => { const w = r[(k + 1) % r.length]; line.push(v.x, 0, -v.y, w.x, 0, -w.y); });
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute('sub', new THREE.Float32BufferAttribute(sub, 1));
+  g.setIndex(idx);
+  const fill = new THREE.Mesh(g, new THREE.ShaderMaterial({
+    glslVersion: THREE.GLSL3,
+    uniforms: { uLand: { value: col(LAND) }, uWall: { value: col(SKY) }, uFadeRange: { value: new THREE.Vector2(650, 1600) }, uSubVal: uniforms.uSubVal, ...EDGE },
+    vertexShader: `in float sub; out vec2 vXZ; flat out int vSub;
+      void main() { vec4 w = modelMatrix * vec4(position, 1.0); vXZ = w.xz; vSub = int(sub + 0.5); gl_Position = projectionMatrix * viewMatrix * w; }`,
+    fragmentShader: `uniform vec3 uLand, uWall; uniform sampler2D uSubVal; in vec2 vXZ; flat in int vSub; out vec4 outColor;
+      ${EDGE_GLSL.replace(/texture2D/g, 'texture')} ${glslRamp('subRamp', SUB_RAMP)}
+      void main() { float v = texelFetch(uSubVal, ivec2(vSub, 0), 0).r;
+        vec3 c = v < 0.0 ? uLand : mix(uLand, subRamp(v), 0.5);
+        outColor = vec4(mix(c, uWall, edgeFade(vXZ)), 1.0); }`,
+  }));
+  fill.position.y = -0.03;
+  const lineGeo = new THREE.BufferGeometry();
+  lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(line, 3));
+  const outline = new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.9 }));
+  outline.position.y = 0.05;
+  subGround.add(fill, outline);
+}
+
 const VERT = /* glsl */`
   in float bld;
-  uniform sampler2D uAttr;
+  uniform sampler2D uAttr, uSubOf, uSubVal;
   uniform float uYear, uYearFrom, uMode, uHover, uSelected, uBlind, uNow, uBorn, uPlaying, uRise, uLayerAt, uDocOnly;
   uniform vec3 uPalette[${periods.length}];
   uniform float uMask[${periods.length}];
@@ -285,6 +357,8 @@ const VERT = /* glsl */`
     vec3 a = vec3(0.89, 0.925, 0.925), b = vec3(0.576, 0.718, 0.741), c = vec3(0.204, 0.353, 0.376), d = vec3(0.075, 0.157, 0.169);
     return t < 0.33 ? mix(a, b, t / 0.33) : t < 0.66 ? mix(b, c, (t - 0.33) / 0.33) : mix(c, d, (t - 0.66) / 0.34);
   }
+
+  ${glslRamp('subRamp', SUB_RAMP)}
 
   bool hasBit(vec4 words, int bit) {
     int w = bit / 16;
@@ -333,7 +407,7 @@ const VERT = /* glsl */`
       c = floorsRamp(mod(a.z, 128.0));
     } else if (uMode < 2.5) {
       c = uHeritage[int(a.z / 128.0)];
-    } else {
+    } else if (uMode < 3.5) {
       c = uMaquette;
       for (int g = 0; g < ${MAX_GROUPS}; g++) {
         if (uGroupBit[g] >= 0 && hasBit(lay, uGroupBit[g])) {
@@ -345,6 +419,11 @@ const VERT = /* glsl */`
           break;
         }
       }
+    } else {
+      int gi = int(a.w + 0.5);
+      float s = texelFetch(uSubOf, ivec2(gi % ${SUB_W}, gi / ${SUB_W}), 0).r;
+      float v = s > 254.5 ? -1.0 : texelFetch(uSubVal, ivec2(int(s + 0.5), 0), 0).r;
+      c = v < 0.0 ? uMaquette : subRamp(v);
     }
     // The Opera House's shells, a lighter tint of its colour: white tiles over a granite podium.
     if (shaped) c = mix(c, vec3(1.0), 0.3);
@@ -604,8 +683,11 @@ function showTip(gid, x, y) {
   if (phone.matches || gid < 0 || cardsLocked() || gid === pinnedGid) { tip.hidden = true; hoverGid = -1; return; }
   if (gid !== hoverGid) {
     hoverGid = gid;
-    const b = building(gid), name = nameOf(b), p = periodOf(b.year);
-    tip.innerHTML = `${name ? `<b>${esc(name)}</b>` : ''}<span>${dot(p.color)}${b.flag >= 1 ? 'c. ' : ''}${b.year} · ${esc(ageParts(p).name)}</span>`;
+    const b = building(gid), name = nameOf(b), p = periodOf(b.year), s = subOfGid(gid);
+    if (uniforms.uMode.value === MODE.suburbs && s >= 0 && measure) {
+      const a = subAt(measure, s, subYear());
+      tip.innerHTML = `<b>${esc(SUBS[s].name)}</b><span>${a ? `${dot(subColor(subT(measure, a.v)))}${fmtM(measure, a.v)} ${esc(measure.unit)}` : `No figure for ${subYear()}`}</span>`;
+    } else tip.innerHTML = `${name ? `<b>${esc(name)}</b>` : ''}<span>${dot(p.color)}${b.flag >= 1 ? 'c. ' : ''}${b.year} · ${esc(ageParts(p).name)}</span>`;
   }
   tip.hidden = false;
   const r = tip.getBoundingClientRect();
@@ -659,6 +741,7 @@ canvas.addEventListener('pointerup', e => {
   const gid = pick(e.clientX, e.clientY);
   if (quest && !solved && qStep().kind === 'find') { questClick(gid); return; }
   if (cardsLocked()) return;
+  if (uniforms.uMode.value === MODE.suburbs && subOfGid(gid) >= 0) { showSuburb(subOfGid(gid), gid, { label: 'All suburbs', go: showSuburbs }); return; }
   if (gid < 0 || gid === pinnedGid) { pinCard(-1); return; }
   openBuilding(gid);
 });
@@ -712,6 +795,7 @@ ready.then(() => {
   const places = new Map();
   for (const L of labelData) if (!places.has(L.name) && L.pts?.length) places.set(L.name, { label: L.name, kind: L.water ? 'water' : 'street', x: L.pts[0][0], z: L.pts[0][1] });
   findIndex.push(...places.values());
+  SUBS.forEach((S, s) => findIndex.push({ label: S.name, kind: 'suburb', s, x: S.x, z: S.z }));
   for (const e of findIndex) e.key = fold(e.label);
 });
 let findHits = [], findAt = -1;
@@ -720,7 +804,7 @@ function search(q) {
   if (k.length < 2) return [];
   const word = new RegExp(`(^|\\s)${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\s|$)`);
   const score = e => word.test(e.key) ? (e.key.startsWith(k) ? 0 : 1) : e.key.startsWith(k) ? 2 : e.key.includes(' ' + k) ? 3 : e.key.includes(k) ? 4 : -1;
-  const rank = e => e.kind === 'building' ? (e.known ? 0 : 2) : 1;
+  const rank = e => e.kind === 'building' ? (e.known ? 0 : 2) : e.kind === 'suburb' ? 0 : 1;
   return findIndex.map(e => [score(e), e]).filter(([s]) => s >= 0)
     .sort((a, b) => a[0] - b[0] || rank(a[1]) - rank(b[1]) || a[1].label.length - b[1].label.length)
     .slice(0, 8).map(([, e]) => e);
@@ -730,7 +814,7 @@ function renderFind() {
   findAt = findHits.length ? 0 : -1;
   const q = findInput.value.trim();
   findList.innerHTML = findHits.length ? findHits.map((e, i) => `<li role="option" id="find-${i}" data-i="${i}" aria-selected="${i === findAt}">
-      <b>${esc(e.label)}</b><small>${e.kind === 'building' ? `Built ${e.year}` : e.kind === 'water' ? 'Water' : 'Street'}</small></li>`).join('')
+      <b>${esc(e.label)}</b><small>${e.kind === 'building' ? `Built ${e.year}` : e.kind === 'water' ? 'Water' : e.kind === 'suburb' ? 'Suburb' : 'Street'}</small></li>`).join('')
     : q.length >= 2 ? `<li class="empty">Nothing by that name on the map.</li>` : '';
   findList.hidden = !findList.innerHTML;
   findInput.setAttribute('aria-expanded', String(!findList.hidden));
@@ -747,6 +831,7 @@ function choose(e) {
   findInput.value = '';
   findInput.blur();
   if (e.kind === 'building') aimFly(e.x, e.z, 420, () => openBuilding(e.gid));
+  else if (e.kind === 'suburb') flySuburb(e.s, () => { if (uniforms.uMode.value === MODE.suburbs) showSuburb(e.s, -1, { label: 'All suburbs', go: showSuburbs }); });
   else aimFly(e.x, e.z, e.kind === 'water' ? 1800 : 900);
 }
 function closeFind() {
@@ -1061,6 +1146,128 @@ function setLayer(L) {
   renderKey(); drawHist();
 }
 
+// ---------- The Suburbs lens ----------
+// Each suburb painted by one measure in the year on the line (pipeline/s10_suburbs.py): its people, how closely they
+// live, their income and schooling, recorded crime and what homes sell for. The buildings and the ground take the
+// suburb's colour; a click opens the suburb, with every measure over the years.
+const SUBS = subOk ? subData.suburbs : [];
+const MEASURES = subOk ? subData.measures : [];
+let measure = MEASURES[0] || null;
+const firstYear = m => m.years[0], lastYear = m => m.years[m.years.length - 1];
+// A measure in a year: that year's figure; for a census, between two censuses, a straight line between them; after the
+// last figure, the last. Before the first, none.
+function subAt(m, s, Y) {
+  const vs = m.values[s];
+  if (!vs) return null;
+  let lo = -1, hi = -1;
+  vs.forEach((v, k) => { if (v === null) return; if (m.years[k] <= Y) lo = k; else if (hi < 0) hi = k; });
+  if (lo < 0) return null;
+  const y0 = m.years[lo];
+  if (y0 === Y || hi < 0 || !m.interp) return { v: vs[lo], y: y0 };
+  const y1 = m.years[hi], f = (Y - y0) / (y1 - y0);
+  return { v: vs[lo] + (vs[hi] - vs[lo]) * f, y: Y, between: [y0, y1] };
+}
+const subT = (m, v) => Math.max(0, Math.min(1, m.log ? Math.log(v / m.domain[0]) / Math.log(m.domain[1] / m.domain[0])
+  : (v - m.domain[0]) / (m.domain[1] - m.domain[0])));
+const subInv = (m, t) => m.log ? m.domain[0] * (m.domain[1] / m.domain[0]) ** t : m.domain[0] + t * (m.domain[1] - m.domain[0]);
+const subColor = t => { const n = SUB_RAMP.length - 1, k = Math.min(n - 1, Math.floor(t * n)); return '#' + col(SUB_RAMP[k]).lerp(col(SUB_RAMP[k + 1]), t * n - k).getHexString(); };
+// A value as people read it: dollars in thousands or millions, shares in per cent, the rest with the measure's decimals.
+function fmtM(m, v, short = false) {
+  if (m.money) return v >= 1e6 ? `$${(v / 1e6).toFixed(v >= 1e7 || short ? 1 : 2)}m` : v >= 1e3 && short ? `$${(v / 1e3).toFixed(v >= 1e4 ? 0 : 1)}k` : `$${fmt(Math.round(v))}`;
+  const d = short && v >= 100 ? 0 : m.decimals;
+  return `${short && v >= 1e4 ? `${(v / 1e3).toFixed(v >= 1e5 ? 0 : 1)}k` : v.toLocaleString('en-AU', { minimumFractionDigits: d, maximumFractionDigits: d })}${m.pct ? '%' : ''}`;
+}
+const subYear = () => Math.min(config.yearMax, Math.round(uniforms.uYear.value));
+// Which year a figure is, in words: "2021", "2019, between the 2016 and 2021 censuses", "none before 2001".
+function yearWords(m, Y = subYear()) {
+  if (Y < firstYear(m)) return `none before ${firstYear(m)}`;
+  if (Y >= lastYear(m)) return `${lastYear(m)}${Y > lastYear(m) ? ', the latest' : ''}`;
+  if (!m.interp || m.years.includes(Y)) return `${Y}`;
+  const a = m.years.filter(y => y < Y).pop(), b = m.years.find(y => y > Y);
+  return `${Y}, read between the ${a} and ${b} ${m.census ? 'censuses' : 'figures'}`;
+}
+function fillSubs() {
+  const d = subValTex.image.data, Y = subYear();
+  d.fill(-1);
+  if (measure) SUBS.forEach((_, s) => { const a = subAt(measure, s, Y); if (a) d[s] = subT(measure, a.v); });
+  subValTex.needsUpdate = true;
+}
+const subOfGid = gid => subOk && gid >= 0 && subOf[gid] !== 255 ? subOf[gid] : -1;
+
+// All suburbs, ranked by the measure in the year.
+function showSuburbs() {
+  const m = measure, Y = subYear();
+  const rows = SUBS.map((S, s) => ({ S, s, a: subAt(m, s, Y) })).sort((p, q) => (q.a?.v ?? -Infinity) - (p.a?.v ?? -Infinity));
+  openDock('suburbs', `<article class="dock-page"><h2 id="dock-title">Suburbs</h2>
+    <p class="lede">${esc(m.what)}</p>
+    <p class="sub-year"><b>${esc(m.label)}</b>, ${esc(yearWords(m, Y))}</p>
+    <ol class="sub-rank">${rows.map(({ S, s, a }) => `<li><button class="sub-row" data-s="${s}"><b>${esc(S.name)}</b>
+      <span class="n">${a ? fmtM(m, a.v) : 'no figure'}</span>
+      <i class="bar"><i style="width:${a ? (4 + 96 * subT(m, a.v)).toFixed(1) : 0}%;background:${a ? subColor(subT(m, a.v)) : 'none'}"></i></i></button></li>`).join('')}</ol>
+    ${m.note ? `<p class="caveat">${esc(m.note)}</p>` : ''}
+    <p class="src">${link(m.source.url, m.source.label)}</p></article>`);
+  dockLive.querySelectorAll('.sub-row').forEach(b => b.onclick = () => {
+    const s = +b.dataset.s;
+    flySuburb(s, () => showSuburb(s, -1, { label: 'All suburbs', go: showSuburbs }));
+  });
+}
+function flySuburb(s, done) {
+  const S = SUBS[s];
+  aimFly(S.x, S.z, Math.max(900, Math.min(4000, Math.sqrt(S.km2) * 1700)), done);
+}
+// A measure's line over the years for one suburb: a dot for each figure, the year on the line marked.
+function spark(m, s, Y) {
+  const pts = m.years.map((y, k) => [y, m.values[s][k]]).filter(([, v]) => v !== null);
+  if (!pts.length) return '<p class="caveat">No figures for this suburb.</p>';
+  const W = 312, H = 64, x0 = firstYear(m), x1 = Math.max(lastYear(m), x0 + 1);
+  const vs = pts.map(p => p[1]), lo = Math.min(...vs), hi = Math.max(...vs), pad = (hi - lo) * 0.12 || Math.abs(hi) * 0.1 || 1;
+  const X = y => 6 + (y - x0) / (x1 - x0) * (W - 12), Yp = v => H - 14 - (v - lo + pad) / (hi - lo + 2 * pad) * (H - 22);
+  const path = pts.map(([y, v], k) => `${k ? 'L' : 'M'}${X(y).toFixed(1)},${Yp(v).toFixed(1)}`).join('');
+  const at = Math.max(x0, Math.min(x1, Y));
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(m.label)}: ${pts.map(([y, v]) => `${y} ${fmtM(m, v)}`).join(', ')}">
+    ${Y >= x0 ? `<line class="now" x1="${X(at)}" x2="${X(at)}" y1="4" y2="${H - 12}"/>` : ''}
+    <path d="${path}"/>
+    ${pts.map(([y, v]) => `<circle cx="${X(y).toFixed(1)}" cy="${Yp(v).toFixed(1)}" r="${pts.length > 12 ? 2 : 3.2}" style="fill:${subColor(subT(m, v))}"><title>${y}: ${fmtM(m, v)}</title></circle>`).join('')}
+    <text x="6" y="${H - 1}">${x0}</text><text x="${W - 6}" y="${H - 1}" text-anchor="end">${lastYear(m)}</text></svg>`;
+}
+// One suburb: every measure, its figure in the year and its line over the years.
+let subOpen = null;
+function showSuburb(s, gid = -1, back = null) {
+  const S = SUBS[s], Y = subYear();
+  subOpen = { s, gid, back };
+  const rank = m => { const a = subAt(m, s, Y); if (!a) return ''; const n = SUBS.filter((_, t) => (subAt(m, t, Y)?.v ?? -Infinity) > a.v).length;
+    const all = SUBS.filter((_, t) => subAt(m, t, Y)).length; return `${n + 1} of ${all} suburbs`; };
+  openDock('suburb', `<article class="dock-page sub-card"><h2 id="dock-title">${esc(S.name)}</h2>
+    <p class="story-era">${S.postcode ? `${S.postcode} · ` : ''}${S.km2.toFixed(2)} km² · <span class="n">${fmt(S.buildings)}</span> buildings on the map</p>
+    ${gid >= 0 ? `<p><button class="pill sub-bld">The building you chose</button></p>` : ''}
+    ${MEASURES.map(m => { const a = subAt(m, s, Y);
+      return `<section class="sub-m${m === measure ? ' on' : ''}"><h3><button class="sub-pick" data-m="${m.key}" aria-pressed="${m === measure}">${esc(m.label)}</button></h3>
+        <p class="sub-val">${a ? `<span class="v">${fmtM(m, a.v)}</span> ${esc(m.unit)}` : '<span class="none">No figure</span>'}<small>${esc(yearWords(m, Y))}${a ? ` · ${rank(m)}` : ''}</small></p>
+        ${spark(m, s, Y)}<p class="src-note">${link(m.source.url, m.source.label)}</p></section>`; }).join('')}
+    <p class="caveat">The figures are for the whole suburb, even where the map shows only part of it.</p></article>`, back);
+  dockLive.querySelector('.sub-bld')?.addEventListener('click', () => openBuilding(gid, { label: S.name, go: () => { unpin(); showSuburb(s, gid, back); } }));
+  dockLive.querySelectorAll('.sub-pick').forEach(b => b.onclick = () => setMeasure(MEASURES.find(m => m.key === b.dataset.m)));
+}
+function setMeasure(m) {
+  measure = m;
+  if (subYear() < firstYear(m)) uniforms.uYear.value = config.yearMax;
+  renderKey(); drawHist();
+}
+// The dock follows the year, without losing its place.
+let subShownYear = null;
+function syncSubs() {
+  fillSubs();
+  const key = `${subYear()} ${measure?.key}`;
+  if (key === subShownYear) return;
+  subShownYear = key;
+  renderKey();
+  const top = dock.scrollTop;
+  if (dockView === 'suburbs') showSuburbs();
+  else if (dockView === 'suburb' && subOpen) showSuburb(subOpen.s, subOpen.gid, subOpen.back);
+  else return;
+  dock.scrollTop = top;
+}
+
 // The key beside the year: what the colours mean for the lens in hand.
 const keyEl = document.getElementById('key');
 const RAMP = ['#e3ecec', '#93b7bd', '#5d878d', '#345a60', '#13282b'];
@@ -1081,6 +1288,14 @@ function renderKey() {
   } else if (mode === MODE.heritage) {
     const h = config.heritage;
     keyEl.innerHTML = h.labels.map((l, i) => `<span class="chip plain">${dot(h.colors[i + 1])}${esc(l)} <span class="n">${fmt(h.counts[i + 1])}</span></span>`).join('');
+  } else if (mode === MODE.suburbs) {
+    const m = measure;
+    if (!m) { keyEl.innerHTML = `<span class="key-label">No suburb figures on this map</span>`; return; }
+    const ticks = SUB_RAMP.map((_, i) => fmtM(m, subInv(m, i / (SUB_RAMP.length - 1)), true));
+    keyEl.innerHTML = MEASURES.map(x => `<button class="chip" data-m="${x.key}" aria-pressed="${x === m}">${esc(x.short)}</button>`).join('') +
+      `<span class="key-label">${esc(m.label)}, ${esc(yearWords(m))}</span><span class="ramp">${SUB_RAMP.map((c, i) =>
+        `<div><span>${ticks[i]}${i === SUB_RAMP.length - 1 && m.domainCut ? '+' : ''}</span><i style="background:linear-gradient(90deg,${c},${SUB_RAMP[Math.min(i + 1, SUB_RAMP.length - 1)]})"></i></div>`).join('')}</span>`;
+    keyEl.querySelectorAll('[data-m]').forEach(b => b.onclick = () => setMeasure(MEASURES.find(x => x.key === b.dataset.m)));
   } else if (!activeLayer) {
     keyEl.innerHTML = `<span class="key-label">Choose a story to light up its buildings</span>`;
   } else if (activeLayer.groups.length > 1) {
@@ -1093,17 +1308,25 @@ function renderKey() {
 
 function setMode(m) {
   uniforms.uMode.value = m;
+  hoverGid = -1;
   document.querySelectorAll('.lenses button').forEach(x => x.setAttribute('aria-pressed', String(+x.dataset.mode === m)));
   const bits = Array(MAX_GROUPS).fill(-1);
   if (activeLayer) activeLayer.groups.forEach((g, i) => { if (groupOn[g.bit] !== false) bits[i] = g.bit; });
   uniforms.uGroupBit.value = bits;
+  subGround.visible = m === MODE.suburbs;
+  land.visible = !subGround.visible || !subGround.children.length;  // the suburbs' land takes its place
   if (m === MODE.layers) {
     if (activeLayer) uniforms.uLayerAt.value = performance.now() / 1000;
     if (!quest) activeLayer ? showStory(activeLayer) : showStories();
   } else if (dockView === 'stories' || dockView === 'story') closeDock();
+  if (m === MODE.suburbs && measure) {
+    if (subYear() < firstYear(measure)) { stopPlay(); uniforms.uYear.value = config.yearMax; }
+    if (!quest) { if (dockView === 'building') unpin(); showSuburbs(); }
+  } else if (dockView === 'suburbs' || dockView === 'suburb') closeDock();
   renderKey(); updateRail(); drawHist();
 }
 document.querySelectorAll('.lenses button').forEach(b => b.onclick = () => setMode(+b.dataset.mode));
+document.querySelector(`.lenses [data-mode="${MODE.suburbs}"]`).hidden = !measure;
 
 // ---------- The line through time ----------
 // The buildings of each year as bars, then the rail of ages: a coloured stretch per age with a station at its start.
@@ -1233,6 +1456,7 @@ function drawHist() {
   hctx.fillRect(xOf(Y) - 0.75, 0, 1.5, plotH + (phone.matches ? 4 : 6));
   updateRail();
   showYear(Y);
+  if (uniforms.uMode.value === MODE.suburbs) syncSubs();
 }
 
 let handle = null;
@@ -1344,4 +1568,4 @@ renderer.setAnimationLoop(now => {
   renderer.render(scene, camera);
 });
 
-window.__dbg = { pick, uniforms, camera, controls, setLayer, setMode, layers, pinCard, openBuilding, showStory, showWalks, building, labelGroup, labels, flyTo, startPlay, questClick, startQuest, goHome, drawHist, get quests() { return quests; } };
+window.__dbg = { setMeasure, showSuburb, get measures() { return MEASURES; }, pick, uniforms, camera, controls, setLayer, setMode, layers, pinCard, openBuilding, showStory, showWalks, building, labelGroup, labels, flyTo, startPlay, questClick, startQuest, goHome, drawHist, get quests() { return quests; } };

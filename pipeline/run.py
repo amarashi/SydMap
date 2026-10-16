@@ -18,6 +18,7 @@ STEPS = [
     "s07_labels",    # street and harbour names
     "s08_quests",    # quests, every claim checked against Wikipedia
     "s09_export",    # every building as GeoParquet and CSV, to download
+    "s10_suburbs",   # suburbs and their figures, for the Suburbs lens
 ]
 
 if __name__ == "__main__":

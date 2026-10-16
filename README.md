@@ -2,7 +2,8 @@
 
 Every building around Sydney Harbour in 3D, 150,454 buildings in all, coloured by the age of the city they belong
 to. Move along the line at the bottom, or press play, to watch Sydney grow from the convict town; look at it by its
-stories, heights or heritage; open any building to read how its year is known; follow a walk through the streets; or
+stories, heights or heritage, or paint its suburbs by population, density, income, education, crime and sale
+prices; open any building to read how its year is known; follow a walk through the streets; or
 take every building's data with you.
 
 **The area:** both shores of Sydney Harbour and the Parramatta River, from Putney and Concord in the west to Manly
@@ -60,7 +61,7 @@ peoples it names as custodians:
    [`design/amsterdam-extract/`](design/amsterdam-extract)). SydMap now has its own: The Third Script's colours and type
    (a white wall, the logo's cypress teal for the harbour, its terracotta sun, Cormorant Garamond and Inter), and its
    own layout and words. Time runs along the bottom as one line of ten ages, with the sun as the year and the year on
-   paper flaps; the lenses (Ages, Stories, Heights, Heritage), Walks, Notes and a search sit across the top; anything
+   paper flaps; the lenses (Ages, Stories, Heights, Heritage, Suburbs), Walks, Notes and a search sit across the top; anything
    to read opens in one dock on the right; and the ground fades into the white beyond the buildings. See
    [`DESIGN.md`](DESIGN.md) and [`design/README.md`](design/README.md).
 2. **Viewer.** [`web/`](web) is a three.js viewer (no build step). Its 3D engine began as the LAYRS viewer's and is
@@ -119,6 +120,36 @@ photographs. Side shells are plain triangles, and the glass walls are left out.
 
 ![The Opera House and the Harbour Bridge from Mrs Macquarie's Chair](docs/screenshots/landmarks.png)
 
+## Suburbs
+
+The Suburbs lens paints every building, and the ground around it, by a figure for its suburb, in the year on the
+line. Choosing a building opens its suburb with every figure over the years. The 123 suburbs are NSW Spatial Services'
+gazetted suburbs that have buildings on the map; each building belongs to the suburb its footprint stands in.
+
+| Figure | Years | Source |
+|---|---|---|
+| Population | 2011, 2016, 2021 | ABS Census, people who usually live in the suburb |
+| People per km² | 2011, 2016, 2021 | the census count over the suburb's whole area, parks included |
+| Median household income | 2011, 2016, 2021 | ABS Census, a week, in the dollars of each year |
+| University degree | 2011, 2016, 2021 | ABS Census, the share of residents 15 and over whose highest qualification is a bachelor's degree or above |
+| Recorded crime | 2011–2025 | BOCSAR, offences against people and property a year per 1,000 residents |
+| Median house and apartment price | 2017–2025 | DCJ Rent and Sales Report, by postcode, the year's quarterly medians weighed by their sales |
+
+Between censuses the map reads a straight line from one count to the next. Each figure's colour scale runs over the
+middle 96% of its values across every year, and stays the same from year to year, so change shows.
+
+What to keep in mind:
+
+- The census is joined by suburb name, because the ABS codes change between censuses. The 2006 and 2001 censuses
+  have no bulk download by suburb, so the figures start in 2011.
+- Crime is counted against residents, so the city centre, Haymarket and the beaches, which many more people visit
+  than live in, read high. Offences police find by looking (drugs, weapons, liquor, transport), receiving stolen goods,
+  assaulting police and fraud are left out. Suburbs of fewer than 300 residents have no rate.
+- Sale prices are by postcode, so suburbs that share one share a price. A quarter of 10 or fewer sales has no median, and a
+  year of fewer than 20 sales is left out.
+  The Valuer General's own sales files would give suburb medians back to 2001, but their licence (CC BY-NC-ND) does
+  not allow publishing figures made from them.
+
 ## Data and licences
 
 | Data | Source | Licence |
@@ -126,7 +157,10 @@ photographs. Side shells are plain triangles, and the glass walls are left out.
 | Footprints and building parts | [Overture Maps](https://overturemaps.org) 2026-09-23 (OpenStreetMap, Microsoft ML footprints) | ODbL |
 | Building tags, streets, water names, worship, pubs | [OpenStreetMap](https://www.openstreetmap.org) via Overpass | ODbL |
 | Modelled heights | [GlobalBuildingAtlas](https://github.com/zhu-xlab/GlobalBuildingAtlas) (Zhu et al., TUM, 2025) via Source Cooperative | CC BY-NC 4.0 |
-| Boundaries, strata plans | NSW Spatial Services | CC BY 4.0 |
+| Boundaries, strata plans, suburbs | NSW Spatial Services | CC BY 4.0 |
+| Population, income, qualifications by suburb | [ABS Census](https://www.abs.gov.au/census/find-census-data/datapacks) 2011, 2016, 2021 DataPacks | CC BY 4.0 |
+| Recorded crime by suburb | [NSW Bureau of Crime Statistics and Research](https://bocsar.nsw.gov.au/statistics-dashboards/open-datasets/criminal-offences-data.html) | CC BY 4.0 |
+| Sale prices by postcode | [NSW Department of Communities and Justice, Rent and Sales Report](https://dcj.nsw.gov.au/about-us/families-and-communities-statistics/housing-rent-and-sales/rent-and-sales-report.html) | CC BY 4.0 |
 | State Heritage Register; LEP heritage items and conservation areas | Heritage NSW; NSW Department of Planning | CC BY 4.0 |
 | Heritage contributions, Aboriginal history places, Developing Sydney 1900–1920 | [City of Sydney open data](https://data.cityofsydney.nsw.gov.au) | CC BY 4.0 |
 | Names, dates, architects, styles | Wikidata | CC0 |
@@ -170,6 +204,7 @@ hold.
 | `s07_labels` | Street and harbour names laid along their lines |
 | `s08_quests` | Walks (quests in the code) resolved to buildings, every claim checked (`checks.py`) |
 | `s09_export` | Every building as GeoParquet and CSV, and the councils' boundaries, to download |
+| `s10_suburbs` | Each building's suburb, the suburbs' land, and their census, crime and sale price figures (`suburbs.json`) |
 
 The area is set in [`pipeline/config.py`](pipeline/config.py) (`LGAS`, `PARTS`, `BBOX`): add an LGA and its box to grow the map, or name the suburbs to take of a council in `PARTS`.
 

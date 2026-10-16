@@ -182,7 +182,7 @@ along the bottom runs one line of ten ages, each a coloured stretch with a stati
 rides it as the year. The legend and the timeline are the same thing.
 
 The page reads in three bands. **Across the top**, what to look at: the city's name, then the lenses (Ages, Stories,
-Heights, Heritage) as underlined text tabs, Walks, Notes and a search field. **In the middle**, the city, its ground
+Heights, Heritage, Suburbs) as underlined text tabs, Walks, Notes and a search field. **In the middle**, the city, its ground
 fading into the white wall beyond the outermost buildings so it reads as a model rather than a rectangle of map.
 **Along the bottom**, time: the year on four paper flaps, the age's name and the count beside it, the key for the lens
 in hand, and the line. Anything to read opens in **one dock on the right**: a building, the stories, a story, the walks,
@@ -214,7 +214,9 @@ The neutrals and the two accents come from the logo package: charcoal `#2C2F2A`,
 **Data colours.** The ten ages run from wine and rust (the convict and colonial town) through a coral terracotta, clay,
 sandstone (the Bridge years), lichen and eucalypt, a harbour teal and the logo's cypress teal to a dusk violet. Every
 neighbouring pair was checked with the dataviz validator (worst 12.1 colour-blind, 13.2 full colour vision), and the
-line names each age too. Heritage and story colours pass both checks. Heights use a cypress-teal ramp.
+line names each age too. Heritage and story colours pass both checks. Heights use a cypress-teal ramp. Suburbs use a ramp of the dusk
+violet (`#bcadd4` to `#2b1d45`, checked as an ordinal ramp), its light end clear of the white of a suburb with no
+figure; the ground takes the suburb's colour at half strength, with the suburbs' outlines in white.
 
 ## Typography
 
@@ -260,12 +262,15 @@ paper flaps with a hairline across the middle; ticket stubs (4px corners, dotted
 - **Dock:** a sticky close button, and a back pill when there is somewhere to go back to (a story, the stories, the
   walk). A building: photo and credit, name, year (44px serif) and age, then "How we know the year" and the facts first,
   then "From Wikipedia" held to five lines with "Read on", "In the stories", sources. Stories: an index by section with line icons; a story: its icon and title, era and
-  count, its text, places and their stories, caveat and source. Notes: lede in teal italic, sections in the serif, getting around (how to move the city), the
+  count, its text, places and their stories, caveat and source. Suburbs: the measure's
+  explanation, the suburbs ranked with a bar in the ramp's colour, caveat and source; a suburb: its postcode, area and
+  buildings, then each measure as its figure in the serif, its rank, a small line of its years (dots in the ramp's
+  colours, the year on the line dashed) and its source; the measure in use is underlined. Notes: lede in teal italic, sections in the serif, getting around (how to move the city), the
   evidence list, the data to download, sources, how to add to it, the original idea, the Acknowledgement of Country on stone, and
   the studio's colophon.
 - **Time band:** four paper flaps that turn over when a digit changes; the age's name in teal italic and the count;
   the key (Ages: "Each station on the line is an age: choose one to see its buildings" or "Only the boom
-  years ×", and the "Estimated years" switch; Heights: a storeys ramp; Heritage: five chips; Stories: the story's groups as switches); the play button (a charcoal disc); the
+  years ×", and the "Estimated years" switch; Heights: a storeys ramp; Heritage: five chips; Suburbs: the measures as chips, the measure and its year in words, and its ramp; Stories: the story's groups as switches); the play button (a charcoal disc); the
   line: bars of each year's buildings in stone, the ten stretches and stations, the sun as the year, a hollow marker for the
   start of a range once it is moved. The line is a slider for the keyboard (arrows, Shift, Home, End).
 - **Walks:** a list of routes (title, intro, level as a word, stops, progress, Start/Carry on/Walk again); a walk: title

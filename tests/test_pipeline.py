@@ -139,3 +139,19 @@ def test_site_files_fit_cloudflare():
     big = [f"{f} {f.stat().st_size / 2**20:.1f} MiB" for f in Path("web").rglob("*") if f.is_file()
            and f.stat().st_size > 20 * 2**20]
     assert not big, f"files near or over Cloudflare's 25 MiB limit: {big}"
+
+
+def test_suburb_names_match_across_sources():
+    from pipeline.s10_suburbs import matcher
+    # The census writes "Manly (NSW)" and "Darlington (Sydney - NSW)", BOCSAR "DARLINGTON (SYDNEY)", and the 2011
+    # census names suburbs after the councils before the 2016 mergers.
+    m = matcher(["Manly (Qld)", "Manly (NSW)", "Darlington (Singleton - NSW)", "Darlington (Sydney - NSW)", "Balmain",
+                 "Enmore (Marrickville - NSW)", "Enmore (Armidale Regional - NSW)", "THE ROCKS (BATHURST REGIONAL)",
+                 "THE ROCKS (SYDNEY)", "Lane Cove North (Lane Cove - NSW)"])
+    assert m("MANLY") == "Manly (NSW)"
+    assert m("DARLINGTON") == "Darlington (Sydney - NSW)"
+    assert m("BALMAIN") == "Balmain"
+    assert m("ENMORE") == "Enmore (Marrickville - NSW)"
+    assert m("THE ROCKS") == "THE ROCKS (SYDNEY)"
+    assert m("LANE COVE NORTH") == "Lane Cove North (Lane Cove - NSW)"
+    assert m("MOSMAN") is None

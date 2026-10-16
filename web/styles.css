@@ -194,6 +194,34 @@ h1 .sun-disc { position: absolute; z-index: -1; width: .4em; height: .4em; right
 .place b { display: block; font-weight: 500; }
 .place span { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; line-height: 1.45; }
 .dock .src { font-size: 12px; }
+
+/* Suburbs: the suburbs ranked by a measure, then a suburb with every measure over the years. */
+.sub-year { margin: 14px 0 4px; color: var(--muted); font-variant-numeric: lining-nums; }
+.sub-year b { color: var(--ink); font-weight: 500; }
+.sub-rank { list-style: none; margin: 0 -10px; padding: 0; }
+.sub-row { display: grid; grid-template-columns: 1fr auto; gap: 3px 12px; width: 100%; padding: 6px 10px 7px; border: 0;
+  border-radius: 8px; background: none; text-align: left; cursor: pointer; transition: background-color .3s var(--ease); }
+.sub-row:hover { background: var(--hover); }
+.sub-row b { font: 400 18px/1.15 var(--serif); }
+.sub-row .n { align-self: center; color: var(--muted); font-size: 12px; font-variant-numeric: lining-nums tabular-nums; }
+.sub-row .bar { grid-column: 1 / 3; display: block; width: 100%; height: 4px; border-radius: 2px; background: var(--stone); overflow: hidden; }
+.sub-row .bar i { display: block; height: 100%; border-radius: 2px; }
+.sub-card .pill { margin-top: 12px; }
+.sub-m { margin-top: 16px; padding-top: 10px; border-top: 1px solid var(--rule); }
+.sub-m h3 { margin: 0; }
+.sub-pick { padding: 0; border: 0; background: none; cursor: pointer; color: var(--muted); font: 500 12px/1.3 var(--sans); letter-spacing: .02em; }
+.sub-pick:hover, .sub-m.on .sub-pick { color: var(--ink); }
+.sub-m.on .sub-pick { text-decoration: underline 2px; text-underline-offset: 4px; }
+.sub-val { margin: 4px 0 2px; color: var(--muted); }
+.sub-val .v { font: 400 30px/1 var(--serif); color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+.sub-val .none { font: italic 400 20px/1 var(--serif); }
+.sub-val small { display: block; margin-top: 3px; font-size: 11.5px; color: var(--faint); font-variant-numeric: lining-nums; }
+.spark { display: block; width: 100%; height: auto; overflow: visible; }
+.spark path { fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linejoin: round; }
+.spark circle { stroke: var(--paper); stroke-width: 1.5; }
+.spark .now { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 2 3; }
+.spark text { font-size: 10.5px; fill: var(--faint); font-variant-numeric: lining-nums; }
+.sub-m .src-note { margin: 2px 0 0; font-size: 11px; color: var(--faint); }
 .add-story { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--rule); font-size: 12px; }
 
 /* Notes: a reading page. */

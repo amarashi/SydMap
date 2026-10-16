@@ -41,6 +41,7 @@
     <button data-mode="3" aria-pressed="false">Stories</button>
     <button data-mode="1" aria-pressed="false">Heights</button>
     <button data-mode="2" aria-pressed="false">Heritage</button>
+    <button data-mode="4" aria-pressed="false">Suburbs</button>
   </div>
   <i class="bar-sep" aria-hidden="true"></i>
   <button class="walks-open"><svg class="arch" viewBox="0 0 26 9" aria-hidden="true"><path d="M1 8.5h24M3 8.5C6 2 20 2 23 8.5M8 4.6v3.9M13 3.4v5.1M18 4.6v3.9"/></svg>Walks</button>
@@ -107,6 +108,16 @@
     <p>From OpenStreetMap where it has them, otherwise modelled from satellite imagery by GlobalBuildingAtlas, or assumed
       to be two storeys. Storeys are counted where they are mapped and otherwise worked out at 3.2 m a floor.</p>
 
+    <h3>Suburbs</h3>
+    <p>The Suburbs lens paints every building and the ground around it by its suburb: how many people live there and how
+      closely, their household income, how many hold a university degree, recorded crime, and what houses and
+      apartments sell for. Move along the line to see a year. The census figures are for 2011, 2016 and 2021, read in a
+      straight line between censuses; crime runs from 2011 and sale prices from 2017, a year at a time. Before a
+      measure's first year the suburbs stay white. Choose a suburb to see every measure over the years.</p>
+    <p>The figures are for the whole suburb, even where the map shows only part of it. Sale prices are by postcode, so
+      suburbs that share one share a price. Crime is counted against the people who live in a suburb, so the city
+      centre and the beaches, which many more people visit, read high. Money is in the dollars of each year.</p>
+
     <h3>Take the data with you</h3>
     <p>Every building, with its year, the evidence for it, its age, heritage and sources, is yours to sort, query and
       map: in a spreadsheet, QGIS or Python. There is a file for each council: CSV, one row per building with a point
@@ -142,6 +153,12 @@
         Partners' Michael Lewis describes it (<a href="https://www.royalsoc.org.au/wp-content/uploads/2024/09/106_12_lewis.pdf" target="_blank" rel="noopener">Royal Society of NSW, 1973</a>).
         The Harbour Bridge is built from its published figures: two 28-panel arch trusses, a 504 m span, a 134 m summit.</li>
       <li><b>Boundaries and strata plans</b> NSW Spatial Services, CC BY 4.0.</li>
+      <li><b>Suburbs</b> The <a href="https://www.abs.gov.au/census/find-census-data/datapacks" target="_blank" rel="noopener">ABS
+        Census</a> 2011, 2016 and 2021 (population, income, qualifications); the NSW Bureau of Crime Statistics and
+        Research's <a href="https://bocsar.nsw.gov.au/statistics-dashboards/open-datasets/criminal-offences-data.html" target="_blank" rel="noopener">criminal
+        incidents by suburb</a>; and the Department of Communities and Justice's
+        <a href="https://dcj.nsw.gov.au/about-us/families-and-communities-statistics/housing-rent-and-sales/rent-and-sales-report.html" target="_blank" rel="noopener">Rent
+        and Sales Report</a> (sale prices by postcode, from the NSW Valuer General's sales). All CC BY 4.0.</li>
       <li><b>Heritage</b> The State Heritage Register (Heritage NSW) and the local environmental plans' heritage maps (NSW
         Department of Planning), CC BY 4.0; heritage area contributions from the City of Sydney's Development Control
         Plan 2012, CC BY 4.0.</li>

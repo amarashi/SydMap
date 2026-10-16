@@ -5,6 +5,9 @@
 
 Sources (all open; see README for the licences):
   boundary   NSW Spatial Services, administrative boundaries: the LGAs, and the suburbs kept of those taken in part
+  suburbs    NSW Spatial Services: every suburb in the box, for the Suburbs lens
+  stats      the suburbs' figures: ABS Census DataPacks by suburb (2011, 2016, 2021), BOCSAR crime by suburb, DCJ
+             sale prices by postcode
   overture   Overture Maps buildings, building parts, land and water (OSM and Microsoft ML footprints)
   gba        GlobalBuildingAtlas LoD1 (TUM): a modelled height for every footprint
   osm        OpenStreetMap through Overpass: building tags, named roads and water, worship, pubs
@@ -63,6 +66,47 @@ def boundary():
         m = area.lganame == lga
         area.loc[m, "geometry"] = [shapely.make_valid(g.intersection(s.union_all())) for g in area.geometry[m]]
     arcgis.save(pd.concat([area[area.lganame.isin(LGAS)], area[area.lganame.isin(PARTS)]], ignore_index=True), p)
+
+
+def suburbs():
+    # Every suburb in the box, whole: the suburb statistics are for the whole suburb (s10_suburbs keeps those with
+    # buildings on the map).
+    p = RAW / "suburbs.parquet"
+    if done(p):
+        return
+    arcgis.save(arcgis.query(NSW_SUBURB, bbox=BBOX, out_fields="suburbname,postcode"), p)
+
+
+# ---------------------------------------------------------------- suburb statistics
+
+ABS_PACKS = "https://www.abs.gov.au/census/find-census-data/datapacks/download"
+DCJ = "https://dcj.nsw.gov.au"
+DCJ_REPORTS = f"{DCJ}/about-us/families-and-communities-statistics/housing-rent-and-sales"
+
+
+def stats():
+    # The census by suburb, crime by suburb and sale prices by postcode, for s10_suburbs. Each file is fetched once.
+    files = {"abs_census_2011_ssc/2011_BCP_SSC_for_NSW_short-header.zip": f"{ABS_PACKS}/2011_BCP_SSC_for_NSW_short-header.zip",
+             "abs_census_2016_ssc/2016_GCP_SSC_for_NSW_short-header.zip": f"{ABS_PACKS}/2016_GCP_SSC_for_NSW_short-header.zip",
+             "abs_census_gcp_2021/2021_GCP_SAL_for_NSW_short-header.zip": f"{ABS_PACKS}/2021_GCP_SAL_for_NSW_short-header.zip",
+             "bocsar/SuburbData.zip": "https://bocsarblob.blob.core.windows.net/bocsar-open-data/SuburbData.zip"}
+    # DCJ's Rent and Sales Report: a spreadsheet of sales by postcode each quarter since June 2017 (earlier issues are
+    # PDFs), named differently from issue to issue, so read their links off the report's pages.
+    import re
+    for page in (f"{DCJ_REPORTS}/rent-and-sales-report.html", f"{DCJ_REPORTS}/previous-rent-and-sales-reports.html"):
+        html = requests.get(page, headers={"User-Agent": "Mozilla/5.0"}, timeout=120).text
+        for href in re.findall(r'href="([^"]+\.xlsx)"', html):
+            name = href.rsplit("/", 1)[-1]
+            if "sales" in name.lower() and "rent" not in name.lower():
+                files[f"dcj_rent_sales/{name}"] = DCJ + href
+    for rel, url in files.items():
+        p = RAW / "stats" / rel
+        if done(p):
+            continue
+        r = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=600)
+        r.raise_for_status()
+        p.write_bytes(r.content)
+        print(f"  {p}: {len(r.content) / 1e6:.1f} MB")
 
 
 # ---------------------------------------------------------------- Overture and GlobalBuildingAtlas
@@ -320,7 +364,7 @@ def cadastre():
     arcgis.save(lots.drop_duplicates("cadid"), p)
 
 
-STEPS = dict(boundary=boundary, overture=overture, gba=gba, osm=osm, wiki=wiki, wikipedia=wikipedia, cos=cos, heritage=heritage,
+STEPS = dict(boundary=boundary, suburbs=suburbs, stats=stats, overture=overture, gba=gba, osm=osm, wiki=wiki, wikipedia=wikipedia, cos=cos, heritage=heritage,
              cadastre=cadastre)
 
 if __name__ == "__main__":
