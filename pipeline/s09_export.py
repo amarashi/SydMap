@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 import shapely
 
-from .config import CRS, DATA, RAW, WEB
+from .config import CRS, DATA, PARTS, RAW, WEB
 from .periods import PERIODS
 from .s03_tiles import HERITAGE
 
@@ -75,6 +75,8 @@ def main():
     write_csv(out)
     area = gpd.read_parquet(RAW / "boundary.parquet").to_crs(4326)
     area["name"] = area.lganame.str.title()
+    for lga, suburbs in PARTS.items():  # a council taken in part says which part
+        area.loc[area.lganame == lga, "name"] += f" ({', '.join(suburbs).title()} only)"
     (OUT / "area.geojson").write_text(area[["name", "geometry"]].to_json())
     sizes = ", ".join(f"{f.name} {f.stat().st_size / 1e6:.1f} MB" for f in sorted(OUT.iterdir()))
     print(f"{len(out)} buildings; {sizes}")

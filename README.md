@@ -1,8 +1,8 @@
 # SydMap: Sydney, year by year
 
 Every building around Sydney Harbour in 3D: the City of Sydney and North Sydney, either side of the Harbour Bridge,
-and Mosman, Woollahra, Lane Cove and Hunters Hill around them, 51,264 buildings in all, coloured by the age of the
-city they belong to. Move along the line at the bottom, or press play, to watch Sydney grow from the convict town; look at it by its stories, heights or heritage; open any building to read how its year is
+the harbour councils around them (Mosman, Woollahra, Lane Cove and Hunters Hill) and the Balmain peninsula, 56,800
+buildings in all, coloured by the age of the city they belong to. Move along the line at the bottom, or press play, to watch Sydney grow from the convict town; look at it by its stories, heights or heritage; open any building to read how its year is
 known; follow a walk through the streets; or take every building's data with you.
 
 [![Watch SydMap in 25 seconds: the city grows from 1788, the Opera House card, the Harbour Bridge](brag-output/brag.jpg)](brag-output/brag.mp4)
@@ -21,7 +21,8 @@ repository, so nothing else is needed. **Publish it:** see [Cloudflare](#publish
 
 SydMap acknowledges the Traditional Custodians of the land around the harbour: the Gadigal people of the Eora Nation,
 of the City of Sydney; the Cammeraygal people, of North Sydney and Lane Cove; the Borogegal people, of Mosman; the
-Gadigal and Birrabirragal peoples, of Woollahra; and the Wallumedegal people, of Hunters Hill.
+Gadigal and Birrabirragal peoples, of Woollahra; the Wallumedegal people, of Hunters Hill; and the Gadigal and
+Wangal peoples, of the Inner West and the Balmain peninsula.
 
 | | |
 |---|---|
@@ -60,18 +61,18 @@ each building takes the best evidence there is, and its card says which:
 
 | Evidence | Buildings | How |
 |---|---:|---|
-| Documented | 539 | a year from the lead of the building's Wikipedia article (379; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (94) or OpenStreetMap `start_date` (66) |
-| Strata plan | 8,471 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44598 (1994) |
-| Heritage listing | 209 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings, the Harbour Bridge's approaches) take the years the listing's Wikipedia article gives; precincts, parks, tunnels and railway stations (dated by their opening) do not pass their years on |
-| Heritage area | 19,769 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in the other councils' conservation areas, which do not mark contributing buildings) are dated from the documented heritage buildings around them |
-| Neighbours | 22,276 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945 |
+| Documented | 554 | a year from the lead of the building's Wikipedia article (387; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (100) or OpenStreetMap `start_date` (67) |
+| Strata plan | 9,006 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44598 (1994) |
+| Heritage listing | 216 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings, the Harbour Bridge's approaches) take the years the listing's Wikipedia article gives; precincts, parks, tunnels and railway stations (dated by their opening) do not pass their years on |
+| Heritage area | 22,990 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in the other councils' conservation areas, which do not mark contributing buildings) are dated from the documented heritage buildings around them |
+| Neighbours | 24,034 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945 |
 
 Estimated years (everything but the first row) are spread within their range so the film does not drop a suburb in a
 single year; they are paler on the map, marked "c." on the cards with the range, and the "Estimated years" switch beside
 the year turns them off. Treat them as an educated guess about the period, not as a date.
 
-Heights come from OpenStreetMap where it has them (23,286, measured or from storeys), from GlobalBuildingAtlas
-(23,819, modelled from satellite imagery) and are otherwise assumed to be two storeys (4,157).
+Heights come from OpenStreetMap where it has them (26,809, measured or from storeys), from GlobalBuildingAtlas
+(25,782, modelled from satellite imagery) and are otherwise assumed to be two storeys (4,207).
 
 Two landmarks are modelled as meshes, see [`pipeline/landmarks.py`](pipeline/landmarks.py). The Harbour Bridge is
 built from its Wikipedia figures: two 28-panel arch trusses, 18 m deep at the summit and 57 m at the ends, spanning
@@ -146,7 +147,7 @@ hold.
 | `s08_quests` | Walks (quests in the code) resolved to buildings, every claim checked (`checks.py`) |
 | `s09_export` | Every building as GeoParquet and CSV, and the councils' boundaries, to download |
 
-The area is set in [`pipeline/config.py`](pipeline/config.py) (`LGAS`, `BBOX`): add an LGA and its box to grow the map.
+The area is set in [`pipeline/config.py`](pipeline/config.py) (`LGAS`, `PARTS`, `BBOX`): add an LGA and its box to grow the map, or name the suburbs to take of a council in `PARTS`.
 
 ## Publishing on Cloudflare
 

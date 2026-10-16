@@ -4,7 +4,7 @@
     uv run python -m pipeline.s00_fetch osm wiki   # some of it
 
 Sources (all open; see README for the licences):
-  boundary   NSW Spatial Services, administrative boundaries: the LGAs
+  boundary   NSW Spatial Services, administrative boundaries: the LGAs, and the suburbs kept of those taken in part
   overture   Overture Maps buildings, building parts, land and water (OSM and Microsoft ML footprints)
   gba        GlobalBuildingAtlas LoD1 (TUM): a modelled height for every footprint
   osm        OpenStreetMap through Overpass: building tags, named roads and water, worship, pubs
@@ -22,9 +22,10 @@ import time
 import requests
 
 from . import arcgis
-from .config import BBOX, LGAS, RAW, UA
+from .config import BBOX, LGAS, PARTS, RAW, UA
 
 NSW_ADMIN = "https://portal.spatial.nsw.gov.au/server/rest/services/NSW_Administrative_Boundaries_Theme/FeatureServer/8"
+NSW_SUBURB = "https://portal.spatial.nsw.gov.au/server/rest/services/NSW_Administrative_Boundaries_Theme/FeatureServer/2"
 NSW_LOT = "https://portal.spatial.nsw.gov.au/server/rest/services/NSW_Land_Parcel_Property_Theme/FeatureServer/8"
 COS = "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services"
 SHR = "https://mapprod3.environment.nsw.gov.au/arcgis/rest/services/EDP/SHR_Curtilage/MapServer/0"
@@ -50,8 +51,18 @@ def boundary():
     p = RAW / "boundary.parquet"
     if done(p):
         return
-    where = "lganame IN (" + ",".join(f"'{n}'" for n in LGAS) + ")"
-    arcgis.save(arcgis.query(NSW_ADMIN, where=where, out_fields="lganame,councilname"), p)
+    import pandas as pd
+    import shapely
+    sql = lambda names: ",".join(f"'{n}'" for n in names)
+    area = arcgis.query(NSW_ADMIN, where=f"lganame IN ({sql([*LGAS, *PARTS])})", out_fields="lganame,councilname")
+    # A council taken in part keeps its name, over only its kept suburbs (clipped to it, as suburbs can cross councils).
+    for lga, suburbs in PARTS.items():
+        s = arcgis.query(NSW_SUBURB, where=f"suburbname IN ({sql(suburbs)})", out_fields="suburbname")
+        missing = set(suburbs) - set(s.suburbname)
+        assert not missing, f"no such suburbs: {missing}"
+        m = area.lganame == lga
+        area.loc[m, "geometry"] = [shapely.make_valid(g.intersection(s.union_all())) for g in area.geometry[m]]
+    arcgis.save(pd.concat([area[area.lganame.isin(LGAS)], area[area.lganame.isin(PARTS)]], ignore_index=True), p)
 
 
 # ---------------------------------------------------------------- Overture and GlobalBuildingAtlas
