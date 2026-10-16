@@ -214,8 +214,11 @@ The neutrals and the two accents come from the logo package: charcoal `#2C2F2A`,
 **Data colours.** The ten ages run from wine and rust (the convict and colonial town) through a coral terracotta, clay,
 sandstone (the Bridge years), lichen and eucalypt, a harbour teal and the logo's cypress teal to a dusk violet. Every
 neighbouring pair was checked with the dataviz validator (worst 12.1 colour-blind, 13.2 full colour vision), and the
-line names each age too. Heritage and story colours pass both checks. Heights use a cypress-teal ramp. Suburbs use a ramp of the dusk
-violet (`#bcadd4` to `#2b1d45`, checked as an ordinal ramp), its light end clear of the white of a suburb with no
+line names each age too. Heritage and story colours pass both checks. Heights use a cypress-teal ramp. Suburbs use a ramp that turns
+through the palette's own hues, sandstone, eucalypt, harbour teal and blue to the dusk violet (`#f5d470`, `#88bf8a`,
+`#3f9b9b`, `#386aa0`, `#4a3486`, `#2b1d45`), so neighbouring suburbs differ in hue as well as lightness: its steps are
+21 to 25 apart in CAM02-UCS with full colour vision and at least 14.7 under simulated colour blindness, and its ends 81
+apart (the violet-only ramp it replaced: 14 to 17, and 59). Its light end is clear of the white of a suburb with no
 figure; the ground takes the suburb's colour at half strength, with the suburbs' outlines in white.
 
 ## Typography

@@ -25,7 +25,7 @@ const WORKERS = Math.min(4, navigator.hardwareConcurrency || 2);
 const MODE = { period: 0, floors: 1, heritage: 2, layers: 3, suburbs: 4 };
 // The Suburbs lens: one hue, light to dark, from the newest age's dusk violet (clear of the Heights lens's teal); its
 // light end stays clear of the white of a suburb with no figure (checked with the dataviz validator, --ordinal).
-const SUB_RAMP = ['#bcadd4', '#9a85c1', '#7860a5', '#553b80', '#2b1d45'];
+const SUB_RAMP = ['#f5d470', '#88bf8a', '#3f9b9b', '#386aa0', '#4a3486', '#2b1d45']; // sandstone to dusk violet (DESIGN.md)
 const SUB_W = 512;                                  // buildings per row of the building-to-suburb texture
 // Drawn icons, in the line icons' stroke (styles.css .x, .arrow).
 const CLOSE = '<svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>';
