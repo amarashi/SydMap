@@ -1,4 +1,4 @@
-"""Buildings: Overture footprints in the two LGAs, OpenStreetMap tags, heights and storeys.
+"""Buildings: Overture footprints in the LGAs, OpenStreetMap tags, heights and storeys.
 
 Footprints come from Overture Maps, which merges OpenStreetMap with Microsoft's machine-learned footprints
 where OSM has none. A footprint's height, in order of preference:

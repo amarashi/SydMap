@@ -1,7 +1,7 @@
 # SydMap: Sydney, year by year
 
-Every building in the City of Sydney and North Sydney, either side of the Harbour Bridge, in 3D: 29,844 of them,
-coloured by the age of the city they belong to. Move along the line at the bottom, or press play, to watch Sydney grow
+Every building around Sydney Harbour in 3D: the City of Sydney and North Sydney, either side of the Harbour Bridge,
+and Mosman, Woollahra, Lane Cove and Hunters Hill around them, 51,264 buildings in all, coloured by the age of the city they belong to. Move along the line at the bottom, or press play, to watch Sydney grow
 from the convict town; look at it by its stories, heights or heritage; open any building to read how its year is
 known; follow a walk through the streets; or take every building's data with you.
 
@@ -19,8 +19,9 @@ non-commercial project, made out of curiosity and for education.
 **Run it locally:** `python3 scripts/serve.py` and open <http://localhost:8642>. The built data is in the
 repository, so nothing else is needed. **Publish it:** see [Cloudflare](#publishing-on-cloudflare).
 
-SydMap acknowledges the Gadigal people of the Eora Nation, the Traditional Custodians of the land the City of Sydney
-stands on, and the Cammeraygal people, the Traditional Custodians of the land of North Sydney.
+SydMap acknowledges the Traditional Custodians of the land around the harbour: the Gadigal people of the Eora Nation,
+of the City of Sydney; the Cammeraygal people, of North Sydney and Lane Cove; the Borogegal people, of Mosman; the
+Gadigal and Birrabirragal peoples, of Woollahra; and the Wallumedegal people, of Hunters Hill.
 
 | | |
 |---|---|
@@ -59,18 +60,18 @@ each building takes the best evidence there is, and its card says which:
 
 | Evidence | Buildings | How |
 |---|---:|---|
-| Documented | 457 | a year from the lead of the building's Wikipedia article (327; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (76) or OpenStreetMap `start_date` (54) |
-| Strata plan | 5,548 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44479 (1994) |
-| Heritage listing | 147 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings, the Harbour Bridge's approaches) take the years the listing's Wikipedia article gives; precincts, parks, tunnels and railway stations (dated by their opening) do not pass their years on |
-| Heritage area | 14,290 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in North Sydney's conservation areas) are dated from the documented heritage buildings around them |
-| Neighbours | 9,402 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945 |
+| Documented | 539 | a year from the lead of the building's Wikipedia article (379; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (94) or OpenStreetMap `start_date` (66) |
+| Strata plan | 8,471 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44598 (1994) |
+| Heritage listing | 209 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings, the Harbour Bridge's approaches) take the years the listing's Wikipedia article gives; precincts, parks, tunnels and railway stations (dated by their opening) do not pass their years on |
+| Heritage area | 19,769 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in the other councils' conservation areas, which do not mark contributing buildings) are dated from the documented heritage buildings around them |
+| Neighbours | 22,276 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945 |
 
 Estimated years (everything but the first row) are spread within their range so the film does not drop a suburb in a
 single year; they are paler on the map, marked "c." on the cards with the range, and the "Estimated years" switch beside
 the year turns them off. Treat them as an educated guess about the period, not as a date.
 
-Heights come from OpenStreetMap where it has them (12,273, measured or from storeys), from GlobalBuildingAtlas
-(14,180, modelled from satellite imagery) and are otherwise assumed to be two storeys (3,389).
+Heights come from OpenStreetMap where it has them (23,286, measured or from storeys), from GlobalBuildingAtlas
+(23,819, modelled from satellite imagery) and are otherwise assumed to be two storeys (4,157).
 
 Two landmarks are modelled as meshes, see [`pipeline/landmarks.py`](pipeline/landmarks.py). The Harbour Bridge is
 built from its Wikipedia figures: two 28-panel arch trusses, 18 m deep at the summit and 57 m at the ends, spanning
@@ -128,15 +129,19 @@ uv run pytest                            # offline tests
 python3 scripts/serve.py                 # http://localhost:8642, with byte ranges
 ```
 
+On Windows, run the pipeline in Python's UTF-8 mode (`$env:PYTHONUTF8 = 1` in PowerShell, `PYTHONUTF8=1` in Git
+Bash); otherwise Python writes the downloaded text in the Windows code page and stops at the first character it cannot
+hold.
+
 | Step | What it does |
 |---|---|
 | `s00_fetch` | Downloads every source into `data/raw/` (Overture and GlobalBuildingAtlas through DuckDB on S3, Overpass, Wikidata, Wikipedia, ArcGIS services) |
-| `s01_load` | Footprints in the two LGAs, OSM tags, 3D parts, heights and storeys; the Harbour Bridge and Opera House models |
+| `s01_load` | Footprints in the LGAs, OSM tags, 3D parts, heights and storeys; the Harbour Bridge and Opera House models |
 | `s02_years` | Wikidata links, documented years, heritage status, strata calibration, estimates |
 | `s04_water` | Land, water and the other shores |
 | `s05_layers` | Stories (the page's name for layers), one bit per group per building |
 | `s06_wiki` | Card data: Wikipedia leads, Commons photos and credits, names, heritage listings |
-| `s03_tiles` | 600 m binary tiles in six packs, `attrs.bin`, `sydney.json` |
+| `s03_tiles` | 600 m binary tiles in twelve packs, `attrs.bin`, `sydney.json` |
 | `s07_labels` | Street and harbour names laid along their lines |
 | `s08_quests` | Walks (quests in the code) resolved to buildings, every claim checked (`checks.py`) |
 | `s09_export` | Every building as GeoParquet and CSV, and the councils' boundaries, to download |

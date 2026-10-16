@@ -9,8 +9,8 @@ evidence there is, in this order, and its card says which:
           completion, so the year is close. Older buildings converted to strata later would carry their
           conversion year, so a strata year never overrides heritage evidence that the building is older.
   flag 3  heritage area: a building the City of Sydney's DCP marks as contributing to a heritage conservation
-          area (or, in North Sydney, a low-rise building inside one), dated from the documented heritage
-          buildings around it
+          area (or, in the other councils, which do not mark contributing buildings, a low-rise building
+          inside one), dated from the documented heritage buildings around it
   flag 4  estimated from the dated buildings around it of similar height
 
 Estimated years (flags 2–4) are spread within the range of their evidence (yfrom–yto), seeded by the
@@ -52,7 +52,7 @@ def class_text(classes) -> str:
     return " | ".join(sorted(classes))
 
 
-def seed(i: int, salt: str = "") -> float:
+def seed(i, salt: str = "") -> float:
     return (zlib.crc32(f"{i}{salt}".encode()) % 100000) / 100000.0
 
 
@@ -442,8 +442,9 @@ def main():
     dated = b.date_flag >= 0
     # Heritage-area estimates: from documented buildings that are themselves heritage (older than 1946).
     pool_old = documented & (b.year < 1946)
-    nsyd_low = (b.lga == "NORTH SYDNEY") & b.hca.notna() & (b.floors <= 3) & b.sp_year.isna()
-    her_target = ~dated & ~tall & ((b.contrib == "Contributing") | b["item"].notna() | b.shr.notna() | nsyd_low)
+    # Only the City marks which buildings contribute to a conservation area; elsewhere its low-rise buildings stand in.
+    hca_low = (b.lga != "SYDNEY") & b.hca.notna() & (b.floors <= 3) & b.sp_year.isna()
+    her_target = ~dated & ~tall & ((b.contrib == "Contributing") | b["item"].notna() | b.shr.notna() | hca_low)
     if her_target.any():
         lo, mid, hi = knn_years(features(b, b.index[pool_old]), b.year[pool_old].to_numpy(),
                                 features(b, b.index[her_target]), k=10)
@@ -474,9 +475,10 @@ def main():
         b.loc[target, "date_src"] = name
         print(f"  neighbour estimates ({name}): {target.sum()} from {src.sum()}")
 
-    # Spread estimates across their range, seeded by the building.
+    # Spread estimates across their range, seeded by the building's Overture id, so a building keeps its year when
+    # the map grows and the numbering moves.
     est = b.date_flag >= 2
-    s = np.array([seed(i) for i in b.bid[est]])
+    s = np.array([seed(i) for i in b.id[est]])
     lo, hi = b.yfrom[est].to_numpy(), b.yto[est].to_numpy()
     b.loc[est, "year"] = np.round(lo + (hi - lo) * s)
     for col in ("year", "yfrom", "yto"):

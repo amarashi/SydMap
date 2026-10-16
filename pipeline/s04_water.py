@@ -2,7 +2,7 @@
 
 From Overture's base theme: coastline land (OpenStreetMap), the harbour, rivers and ponds. Three layers:
   water.bin     the harbour and every pond, canal and river in view
-  land.bin      the two LGAs, less their water: the white ground the buildings stand on
+  land.bin      the LGAs, less their water: the white ground the buildings stand on
   context.bin   the other shores, drawn a shade darker so the harbour keeps its shape
 
 Layout of each (little-endian):

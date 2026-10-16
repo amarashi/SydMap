@@ -94,7 +94,7 @@ const flat = new THREE.Group();
 scene.add(flat);
 const [landGeo, waterGeo, contextGeo] = await Promise.all(['land', 'water', 'context'].map(n => loadPolygons(`data/${n}.bin`)));
 // The ground fades into the white wall with distance from the nearest building, so the edge follows the outline of
-// the two councils (their shores, the harbour between them) rather than any box. A coarse distance field over the mapped
+// the councils (their shores, the harbour between them) rather than any box. A coarse distance field over the mapped
 // ground (about 50 m a cell, metres stored in tens), smoothed, sampled by the ground's shader.
 const EDGE = (() => {
   contextGeo.computeBoundingBox();

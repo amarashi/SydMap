@@ -4,7 +4,7 @@
                                         for it, age, heritage and sources. ODbL (it derives from OpenStreetMap).
   web/data/download/buildings.csv       the same, one row per building, with a point inside each footprint instead of
                                         the footprint, for spreadsheets.
-  web/data/download/area.geojson        the boundaries of the City of Sydney and North Sydney.
+  web/data/download/area.geojson        the boundaries of the councils on the map.
 
 Heights modelled by GlobalBuildingAtlas (CC BY-NC) are left out of all three.
 """

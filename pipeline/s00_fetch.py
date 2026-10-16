@@ -4,7 +4,7 @@
     uv run python -m pipeline.s00_fetch osm wiki   # some of it
 
 Sources (all open; see README for the licences):
-  boundary   NSW Spatial Services, administrative boundaries: the two LGAs
+  boundary   NSW Spatial Services, administrative boundaries: the LGAs
   overture   Overture Maps buildings, building parts, land and water (OSM and Microsoft ML footprints)
   gba        GlobalBuildingAtlas LoD1 (TUM): a modelled height for every footprint
   osm        OpenStreetMap through Overpass: building tags, named roads and water, worship, pubs
@@ -208,10 +208,11 @@ def wiki():
     if done(p):
         return
     rows = []
-    # Four strips keep each query well inside the endpoint's time limit.
+    # Eight strips keep each query well inside the endpoint's time limit.
     x0, y0, x1, y1 = BBOX
-    step = (x1 - x0) / 4
-    for i in range(4):
+    n = 8
+    step = (x1 - x0) / n
+    for i in range(n):
         q = WD_QUERY % dict(w=x0 + i * step, e=x0 + (i + 1) * step, s=y0, n=y1)
         part = sparql(q)
         print(f"  strip {i}: {len(part)} rows")
@@ -295,7 +296,7 @@ def cadastre():
     import pandas as pd
     import geopandas as gpd
     x0, y0, x1, y1 = BBOX
-    n = 6
+    n = 10
     frames = []
     for i in range(n):
         for k in range(n):

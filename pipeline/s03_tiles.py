@@ -167,7 +167,7 @@ def main():
     index.sort(key=lambda t: t["dist"])
 
     # Bundle tiles into a few packs, nearest the GPO first, so the city loads centre-out in few requests.
-    packs, n_packs = [], 6
+    packs, n_packs = [], 12
     per = -(-len(index) // n_packs)
     for k in range(n_packs):
         chunk = index[k * per:(k + 1) * per]
