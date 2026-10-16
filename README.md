@@ -1,8 +1,8 @@
 # SydMap: Sydney, year by year
 
 Every building around Sydney Harbour in 3D: the City of Sydney and North Sydney, either side of the Harbour Bridge,
-and Mosman, Woollahra, Lane Cove and Hunters Hill around them, 51,264 buildings in all, coloured by the age of the city they belong to. Move along the line at the bottom, or press play, to watch Sydney grow
-from the convict town; look at it by its stories, heights or heritage; open any building to read how its year is
+and Mosman, Woollahra, Lane Cove and Hunters Hill around them, 51,264 buildings in all, coloured by the age of the
+city they belong to. Move along the line at the bottom, or press play, to watch Sydney grow from the convict town; look at it by its stories, heights or heritage; open any building to read how its year is
 known; follow a walk through the streets; or take every building's data with you.
 
 [![Watch SydMap in 25 seconds: the city grows from 1788, the Opera House card, the Harbour Bridge](brag-output/brag.jpg)](brag-output/brag.mp4)
