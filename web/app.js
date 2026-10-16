@@ -1209,12 +1209,14 @@ function showSuburbs() {
   const rows = SUBS.map((S, s) => ({ S, s, a: subAt(m, s, Y) })).sort((p, q) => (q.a?.v ?? -Infinity) - (p.a?.v ?? -Infinity));
   openDock('suburbs', `<article class="dock-page"><h2 id="dock-title">Suburbs</h2>
     <p class="lede">${esc(m.what)}</p>
+    <p class="sub-measures">${MEASURES.map(x => `<button class="pill" data-m="${x.key}" aria-pressed="${x === m}">${esc(x.short)}</button>`).join('')}</p>
     <p class="sub-year"><b>${esc(m.label)}</b>, ${esc(yearWords(m, Y))}</p>
     <ol class="sub-rank">${rows.map(({ S, s, a }) => `<li><button class="sub-row" data-s="${s}"><b>${esc(S.name)}</b>
       <span class="n">${a ? fmtM(m, a.v) : 'no figure'}</span>
       <i class="bar"><i style="width:${a ? (4 + 96 * subT(m, a.v)).toFixed(1) : 0}%;background:${a ? subColor(subT(m, a.v)) : 'none'}"></i></i></button></li>`).join('')}</ol>
     ${m.note ? `<p class="caveat">${esc(m.note)}</p>` : ''}
     <p class="src">${link(m.source.url, m.source.label)}</p></article>`);
+  dockLive.querySelectorAll('.sub-measures [data-m]').forEach(b => b.onclick = () => setMeasure(MEASURES.find(x => x.key === b.dataset.m)));
   dockLive.querySelectorAll('.sub-row').forEach(b => b.onclick = () => {
     const s = +b.dataset.s;
     flySuburb(s, () => showSuburb(s, -1, { label: 'All suburbs', go: showSuburbs }));
