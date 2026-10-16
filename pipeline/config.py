@@ -11,9 +11,11 @@ from pathlib import Path
 CRS = 7856                                  # GDA2020 / MGA zone 56
 LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS HILL", "WAVERLEY"]  # NSW Spatial Services lganame
 # Councils taken only in part: the suburbs of each to keep (NSW Spatial Services suburbname values). The rest of the
-# Inner West runs inland to Marrickville and Ashfield, the rest of Canada Bay to Concord.
+# Inner West runs inland to Marrickville and Ashfield, the rest of Canada Bay to Concord, Willoughby's
+# to Chatswood.
 PARTS = {"INNER WEST": ["BALMAIN", "BALMAIN EAST", "BIRCHGROVE", "ROZELLE", "LILYFIELD"],
-         "CANADA BAY": ["DRUMMOYNE", "RUSSELL LEA", "RODD POINT", "FIVE DOCK", "ABBOTSFORD", "CHISWICK", "WAREEMBA"]}
+         "CANADA BAY": ["DRUMMOYNE", "RUSSELL LEA", "RODD POINT", "FIVE DOCK", "ABBOTSFORD", "CHISWICK", "WAREEMBA"],
+         "WILLOUGHBY": ["NORTHBRIDGE", "CASTLECRAG", "MIDDLE COVE", "CASTLE COVE", "NAREMBURN"]}
 GPO_LONLAT = (151.20765, -33.86778)         # the GPO clock tower, Martin Place
 # A box that holds the LGAs with a margin of harbour around them (lon/lat), from Putney to Manly and from Seaforth
 # to South Coogee, so suburbs can be added within it without downloading the rest again.
