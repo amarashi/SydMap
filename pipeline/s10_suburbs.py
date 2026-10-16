@@ -20,7 +20,7 @@ import shapely
 
 from .config import CRS, DATA, RAW, WEB
 from .s04_water import ground_and_water, pack, polygons
-from .s03_tiles import to_local
+from .s03_tiles import to_local, write_bin
 
 NONE = 255
 MIN_SALES = 20  # a year's median price needs this many sales: a handful of houses in the city centre says little
@@ -271,8 +271,8 @@ def main():
         poly=owner,
         measures=measures(s),
     )
-    (WEB / "suburbs.bin").write_bytes(of.tobytes())
-    (WEB / "suburbs-land.bin").write_bytes(pack(polys))
+    write_bin(WEB / "suburbs.bin", of.tobytes())
+    write_bin(WEB / "suburbs-land.bin", pack(polys))
     (WEB / "suburbs.json").write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")))
     print(f"{len(s)} suburbs, {(of != NONE).sum()} of {len(of)} buildings placed, {len(polys)} land polygons; "
           f"suburbs-land.bin {(WEB / 'suburbs-land.bin').stat().st_size / 1e6:.2f} MB")

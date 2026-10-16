@@ -200,7 +200,7 @@ hold.
 | `s04_water` | Land, water and the other shores |
 | `s05_layers` | Stories (the page's name for layers), one bit per group per building |
 | `s06_wiki` | Card data: Wikipedia leads, Commons photos and credits, names, heritage listings |
-| `s03_tiles` | 600 m binary tiles in packs of about 400 KB, `attrs.bin`, `sydney.json` |
+| `s03_tiles` | 600 m binary tiles in packs of about 400 KB (gzipped, as are all the `.bin` files), `attrs.bin`, `sydney.json` |
 | `s07_labels` | Street and harbour names laid along their lines |
 | `s08_quests` | Walks (quests in the code) resolved to buildings, every claim checked (`checks.py`) |
 | `s09_export` | Every building as GeoParquet and CSV, and the councils' boundaries, to download |

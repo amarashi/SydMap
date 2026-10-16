@@ -32,12 +32,21 @@ const CLOSE = '<svg class="x" viewBox="0 0 16 16" aria-hidden="true"><path d="M3
 const BACK = '<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3.5M7.5 4L3.5 8l4 4"/></svg>';
 const REPO = 'https://github.com/amarashi/SydMap';
 
+// The binary files are stored gzipped, because Cloudflare compresses text on the way to the browser but not binary
+// files (see write_bin in pipeline/s03_tiles.py). A file that starts with gzip's two magic bytes is unpacked here.
+async function fetchBin(url) {
+  const buf = await (await fetch(url)).arrayBuffer();
+  const head = new Uint8Array(buf, 0, Math.min(2, buf.byteLength));
+  if (head[0] !== 0x1f || head[1] !== 0x8b) return buf;
+  return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+}
+
 const [config, layers, attrBuf, subData, subOf] = await Promise.all([
   fetch('data/sydney.json').then(r => r.json()),
   fetch('data/layers.json').then(r => r.json()),
-  fetch('data/attrs.bin').then(r => r.arrayBuffer()),
+  fetchBin('data/attrs.bin'),
   fetch('data/suburbs.json').then(r => r.json()).catch(() => null),
-  fetch('data/suburbs.bin').then(r => r.arrayBuffer()).then(b => new Uint8Array(b)).catch(() => null),
+  fetchBin('data/suburbs.bin').then(b => new Uint8Array(b)).catch(() => null),
 ]);
 const attrs = new DataView(attrBuf);
 const HERITAGE_COLORS = config.heritage.colors;
@@ -76,7 +85,7 @@ goHome();
 
 // Land and water: flat polygons in the local frame (see pipeline/s04_water.py).
 async function loadPolygons(url) {
-  const buf = await (await fetch(url)).arrayBuffer();
+  const buf = await fetchBin(url);
   const [nPoly, nRing, nVert] = new Uint32Array(buf, 0, 3);
   const ringStart = new Uint32Array(buf, 12, nPoly + 1);
   const vertStart = new Uint32Array(buf, 12 + 4 * (nPoly + 1), nRing + 1);
@@ -298,7 +307,7 @@ const subGround = new THREE.Group();
 subGround.visible = false;
 flat.add(subGround);
 if (subOk) {
-  const buf = await (await fetch('data/suburbs-land.bin')).arrayBuffer();
+  const buf = await fetchBin('data/suburbs-land.bin');
   const [nPoly, nRing, nVert] = new Uint32Array(buf, 0, 3);
   const ringStart = new Uint32Array(buf, 12, nPoly + 1);
   const vertStart = new Uint32Array(buf, 12 + 4 * (nPoly + 1), nRing + 1);
@@ -505,7 +514,7 @@ function addTile(m) {
 }
 
 // Tiles come in packs (see pipeline/s03_tiles.py); a tile is ready once its pack has arrived.
-const packs = Object.fromEntries(config.packs.map(name => [name, fetch(`data/${name}`).then(r => r.arrayBuffer())]));
+const packs = Object.fromEntries(config.packs.map(name => [name, fetchBin(`data/${name}`)]));
 for (const w of pool) {
   const next = async () => {
     const t = queue.shift();

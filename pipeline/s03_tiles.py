@@ -12,6 +12,7 @@ Tile layout (little-endian, every section 4-byte aligned):
           u16 bld[nMV] (the building's index in this tile, plus 0x8000 for a surface drawn pale, as the Opera
           House's tiles are); i16 xyz[3*nMV], decimetres from the tile origin (y up); u16 tri[3*nMT]
 """
+import gzip
 import json
 import struct
 
@@ -26,7 +27,7 @@ from .periods import PERIODS
 
 GPO = gpo_mga()
 TILE = 600.0
-PACK_BYTES = 400_000
+PACK_BYTES = 800_000                     # before gzip; about 400 KB as sent
 SIMPLIFY = 0.25
 MAGIC = 0x32445953  # 'SYD2'
 PALE = 0x8000
@@ -34,6 +35,13 @@ PALE = 0x8000
 HERITAGE = ["State Heritage Register", "Local heritage item", "Contributing building",
             "Neutral building", "Detracting building"]
 HERITAGE_COLORS = ["#f1eee8", "#6e2418", "#c0594e", "#dfbd6c", "#8fa8b0", "#4f5a5c"]
+
+
+def write_bin(path, data: bytes):
+    """A binary file for the viewer, gzipped. Cloudflare compresses text files on the way to the browser but not
+    binary ones, and gzip makes these about a third of their size; the viewer unpacks them (fetchBin in web/app.js).
+    mtime=0 keeps the file's bytes the same while the data is."""
+    path.write_bytes(gzip.compress(bytes(data), compresslevel=9, mtime=0))
 
 
 def pad4(b: bytes) -> bytes:
@@ -178,7 +186,7 @@ def main():
         blob += data
         if len(blob) >= PACK_BYTES or i == len(index) - 1:
             packs.append(t["pack"])
-            (WEB / t["pack"]).write_bytes(blob)
+            write_bin(WEB / t["pack"], blob)
             blob = bytearray()
     for f in (WEB / "tiles").glob("*.bin"):
         f.unlink()
@@ -205,7 +213,7 @@ def main():
     attrs["floors"] = b.floors.clip(0, 255)
     attrs["dsrc"] = b.dsrc
     attrs["x"], attrs["z"] = c[:, 0], c[:, 1]
-    (WEB / "attrs.bin").write_bytes(attrs.tobytes())
+    write_bin(WEB / "attrs.bin", attrs.tobytes())
     b[["bid", "gid"]].to_parquet(DATA / "gid.parquet")
 
     hist = {}

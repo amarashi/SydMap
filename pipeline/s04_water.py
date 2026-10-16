@@ -18,7 +18,7 @@ from shapely.geometry import box
 
 from .config import BBOX, CRS, RAW, WEB
 from .s01_load import read_wkb
-from .s03_tiles import to_local
+from .s03_tiles import to_local, write_bin
 
 INLAND = {"pond", "reservoir", "river", "canal", "lake", "stream", "water", "physical", "ocean"}
 
@@ -78,9 +78,9 @@ def main():
     other = [p for p in polygons(other) if p.area > 400]
 
     WEB.mkdir(parents=True, exist_ok=True)
-    (WEB / "water.bin").write_bytes(pack(water))
-    (WEB / "land.bin").write_bytes(pack(mine))
-    (WEB / "context.bin").write_bytes(pack(other))
+    write_bin(WEB / "water.bin", pack(water))
+    write_bin(WEB / "land.bin", pack(mine))
+    write_bin(WEB / "context.bin", pack(other))
     for n in ("water", "land", "context"):
         print(f"{n}: {(WEB / f'{n}.bin').stat().st_size / 1e6:.2f} MB")
     print(f"water {sum(p.area for p in water) / 1e6:.1f} km², city land {sum(p.area for p in mine) / 1e6:.1f} km²")
