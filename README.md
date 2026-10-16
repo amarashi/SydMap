@@ -6,9 +6,9 @@ stories, heights or heritage, or paint its suburbs by population, density, incom
 prices; open any building to read how its year is known; follow a walk through the streets; or
 take every building's data with you.
 
-**The area:** both shores of Sydney Harbour and the Parramatta River, from Putney and Concord in the west to Manly
-in the north-east, and the ocean coast from Bondi to Coogee. It covers fifteen councils, some whole and some only in
-part. They are listed further down with their Traditional Custodians, and for each council taken in part the list
+**The area:** both shores of Sydney Harbour and the Parramatta River, from Ryde and Rhodes in the west to Manly in
+the north-east; the ocean coast from Bondi to Coogee; and the inner suburbs south and west of the city, as far as
+Burwood and Campsie. It covers fifteen councils, some whole and some only in part. They are listed further down with their Traditional Custodians, and for each council taken in part the list
 names the suburbs on the map.
 
 [![Watch SydMap in 25 seconds: the city grows from 1788, the Opera House card, the Harbour Bridge](brag-output/brag.jpg)](brag-output/brag.mp4)
