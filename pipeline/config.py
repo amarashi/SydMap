@@ -1,23 +1,19 @@
 """The area, the coordinate frame and the shared paths.
 
-The map covers the City of Sydney and North Sydney, the two local government areas either side of the
-Harbour Bridge, the harbour councils around them (Mosman, Woollahra, Lane Cove and Hunters Hill) and, of the
-Inner West, only the Balmain peninsula. Everything is projected to GDA2020 / MGA zone 56 (EPSG:7856) and then to
-the viewer's local frame: metres from the General Post Office in Martin Place, the point NSW measures its road
-distances from; x east, z south (three.js, y up).
+The map covers both shores of Sydney Harbour and the Parramatta River and the ocean coast from Bondi to Coogee: the
+local government areas (LGAs) in LGAS whole, and the suburbs in PARTS of the councils taken in part. Everything is
+projected to GDA2020 / MGA zone 56 (EPSG:7856) and then to the viewer's local frame: metres from the General Post
+Office in Martin Place, the point NSW measures its road distances from; x east, z south (three.js, y up).
 """
 from pathlib import Path
 
 CRS = 7856                                  # GDA2020 / MGA zone 56
-LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS HILL", "WAVERLEY"]  # NSW Spatial Services lganame
-# Councils taken only in part: the suburbs of each to keep (NSW Spatial Services suburbname values). The rest of the
-# Inner West runs inland to Marrickville and Ashfield, the rest of Canada Bay to Rhodes, Willoughby's
-# to Chatswood, the Northern Beaches' to Palm Beach,
-# Ryde's to Macquarie Park, Randwick's to La Perouse.
-PARTS = {"INNER WEST": ["BALMAIN", "BALMAIN EAST", "BIRCHGROVE", "ROZELLE", "LILYFIELD", "ANNANDALE",
-                        "LEICHHARDT", "CAMPERDOWN", "NEWTOWN", "STANMORE", "ENMORE", "PETERSHAM", "LEWISHAM",
-                        "MARRICKVILLE", "DULWICH HILL", "SYDENHAM", "TEMPE", "ST PETERS"],
-         "CANADA BAY": ["DRUMMOYNE", "RUSSELL LEA", "RODD POINT", "FIVE DOCK", "ABBOTSFORD", "CHISWICK", "WAREEMBA",
+# Councils taken whole (NSW Spatial Services lganame values).
+LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS HILL", "WAVERLEY", "INNER WEST"]
+# Councils taken only in part: the suburbs of each to keep (NSW Spatial Services suburbname values). The rest of
+# Canada Bay runs to Rhodes, Willoughby's to Chatswood, the Northern Beaches' to Palm Beach, Ryde's to
+# Macquarie Park, Randwick's to La Perouse.
+PARTS = {"CANADA BAY": ["DRUMMOYNE", "RUSSELL LEA", "RODD POINT", "FIVE DOCK", "ABBOTSFORD", "CHISWICK", "WAREEMBA",
                         "CONCORD", "CABARITA", "MORTLAKE", "BREAKFAST POINT", "CANADA BAY"],
          "WILLOUGHBY": ["NORTHBRIDGE", "CASTLECRAG", "MIDDLE COVE", "CASTLE COVE", "NAREMBURN"],
          "NORTHERN BEACHES": ["MANLY", "FAIRLIGHT", "BALGOWLAH", "BALGOWLAH HEIGHTS", "CLONTARF", "SEAFORTH"],
