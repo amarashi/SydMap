@@ -9,7 +9,7 @@ distances from; x east, z south (three.js, y up).
 from pathlib import Path
 
 CRS = 7856                                  # GDA2020 / MGA zone 56
-LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS HILL"]  # NSW Spatial Services lganame
+LGAS = ["SYDNEY", "NORTH SYDNEY", "MOSMAN", "WOOLLAHRA", "LANE COVE", "HUNTERS HILL", "WAVERLEY"]  # NSW Spatial Services lganame
 # Councils taken only in part: the suburbs of each to keep (NSW Spatial Services suburbname values). The rest of the
 # Inner West runs inland to Marrickville and Ashfield, the rest of Canada Bay to Concord.
 PARTS = {"INNER WEST": ["BALMAIN", "BALMAIN EAST", "BIRCHGROVE", "ROZELLE", "LILYFIELD"],
