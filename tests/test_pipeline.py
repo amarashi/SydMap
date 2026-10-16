@@ -130,3 +130,12 @@ def test_attr_record_is_aligned():
 
 def test_check_normaliser():
     assert norm("Sydney’s “oldest” pub – 1828") == norm("Sydney's \"oldest\" pub - 1828")
+
+
+def test_site_files_fit_cloudflare():
+    # Cloudflare serves no static file over 25 MiB, and a deploy with one fails. The downloads are split by council so
+    # that no file grows with the whole map.
+    from pathlib import Path
+    big = [f"{f} {f.stat().st_size / 2**20:.1f} MiB" for f in Path("web").rglob("*") if f.is_file()
+           and f.stat().st_size > 20 * 2**20]
+    assert not big, f"files near or over Cloudflare's 25 MiB limit: {big}"

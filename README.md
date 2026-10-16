@@ -70,8 +70,12 @@ SydMap acknowledges the Traditional Custodians of the land it maps, as each coun
 3. **Data.** [`pipeline/`](pipeline) (Python, `uv`) turns open data into the binary tiles and JSON the viewer reads.
 4. **Open data.** `pipeline/s09_export.py` writes every building, with its year, the evidence for it, its age,
    heritage and sources, as GeoParquet (with footprints, for QGIS or Python) and CSV (a point per building, for
-   spreadsheets), with the councils' boundaries as GeoJSON. They are in [`web/data/download/`](web/data/download) and
-   linked from the page's Notes.
+   spreadsheets), one pair of files per council, with the councils' boundaries as GeoJSON. They are in
+   [`web/data/download/`](web/data/download) and linked from the page's Notes, whose list of them the same step
+   writes. Splitting by council keeps every file well under Cloudflare's limit of 25 MiB a file, which a single file
+   for the whole map would pass as the map grows (a test checks every file in `web/`). To work with the whole map,
+   read them together, for example `geopandas.read_parquet` on each and `pandas.concat`, or DuckDB's
+   `read_parquet('web/data/download/*.parquet')`.
 
 ## How old is each building?
 
