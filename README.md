@@ -96,7 +96,7 @@ each building takes the best evidence there is, and its card says which:
 | Documented | 775 | a year from the lead of the building's Wikipedia article (499; for heritage-listed places these are written from the NSW State Heritage Inventory: "built from 1898 to 1900"), Wikidata (170) or OpenStreetMap `start_date` (106) |
 | Strata plan | 23,337 | apartment buildings are strata-titled on completion. The NSW cadastre gives every plan registered since 1994 its date; a monotone fit of plan number against date places the older plans between SP1 (1961, when strata title began) and SP44598 (1994) |
 | Heritage listing | 323 | the other buildings of a State Heritage Register listing (Luna Park's pavilions, the Mint's outbuildings, the Harbour Bridge's approaches) take the years the listing's Wikipedia article gives; precincts, parks, tunnels and railway stations (dated by their opening) do not pass their years on |
-| Heritage area | 51,560 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in the other councils' conservation areas, which do not mark contributing buildings) are dated from the documented heritage buildings around them |
+| Heritage area | 51,560 | buildings the City of Sydney's DCP 2012 marks as contributing to a heritage conservation area (and low-rise buildings in the other councils' conservation areas, which do not mark contributing buildings) are dated from the documented heritage buildings around them; with no documented building within 700 m, from 1890–1940, when most suburban heritage areas were built, and an area whose name gives its era (Victorian, Federation, interwar) from that era |
 | Neighbours | 128,824 | the rest take the weighted quartiles of the dated buildings around them of similar height; towers over 46 m (Sydney's height limit until 1957) only take years after 1957, detracting buildings only years after 1945, houses only documented years, and untagged low-rise buildings (mostly suburban houses) documented years, heritage-area estimates and the years of strata villas and townhouses |
 
 Estimated years (everything but the first row) are spread within their range so the film does not drop a suburb in a
@@ -130,7 +130,7 @@ photographs. Side shells are plain triangles, and the glass walls are left out.
 ## Suburbs
 
 The Suburbs lens paints every building, and the ground around it, by a figure for its suburb, in the year on the
-line. Choosing a building opens its suburb with every figure over the years. The 123 suburbs are NSW Spatial Services'
+line. Choosing a building opens its suburb with every figure over the years. The 175 suburbs are NSW Spatial Services'
 gazetted suburbs that have buildings on the map; each building belongs to the suburb its footprint stands in.
 
 | Figure | Years | Source |
@@ -141,6 +141,7 @@ gazetted suburbs that have buildings on the map; each building belongs to the su
 | University degree | 2011, 2016, 2021 | ABS Census, the share of residents 15 and over whose highest qualification is a bachelor's degree or above |
 | Recorded crime | 2011–2025 | BOCSAR, offences against people and property a year per 1,000 residents |
 | Median house and apartment price | 2017–2025 | DCJ Rent and Sales Report, by postcode, the year's quarterly medians weighed by their sales |
+| Age: median year built | 1800–2026, every five years | SydMap's own years: the year by which half the suburb's buildings on the map that stand in the year had gone up, once 20 of them stand; ranked oldest first |
 
 Between censuses the map reads a straight line from one count to the next. Each figure's colour scale runs over the
 middle 96% of its values across every year, and stays the same from year to year, so change shows.
@@ -156,6 +157,9 @@ What to keep in mind:
   year of fewer than 20 sales is left out.
   The Valuer General's own sales files would give suburb medians back to 2001, but their licence (CC BY-NC-ND) does
   not allow publishing figures made from them.
+- Age rests on SydMap's years, most of them estimates, so it shares their limits (see [Limitations](#limitations)):
+  suburbs of older houses with much later infill read younger than they are. It counts only buildings that stand
+  today, and only the part of a suburb on the map.
 
 ## Data and licences
 
@@ -211,7 +215,7 @@ hold.
 | `s07_labels` | Street and harbour names laid along their lines |
 | `s08_quests` | Walks (quests in the code) resolved to buildings, every claim checked (`checks.py`) |
 | `s09_export` | Every building as GeoParquet and CSV, and the councils' boundaries, to download |
-| `s10_suburbs` | Each building's suburb, the suburbs' land, and their census, crime and sale price figures (`suburbs.json`) |
+| `s10_suburbs` | Each building's suburb, the suburbs' land, their census, crime and sale price figures, and their age (`suburbs.json`) |
 
 The area is set in [`pipeline/config.py`](pipeline/config.py) (`LGAS`, `PARTS`, `BBOX`): add an LGA and its box to grow the map, or name the suburbs to take of a council in `PARTS`.
 

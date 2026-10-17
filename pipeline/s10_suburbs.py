@@ -182,8 +182,8 @@ def sales(s):
     return out
 
 
-def measure(key, label, short, unit, years, values, *, log=False, decimals=0, money=False, pct=False,
-            census=False, interp=True, what="", note="", source=None):
+def measure(key, label, short, unit, years, values, *, log=False, decimals=0, money=False, pct=False, year=False,
+            oldest_first=False, census=False, interp=True, what="", note="", source=None):
     """A measure for the viewer. Its ramp runs over the middle 96% of every figure of every year, so a few extremes
     do not wash out the rest, and stays the same from year to year, so change shows."""
     values = np.asarray(values, float)
@@ -192,19 +192,42 @@ def measure(key, label, short, unit, years, values, *, log=False, decimals=0, mo
     return dict(key=key, label=label, short=short, unit=unit, years=[int(y) for y in years],
                 values=[[None if not np.isfinite(x) else round(float(x), decimals) for x in row] for row in values],
                 domain=[round(float(lo), 2), round(float(hi), 2)], domainCut=bool(v.max() > hi * 1.001), log=log,
-                decimals=decimals, money=money, pct=pct, census=census, interp=interp, what=what, note=note,
-                source=source)
+                decimals=decimals, money=money, pct=pct, year=year, asc=oldest_first, census=census, interp=interp,
+                what=what, note=note, source=source)
 
 
 CENSUS_SRC = dict(label="ABS Census 2011, 2016 and 2021, DataPacks by suburb (CC BY 4.0)",
                   url="https://www.abs.gov.au/census/find-census-data/datapacks")
 CRIME_SRC = dict(label="NSW Bureau of Crime Statistics and Research, criminal incidents by suburb (CC BY 4.0)",
                  url="https://bocsar.nsw.gov.au/statistics-dashboards/open-datasets/criminal-offences-data.html")
+AGE_SRC = dict(label="SydMap's year for each building on the map, documented or estimated",
+               url="https://github.com/amarashi/SydMap#how-old-is-each-building")
+AGE_STEP = 5         # the median is worked out every five years along the line
+AGE_MIN = 20         # and needs this many buildings standing: three early cottages do not make a suburb old
 SALES_SRC = dict(label="NSW Department of Communities and Justice, Rent and Sales Report, by postcode (CC BY 4.0)",
                  url="https://dcj.nsw.gov.au/about-us/families-and-communities-statistics/housing-rent-and-sales/rent-and-sales-report.html")
 
 
-def measures(s):
+def ages(of):
+    """Each suburb's median year built, every AGE_STEP years: the year by which half the buildings standing then (of
+    those on the map) had gone up."""
+    b = pd.read_parquet(DATA / "buildings_dated.parquet", columns=["bid", "year"]).merge(
+        pd.read_parquet(DATA / "gid.parquet"), on="bid")
+    year = np.full(len(of), np.nan)
+    year[b.gid.to_numpy()] = b.year.to_numpy()
+    last = int(np.nanmax(year))
+    years = [*range(1800, last, AGE_STEP), last]
+    values = np.full((NONE, len(years)), np.nan)
+    for sub in np.unique(of[of != NONE]):
+        ys = np.sort(year[of == sub])
+        for k, Y in enumerate(years):
+            standing = ys[ys <= Y]
+            if len(standing) >= AGE_MIN:
+                values[sub, k] = np.median(standing)
+    return years, values
+
+
+def measures(s, of):
     c = census(s)
     cy = sorted(c)
     col = lambda k: np.array([c[y][k].to_numpy(float) for y in cy]).T
@@ -257,6 +280,16 @@ def measures(s):
                            note="By postcode, so suburbs that share a postcode share a price (Sydney, Haymarket, The "
                                 "Rocks, Millers Point and Barangaroo are all 2000). A quarter of 10 or fewer sales "
                                 "has no median and is left out, and so is a year of fewer than 20."))
+    years, v = ages(of)
+    out.append(measure("age", "Median year built", "Age", "", years, v[:len(s)], year=True, oldest_first=True,
+                       interp=False, source=AGE_SRC,
+                       what="How old each suburb is: the year by which half its buildings had gone up, counting the "
+                            "buildings standing in the year on the line. Play the line to watch suburbs appear and "
+                            "fill in.",
+                       note="Most years are estimates (see the Notes), and in the suburbs few buildings are documented, "
+                            "so suburbs of older houses with much later infill, such as Ryde and Concord, read younger "
+                            "than they are. Only the buildings on the map count, and only those standing today. A "
+                            f"suburb has a figure once {AGE_MIN} of its buildings stand."))
     return out
 
 
@@ -270,7 +303,7 @@ def main():
                       buildings=int(nb), x=round(float(x)), z=round(float(z)))
                  for n, p, a, nb, (x, z) in zip(s.suburbname, s.postcode, s.geometry.area, s.buildings, c)],
         poly=owner,
-        measures=measures(s),
+        measures=measures(s, of),
     )
     write_bin(WEB / "suburbs.bin", of.tobytes())
     write_bin(WEB / "suburbs-land.bin", pack(polys))

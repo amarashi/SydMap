@@ -1180,8 +1180,10 @@ const subT = (m, v) => Math.max(0, Math.min(1, m.log ? Math.log(v / m.domain[0])
   : (v - m.domain[0]) / (m.domain[1] - m.domain[0])));
 const subInv = (m, t) => m.log ? m.domain[0] * (m.domain[1] / m.domain[0]) ** t : m.domain[0] + t * (m.domain[1] - m.domain[0]);
 const subColor = t => { const n = SUB_RAMP.length - 1, k = Math.min(n - 1, Math.floor(t * n)); return '#' + col(SUB_RAMP[k]).lerp(col(SUB_RAMP[k + 1]), t * n - k).getHexString(); };
-// A value as people read it: dollars in thousands or millions, shares in per cent, the rest with the measure's decimals.
+// A value as people read it: dollars in thousands or millions, shares in per cent, years as years, the rest with the
+// measure's decimals.
 function fmtM(m, v, short = false) {
+  if (m.year) return String(Math.round(v));
   if (m.money) return v >= 1e6 ? `$${(v / 1e6).toFixed(v >= 1e7 || short ? 1 : 2)}m` : v >= 1e3 && short ? `$${(v / 1e3).toFixed(v >= 1e4 ? 0 : 1)}k` : `$${fmt(Math.round(v))}`;
   const d = short && v >= 100 ? 0 : m.decimals;
   return `${short && v >= 1e4 ? `${(v / 1e3).toFixed(v >= 1e5 ? 0 : 1)}k` : v.toLocaleString('en-AU', { minimumFractionDigits: d, maximumFractionDigits: d })}${m.pct ? '%' : ''}`;
@@ -1201,12 +1203,14 @@ function fillSubs() {
   if (measure) SUBS.forEach((_, s) => { const a = subAt(measure, s, Y); if (a) d[s] = subT(measure, a.v); });
   subValTex.needsUpdate = true;
 }
+// Suburbs in rank order: the largest figure first, or for Age the oldest; those with no figure last.
+const subOrder = (m, a, b) => !a || !b ? !a - !b : m.asc ? a.v - b.v : b.v - a.v;
 const subOfGid = gid => subOk && gid >= 0 && subOf[gid] !== 255 ? subOf[gid] : -1;
 
 // All suburbs, ranked by the measure in the year.
 function showSuburbs() {
   const m = measure, Y = subYear();
-  const rows = SUBS.map((S, s) => ({ S, s, a: subAt(m, s, Y) })).sort((p, q) => (q.a?.v ?? -Infinity) - (p.a?.v ?? -Infinity));
+  const rows = SUBS.map((S, s) => ({ S, s, a: subAt(m, s, Y) })).sort((p, q) => subOrder(m, p.a, q.a));
   openDock('suburbs', `<article class="dock-page"><h2 id="dock-title">Suburbs</h2>
     <p class="lede">${esc(m.what)}</p>
     <p class="sub-measures">${MEASURES.map(x => `<button class="pill" data-m="${x.key}" aria-pressed="${x === m}">${esc(x.short)}</button>`).join('')}</p>
@@ -1246,7 +1250,7 @@ let subOpen = null;
 function showSuburb(s, gid = -1, back = null) {
   const S = SUBS[s], Y = subYear();
   subOpen = { s, gid, back };
-  const rank = m => { const a = subAt(m, s, Y); if (!a) return ''; const n = SUBS.filter((_, t) => (subAt(m, t, Y)?.v ?? -Infinity) > a.v).length;
+  const rank = m => { const a = subAt(m, s, Y); if (!a) return ''; const n = SUBS.filter((_, t) => { const b = subAt(m, t, Y); return b && subOrder(m, b, a) < 0; }).length;
     const all = SUBS.filter((_, t) => subAt(m, t, Y)).length; return `${n + 1} of ${all} suburbs`; };
   openDock('suburb', `<article class="dock-page sub-card"><h2 id="dock-title">${esc(S.name)}</h2>
     <p class="story-era">${S.postcode ? `${S.postcode} · ` : ''}${S.km2.toFixed(2)} km² · <span class="n">${fmt(S.buildings)}</span> buildings on the map</p>

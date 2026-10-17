@@ -10,7 +10,8 @@ evidence there is, in this order, and its card says which:
           conversion year, so a strata year never overrides heritage evidence that the building is older.
   flag 3  heritage area: a building the City of Sydney's DCP marks as contributing to a heritage conservation
           area (or, in the other councils, which do not mark contributing buildings, a low-rise building
-          inside one), dated from the documented heritage buildings around it
+          inside one), dated from the documented heritage buildings around it; or, where the area's name gives
+          its era or it is far from any documented building, from that era or from 1890–1940
   flag 4  estimated from the dated buildings around it of similar height
 
 Estimated years (flags 2–4) are spread within the range of their evidence (yfrom–yto), seeded by the
@@ -31,6 +32,13 @@ from .periods import period_index
 
 TODAY = 2026
 TALL = 46.0     # metres: Sydney's 150-foot height limit held until 1957
+# Heritage areas outside the City: an area named for its era takes that era's years, and a house with no documented
+# old building within HCA_NEAR metres takes the years most suburban heritage areas were built in, Federation to
+# interwar, rather than the colonial years of the town it is far from (Daceyville, built from 1912, read as 1852).
+HCA_NEAR = 700.0
+HCA_DEFAULT = (1890, 1940)
+HCA_ERAS = [(r"inter-?war|californian bungalow", (1919, 1939)), (r"federation", (1890, 1915)),
+            (r"victorian", (1840, 1900)), (r"georgian|colonial", (1800, 1850))]
 HERITAGE = {"shr": 1, "local": 2, "Contributing": 3, "Neutral": 4, "Detracting": 5}
 
 # Wikidata classes that name a building (an item that is only an institution keeps its founding date,
@@ -448,10 +456,22 @@ def main():
     if her_target.any():
         lo, mid, hi = knn_years(features(b, b.index[pool_old]), b.year[pool_old].to_numpy(),
                                 features(b, b.index[her_target]), k=10)
+        # Far from any documented building (the City's colonial town is often the nearest), a suburban heritage
+        # area takes the years most of them were built in instead; and an area whose name gives its era takes that.
+        xy = lambda idx: np.c_[b.geometry.loc[idx].centroid.x, b.geometry.loc[idx].centroid.y]
+        far = cKDTree(xy(b.index[pool_old])).query(xy(b.index[her_target]))[0] > HCA_NEAR
+        era = [next((ys for words, ys in HCA_ERAS if re.search(words, n)), HCA_DEFAULT if f else None)
+               for n, f in zip(b.hca[her_target].fillna("").str.lower(), far)]
+        named = np.array([e is not None for e in era])
+        lo, hi = lo.astype(float), hi.astype(float)
+        lo[named] = [e[0] for e in era if e]
+        hi[named] = [e[1] for e in era if e]
+        mid = np.where(named, (lo + hi) / 2, mid)
         b.loc[her_target, ["yfrom", "year", "yto"]] = np.c_[lo, mid, hi]
         b.loc[her_target, "date_flag"] = 3
         b.loc[her_target, "date_src"] = "heritage"
-    print(f"  heritage-area estimates: {her_target.sum()} from {pool_old.sum()} documented heritage buildings")
+    print(f"  heritage-area estimates: {her_target.sum()} from {pool_old.sum()} documented heritage buildings, "
+          f"{named.sum()} by their area's name or, far from documented buildings, as {HCA_DEFAULT[0]}–{HCA_DEFAULT[1]}")
 
     # Everything else: the dated buildings around it, of similar height. Tall buildings take only years from 1958,
     # detracting buildings in heritage areas only years from 1946. Low-rise houses and other buildings that are not
